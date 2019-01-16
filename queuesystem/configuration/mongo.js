@@ -1,0 +1,1 @@
+exports.connectionName = 'mongodb://localhost:27017/queue';
