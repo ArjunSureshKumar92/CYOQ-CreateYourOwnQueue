@@ -1,8 +1,10 @@
 var mongoConfig = require('../configuration/mongo')
+var mongoConstants = require('../constants').collectioncolumn_name
+
 const mongo = require('mongodb').MongoClient
 exports.mongoDB = function (dbName,collectionName,queueObj,action) {
 
-    function insert(collection) {
+    function insert(collection,id,name) {
         collection.insertOne({name: queueObj.name,id: queueObj.id}, (err, result) => {
             console.log('Success Inserted Value')
         })

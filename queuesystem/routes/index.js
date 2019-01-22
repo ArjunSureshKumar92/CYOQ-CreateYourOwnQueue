@@ -1,17 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var createQueueController = require('../controller/createQueue')
+var path = require('path');
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  //res.render('index', { title: 'Express' });
+  res.sendFile('index.html', {root: 'queuesystem/views/html'});
 });
 
-
-router.get('/test', function (req, res) {
-  createQueueController.start()
-  res.send('mongo complete')
-  
-})
 
 module.exports = router;
 
