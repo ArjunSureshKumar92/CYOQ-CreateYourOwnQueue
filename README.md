@@ -7,4 +7,4 @@ Step 1: To get all the dependencies
     npm install
 
 Step 2: To run the server
-node cyoq\bin\www
+    node bin\www
