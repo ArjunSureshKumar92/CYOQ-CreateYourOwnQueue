@@ -1,1 +1,1 @@
-exports.connectionName = 'mongodb://localhost:27017/queue';
+exports.connectionName = 'mongodb://localhost:27017/Centennial';

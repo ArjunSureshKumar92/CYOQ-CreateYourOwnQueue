@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var createQueueController = require('../controller/createqueue')
+var createQueueController = require('../controller/createqueue');
 
 
 
@@ -8,10 +8,12 @@ var createQueueController = require('../controller/createqueue')
  * All the routes that are starting with api. 
  */
 
-router.get('/api/test', function (req, res) {
-  createQueueController.start()
-  res.send('mongo complete')
+router.post('/api/createQueue', function (req, res) {
+  createQueueController.createQueue(req,res);
 });
+
+
+
 
 
 
