@@ -12,7 +12,6 @@ import { Component } from '@angular/core';
   `,
   styles: [
     `main {
-      background: rgba(240,250,250);
       padding: 1rem;
       height: 85%;
       width: 65%;
