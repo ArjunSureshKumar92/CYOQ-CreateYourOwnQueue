@@ -6,5 +6,5 @@ Run Application:
 Step 1: To get all the dependencies
     npm install
 
-Step 2: To run the server
-    node bin\www
+Step 2: To run the application
+    npm start
