@@ -29,7 +29,7 @@ exports.updateQueue = function(value) {
     }
 }
 
-exports.deleteQueue() - function(value) {
+exports.deleteQueue = function(value) {
     switch (value) {
         case 'queueId':
             return true;
