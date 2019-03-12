@@ -5,9 +5,6 @@ import { Component } from '@angular/core';
   template: `
     <div class="container">
       <nav class="navbar navbar-fixed-top">
-        <div class="navbar-header">
-          <a routerLink=""><h1 class="navbar-brand">{{title}}</h1></a>
-        </div>
         <div id="navbar">
           <ul class="list-inline nav-tabs">
             <li class="list-inline-item nav-item">
@@ -23,5 +20,5 @@ import { Component } from '@angular/core';
   `
 })
 export class NavbarComponent {
-  title = 'Create Your Own Queue';
+
 }

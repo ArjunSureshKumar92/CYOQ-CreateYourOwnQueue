@@ -4,6 +4,9 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   template: `
   <div class="header">
+    <app-header></app-header>
+  </div>
+  <div class="container">
     <app-navbar></app-navbar>
   </div>
   <main class="container-fluid scrollbar">
