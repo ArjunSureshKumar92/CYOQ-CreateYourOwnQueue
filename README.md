@@ -3,10 +3,10 @@ General Purpose Queue System which also includes notification capabilities and i
 
 ## Run Application
 1. Get all the dependencies. On your command line, enter:
-```npm install```
+> ```npm install```
 
-2. Run the server. Enter:
-```npm start```
+2. Run the server. On the command line:
+> ```npm start```
 
 3. Go to the site at `localhost:3000` on your browser.
 
