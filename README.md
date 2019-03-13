@@ -8,6 +8,6 @@ General Purpose Queue System which also includes notification capabilities and i
 2. Run the server. On the command line:
 > ```npm start```
 
-3. Go to the site at `localhost:3000` on your browser.
+3. Go to the site at `localhost:4200` on your browser.
 
 4. Stop application in the command line by pressing `Ctrl+C`
