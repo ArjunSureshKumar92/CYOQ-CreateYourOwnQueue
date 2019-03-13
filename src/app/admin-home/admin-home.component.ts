@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-admin-home',
   template: `
-  <button routerLink="/queue/create" class="btn-primary">Create Queue</button>
+  <button routerLink="/queue/create" class="btn btn-primary">+ Add Queue</button>
   `,
   styles: [``]
 })
