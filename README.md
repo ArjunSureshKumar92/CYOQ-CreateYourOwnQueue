@@ -14,6 +14,9 @@ Step 4: On the command line, enter:
 Step 5: Navigate into the new folder created:
 > ```cd CYOQ-CreateYourOwnQueue```
 
+Step 6: Get all the dependencies:
+> ```npm install```
+
 ## Make changes
 Make any changes on the ```dev``` branch. Changes will be merged into the ```master``` branch upon each release. To switch to the ```dev``` branch, on your command line enter:
 > ```git checkout dev```
@@ -28,12 +31,9 @@ Then share your changes (push it to the remote source):
 > ```git push```
 
 ## Run application
-Step 1: Get all the dependencies. On your command line, enter:
-> ```npm install```
-
-Step 2: Run the server. On the command line:
+Step 1: Run the server. On the command line:
 > ```npm start```
 
-Step 3: Go to the site at `localhost:4200` on your browser.
+Step 2: Go to the site at `localhost:4200` on your browser.
 
-Step 4: Stop application in the command line by pressing `Ctrl+C`
+Step 3: Stop application in the command line by pressing `Ctrl+C`
