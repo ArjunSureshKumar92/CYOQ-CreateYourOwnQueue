@@ -8,7 +8,7 @@ var createQueueController = require('../controller/createqueue');
  * All the routes that are starting with api. 
  */
 
-router.post('/api/createQueue', function (req, res) {
+router.post('/createQueue', function (req, res) {
   createQueueController.createQueue(req,res);
 });
 
@@ -21,7 +21,7 @@ router.post('/api/createQueue', function (req, res) {
  * All non-api routes. 
  */
 
-router.get('/', function(req, res, next) {
+router.get('/test', function(req, res, next) {
   res.send('respond with a api success');
 });
 

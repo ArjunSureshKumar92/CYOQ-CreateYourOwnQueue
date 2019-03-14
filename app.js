@@ -4,7 +4,7 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 
-var router = require('./routes/routes');
+var router = require('./routes/api');
 
 var app = express();
 
@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'dist/cyoq')));
 app.use('/', express.static(path.join(__dirname, 'dist/cyoq')));
-app.use('/', router);
+app.use('/api', router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -30,5 +30,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.send(err.status);
 });
+
+app.listen(3000);
 
 module.exports = app;
