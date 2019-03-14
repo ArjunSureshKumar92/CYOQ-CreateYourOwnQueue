@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     <div class="container">
       <nav class="navbar navbar-fixed-top">
         <div id="navbar">
-          <ul class="list-inline nav-tabs">
+          <ul class="list-inline nav nav-fill">
             <li class="list-inline-item nav-item">
               <a routerLink="" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Queues</a>
             </li>
