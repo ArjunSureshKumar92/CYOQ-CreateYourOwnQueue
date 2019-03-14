@@ -4,9 +4,9 @@ import { Component } from '@angular/core';
   selector: 'app-navbar',
   template: `
     <div class="container">
-      <nav class="navbar navbar-fixed-top">
+      <nav class="navbar navbar-fixed-top justify-content-center nav-fill">
         <div id="navbar">
-          <ul class="list-inline nav nav-fill">
+          <ul class="list-inline nav">
             <li class="list-inline-item nav-item">
               <a routerLink="" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Queues</a>
             </li>
