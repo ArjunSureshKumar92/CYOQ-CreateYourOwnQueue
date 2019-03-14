@@ -16,7 +16,7 @@ import { Component } from '@angular/core';
   styles: [
     `main {
       padding: 1rem;
-      height: 85%;
+      height: 80%;
       width: 65%;
       overflow-y: scroll;
     }`
