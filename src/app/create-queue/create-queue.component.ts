@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { get } from 'scriptjs';
 
 @Component({
   selector: 'app-create-queue',
