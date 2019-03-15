@@ -16,25 +16,27 @@ import { get } from 'scriptjs';
         <label for="name">Description</label>
         <input type="text" class="form-control" id="description" name="description" />
     </div>
-    <div id="starttime"></div>
+    <div class="form-group">
+        <label for="startTime">Start time</label>
+        <timepicker [(ngModel)]="startTime" name="startTime" id="startTime"></timepicker>
+    </div>
+    <div>
+        <label for="closingTime">Closing time</label>
+        <timepicker [(ngModel)]="closingTime" name="closingTime" id="closingTime"></timepicker>
+    </div>
     <input type="submit" class="btn btn-primary btn-block btn-lg" value="Create Queue" />
   </form>
-
-  <script>
-    var config = {
-        target: 'starttime'
-    };
-    var startPicker = new MtrDatepicker(config);
-  </script>
   `,
   styles: [``]
 })
 export class CreateQueueComponent implements OnInit {
+  startTime: Date = new Date();
+  closingTime: Date = new Date();
 
-  constructor() { }
-
-  ngOnInit() {
-      //get('../../../node_modules/mtr-datepicker/dist/mtr-datepicker.min.css', () => {})
+  constructor() {
+    this.startTime.setHours(0,0,0,0);
+    this.closingTime.setHours(0,0,0,0);
   }
 
+  ngOnInit() { }
 }

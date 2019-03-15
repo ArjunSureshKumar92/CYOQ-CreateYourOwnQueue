@@ -1,10 +1,12 @@
+global.__basedir = __dirname;
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 
-var router = require('./routes/api');
+var apiRouter = require('./routes/api');
+var scriptsRouter = require('./routes/scripts');
 
 var app = express();
 
@@ -13,7 +15,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'dist/cyoq')));
 app.use('/', express.static(path.join(__dirname, 'dist/cyoq')));
-app.use('/api', router);
+app.use('/api', apiRouter);
+app.use('/scripts', scriptsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
