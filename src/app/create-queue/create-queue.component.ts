@@ -16,18 +16,19 @@ import { get } from 'scriptjs';
         <label for="name">Description</label>
         <input type="text" class="form-control" id="description" name="description" />
     </div>
-    <div class="form-group">
-        <label for="startTime">Start time</label>
-        <timepicker [(ngModel)]="startTime" name="startTime" id="startTime"></timepicker>
-    </div>
-    <div>
-        <label for="closingTime">Closing time</label>
-        <timepicker [(ngModel)]="closingTime" name="closingTime" id="closingTime"></timepicker>
+    <div class="form-group row">
+        <div class="col-sm">
+            <label for="startTime">Start time</label>
+            <timepicker [(ngModel)]="startTime" name="startTime" id="startTime"></timepicker>
+        </div>
+        <div class="col-sm">
+            <label for="closingTime">Closing time</label>
+            <timepicker [(ngModel)]="closingTime" name="closingTime" id="closingTime"></timepicker>
+        </div>
     </div>
     <input type="submit" class="btn btn-primary btn-block btn-lg" value="Create Queue" />
   </form>
-  `,
-  styles: [``]
+  `
 })
 export class CreateQueueComponent implements OnInit {
   startTime: Date = new Date();
