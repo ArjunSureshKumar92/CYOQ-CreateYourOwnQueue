@@ -16,12 +16,12 @@ import { get } from 'scriptjs';
         <label for="name">Description</label>
         <input type="text" class="form-control" id="description" name="description" />
     </div>
-    <div class="form-group row">
-        <div class="col-sm">
+    <div class="form-group row justify-content-center">
+        <div class="col-xs">
             <label for="startTime">Start time</label>
             <timepicker [(ngModel)]="startTime" name="startTime" id="startTime"></timepicker>
         </div>
-        <div class="col-sm">
+        <div class="col-xs offset-md-3">
             <label for="closingTime">Closing time</label>
             <timepicker [(ngModel)]="closingTime" name="closingTime" id="closingTime"></timepicker>
         </div>
