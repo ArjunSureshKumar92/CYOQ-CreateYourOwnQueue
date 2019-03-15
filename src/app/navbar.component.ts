@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
               <a routerLink="" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Queues</a>
             </li>
             <li class="list-inline-item nav-item">
-              <a routerLink="" class="nav-link" routerLinkActive="active">Moderators</a>
+              <a routerLink="/moderator/list" class="nav-link" routerLinkActive="active">Moderators</a>
             </li>
           </ul>
         </div>

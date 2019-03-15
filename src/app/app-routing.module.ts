@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { CreateQueueComponent } from './create-queue/create-queue.component';
 import { CreateModeratorComponent } from './create-moderator/create-moderator.component';
+import { ModeratorListComponent } from './moderator-list/moderator-list.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,10 @@ const routes: Routes = [
         {
             path: 'create',
             component: CreateModeratorComponent
+        },
+        {
+            path: 'list',
+            component: ModeratorListComponent
         }
     ]
   }
