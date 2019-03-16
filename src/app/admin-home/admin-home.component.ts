@@ -3,9 +3,11 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-admin-home',
   template: `
-  <button routerLink="/queue/create" class="btn btn-primary">+ Add Queue</button>
-  `,
-  styles: [``]
+  <div class="text-right">
+    <button routerLink="/queue/create" class="btn btn-primary">+ Add Queue</button>
+  </div>
+  <app-queue-list></app-queue-list>
+  `
 })
 export class AdminHomeComponent implements OnInit {
 
