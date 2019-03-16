@@ -34,8 +34,8 @@ export class CreateQueueComponent implements OnInit {
   closingTime: Date = new Date();
 
   constructor() {
-    this.startTime.setHours(0,0,0,0);
-    this.closingTime.setHours(0,0,0,0);
+    this.startTime.setHours(9,0,0,0);
+    this.closingTime.setHours(17,0,0,0);
   }
 
   ngOnInit() { }
