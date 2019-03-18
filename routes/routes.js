@@ -6,12 +6,21 @@ var deleteCompanyController = require('../controller/deleteCompany');
 var deleteModeratorController = require('../controller/deleteModerator');
 var createCompanyController = require('../controller/createCompany');
 var createModeratorController = require('../controller/createModerator');
+var getQueueController = require('../controller/getQueue');
 
 
 
 /**
  * All the routes that are starting with api. 
  */
+
+router.get('/api/getQueue', function (req, res) {
+  getQueueController.getQueue(req,res);
+});
+
+router.get('/api/getAllQueue', function (req, res) {
+  getQueueController.getAllQueue(req,res);
+});
 
 router.post('/api/createQueue', function (req, res) {
   createQueueController.createQueue(req,res);

@@ -47,13 +47,12 @@ exports.createQueueMust = function (value) {
     return (value.includes('name') && value.includes('companyId'));
 }
 
-exports.getQueue = function (value) {
-    switch (value) {
-        case 'queueId':
-            return true;
-        default:
-            return false;
-    }
+exports.getQueueMust = function (value) {
+    return (value.includes('queueId') && value.includes('companyId'));
+}
+
+exports.getAllQueueMust = function (value) {
+    return (value.includes('companyId'));
 }
 
 

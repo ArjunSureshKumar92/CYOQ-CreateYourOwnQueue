@@ -14,6 +14,41 @@ exports.mongoDBQueueInsert = function (callback, dbName, collectionName, obj) {
 
 }
 
+exports.mongoDBQueueGet = function (callback, dbName, collectionName, queueId) {
+    db = mongodb.getDb();
+    var obj = { queueId: queueId };
+    db.db(dbName).collection(collectionName).findOne(obj, function (err, result) {
+        if (err) {
+            console.log(err);
+            callback(500, result);
+        } else if (result) {
+            console.log(result);
+            callback(200, result);
+        } else {
+            console.log(result);
+            callback(422, result);
+        }
+    });
+
+}
+
+exports.mongoDBQueueGetAll = function (callback, dbName, collectionName) {
+    db = mongodb.getDb();
+    db.db(dbName).collection(collectionName).find({}).toArray(function(err, result) {
+        if (err) {
+            console.log(err);
+            callback(500, result);
+        } else if (result) {
+            console.log(result);
+            callback(200, result);
+        } else {
+            console.log(result);
+            callback(422, result);
+        }
+    });
+
+}
+
 exports.mongoDBQueueDelete = function (callback, dbName, collectionName, queueId) {
     db = mongodb.getDb();
     var obj = { queueId: queueId };
