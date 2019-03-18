@@ -2,10 +2,16 @@ var express = require('express');
 var router = express.Router();
 var createQueueController = require('../controller/createQueue');
 var deleteQueueController = require('../controller/deleteQueue');
-var deleteCompanyController = require('../controller/deleteCompany');
-var deleteModeratorController = require('../controller/deleteModerator');
+var updateQueueController = require('../controller/updateQueue');
+
 var createCompanyController = require('../controller/createCompany');
+var deleteCompanyController = require('../controller/deleteCompany');
+var updateCompanyController = require('../controller/updateCompany');
+
 var createModeratorController = require('../controller/createModerator');
+var deleteModeratorController = require('../controller/deleteModerator');
+var updateModeratorController = require('../controller/updateModerator');
+
 var getQueueController = require('../controller/getQueue');
 
 
@@ -13,15 +19,7 @@ var getQueueController = require('../controller/getQueue');
 /**
  * All the routes that are starting with api. 
  */
-
-router.get('/api/getQueue', function (req, res) {
-  getQueueController.getQueue(req,res);
-});
-
-router.get('/api/getAllQueue', function (req, res) {
-  getQueueController.getAllQueue(req,res);
-});
-
+//Create cases
 router.post('/api/createQueue', function (req, res) {
   createQueueController.createQueue(req,res);
 });
@@ -34,6 +32,7 @@ router.post('/api/createModerator', function (req, res) {
   createModeratorController.createModerator(req,res);
 });
 
+//Delete cases
 router.delete('/api/deleteQueue', function (req, res) {
   deleteQueueController.deleteQueue(req,res);
 });
@@ -46,12 +45,27 @@ router.delete('/api/deleteCompany', function (req, res) {
 //   deleteModeratorController.deleteModerator(req,res);
 // });
 
+//Get cases
+router.get('/api/getQueue', function (req, res) {
+  getQueueController.getQueue(req,res);
+});
 
+router.get('/api/getAllQueue', function (req, res) {
+  getQueueController.getAllQueue(req,res);
+});
 
+//Update cases
+router.put('/api/updateQueue', function (req, res) {
+  updateQueueController.updateQueue(req,res);
+});
 
+router.put('/api/updateCompany', function (req, res) {
+  updateCompanyController.updateCompany(req,res);
+});
 
-
-
+router.put('/api/updateModerator', function (req, res) {
+  updateModeratorController.updateModerator(req,res);
+});
 
 /**
  * All non-api routes. 

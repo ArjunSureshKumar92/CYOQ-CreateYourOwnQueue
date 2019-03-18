@@ -15,6 +15,22 @@ exports.mongoDBCompanyInsert = function (callback,dbName,collectionName,obj) {
 
 }
 
+exports.mongoDBCompanyUpdate = function (callback,dbName,collectionName,obj, companyId) {
+    db = mongodb.getDb();
+    var cmpId = { companyId: companyId };
+    db.db(dbName).collection(collectionName).findOneAndUpdate(cmpId, {$set: obj}, (err, result) => {
+        var response;
+        if (err) {
+            console.error(err)
+            callback(422,err)
+        }
+        else {
+            callback(200,result)
+        }
+        //db.close(); using global connection string.
+      })    
+
+}
 
 exports.mongoDBCompanyDelete = function (callback, dbName, collectionName, companyId) {
     db = mongodb.getDb();

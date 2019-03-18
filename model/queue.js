@@ -14,6 +14,24 @@ exports.mongoDBQueueInsert = function (callback, dbName, collectionName, obj) {
 
 }
 
+exports.mongoDBQueueUpdate = function (callback, dbName, collectionName, obj, queueId) {
+    db = mongodb.getDb();
+    var queue = { queueId: queueId };
+    //var tmp = {$set:{ name: "success-advisor-queue1" }};
+    //console.log(queue.queueId + ' - '+tmp.name);
+    db.db(dbName).collection(collectionName).findOneAndUpdate(queue, {$set: obj}, (err, result) => {
+        if (err) {
+            console.error(err)
+            callback(422, err)
+        }
+        else {
+            callback(200, result)
+        }
+        //db.close(); using global connection string.
+    })
+
+}
+
 exports.mongoDBQueueGet = function (callback, dbName, collectionName, queueId) {
     db = mongodb.getDb();
     var obj = { queueId: queueId };

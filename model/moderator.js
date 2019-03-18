@@ -14,6 +14,23 @@ exports.mongoDBModeratorInsert = function (callback, dbName, collectionName, obj
 
 }
 
+exports.mongoDBModeratorUpdate = function (callback, dbName, collectionName, obj, modId) {
+    db = mongodb.getDb();
+    var moderatorId = {moderatorId: modId};
+    console.log(moderatorId.moderatorId+' - '+obj.name);
+    db.db(dbName).collection(collectionName).findOneAndUpdate(moderatorId, {$set: obj}, (err, result) => {
+        if (err) {
+            console.error(err)
+            callback(422, err)
+        }
+        else {
+            callback(200, result)
+        }
+        //db.close(); using global connection string.
+    })
+
+}
+
 exports.mongoDBModeratorDelete = function (callback, dbName, collectionName, moderatorId) {
     db = mongodb.getDb();
     var obj = { moderatorId: moderatorId };
