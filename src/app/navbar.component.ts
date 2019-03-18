@@ -13,6 +13,9 @@ import { Component } from '@angular/core';
             <li class="list-inline-item nav-item">
               <a routerLink="/moderator/list" class="nav-link" routerLinkActive="active">Moderators</a>
             </li>
+            <li class="list-inline-item nav-item">
+              <a routerLink="/company" class="nav-link" routerLinkActive="active">Company</a>
+            </li>
           </ul>
         </div>
       </nav>

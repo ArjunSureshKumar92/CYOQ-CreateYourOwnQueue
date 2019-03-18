@@ -2,6 +2,7 @@
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 
+$enable-rounded: false;
 $link-color: #0eb15f;
 $link-hover-color: #05944c;
 
@@ -19,4 +20,9 @@ html, body {
 label {
     font-weight: lighter;
     text-transform: uppercase;
+}
+
+.active {
+    background-color: map-get($theme-colors, primary);
+    color: #fff
 }
