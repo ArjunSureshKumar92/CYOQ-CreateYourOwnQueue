@@ -14,6 +14,29 @@ exports.mongoDBModeratorInsert = function (callback, dbName, collectionName, obj
 
 }
 
+exports.mongoDBModeratorDelete = function (callback, dbName, collectionName, moderatorId) {
+    db = mongodb.getDb();
+    var obj = { moderatorId: moderatorId };
+    db.db(dbName).collection(collectionName).deleteOne(obj, function (err, result) {
+        if (err) {
+            callback(403, '');
+        } else {
+            if (result.deletedCount == 0)
+                callback(300, '');
+            else
+                deleteQueueModerator(callback, moderatorId);
+            //callback(200, '');
+        }
+    });
+
+}
+
+
+function deleteQueueModerator(callback, moderatorId) {
+    db.db(dbName).collection(collectionName).find( { a: { $exists: true } } )
+    
+}
+
 
 exports.checkCustomerExist = function (callback, dbName, collectionName, companyId) {
     db = mongodb.getDb();

@@ -66,11 +66,14 @@ exports.updateQueue = function (value) {
     }
 }
 
-exports.deleteQueue = function (value) {
-    switch (value) {
-        case 'queueId':
-            return true;
-        default:
-            return false;
-    }
+exports.deleteQueueMust = function (value) {
+    return (value.includes('queueId') && value.includes('companyId'));
+}
+
+exports.deleteCompanyMust = function (value) {
+    return (value.includes('companyId'));
+}
+
+exports.deleteModeratorMust = function (value) {
+    return (value.includes('moderatorId') && value.includes('companyId'));
 }

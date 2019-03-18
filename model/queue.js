@@ -13,3 +13,19 @@ exports.mongoDBQueueInsert = function (callback, dbName, collectionName, obj) {
     })
 
 }
+
+exports.mongoDBQueueDelete = function (callback, dbName, collectionName, queueId) {
+    db = mongodb.getDb();
+    var obj = { queueId: queueId };
+    db.db(dbName).collection(collectionName).deleteOne(obj, function (err, result) {
+        if (err) {
+            callback(403, '');
+        } else {
+            if (result.deletedCount == 0)
+                callback(300, '');
+            else
+                callback(200, '');
+        }
+    });
+
+}

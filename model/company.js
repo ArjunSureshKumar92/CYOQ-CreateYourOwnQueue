@@ -14,3 +14,35 @@ exports.mongoDBCompanyInsert = function (callback,dbName,collectionName,obj) {
       })    
 
 }
+
+
+exports.mongoDBCompanyDelete = function (callback, dbName, collectionName, companyId) {
+    db = mongodb.getDb();
+    var obj = { companyId: companyId };
+    db.db(dbName).collection(collectionName).deleteOne(obj, function (err, result) {
+        if (err) {
+            callback(403, '');
+        } else {
+            if (result.deletedCount == 0)
+                callback(300, '');
+            else
+                deleteCustomerDB(callback,companyId);
+                //callback(200, '');
+        }
+    });
+
+}
+
+function deleteCustomerDB(callback,dbName) {
+    db = mongodb.getDb();
+    db.db(dbName).dropDatabase(function(err, result){
+        if (err) {
+            callback(403, '');
+        } else {
+            if (result.deletedCount == 0)
+                callback(200, '');
+            else
+                callback(200, '');
+        }
+    });
+}
