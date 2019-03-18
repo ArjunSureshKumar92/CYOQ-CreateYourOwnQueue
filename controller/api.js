@@ -1,16 +1,108 @@
-exports.createQueue = function(value) {
+exports.createQueueCan = function (value) {
     switch (value) {
-        case 'queueName':
-        case 'queueType':
-        case 'queueConsumer':
-        case 'queueProducer':
+        case 'name':
+        case 'description':
+        case 'startTime':
+        case 'closeTime':
+        case 'moderator':
             return true;
         default:
             return false;
     }
 }
 
-exports.getQueue = function(value) {
+exports.updateQueueCan = function (value) {
+    switch (value) {
+        case 'name':
+        case 'description':
+        case 'startTime':
+        case 'closeTime':
+        case 'moderator':
+            return true;
+        default:
+            return false;
+    }
+}
+
+
+exports.createCompanyCan = function (value) {
+    switch (value) {
+        case 'name':
+        case 'address':
+        case 'phone':
+        case 'website':
+        case 'employeeCount':
+            return true;
+        default:
+            return false;
+    }
+}
+
+exports.updateCompanyCan = function (value) {
+    switch (value) {
+        case 'name':
+        case 'address':
+        case 'phone':
+        case 'website':
+        case 'employeeCount':
+            return true;
+        default:
+            return false;
+    }
+}
+
+exports.createModeratorCan = function (value) {
+    switch (value) {
+        case 'name':
+        case 'address':
+        case 'phone':
+            return true;
+        default:
+            return false;
+    }
+}
+
+exports.updateModeratorCan = function (value) {
+    switch (value) {
+        case 'name':
+        case 'address':
+        case 'phone':
+            return true;
+        default:
+            return false;
+    }
+}
+
+exports.createCompanyMust = function (value) {
+    return (value.includes('name'));
+}
+
+exports.updateCompanyMust = function (value) {
+    return (value.includes('companyId'));
+}
+
+exports.createModeratorMust = function (value) {
+    return (value.includes('name') && value.includes('companyId'));
+}
+
+exports.updateModeratorMust = function (value) {
+    return (value.includes('moderatorId'));
+}
+
+exports.createQueueMust = function (value) {
+    return (value.includes('name') && value.includes('companyId'));
+}
+
+exports.getQueueMust = function (value) {
+    return (value.includes('queueId') && value.includes('companyId'));
+}
+
+exports.getAllQueueMust = function (value) {
+    return (value.includes('companyId'));
+}
+
+
+exports.updateQueue = function (value) {
     switch (value) {
         case 'queueId':
             return true;
@@ -19,21 +111,14 @@ exports.getQueue = function(value) {
     }
 }
 
-
-exports.updateQueue = function(value) {
-    switch (value) {
-        case 'queueId':
-            return true;
-        default:
-            return false;
-    }
+exports.deleteQueueMust = function (value) {
+    return (value.includes('queueId') && value.includes('companyId'));
 }
 
-exports.deleteQueue = function(value) {
-    switch (value) {
-        case 'queueId':
-            return true;
-        default:
-            return false;
-    }
+exports.deleteCompanyMust = function (value) {
+    return (value.includes('companyId'));
+}
+
+exports.deleteModeratorMust = function (value) {
+    return (value.includes('moderatorId') && value.includes('companyId'));
 }

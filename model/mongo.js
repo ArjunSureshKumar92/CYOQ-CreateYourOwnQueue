@@ -1,34 +1,22 @@
-var mongoConfig = require('../config/mongo')
+var mongo = require('mongodb').MongoClient;
+var mongoConfig = require('../config/mongo');
 
-const mongo = require('mongodb').MongoClient
-exports.mongoDB = function (callback,dbName,collectionName,action,obj) {
+let mongoConnection = null;
 
-    function insertNewQueue(collection,client,obj) {
-        collection.insertOne(obj, (err, result) => {
-            var response;
-            if (err) {
-                console.error(err)
-                callback(422,err)
-            }
-            else {
-                console.log(result);
-                callback(200,result.ops[0])
-            }
-            client.close();
-          })
+module.exports.connectMongo = () => new Promise((resolve, reject) => {
+    mongo.connect(mongoConfig.connectionName,  { useNewUrlParser: true }, function(err, client) {
+        if (err) { reject(err); process.exit(); return; };
+        resolve(client);
+        mongoConnection = client;
+    });
+});
+
+module.exports.getDb = function () {
+    if(!mongoConnection) {
+        console.log('Call connect first!');
+    } else {
+        return mongoConnection;
     }
-
-    mongo.connect(mongoConfig.connectionName, { useNewUrlParser: true }, (err, client) => {
-        if (err) {
-          console.error(err)
-          return
-        }
-        const collection = client.db(dbName).collection(collectionName)
-        switch(action) {
-            case 'InsertQueue': 
-            return insertNewQueue(collection,client,obj);
-        }
-        
-      })
-   
+    
 }
+
