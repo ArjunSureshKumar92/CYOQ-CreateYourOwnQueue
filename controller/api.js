@@ -1,16 +1,53 @@
-exports.createQueue = function(value) {
+exports.createQueueCan = function (value) {
     switch (value) {
-        case 'queueName':
-        case 'queueType':
-        case 'queueConsumer':
-        case 'queueProducer':
+        case 'name':
+        case 'description':
+        case 'startTime':
+        case 'closeTime':
+        case 'moderator':
             return true;
         default:
             return false;
     }
 }
 
-exports.getQueue = function(value) {
+exports.createCompanyCan = function (value) {
+    switch (value) {
+        case 'name':
+        case 'address':
+        case 'phone':
+        case 'website':
+        case 'employeeCount':
+            return true;
+        default:
+            return false;
+    }
+}
+
+exports.createModeratorCan = function (value) {
+    switch (value) {
+        case 'name':
+        case 'address':
+        case 'phone':
+            return true;
+        default:
+            return false;
+    }
+}
+
+exports.createCompanyMust = function (value) {
+    return (value.includes('name'));
+}
+
+exports.createModeratorMust = function (value) {
+    return (value.includes('name') && value.includes('companyId'));
+}
+
+exports.createQueueMust = function (value) {
+    return (value.includes('name') && value.includes('companyId'));
+}
+
+exports.getQueue = function (value) {
     switch (value) {
         case 'queueId':
             return true;
@@ -20,7 +57,7 @@ exports.getQueue = function(value) {
 }
 
 
-exports.updateQueue = function(value) {
+exports.updateQueue = function (value) {
     switch (value) {
         case 'queueId':
             return true;
@@ -29,7 +66,7 @@ exports.updateQueue = function(value) {
     }
 }
 
-exports.deleteQueue() - function(value) {
+exports.deleteQueue = function (value) {
     switch (value) {
         case 'queueId':
             return true;

@@ -1,5 +1,6 @@
-exports.dbName = 'Centennial';
-exports.collectionNameCentennial = 'queue';
-exports.dbActionTestInsertCommand = 'InsertQueue';
-exports.collectioncolumn_name = 'name';
-exports.collectioncolumn_id = 'id';
+exports.dbActionQueueInsertCommand = 'InsertQueue';
+exports.dbActionCompanyInsertCommand = 'InsertCompany';
+exports.globalDbName = 'CYOQ';
+exports.collectionNameCustomers = 'customer';
+exports.collectionNameModerator = 'moderator';
+exports.collectionNameQueue = 'queue';
