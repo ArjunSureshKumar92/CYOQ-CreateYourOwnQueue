@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-create-queue',
+  selector: 'app-queue-details',
   template: `
-  <form method="post">
+  <form (ngSubmit)="onSubmit()" #queueDetails="ngForm">
     <button type="button" class="close" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -25,18 +25,24 @@ import { Component, OnInit } from '@angular/core';
             <timepicker [(ngModel)]="closingTime" name="closingTime" id="closingTime"></timepicker>
         </div>
     </div>
-    <input type="submit" class="btn btn-primary btn-block btn-lg" value="Create Queue" />
+    <input type="submit" class="btn btn-primary btn-block btn-lg" value="Save Changes" />
   </form>
   `
 })
-export class CreateQueueComponent implements OnInit {
+export class QueueDetailsComponent implements OnInit {
   startTime: Date = new Date();
   closingTime: Date = new Date();
+  submitted: Boolean = false;
 
   constructor() {
-    this.startTime.setHours(9,0,0,0);
-    this.closingTime.setHours(17,0,0,0);
+    this.startTime.setHours(9, 0, 0, 0);
+    this.closingTime.setHours(17, 0, 0, 0);
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
+
+  onSubmit() {
+    this.submitted = true;
+  }
 }
