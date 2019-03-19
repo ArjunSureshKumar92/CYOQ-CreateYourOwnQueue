@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 
@@ -39,6 +40,8 @@ import { QueueDetailsComponent } from './components/queue-details/queue-details.
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     TimepickerModule.forRoot()
   ],
   providers: [],

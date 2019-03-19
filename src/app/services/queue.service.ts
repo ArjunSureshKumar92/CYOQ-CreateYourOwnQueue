@@ -5,10 +5,10 @@ import { HttpClient } from '@angular/common/http';
     providedIn: 'root'
 })
 export class QueueService {
-    uri = 'http://localhost:3000/api/queue';
+    uri = 'http://localhost:4200/api/queue';
     constructor(private http: HttpClient) { }
 
-    createQueue(name, description, startTime, closeTime) {
+    createQueue(name: String, description: String, startTime, closeTime) {
         const newQueue = {
             name: name,
             description: description,

@@ -24,6 +24,7 @@ exports.createQueue = function (req, res) {
             else {
                 // mail.sendMail('comp231team4@gmail.com','sridhara.keshav@gmail.com','New Queue Created','Hey Esteban, This is the link to view the new queue => http://localhost:3000/dashboard/getQueue/'+data.queueId,'Thenuask143@');
                 response.sendResponse(res, 'Success, ID => ' + data.queueId, 200)
+                console.log('queue created')
             }
         }
 

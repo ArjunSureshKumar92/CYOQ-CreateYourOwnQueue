@@ -1,42 +1,64 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
+import { QueueService } from 'src/app/services/queue.service';
 
 @Component({
   selector: 'app-create-queue',
   template: `
-  <form (ngSubmit)="submit()">
+  <form [formGroup]="angForm" (ngSubmit)="submit()">
     <button type="button" class="close" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
     <div class="form-group">
         <label for="name">Queue name</label>
-        <input type="text" class="form-control form-control-lg" id="name" name="name" />
+        <input type="text" class="form-control form-control-lg" formControlName="name" #name />
     </div>
     <div class="form-group">
         <label for="name">Description</label>
-        <input type="text" class="form-control" id="description" name="description" />
+        <input type="text" class="form-control" formControlName="description" #description />
     </div>
     <div class="form-group row justify-content-center">
         <div class="col-xs">
             <label for="startTime">Start time</label>
-            <timepicker [(ngModel)]="startTime" name="startTime" id="startTime"></timepicker>
+            <timepicker formControlName="startTime"></timepicker>
         </div>
         <div class="col-xs offset-md-3">
             <label for="closeTime">Closing time</label>
-            <timepicker [(ngModel)]="closeTime" name="closeTime" id="closeTime"></timepicker>
+            <timepicker formControlName="closeTime"></timepicker>
         </div>
     </div>
-    <input type="submit" class="btn btn-primary btn-block btn-lg" value="Create Queue" />
+    <input type="submit" class="btn btn-primary btn-block btn-lg" [disabled]="angForm.pristine || angForm.invalid" value="Create Queue" />
   </form>
   `
 })
 export class CreateQueueComponent implements OnInit {
-  startTime: Date = new Date();
-  closeTime: Date = new Date();
+    startTime: Date = new Date();
+    closeTime: Date = new Date();
+    angForm: FormGroup;
 
-  constructor() {
-    this.startTime.setHours(9, 0, 0, 0);
-    this.closeTime.setHours(17, 0, 0, 0);
-  }
+    constructor(private fb: FormBuilder, private qs: QueueService) {
+        this.startTime.setHours(9, 0, 0, 0);
+        this.closeTime.setHours(17, 0, 0, 0);
+        this.createForm();
+    }
 
-  ngOnInit() { }
+    ngOnInit() { }
+
+    createForm() {
+        this.angForm = this.fb.group({
+            name: ['', Validators.required ],
+            description: ['', Validators.required ],
+            startTime: ['', Validators.required],
+            closeTime: ['', Validators.required]
+        });
+        this.angForm.patchValue({
+            startTime: this.startTime,
+            closeTime: this.closeTime
+        })
+    }
+
+    submit() {
+        this.qs.createQueue(this.angForm.controls['name'].value, this.angForm.controls['description'].value,
+            this.angForm.controls['startTime'].value, this.angForm.controls['closeTime'].value);
+    }
 }
