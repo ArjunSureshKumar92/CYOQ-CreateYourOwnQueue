@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
         <div id="navbar">
           <ul class="list-inline nav">
             <li class="list-inline-item nav-item">
-              <a routerLink="" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Queues</a>
+              <a routerLink="/queue/list" class="nav-link" routerLinkActive="active">Queues</a>
             </li>
             <li class="list-inline-item nav-item">
               <a routerLink="/moderator/list" class="nav-link" routerLinkActive="active">Moderators</a>
