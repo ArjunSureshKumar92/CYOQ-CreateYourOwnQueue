@@ -24,46 +24,46 @@ router.post('/queue/create', function (req, res) {
   createQueueController.createQueue(req,res);
 });
 
-router.post('/createCompany', function (req, res) {
+router.post('/company/create', function (req, res) {
   createCompanyController.createCompany(req,res);
 });
 
-router.post('/createModerator', function (req, res) {
+router.post('/moderator/create', function (req, res) {
   createModeratorController.createModerator(req,res);
 });
 
 //Delete cases
-router.delete('/deleteQueue', function (req, res) {
+router.delete('/queue/delete', function (req, res) {
   deleteQueueController.deleteQueue(req,res);
 });
 
-router.delete('/deleteCompany', function (req, res) {
+router.delete('/company/delete', function (req, res) {
   deleteCompanyController.deleteCompany(req,res);
 });
 
-// router.delete('/api/deleteModerator', function (req, res) {
+// router.delete('/moderator/delete', function (req, res) {
 //   deleteModeratorController.deleteModerator(req,res);
 // });
 
 //Get cases
-router.get('/getQueue', function (req, res) {
+router.get('/queue/get', function (req, res) {
   getQueueController.getQueue(req,res);
 });
 
-router.get('/getAllQueue', function (req, res) {
+router.get('/queue/all', function (req, res) {
   getQueueController.getAllQueue(req,res);
 });
 
 //Update cases
-router.put('/updateQueue', function (req, res) {
+router.put('/queue/update', function (req, res) {
   updateQueueController.updateQueue(req,res);
 });
 
-router.put('/updateCompany', function (req, res) {
+router.put('/company/update', function (req, res) {
   updateCompanyController.updateCompany(req,res);
 });
 
-router.put('/updateModerator', function (req, res) {
+router.put('/moderator/update', function (req, res) {
   updateModeratorController.updateModerator(req,res);
 });
 
