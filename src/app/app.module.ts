@@ -17,6 +17,7 @@ import { ModeratorDetailsComponent } from './moderator-details/moderator-details
 import { CompanyDetailsComponent } from './company-details/company-details.component';
 import { QueueListComponent } from './queue-list/queue-list.component';
 import { QueueItemComponent } from './queue-item/queue-item.component';
+import { QueueDetailsComponent } from './queue-details/queue-details.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { QueueItemComponent } from './queue-item/queue-item.component';
     ModeratorDetailsComponent,
     CompanyDetailsComponent,
     QueueListComponent,
-    QueueItemComponent
+    QueueItemComponent,
+    QueueDetailsComponent
   ],
   imports: [
     BrowserModule,
