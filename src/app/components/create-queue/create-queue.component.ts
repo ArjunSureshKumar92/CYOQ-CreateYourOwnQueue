@@ -21,8 +21,8 @@ import { Component, OnInit } from '@angular/core';
             <timepicker [(ngModel)]="startTime" name="startTime" id="startTime"></timepicker>
         </div>
         <div class="col-xs offset-md-3">
-            <label for="closingTime">Closing time</label>
-            <timepicker [(ngModel)]="closingTime" name="closingTime" id="closingTime"></timepicker>
+            <label for="closeTime">Closing time</label>
+            <timepicker [(ngModel)]="closeTime" name="closeTime" id="closeTime"></timepicker>
         </div>
     </div>
     <input type="submit" class="btn btn-primary btn-block btn-lg" value="Create Queue" />
@@ -31,11 +31,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateQueueComponent implements OnInit {
   startTime: Date = new Date();
-  closingTime: Date = new Date();
+  closeTime: Date = new Date();
 
   constructor() {
     this.startTime.setHours(9, 0, 0, 0);
-    this.closingTime.setHours(17, 0, 0, 0);
+    this.closeTime.setHours(17, 0, 0, 0);
   }
 
   ngOnInit() { }

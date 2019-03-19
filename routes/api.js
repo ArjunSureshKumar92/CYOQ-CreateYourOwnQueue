@@ -20,7 +20,7 @@ var getQueueController = require('../controller/getQueue');
  * All the routes that are starting with api. 
  */
 //Create cases
-router.post('/createQueue', function (req, res) {
+router.post('/queue/create', function (req, res) {
   createQueueController.createQueue(req,res);
 });
 
