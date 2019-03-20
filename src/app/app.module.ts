@@ -11,7 +11,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CreateQueueComponent } from './components/create-queue/create-queue.component';
-import { ConfigureQueueComponent } from './components/configure-queue/configure-queue.component';
 import { CreateModeratorComponent } from './components/create-moderator/create-moderator.component';
 import { ModeratorListComponent } from './components/moderator-list/moderator-list.component';
 import { ModeratorDetailsComponent } from './components/moderator-details/moderator-details.component';
@@ -27,7 +26,6 @@ import { QueueDetailsComponent } from './components/queue-details/queue-details.
     AdminHomeComponent,
     HeaderComponent,
     CreateQueueComponent,
-    ConfigureQueueComponent,
     CreateModeratorComponent,
     ModeratorListComponent,
     ModeratorDetailsComponent,
