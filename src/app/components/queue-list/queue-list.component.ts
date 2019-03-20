@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-queue-list',
   template: `
   <div class="container-fluid">
-    <app-queue-item *ngFor="let q of queues" name="{{q}}"></app-queue-item>
+    <app-queue-item *ngFor="let q of queues" name="{{q.name}}" status="{{q.status}}"></app-queue-item>
   </div>
   `,
   styles: [`
@@ -17,9 +17,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QueueListComponent implements OnInit {
   queues = [
-      'Registration',
-      'Food service',
-      'Appointments'
+      {name: 'Registration', status: 'open'},
+      {name: 'Food service', status: 'open'},
+      {name: 'Appointments', status: 'closed'}
   ]
 
   constructor() { }
