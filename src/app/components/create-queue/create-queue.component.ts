@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
 import { QueueService } from 'src/app/services/queue.service';
 
@@ -6,7 +7,7 @@ import { QueueService } from 'src/app/services/queue.service';
   selector: 'app-create-queue',
   template: `
   <form [formGroup]="angForm" (ngSubmit)="submit()">
-    <button type="button" class="close" aria-label="Close">
+    <button type="button" (click)="close()" class="close" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
     <div class="form-group">
@@ -36,13 +37,17 @@ export class CreateQueueComponent implements OnInit {
     closeTime: Date = new Date();
     angForm: FormGroup;
 
-    constructor(private fb: FormBuilder, private qs: QueueService) {
+    constructor(private location: Location, private fb: FormBuilder, private qs: QueueService) {
         this.startTime.setHours(9, 0, 0, 0);
         this.closeTime.setHours(17, 0, 0, 0);
         this.createForm();
     }
 
     ngOnInit() { }
+
+    close() {
+        this.location.back();
+    }
 
     createForm() {
         this.angForm = this.fb.group({

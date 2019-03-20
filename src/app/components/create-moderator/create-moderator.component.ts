@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-moderator',
   template: `
-  <form method="post">
-    <button type="button" class="close" aria-label="Close">
+  <form>
+    <button type="button" (click)="close()" class="close" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
     <div class="form-group">
@@ -21,9 +23,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateModeratorComponent implements OnInit {
 
-  constructor() { }
+    constructor(private location: Location) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
+
+    close() {
+        this.location.back();
+    }
 
 }

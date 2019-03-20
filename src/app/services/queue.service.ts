@@ -18,6 +18,10 @@ export class QueueService {
         this.http.post(`${this.uri}/create`, newQueue).subscribe(res => console.log('Queue created.'));
     }
 
+    getQueue() {}
+
+    getQueues() {}
+
     updateQueue() {}
 
     deleteQueue(queueId) {
