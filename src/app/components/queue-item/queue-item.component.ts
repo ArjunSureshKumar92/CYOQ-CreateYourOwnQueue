@@ -3,8 +3,9 @@ import { Component, OnInit, Input } from '@angular/core';
 @Component({
   selector: 'app-queue-item',
   template: `
-  <div class="container-fluid">
+  <div class="container-fluid clickable">
     {{name}}
+    <a href="/queue/details/{{name}}" class="divLink"></a>
   </div>
   `,
   styles: [`
