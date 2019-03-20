@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Queue } from '../models/queue.model';
 
 @Injectable({
     providedIn: 'root'
@@ -20,7 +22,13 @@ export class QueueService {
 
     getQueue() {}
 
-    getQueues() {}
+    getQueues(): Queue[] {
+        return [
+            new Queue('Registration', '', new Date(), new Date()),
+            new Queue('Food service', '', new Date(), new Date()),
+            new Queue('Counselling', '', new Date(), new Date()),
+        ];
+    }
 
     updateQueue() {}
 

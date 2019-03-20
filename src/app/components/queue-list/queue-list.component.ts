@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { QueueService } from '../../services/queue.service';
+import { Queue } from '../../models/queue.model';
 
 @Component({
   selector: 'app-queue-list',
@@ -16,15 +18,18 @@ import { Component, OnInit } from '@angular/core';
   `]
 })
 export class QueueListComponent implements OnInit {
-  queues = [
-      {name: 'Registration', status: 'open'},
-      {name: 'Food service', status: 'open'},
-      {name: 'Appointments', status: 'closed'}
-  ]
+    queues: any;
 
-  constructor() { }
+    constructor(private qs: QueueService) {
+        this.queues = [];
+        this.getQueues();
+    }
 
-  ngOnInit() {
-  }
+    getQueues() {
+        this.queues = this.qs.getQueues();
+    }
+
+    ngOnInit() {
+    }
 
 }
