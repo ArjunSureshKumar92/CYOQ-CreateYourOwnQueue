@@ -90,7 +90,7 @@ exports.updateModeratorMust = function (value) {
 }
 
 exports.createQueueMust = function (value) {
-    return (value.includes('name')); //&& value.includes('companyId'));
+    return (value.includes('name') && value.includes('companyId'));
 }
 
 exports.getQueueMust = function (value) {

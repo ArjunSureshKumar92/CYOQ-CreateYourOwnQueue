@@ -25,8 +25,6 @@ export class QueueService {
     getQueues(): Queue[] {
         return [
             new Queue('Registration', 'Register for courses and programs', new Date(), new Date()),
-            new Queue('Food service', 'Line up for food services in the cafeteria', new Date(), new Date()),
-            new Queue('Counselling', 'Book appointments with counselling services', new Date(), new Date()),
         ];
     }
 

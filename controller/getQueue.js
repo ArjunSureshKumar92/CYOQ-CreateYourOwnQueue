@@ -9,7 +9,7 @@ var mail = require('../common/mail')
 
 exports.getQueue = function (req, res) {
     // create a simple queue
-    if (apiControl.getQueueMust(Object.keys(req.body))) {
+    if (apiControl.getQueueMust(Object.keys(req.params))) {
         var callbackGetQueue = function (status, data) {
             if (status != 200)
                 response.sendResponse(res, 'Error getting queue', status)
@@ -17,7 +17,7 @@ exports.getQueue = function (req, res) {
                 response.sendResponse(res, data, 200)
             }
         }
-        mongoQueue.mongoDBQueueGet(callbackGetQueue, req.body.companyId, mongoConstants.collectionNameQueue, req.body.queueId);
+        mongoQueue.mongoDBQueueGet(callbackGetQueue, req.params.companyId, mongoConstants.collectionNameQueue, req.params.queueId);
     } else {
         response.sendResponse(res, 'Bad Request', 403);
     }
@@ -25,7 +25,7 @@ exports.getQueue = function (req, res) {
 
 exports.getAllQueue = function (req, res) {
     // create a simple queue
-    if (apiControl.getAllQueueMust(Object.keys(req.body))) {
+    if (apiControl.getAllQueueMust(Object.keys(req.params))) {
         var callbackGetAllQueue = function (status, data) {
             if (status != 200)
                 response.sendResponse(res, 'Error getting queue', status)
@@ -33,7 +33,7 @@ exports.getAllQueue = function (req, res) {
                 response.sendResponse(res, data, 200)
             }
         }
-        mongoQueue.mongoDBQueueGetAll(callbackGetAllQueue, req.body.companyId, mongoConstants.collectionNameQueue);
+        mongoQueue.mongoDBQueueGetAll(callbackGetAllQueue, req.params.companyId, mongoConstants.collectionNameQueue);
     } else {
         response.sendResponse(res, 'Bad Request', 403);
     }

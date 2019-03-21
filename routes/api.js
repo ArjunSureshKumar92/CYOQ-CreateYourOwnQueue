@@ -46,11 +46,11 @@ router.delete('/company/delete', function (req, res) {
 // });
 
 //Get cases
-router.get('/queue/get', function (req, res) {
+router.get('/queue/get/:companyId/:queueId', function (req, res) {
   getQueueController.getQueue(req,res);
 });
 
-router.get('/queue/all', function (req, res) {
+router.get('/queue/all/:companyId', function (req, res) {
   getQueueController.getAllQueue(req,res);
 });
 

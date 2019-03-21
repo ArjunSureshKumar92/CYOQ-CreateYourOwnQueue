@@ -7,6 +7,8 @@ import { Queue } from '../../models/queue.model';
   template: `
   <div class="container-fluid">
     <app-queue-item *ngFor="let q of queues" name="{{q.name}}" status="{{q.status}}"></app-queue-item>
+    
+
   </div>
   `,
   styles: [`
