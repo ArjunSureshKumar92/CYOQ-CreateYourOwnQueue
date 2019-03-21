@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Queue } from '../models/queue.model';
+import { Queue, QueueAdapter } from '../models/queue.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class QueueService {
     uri = 'http://localhost:4200/api/queue';
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private adapter: QueueAdapter) { }
 
     createQueue(name: String, description: String, startTime, closeTime) {
         const newQueue = {
@@ -24,9 +24,9 @@ export class QueueService {
 
     getQueues(): Queue[] {
         return [
-            new Queue('Registration', '', new Date(), new Date()),
-            new Queue('Food service', '', new Date(), new Date()),
-            new Queue('Counselling', '', new Date(), new Date()),
+            new Queue('Registration', 'Register for courses and programs', new Date(), new Date()),
+            new Queue('Food service', 'Line up for food services in the cafeteria', new Date(), new Date()),
+            new Queue('Counselling', 'Book appointments with counselling services', new Date(), new Date()),
         ];
     }
 
