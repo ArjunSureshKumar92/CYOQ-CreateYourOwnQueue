@@ -6,9 +6,7 @@ import { Queue } from '../../models/queue.model';
   selector: 'app-queue-list',
   template: `
   <div class="container-fluid">
-    <app-queue-item *ngFor="let q of queues" name="{{q.name}}" status="{{q.status}}"></app-queue-item>
-    
-
+    <app-queue-item *ngFor="let q of queues" name="{{q.name}}" queueId="{{q.queueId}}"></app-queue-item>
   </div>
   `,
   styles: [`
@@ -28,7 +26,12 @@ export class QueueListComponent implements OnInit {
     }
 
     getQueues() {
-        this.queues = this.qs.getQueues();
+      this.qs.getQueues(this.getCallback,this)
+    }
+
+    getCallback(val,instance) {
+      console.log("val"+val[0].name);
+      instance.queues = val; 
     }
 
     ngOnInit() {

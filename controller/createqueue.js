@@ -7,6 +7,15 @@ var apiControl = require('./api')
 var mail = require('../common/mail')
 
 
+exports.createQueueUI = function (req, res) {
+    console.log("Inside createQueueUI")
+    // Use the 'response' object to render the 'index' view with a 'title' property
+    res.render('createQueue', {
+        success: '',
+        error: '',
+    });
+}
+
 exports.createQueue = function (req, res) {
     // create a simple queue
     if (apiControl.createQueueMust(Object.keys(req.body))) {
@@ -20,35 +29,55 @@ exports.createQueue = function (req, res) {
         }
         var callbackInsertQueue = function (status, data) {
             if (status != 200)
-                response.sendResponse(res, 'Error inserting queue', status)
+                //response.sendResponse(res, 'Error inserting queue', status)
+                res.render('createQueue', {
+                    success: '',
+                    error:'Error inserting queue!!'
+                });
             else {
-                // mail.sendMail('comp231team4@gmail.com','sridhara.keshav@gmail.com','New Queue Created','Hey Esteban, This is the link to view the new queue => http://localhost:3000/dashboard/getQueue/'+data.queueId,'Thenuask143@');
-                response.sendResponse(res, 'Success, ID => ' + data.queueId, 200)
+                // mail.sendMail('comp231team4@gmail.com','sridhara.keshav@gmail.com','New Queue Created','Hey Esteban, This is the link to view the new queue => http://localhost:4200/dashboard/getQueue/'+data.queueId,'Thenuask143@');
+                //response.sendResponse(res, 'Success, ID => ' + data.queueId, 200)
                 console.log('queue created')
+                res.render('createQueue', {
+                    success: 'Successfully created queue with id =>'+data.queueId+' !!',
+                    error:''
+                });
             }
         }
 
         var callbackModeratorCase = function (status, data) {
-            if(status == 200) {
+            if (status == 200) {
                 mongoQueue.mongoDBQueueInsert(callbackInsertQueue, req.body.companyId, mongoConstants.collectionNameQueue, createQueueObj);
-            } else if(status == 300) {
-                response.sendResponse(res, 'Invalid moderator', status)
+            } else if (status == 300) {
+                //response.sendResponse(res, 'Invalid moderator', status)
+                res.render('createQueue', {
+                    success: '',
+                    error:'Invalid moderator!!'
+                });
             }
-           
+
         }
 
         var callbackExistCase = function (status, data) {
             if (status != 200)
-                response.sendResponse(res, 'No such company exist', status)
+                //response.sendResponse(res, 'No such company exist', status)
+                res.render('createQueue', {
+                    success: '',
+                    error:'No such company exist!!'
+                });
             else {
-                mongoShared.checkModeratorExist(callbackModeratorCase,req.body.companyId, mongoConstants.collectionNameModerator, req.body.moderator);
+                mongoShared.checkModeratorExist(callbackModeratorCase, req.body.companyId, mongoConstants.collectionNameModerator, req.body.moderator);
             }
         }
 
 
         mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.body.companyId);
     } else {
-        response.sendResponse(res, 'Bad Request', 403);
+        //response.sendResponse(res, 'Bad Request', 403);
+        res.render('createQueue', {
+            success: '',
+            error:'Bad Request!!'
+        });
     }
 }
 

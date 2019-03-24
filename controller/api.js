@@ -102,13 +102,8 @@ exports.getAllQueueMust = function (value) {
 }
 
 
-exports.updateQueue = function (value) {
-    switch (value) {
-        case 'queueId':
-            return true;
-        default:
-            return false;
-    }
+exports.updateQueueMust = function (value) {
+    return (value.includes('queueId') && value.includes('companyId'));
 }
 
 exports.deleteQueueMust = function (value) {

@@ -24,12 +24,24 @@ router.post('/queue/create', function (req, res) {
   createQueueController.createQueue(req,res);
 });
 
+router.get('/queue/create', function (req, res) {
+  createQueueController.createQueueUI(req,res);
+});
+
 router.post('/company/create', function (req, res) {
   createCompanyController.createCompany(req,res);
 });
 
+router.get('/company/create', function (req, res) {
+  createCompanyController.createCompanyUI(req,res);
+});
+
 router.post('/moderator/create', function (req, res) {
   createModeratorController.createModerator(req,res);
+});
+
+router.get('/moderator/create', function (req, res) {
+  createModeratorController.createModeratorUI(req,res);
 });
 
 //Delete cases
@@ -55,7 +67,7 @@ router.get('/queue/all/:companyId', function (req, res) {
 });
 
 //Update cases
-router.put('/queue/update', function (req, res) {
+router.post('/queue/update', function (req, res) {
   updateQueueController.updateQueue(req,res);
 });
 

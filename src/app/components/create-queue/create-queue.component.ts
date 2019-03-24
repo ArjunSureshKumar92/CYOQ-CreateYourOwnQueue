@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 @Component({
     selector: 'app-create-queue',
     template: `
-    <form action="http://localhost:3000/api/queue/create" target="_blank" method="POST" #form>
+    <form action="http://localhost:4200/api/queue/create" target="_blank" method="POST" #form>
     <button type="button" class="close" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>

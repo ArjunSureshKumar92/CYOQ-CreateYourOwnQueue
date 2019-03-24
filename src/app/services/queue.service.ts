@@ -3,11 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Queue, QueueAdapter } from '../models/queue.model';
 
+
 @Injectable({
     providedIn: 'root'
 })
 export class QueueService {
-    uri = 'http://localhost:4200/api/queue';
+    uri = 'http://localhost:4200/api/queue/all/';
     constructor(private http: HttpClient, private adapter: QueueAdapter) { }
 
     createQueue(name: String, description: String, startTime, closeTime) {
@@ -20,17 +21,22 @@ export class QueueService {
         this.http.post(`${this.uri}/create`, newQueue).subscribe(res => console.log('Queue created.'));
     }
 
-    getQueue() {}
+    getQueue() { }
 
-    getQueues(): Queue[] {
-        return [
-            new Queue('Registration', 'Register for courses and programs', new Date(), new Date()),
-        ];
+
+    getQueues(callback,instance) {
+        var responses;
+        this.http.get('http://localhost:4200/api/queue/all/824187727').subscribe(data => {
+            responses = data;
+            console.log(responses.response[0].name);
+            callback(responses.response,instance);
+        });
     }
+        
 
-    updateQueue() {}
+updateQueue() { }
 
-    deleteQueue(queueId) {
-        this.http.delete(`${this.uri}/delete`, queueId).subscribe(res => console.log('Queue deleted.'));
-    }
+deleteQueue(queueId) {
+    this.http.delete(`${this.uri}/delete`, queueId).subscribe(res => console.log('Queue deleted.'));
+}
 }

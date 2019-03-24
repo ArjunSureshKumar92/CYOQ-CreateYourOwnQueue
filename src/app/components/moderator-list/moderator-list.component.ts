@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   template: `
   <h1 class="text-center">Moderators</h1>
   <div class="text-right">
-    <button routerLink="/moderator/create" class="btn btn-primary">+ Add Moderator</button>
+  <a href="http://localhost:4200/api/moderator/create" class="btn btn-primary">+ Add Moderator</a>
   </div>
   `
 })

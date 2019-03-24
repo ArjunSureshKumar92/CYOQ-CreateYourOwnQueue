@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   template: `
   <h1 class="text-center">Queues</h1>
   <div class="text-right">
-    <button routerLink="/queue/create" class="btn btn-primary">+ Add Queue</button>
+    <a href="http://localhost:4200/api/queue/create" class="btn btn-primary">+ Add Queue</a>
   </div>
   <app-queue-list></app-queue-list>
   `
