@@ -28,7 +28,7 @@ exports.updateQueue = function (req, res) {
                     closeTime:'',
                 });
             else {
-                // mail.sendMail('comp231team4@gmail.com','sridhara.keshav@gmail.com','New Queue Created','Hey Esteban, This is the link to view the new queue => http://localhost:4200/dashboard/getQueue/'+data.queueId,'Thenuask143@');
+                //mail.sendMail('comp231team4@gmail.com','arjunsk92@gmail.com','New Queue Created','Hey Arjun, This is the link to view the new queue => http://localhost:4200/api/queue/get/824187727/'+data.queueId,'Thenuask143@');
                // response.sendResponse(res, 'Success, ID => ' + req.body.queueId, 200)
                res.render('viewQueue', {
                 success: 'Queue Updated Successfully!!',

@@ -36,7 +36,7 @@ exports.createModerator = function (req, res) {
             else {
                 //response.sendResponse(res, 'Success, ID => ' + data.moderatorId, 200)
                 res.render('createModerator', {
-                    success: 'Successfully added moderator => ' + data.moderatorId,
+                    success: 'Successfully added a Moderator',
                     error: '',
                 });
             }
