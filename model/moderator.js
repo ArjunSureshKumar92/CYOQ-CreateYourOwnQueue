@@ -48,6 +48,23 @@ exports.mongoDBModeratorDelete = function (callback, dbName, collectionName, mod
 
 }
 
+exports.mongoDBModeratorGetAll = function (callback, dbName, collectionName) {
+    db = mongodb.getDb();
+    db.db(dbName).collection(collectionName).find({}).toArray(function(err, result) {
+        if (err) {
+            console.log(err);
+            callback(500, result);
+        } else if (result) {
+            console.log(result);
+            callback(200, result);
+        } else {
+            console.log(result);
+            callback(422, result);
+        }
+    });
+
+}
+
 
 function deleteQueueModerator(callback, moderatorId) {
     db.db(dbName).collection(collectionName).find( { a: { $exists: true } } )

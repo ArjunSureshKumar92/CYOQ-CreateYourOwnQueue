@@ -11,6 +11,8 @@ var updateCompanyController = require('../controller/updateCompany');
 var createModeratorController = require('../controller/createModerator');
 var deleteModeratorController = require('../controller/deleteModerator');
 var updateModeratorController = require('../controller/updateModerator');
+var getModeratorController = require('../controller/getModerator');
+var getCompanyController = require('../controller/getCompany');
 
 var getQueueController = require('../controller/getQueue');
 
@@ -64,6 +66,14 @@ router.get('/queue/get/:companyId/:queueId', function (req, res) {
 
 router.get('/queue/all/:companyId', function (req, res) {
   getQueueController.getAllQueue(req,res);
+});
+
+router.get('/moderator/all/:companyId', function (req, res) {
+  getModeratorController.getAllModerators(req,res);
+});
+
+router.get('/company/all', function (req, res) {
+  getCompanyController.getAllCompany(req,res);
 });
 
 //Update cases

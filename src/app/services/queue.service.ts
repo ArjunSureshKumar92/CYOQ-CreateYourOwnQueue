@@ -24,19 +24,39 @@ export class QueueService {
     getQueue() { }
 
 
-    getQueues(callback,instance) {
+    getModerators(callback, instance) {
+        var responses;
+        this.http.get('http://localhost:4200/api/moderator/all/824187727').subscribe(data => {
+            responses = data;
+            console.log(responses.response[0].name);
+            callback(responses.response, instance);
+        });
+    }
+
+
+    getAllCompany(callback, instance) {
+        var responses;
+        this.http.get('http://localhost:4200/api/company/all').subscribe(data => {
+            responses = data;
+            console.log(responses.response[0].name);
+            callback(responses.response, instance);
+        });
+    }
+    
+
+    getQueues(callback, instance) {
         var responses;
         this.http.get('http://localhost:4200/api/queue/all/824187727').subscribe(data => {
             responses = data;
             console.log(responses.response[0].name);
-            callback(responses.response,instance);
+            callback(responses.response, instance);
         });
     }
-        
 
-updateQueue() { }
 
-deleteQueue(queueId) {
-    this.http.delete(`${this.uri}/delete`, queueId).subscribe(res => console.log('Queue deleted.'));
-}
+    updateQueue() { }
+
+    deleteQueue(queueId) {
+        this.http.delete(`${this.uri}/delete`, queueId).subscribe(res => console.log('Queue deleted.'));
+    }
 }

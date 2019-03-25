@@ -101,6 +101,11 @@ exports.getAllQueueMust = function (value) {
     return (value.includes('companyId'));
 }
 
+exports.getAllModeratorMust = function (value) {
+    return (value.includes('companyId'));
+}
+
+
 
 exports.updateQueueMust = function (value) {
     return (value.includes('queueId') && value.includes('companyId'));

@@ -4,7 +4,7 @@ import { AdminHomeComponent } from './components/admin-home/admin-home.component
 import { CreateQueueComponent } from './components/create-queue/create-queue.component';
 import { CreateModeratorComponent } from './components/create-moderator/create-moderator.component';
 import { ModeratorListComponent } from './components/moderator-list/moderator-list.component';
-import { CompanyDetailsComponent } from './components/company-details/company-details.component';
+import { CompanyListComponent } from './components/company-list/company-list.component';
 import { QueueDetailsComponent } from './components/queue-details/queue-details.component';
 
 const routes: Routes = [
@@ -45,7 +45,7 @@ const routes: Routes = [
   },
   {
       path: 'company',
-      component: CompanyDetailsComponent
+      component: CompanyListComponent
   }
 ];
 
