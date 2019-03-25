@@ -35,11 +35,11 @@ exports.createQueue = function (req, res) {
                     error:'Error inserting queue!!'
                 });
             else {
-                // mail.sendMail('comp231team4@gmail.com','sridhara.keshav@gmail.com','New Queue Created','Hey Esteban, This is the link to view the new queue => http://localhost:4200/dashboard/getQueue/'+data.queueId,'Thenuask143@');
+                mail.sendMail('comp231team4@gmail.com','arjunsk92@gmail.com','New Queue Created','Hey Arjun, This is the link to view the new queue => http://localhost:4200/api/queue/get/824187727/'+data.queueId,'Thenuask143@');
                 //response.sendResponse(res, 'Success, ID => ' + data.queueId, 200)
                 console.log('queue created')
                 res.render('createQueue', {
-                    success: 'Successfully created queue with id =>'+data.queueId+' !!',
+                    success: 'Successfully created Queue!',
                     error:''
                 });
             }
