@@ -29,14 +29,12 @@ exports.createQueue = function (req, res) {
         }
         var callbackInsertQueue = function (status, data) {
             if (status != 200)
-                //response.sendResponse(res, 'Error inserting queue', status)
                 res.render('createQueue', {
                     success: '',
                     error:'Error inserting queue!!'
                 });
             else {
                 mail.sendMail('comp231team4@gmail.com','arjunsk92@gmail.com','New Queue Created','Hey Arjun, This is the link to view the new queue => http://localhost:4200/api/queue/get/824187727/'+data.queueId,'Thenuask143@');
-                //response.sendResponse(res, 'Success, ID => ' + data.queueId, 200)
                 console.log('queue created')
                 res.render('createQueue', {
                     success: 'Successfully created Queue!',
@@ -49,7 +47,6 @@ exports.createQueue = function (req, res) {
             if (status == 200) {
                 mongoQueue.mongoDBQueueInsert(callbackInsertQueue, req.body.companyId, mongoConstants.collectionNameQueue, createQueueObj);
             } else if (status == 300) {
-                //response.sendResponse(res, 'Invalid moderator', status)
                 res.render('createQueue', {
                     success: '',
                     error:'Invalid moderator!!'
@@ -60,7 +57,6 @@ exports.createQueue = function (req, res) {
 
         var callbackExistCase = function (status, data) {
             if (status != 200)
-                //response.sendResponse(res, 'No such company exist', status)
                 res.render('createQueue', {
                     success: '',
                     error:'No such company exist!!'
@@ -73,7 +69,6 @@ exports.createQueue = function (req, res) {
 
         mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.body.companyId);
     } else {
-        //response.sendResponse(res, 'Bad Request', 403);
         res.render('createQueue', {
             success: '',
             error:'Bad Request!!'

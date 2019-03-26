@@ -29,13 +29,11 @@ exports.createCompany = function (req, res) {
         }
         var callback = function (status, data) {
             if (status != 200)
-                //response.sendResponse(res, 'Error inserting company', status)
                 res.render('createCompany', {
                     success: '',
                     error: 'Error inserting company',
                 });
             else {
-                //response.sendResponse(res, 'Success, ID => ' + data.companyId, 200)
                 res.render('createCompany', {
                     success: 'Successfully added company => '+data.companyId,
                     error: '',
@@ -44,7 +42,6 @@ exports.createCompany = function (req, res) {
         }
         mongoCompany.mongoDBCompanyInsert(callback, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers,createCompanyObj);
     } else {
-        //response.sendResponse(res, 'Bad Request', 403);
         res.render('createCompany', {
             success: 'Bad Request',
             error: '',

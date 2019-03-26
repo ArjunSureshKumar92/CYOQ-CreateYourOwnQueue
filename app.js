@@ -20,7 +20,6 @@ app.use(express.static(path.join(__dirname, 'dist/cyoq')));
 app.use('/', express.static(path.join(__dirname, 'dist/cyoq')));
 app.use('/api', apiRouter);
 app.use('/scripts', scriptsRouter);
-//app.use('/ui',uIRouter);
 
 mongo.connectMongo();
 
@@ -53,7 +52,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.send(err.status);
 });
-
-//app.listen(3000);
 
 module.exports = app;

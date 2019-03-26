@@ -18,7 +18,6 @@ exports.updateQueue = function (req, res) {
         }
         var callbackUpdateQueue = function (status, data) {
             if (status != 200)
-                //response.sendResponse(res, 'Error updating queue', status)
                 res.render('viewQueue', {
                     success: '',
                     error:'Error updating queue!!',
@@ -29,7 +28,6 @@ exports.updateQueue = function (req, res) {
                 });
             else {
                 mail.sendMail('comp231team4@gmail.com','arjunsk92@gmail.com','Queue updated','Hey Arjun, This is the link to view the updated queue => http://localhost:4200/api/queue/get/824187727/'+req.body.queueId,'Thenuask143@');
-               // response.sendResponse(res, 'Success, ID => ' + req.body.queueId, 200)
                res.render('viewQueue', {
                 success: 'Queue Updated Successfully!!',
                 error:'',
@@ -46,7 +44,6 @@ exports.updateQueue = function (req, res) {
             if(status == 200) {
                 mongoQueue.mongoDBQueueUpdate(callbackUpdateQueue, req.body.companyId, mongoConstants.collectionNameQueue, updQueueObj, req.body.queueId);
             } else if(status == 300) {
-                //response.sendResponse(res, 'Invalid moderator', status)
                 res.render('viewQueue', {
                     success: '',
                     error:'Invalid moderator!!',
@@ -60,7 +57,6 @@ exports.updateQueue = function (req, res) {
 
         var callbackExistCase = function (status, data) {
             if (status != 200)
-                //response.sendResponse(res, 'No such company exist', status)
                 res.render('viewQueue', {
                     success: '',
                     error:'No such company exist!!',
@@ -76,7 +72,6 @@ exports.updateQueue = function (req, res) {
 
         mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.body.companyId);
     } else {
-        //response.sendResponse(res, 'Bad Request', 403);
         res.render('viewQueue', {
             success: '',
             error:'Bad Request',

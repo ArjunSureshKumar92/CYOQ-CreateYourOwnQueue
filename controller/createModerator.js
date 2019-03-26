@@ -28,13 +28,11 @@ exports.createModerator = function (req, res) {
         }
         var callbackInsertCase = function (status, data) {
             if (status != 200)
-                // response.sendResponse(res, 'Error inserting company', status)
                 res.render('createModerator', {
                     success: '',
                     error: 'Error inserting company',
                 });
             else {
-                //response.sendResponse(res, 'Success, ID => ' + data.moderatorId, 200)
                 res.render('createModerator', {
                     success: 'Successfully added a Moderator',
                     error: '',
@@ -43,7 +41,6 @@ exports.createModerator = function (req, res) {
         }
         var callbackExistCase = function (status, data) {
             if (status != 200)
-                //response.sendResponse(res, 'No such company exist', status)
                 res.render('createModerator', {
                     success: '',
                     error: 'No such company exist',
@@ -54,7 +51,6 @@ exports.createModerator = function (req, res) {
         }
         mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.body.companyId);
     } else {
-        //response.sendResponse(res, 'Bad Request', 403);
         res.render('createModerator', {
             success: '',
             error: 'Bad Request',

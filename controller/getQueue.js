@@ -12,7 +12,6 @@ exports.getQueue = function (req, res) {
     if (apiControl.getQueueMust(Object.keys(req.params))) {
         var callbackGetQueue = function (status, data) {
             if (status != 200)
-                //response.sendResponse(res, 'Error getting queue', status)
                 res.render('viewQueue', {
                     success: '',
                     error:'Error getting queue!!',
@@ -22,7 +21,6 @@ exports.getQueue = function (req, res) {
                     closeTime:'',
                 });
             else {
-                //response.sendResponse(res, data, 200)
                 res.render('viewQueue', {
                     success: '',
                     error:'',
@@ -36,7 +34,6 @@ exports.getQueue = function (req, res) {
         }
         mongoQueue.mongoDBQueueGet(callbackGetQueue, req.params.companyId, mongoConstants.collectionNameQueue, req.params.queueId);
     } else {
-        //response.sendResponse(res, 'Bad Request', 403);
         res.render('viewQueue', {
             success: '',
             error:'Bad Request!!',
