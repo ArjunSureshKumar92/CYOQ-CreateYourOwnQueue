@@ -16,6 +16,8 @@ var getCompanyController = require('../controller/getCompany');
 
 var getQueueController = require('../controller/getQueue');
 
+var registerQueueController = require('../controller/registerQueue');
+
 
 
 /**
@@ -44,6 +46,10 @@ router.post('/moderator/create', function (req, res) {
 
 router.get('/moderator/create', function (req, res) {
   createModeratorController.createModeratorUI(req,res);
+});
+
+router.get('/queue/register/:queueId', function(req, res) {
+  registerQueueController.registerQueueUI(req,res);
 });
 
 //Delete cases
