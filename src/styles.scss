@@ -1,0 +1,54 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+$enable-rounded: false;
+$link-color: #0eb15f;
+$link-hover-color: #05944c;
+
+$theme-colors: (
+  "primary": #0eb15f
+);
+
+@import "~bootstrap/scss/bootstrap";
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+label {
+    font-weight: lighter;
+    text-transform: uppercase;
+}
+
+.active {
+    background-color: map-get($theme-colors, primary);
+    color: #fff
+}
+
+div.clickable {
+    background: #fff;
+    padding: 1em;
+    position: relative;
+}
+
+div.clickable:hover {
+    cursor: hand;
+    cursor: pointer;
+    background-color: map-get($theme-colors, primary);
+    color: #fff;
+}
+
+a.divLink {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    text-decoration: none;
+    z-index: 10;
+    background-color: white;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
