@@ -18,6 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'dist/cyoq')));
 app.use('/', express.static(path.join(__dirname, 'dist/cyoq')));
+app.use('/public', express.static('public'));
 app.use('/api', apiRouter);
 app.use('/scripts', scriptsRouter);
 
