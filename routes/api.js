@@ -57,6 +57,10 @@ router.delete('/queue/delete', function (req, res) {
   deleteQueueController.deleteQueue(req,res);
 });
 
+router.delete('/moderator/delete', function (req, res) {
+    deleteModeratorController.deleteModerator(req,res);
+  });
+
 router.delete('/company/delete', function (req, res) {
   deleteCompanyController.deleteCompany(req,res);
 });
@@ -76,6 +80,10 @@ router.get('/queue/all/:companyId', function (req, res) {
 
 router.get('/moderator/all/:companyId', function (req, res) {
   getModeratorController.getAllModerators(req,res);
+});
+
+router.get('/moderator/get/:companyId/:moderatorId', function (req, res) {
+  getModeratorController.getModerator(req,res);
 });
 
 router.get('/company/all', function (req, res) {
