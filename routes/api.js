@@ -7,13 +7,13 @@ var updateQueueController = require('../controller/updateQueue');
 var createCompanyController = require('../controller/createCompany');
 var deleteCompanyController = require('../controller/deleteCompany');
 var updateCompanyController = require('../controller/updateCompany');
-
+var createTicketController = require('../controller/createTicket');
 var createModeratorController = require('../controller/createModerator');
 var deleteModeratorController = require('../controller/deleteModerator');
 var updateModeratorController = require('../controller/updateModerator');
 var getModeratorController = require('../controller/getModerator');
 var getCompanyController = require('../controller/getCompany');
-
+var getTicketController = require('../controller/getTicket');
 var getQueueController = require('../controller/getQueue');
 
 
@@ -40,6 +40,10 @@ router.get('/company/create', function (req, res) {
 
 router.post('/moderator/create', function (req, res) {
   createModeratorController.createModerator(req,res);
+});
+
+router.post('/ticket/create', function (req, res) {
+  createTicketController.createTicket(req,res);
 });
 
 router.get('/moderator/create', function (req, res) {
@@ -74,6 +78,14 @@ router.get('/moderator/all/:companyId', function (req, res) {
 
 router.get('/company/all', function (req, res) {
   getCompanyController.getAllCompany(req,res);
+});
+
+router.get('/ticket/get/:companyId/:queueId/:ticketId', function (req, res) {
+  getTicketController.getTicket(req,res);
+});
+
+router.get('/ticket/getposition/:companyId/:queueId/:ticketId', function (req, res) {
+  getTicketController.getTicketPosition(req,res);
 });
 
 //Update cases

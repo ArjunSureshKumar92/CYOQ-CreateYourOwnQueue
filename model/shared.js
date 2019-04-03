@@ -53,3 +53,19 @@ exports.checkModeratorExist = function (callback, dbName, collectionName, modera
     }
 
 }
+
+
+exports.checkQueueExist = function (callback, dbName, collectionName, queueId) {
+    db = mongodb.getDb();
+    var obj = {};
+    obj.queueId = queueId;
+    db.db(dbName).collection(collectionName).findOne(obj, function (err, result) {
+        if (err) {
+            callback(500, result);
+        } else if (result) {
+            callback(200, result);
+        } else {
+            callback(422, result);
+        }
+    });
+}

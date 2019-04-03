@@ -11,6 +11,16 @@ exports.createQueueCan = function (value) {
     }
 }
 
+exports.createTicketCan = function (value) {
+    switch (value) {
+        case 'description':
+        case 'queueId':
+            return true;
+        default:
+            return false;
+    }
+}
+
 exports.updateQueueCan = function (value) {
     switch (value) {
         case 'name':
@@ -93,8 +103,16 @@ exports.createQueueMust = function (value) {
     return (value.includes('name') && value.includes('companyId'));
 }
 
+exports.createTicketMust = function (value) {
+    return (value.includes('queueId') && value.includes('companyId'));
+}
+
 exports.getQueueMust = function (value) {
     return (value.includes('queueId') && value.includes('companyId'));
+}
+
+exports.getTicketMust = function (value) {
+    return (value.includes('queueId') && value.includes('companyId') && value.includes('ticketId'));
 }
 
 exports.getAllQueueMust = function (value) {
