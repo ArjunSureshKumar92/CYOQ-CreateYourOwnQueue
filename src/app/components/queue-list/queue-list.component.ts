@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { QueueService } from '../../services/queue.service';
-import { Queue } from '../../models/queue.model';
 
 @Component({
   selector: 'app-queue-list',
   template: `
+  <div class="input-group">
+    <input type="text" class="form-control" />
+    <div class="input-group-append">
+        <button class="btn btn-primary">Search</button>
+    </div>
+  </div>
   <div class="container-fluid">
     <app-queue-item *ngFor="let q of queues" name="{{q.name}}" queueId="{{q.queueId}}"></app-queue-item>
   </div>
@@ -14,6 +19,10 @@ import { Queue } from '../../models/queue.model';
     background: rgb(240,240,240);
     margin: 0.5em auto;
     padding: 1em;
+  }
+
+  .input-group {
+    margin: 2em 0 0 0;
   }
   `]
 })
