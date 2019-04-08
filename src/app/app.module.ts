@@ -22,6 +22,7 @@ import { QueueListComponent } from './components/queue-list/queue-list.component
 import { QueueItemComponent } from './components/queue-item/queue-item.component';
 import { QueueDetailsComponent } from './components/queue-details/queue-details.component';
 import { FilterPipe } from './filter.pipe';
+import { EndUserHomeComponent } from './components/enduser-home/enduser-home.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { FilterPipe } from './filter.pipe';
     ModeratorItemComponent,
     CompanyListComponent,
     CompanyItemComponent,
-    FilterPipe
+    FilterPipe,
+    EndUserHomeComponent
   ],
   imports: [
     BrowserModule,
