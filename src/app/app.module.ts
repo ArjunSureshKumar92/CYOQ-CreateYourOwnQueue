@@ -21,6 +21,7 @@ import { CompanyItemComponent } from './components/company-item/company-item.com
 import { QueueListComponent } from './components/queue-list/queue-list.component';
 import { QueueItemComponent } from './components/queue-item/queue-item.component';
 import { QueueDetailsComponent } from './components/queue-details/queue-details.component';
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { QueueDetailsComponent } from './components/queue-details/queue-details.
     QueueDetailsComponent,
     ModeratorItemComponent,
     CompanyListComponent,
-    CompanyItemComponent
+    CompanyItemComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

@@ -5,13 +5,13 @@ import { QueueService } from '../../services/queue.service';
   selector: 'app-queue-list',
   template: `
   <div class="input-group">
-    <input type="text" class="form-control" />
+    <input [(ngModel)]="searchText" class="form-control" />
     <div class="input-group-append">
         <button class="btn btn-primary">Search</button>
     </div>
   </div>
   <div class="container-fluid">
-    <app-queue-item *ngFor="let q of queues" name="{{q.name}}" queueId="{{q.queueId}}"></app-queue-item>
+    <app-queue-item *ngFor="let q of queues | filter : searchText" name="{{q.name}}" queueId="{{q.queueId}}"></app-queue-item>
   </div>
   `,
   styles: [`
