@@ -23,6 +23,9 @@ import { QueueItemComponent } from './components/queue-item/queue-item.component
 import { QueueDetailsComponent } from './components/queue-details/queue-details.component';
 import { FilterPipe } from './filter.pipe';
 import { EndUserHomeComponent } from './components/enduser-home/enduser-home.component';
+import { ModeratorHomeComponent } from './components/moderator-home/moderator-home.component';
+import { EndUserListComponent } from './components/end-user-list/end-user-list.component';
+import { TicketItemComponent } from './components/ticket-item/ticket-item.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,10 @@ import { EndUserHomeComponent } from './components/enduser-home/enduser-home.com
     CompanyListComponent,
     CompanyItemComponent,
     FilterPipe,
-    EndUserHomeComponent
+    EndUserHomeComponent,
+    ModeratorHomeComponent,
+    EndUserListComponent,
+    TicketItemComponent
   ],
   imports: [
     BrowserModule,

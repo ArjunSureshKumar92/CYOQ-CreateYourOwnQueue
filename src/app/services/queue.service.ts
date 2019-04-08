@@ -59,4 +59,13 @@ export class QueueService {
     deleteQueue(queueId) {
         this.http.delete(`${this.uri}/delete`, queueId).subscribe(res => console.log('Queue deleted.'));
     }
+
+    getTickets(callback, instance, queueId) {
+        var responses;
+        this.http.get(`http://localhost:4200/api/ticket/get/824187727/${queueId}/all`).subscribe(data => {
+            responses = data;
+            console.log(responses.response[0].name);
+            callback(responses.response, instance);
+        });
+    }
 }
