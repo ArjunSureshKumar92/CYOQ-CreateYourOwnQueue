@@ -64,6 +64,30 @@ exports.updateCompanyCan = function (value) {
     }
 }
 
+exports.closeTicketCan = function (value) {
+    switch (value) {
+        case 'companyId':
+        case 'ticketId':
+        case 'feedback':
+            return true;
+        default:
+            return false;
+    }
+}
+
+exports.nextTicketCan = function (value) {
+    switch (value) {
+        case 'companyId':
+        case 'servedBy':
+        case 'queueId':
+            return true;
+        default:
+            return false;
+    }
+}
+
+
+
 exports.createModeratorCan = function (value) {
     switch (value) {
         case 'name':
@@ -186,6 +210,20 @@ exports.getQueueMust = function (keys, values) {
     return (keys.includes('queueId') && keys.includes('companyId') && !values.includes(''));
 }
 
+exports.getModeratorRelatedQueueMust = function (keys, values) {
+    values = values.map(function (val) {
+        if (Array.isArray(val)) {
+            val = val.map(function (v) {
+               return v.trim()
+            });
+            return val
+        } else {
+            return val.trim()
+        }
+    });
+    return (keys.includes('moderatorId') && keys.includes('companyId') && !values.includes(''));
+}
+
 exports.getTicketMust = function (keys, values) {
     values = values.map(function (val) {
         if (Array.isArray(val)) {
@@ -199,6 +237,39 @@ exports.getTicketMust = function (keys, values) {
     });
     return (keys.includes('queueId') && keys.includes('companyId') && keys.includes('ticketId') && !values.includes(''));
 }
+exports.getActiveTicketMust = function (keys, values) {
+    values = values.map(function (val) {
+        if (Array.isArray(val)) {
+            val = val.map(function (v) {
+               return v.trim()
+            });
+            return val
+        } else {
+            return val.trim()
+        }
+    });
+    return (keys.includes('companyId') && keys.includes('moderatorId') && keys.includes('queueId') && !values.includes(''));
+}
+
+
+exports.getWaitTicketMust = function (keys, values) {
+    values = values.map(function (val) {
+        if (Array.isArray(val)) {
+            val = val.map(function (v) {
+               return v.trim()
+            });
+            return val
+        } else {
+            return val.trim()
+        }
+    });
+    return (keys.includes('companyId') && keys.includes('queueId') && !values.includes(''));
+}
+
+
+
+
+
 
 exports.getAllQueueMust = function (keys, values) {
     values = values.map(function (val) {
@@ -229,6 +300,33 @@ exports.getAllModeratorMust = function (keys, values) {
 }
 
 
+exports.closeTicketMust = function (keys, values) {
+    values = values.map(function (val) {
+        if (Array.isArray(val)) {
+            val = val.map(function (v) {
+               return v.trim()
+            });
+            return val
+        } else {
+            return val.trim()
+        }
+    });
+    return (keys.includes('companyId') && keys.includes('ticketId') && !values.includes(''));
+}
+
+exports.nextTicketMust = function (keys, values) {
+    values = values.map(function (val) {
+        if (Array.isArray(val)) {
+            val = val.map(function (v) {
+               return v.trim()
+            });
+            return val
+        } else {
+            return val.trim()
+        }
+    });
+    return (keys.includes('companyId') && keys.includes('queueId') && keys.includes('servedBy') && !values.includes(''));
+}
 
 exports.updateQueueMust = function (keys, values) {
     values = values.map(function (val) {
@@ -285,3 +383,18 @@ exports.deleteModeratorMust = function (keys, values) {
     });
     return (keys.includes('moderatorId') && keys.includes('companyId') && !values.includes(''));
 }
+
+exports.deleteTicketMust = function (keys, values) {
+    values = values.map(function (val) {
+        if (Array.isArray(val)) {
+            val = val.map(function (v) {
+               return v.trim()
+            });
+            return val
+        } else {
+            return val.trim()
+        }
+    });
+    return (keys.includes('companyId') && keys.includes('ticketId') && !values.includes(''));
+}
+

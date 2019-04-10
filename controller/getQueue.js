@@ -23,6 +23,24 @@ exports.getQueue = function (req, res) {
     }
 }
 
+exports.getModeratorRelatedQueue = function (req, res) {
+    // get a queue
+    if (apiControl.getModeratorRelatedQueueMust(Object.keys(req.params),Object.values(req.params))) {
+        var callbackGetQueue = function (status, data) {
+            if (status != 200)
+                response.sendResponse(res, 'Error getting queue', status)
+            else {
+                response.sendResponse(res, data, 200)
+            }
+        }
+        mongoQueue.mongoDBModeratorRelatedQueueGet(callbackGetQueue, req.params.companyId, mongoConstants.collectionNameQueue, req.params.moderatorId);
+    } else {
+        response.sendResponse(res, 'Bad Request', 403);
+    }
+}
+
+
+
 exports.getAllQueue = function (req, res) {
     // get all queue
     if (apiControl.getAllQueueMust(Object.keys(req.params),Object.values(req.params))) {
@@ -33,7 +51,11 @@ exports.getAllQueue = function (req, res) {
                 response.sendResponse(res, data, 200)
             }
         }
-        mongoQueue.mongoDBQueueGetAll(callbackGetAllQueue, req.params.companyId, mongoConstants.collectionNameQueue);
+        if(req.query.searchName) {
+            mongoQueue.mongoDBQueueGetAllWithSearch(callbackGetAllQueue, req.params.companyId, mongoConstants.collectionNameQueue,req.query.searchName);
+        } else {
+            mongoQueue.mongoDBQueueGetAll(callbackGetAllQueue, req.params.companyId, mongoConstants.collectionNameQueue);
+        }
     } else {
         response.sendResponse(res, 'Bad Request', 403);
     }

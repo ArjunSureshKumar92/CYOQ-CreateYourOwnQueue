@@ -3,10 +3,10 @@ var router = express.Router();
 var createQueueController = require('../controller/createQueue');
 var deleteQueueController = require('../controller/deleteQueue');
 var updateQueueController = require('../controller/updateQueue');
-
 var createCompanyController = require('../controller/createCompany');
 var deleteCompanyController = require('../controller/deleteCompany');
 var updateCompanyController = require('../controller/updateCompany');
+var updateTicketController = require('../controller/updateTicket');
 var createTicketController = require('../controller/createTicket');
 var createModeratorController = require('../controller/createModerator');
 var deleteModeratorController = require('../controller/deleteModerator');
@@ -15,6 +15,7 @@ var getModeratorController = require('../controller/getModerator');
 var getCompanyController = require('../controller/getCompany');
 var getTicketController = require('../controller/getTicket');
 var getQueueController = require('../controller/getQueue');
+var deleteTicketController = require('../controller/deleteTicket');
 
 
 
@@ -46,9 +47,7 @@ router.post('/ticket/create', function (req, res) {
   createTicketController.createTicket(req,res);
 });
 
-router.get('/moderator/create', function (req, res) {
-  createModeratorController.createModeratorUI(req,res);
-});
+
 
 //Delete cases
 router.delete('/queue/delete', function (req, res) {
@@ -63,9 +62,17 @@ router.delete('/moderator/delete', function (req, res) {
   deleteModeratorController.deleteModerator(req,res);
 });
 
+router.delete('/ticket/delete', function (req, res) {
+  deleteTicketController.deleteTicket(req,res);
+});
+
 //Get cases
 router.get('/queue/get/:companyId/:queueId', function (req, res) {
   getQueueController.getQueue(req,res);
+});
+
+router.get('/moderator/queue/get/:companyId/:moderatorId', function (req, res) {
+  getQueueController.getModeratorRelatedQueue(req,res);
 });
 
 router.get('/moderator/get/:companyId/:moderatorId', function (req, res) {
@@ -86,6 +93,14 @@ router.get('/moderator/all/:companyId', function (req, res) {
 
 router.get('/company/all', function (req, res) {
   getCompanyController.getAllCompany(req,res);
+});
+
+router.get('/ticket/active/:companyId/:moderatorId/:queueId', function (req, res) {
+  getTicketController.getActiveTicket(req,res);
+});
+
+router.get('/ticket/wait/:companyId/:queueId', function (req, res) {
+  getTicketController.getWaitTicket(req,res);
 });
 
 router.get('/ticket/get/:companyId/:queueId/:ticketId', function (req, res) {
@@ -109,8 +124,12 @@ router.put('/moderator/update', function (req, res) {
   updateModeratorController.updateModerator(req,res);
 });
 
-router.get('/test', function(req, res, next) {
-  res.send('respond with a api success');
+router.put('/ticket/close', function (req, res) {
+  updateTicketController.closeTicket(req,res);
+});
+
+router.put('/ticket/next', function (req, res) {
+  updateTicketController.nextTicket(req,res);
 });
 
 module.exports = router;

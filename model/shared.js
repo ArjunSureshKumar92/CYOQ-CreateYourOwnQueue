@@ -69,3 +69,18 @@ exports.checkQueueExist = function (callback, dbName, collectionName, queueId) {
         }
     });
 }
+
+exports.checkTicketExist = function (callback, dbName, collectionName, ticketId) {
+    db = mongodb.getDb();
+    var obj = {};
+    obj.ticketId = ticketId;
+    db.db(dbName).collection(collectionName).findOne(obj, function (err, result) {
+        if (err) {
+            callback(500, result);
+        } else if (result) {
+            callback(200, result);
+        } else {
+            callback(422, result);
+        }
+    });
+}

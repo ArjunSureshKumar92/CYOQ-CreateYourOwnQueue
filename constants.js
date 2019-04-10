@@ -8,4 +8,6 @@ exports.collectionNameQueue = 'queue';
 exports.ticketStatusActive = 'active';
 exports.ticketStatusWait = 'waiting';
 exports.ticketStatusDone = 'done';
+exports.ticketStatusCancel = 'cancelled';
 exports.queueModeratorsKey = 'moderator';
+exports.queueNameKey = 'name';
