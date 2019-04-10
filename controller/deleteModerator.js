@@ -8,8 +8,8 @@ var mail = require('../common/mail')
 
 
 exports.deleteModerator = function (req, res) {
-    // create a simple queue
-    if (apiControl.deleteModeratorMust(Object.keys(req.body))) {
+    // delete a moderator
+    if (apiControl.deleteModeratorMust(Object.keys(req.body),Object.values(req.body))) {
         var createQueueObj = {};
         var callbackDeleteModerator = function (status, data) {
             if (status != 200)
@@ -18,7 +18,7 @@ exports.deleteModerator = function (req, res) {
                 response.sendResponse(res, 'Success, deleted Moderator ID => ' + req.body.moderatorId, 200)
             }
         }
-        mongoModerator.mongoDBModeratorDelete(callbackDeleteModerator, req.body.companyId, mongoConstants.collectionNameModerator, req.body.moderatorId);
+        mongoModerator.mongoDBModeratorDelete(callbackDeleteModerator, req.body.companyId, mongoConstants.collectionNameModerator,mongoConstants.collectionNameQueue, req.body.moderatorId);
     } else {
         response.sendResponse(res, 'Bad Request', 403);
     }

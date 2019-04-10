@@ -59,13 +59,21 @@ router.delete('/company/delete', function (req, res) {
   deleteCompanyController.deleteCompany(req,res);
 });
 
-// router.delete('/moderator/delete', function (req, res) {
-//   deleteModeratorController.deleteModerator(req,res);
-// });
+router.delete('/moderator/delete', function (req, res) {
+  deleteModeratorController.deleteModerator(req,res);
+});
 
 //Get cases
 router.get('/queue/get/:companyId/:queueId', function (req, res) {
   getQueueController.getQueue(req,res);
+});
+
+router.get('/moderator/get/:companyId/:moderatorId', function (req, res) {
+  getModeratorController.getModerator(req,res);
+});
+
+router.get('/company/get/:companyId', function (req, res) {
+  getCompanyController.getCompany(req,res);
 });
 
 router.get('/queue/all/:companyId', function (req, res) {
@@ -89,7 +97,7 @@ router.get('/ticket/getposition/:companyId/:queueId/:ticketId', function (req, r
 });
 
 //Update cases
-router.post('/queue/update', function (req, res) {
+router.put('/queue/update', function (req, res) {
   updateQueueController.updateQueue(req,res);
 });
 

@@ -49,6 +49,24 @@ exports.mongoDBCompanyDelete = function (callback, dbName, collectionName, compa
 
 }
 
+exports.mongoDBCompanyGet = function (callback, dbName, collectionName, companyId) {
+    db = mongodb.getDb();
+    var obj = { companyId: companyId };
+    db.db(dbName).collection(collectionName).findOne(obj, function (err, result) {
+        if (err) {
+            console.log(err);
+            callback(500, result);
+        } else if (result) {
+            console.log(result);
+            callback(200, result);
+        } else {
+            callback(422, result);
+        }
+    });
+
+}
+
+
 exports.mongoDBCompanyGetAll = function (callback, dbName, collectionName) {
     db = mongodb.getDb();
     db.db(dbName).collection(collectionName).find({}).toArray(function(err, result) {
@@ -57,7 +75,10 @@ exports.mongoDBCompanyGetAll = function (callback, dbName, collectionName) {
             callback(500, result);
         } else if (result) {
             console.log(result);
-            callback(200, result);
+            if (result.length > 0)
+                callback(200, result);
+            else
+                callback(422, result);
         } else {
             console.log(result);
             callback(422, result);
@@ -72,10 +93,7 @@ function deleteCustomerDB(callback,dbName) {
         if (err) {
             callback(403, '');
         } else {
-            if (result.deletedCount == 0)
-                callback(200, '');
-            else
-                callback(200, '');
+           callback(200,'success')
         }
     });
 }

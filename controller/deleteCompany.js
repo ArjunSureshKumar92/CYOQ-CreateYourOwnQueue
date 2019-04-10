@@ -8,9 +8,8 @@ var mail = require('../common/mail')
 
 
 exports.deleteCompany = function (req, res) {
-    // create a simple queue
-    if (apiControl.deleteCompanyMust(Object.keys(req.body))) {
-        var createQueueObj = {};
+    // delete a company
+    if (apiControl.deleteCompanyMust(Object.keys(req.body),Object.values(req.body))) {
         var callbackDeleteCompany = function (status, data) {
             if (status != 200)
                 response.sendResponse(res, 'Error deleting company', status)

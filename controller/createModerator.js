@@ -6,18 +6,11 @@ var mongoConstants = require('../constants')
 var apiControl = require('./api')
 
 
-exports.createModeratorUI = function (req, res) {
-    console.log("Inside createCompanyUI")
-    // Use the 'response' object to render the 'index' view with a 'title' property
-    res.render('createModerator', {
-        success: '',
-        error: '',
-    });
-}
 
+// create moderator
 exports.createModerator = function (req, res) {
-    // create a simple queue
-    if (apiControl.createModeratorMust(Object.keys(req.body))) {
+    // create a simple moderator
+    if (apiControl.createModeratorMust(Object.keys(req.body),Object.values(req.body))) {
         var createModeratorObj = {};
         createModeratorObj['moderatorId'] = random.getRandom(8);
         createModeratorObj['createdDate'] = new Date(new Date().toUTCString())
@@ -28,37 +21,21 @@ exports.createModerator = function (req, res) {
         }
         var callbackInsertCase = function (status, data) {
             if (status != 200)
-                // response.sendResponse(res, 'Error inserting company', status)
-                res.render('createModerator', {
-                    success: '',
-                    error: 'Error inserting company',
-                });
+                response.sendResponse(res, 'Error inserting company', status)
             else {
-                //response.sendResponse(res, 'Success, ID => ' + data.moderatorId, 200)
-                res.render('createModerator', {
-                    success: 'Successfully added a Moderator',
-                    error: '',
-                });
+                response.sendResponse(res, 'Success, ID => ' + data.moderatorId, 200)
             }
         }
         var callbackExistCase = function (status, data) {
             if (status != 200)
-                //response.sendResponse(res, 'No such company exist', status)
-                res.render('createModerator', {
-                    success: '',
-                    error: 'No such company exist',
-                });
+                response.sendResponse(res, 'No such company exist', status)
             else {
                 mongoModerator.mongoDBModeratorInsert(callbackInsertCase, req.body.companyId, mongoConstants.collectionNameModerator, createModeratorObj);
             }
         }
         mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.body.companyId);
     } else {
-        //response.sendResponse(res, 'Bad Request', 403);
-        res.render('createModerator', {
-            success: '',
-            error: 'Bad Request',
-        });
+        response.sendResponse(res, 'Bad Request', 403);
     }
 
 }

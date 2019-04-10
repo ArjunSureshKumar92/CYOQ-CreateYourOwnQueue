@@ -8,8 +8,8 @@ var mail = require('../common/mail')
 
 
 exports.deleteQueue = function (req, res) {
-    // create a simple queue
-    if (apiControl.deleteQueueMust(Object.keys(req.body))) {
+    // delete a queue
+    if (apiControl.deleteQueueMust(Object.keys(req.body),Object.values(req.body))) {
         var createQueueObj = {};
         var callbackDeleteQueue = function (status, data) {
             if (status != 200)
