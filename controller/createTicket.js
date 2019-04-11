@@ -4,11 +4,12 @@ var mongoTicket = require('../model/ticket')
 var mongoShared = require('../model/shared')
 var mongoConstants = require('../constants')
 var apiControl = require('./api')
+var util = require('../common/ultility')
 
 
 exports.createTicket = function (req, res) {
     // create a simple ticket
-    if (apiControl.createTicketMust(Object.keys(req.body),Object.values(req.body))) {
+    if (apiControl.createTicketMust(Object.keys(req.body), Object.values(req.body))) {
         var createTicketObj = {};
         createTicketObj['ticketId'] = random.getRandom(8);
         createTicketObj['createdDate'] = new Date(new Date().toUTCString())
@@ -20,7 +21,7 @@ exports.createTicket = function (req, res) {
         }
         var callbackInsertCase = function (status, data) {
             if (status != 200)
-                response.sendResponse(res, 'Error inserting company', status)
+                response.sendResponse(res, 'Error inserting ticket', status)
             else {
                 response.sendResponse(res, 'Success, ID => ' + data.ticketId, 200)
             }
@@ -37,7 +38,16 @@ exports.createTicket = function (req, res) {
             if (status != 200)
                 response.sendResponse(res, 'No such queue exist', status)
             else {
-                mongoTicket.mongoDBTicketInsert(callbackInsertCase, req.body.companyId, mongoConstants.collectionNameTicket, createTicketObj);
+                // check if status is active or time is invalid
+                var date = new Date();
+                if (data.status && data.status == mongoConstants.queueStatusInactive) {
+                    response.sendResponse(res, 'Sorry, queue in closed at the moment...', status)
+                } else if (data.startTime && data.closeTime && !util.isTimeWithinRange(data.startTime,data.closeTime, date.getHours()*60+date.getMinutes())) {
+                    response.sendResponse(res, 'Sorry, queue in closed at the moment... Please try after '+util.minutesToHourString(data.startTime - (date.getHours()*60+date.getMinutes())), status)
+                } else {
+                    mongoTicket.mongoDBTicketInsert(callbackInsertCase, req.body.companyId, mongoConstants.collectionNameTicket, createTicketObj);
+                }
+
             }
         }
         mongoShared.checkCustomerExist(callbackCompanyExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.body.companyId);

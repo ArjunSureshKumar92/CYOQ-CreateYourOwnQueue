@@ -94,9 +94,27 @@ exports.mongoDBWaitGet = function (callback, dbName, collectionName,queueId,stat
     });
 }
 
-exports.mongoDBTicketGet = function (callback, dbName, collectionName, moderatorId,queueId,status) {
+exports.mongoDBTicketActiveGet = function (callback, dbName, collectionName, moderatorId,queueId,status) {
     db = mongodb.getDb();
     var obj = { status: status, servedBy: moderatorId, queueId:queueId };
+    db.db(dbName).collection(collectionName).findOne(obj, function (err, result) {
+        if (err) {
+            console.log(err);
+            callback(500, result);
+        } else if (result) {
+            console.log(result);
+            callback(200, result);
+        } else {
+            console.log(result);
+            callback(422, result);
+        }
+    });
+
+}
+
+exports.mongoDBTicketGet = function (callback, dbName, collectionName, queueId,ticketId) {
+    db = mongodb.getDb();
+    var obj = { ticketId: ticketId, queueId:queueId };
     db.db(dbName).collection(collectionName).findOne(obj, function (err, result) {
         if (err) {
             console.log(err);

@@ -48,7 +48,7 @@ exports.getActiveTicket = function (req, res) {
                 response.sendResponse(res, data, 200)
             }
         }
-        mongoTicket.mongoDBTicketGet(callbackGetTicket, req.params.companyId, mongoConstants.collectionNameTicket, req.params.moderatorId,req.params.queueId,mongoConstants.ticketStatusActive);
+        mongoTicket.mongoDBTicketActiveGet(callbackGetTicket, req.params.companyId, mongoConstants.collectionNameTicket, req.params.moderatorId,req.params.queueId,mongoConstants.ticketStatusActive);
     } else {
         response.sendResponse(res, 'Bad Request', 403);
     }

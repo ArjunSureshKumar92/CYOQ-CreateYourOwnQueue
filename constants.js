@@ -10,4 +10,6 @@ exports.ticketStatusWait = 'waiting';
 exports.ticketStatusDone = 'done';
 exports.ticketStatusCancel = 'cancelled';
 exports.queueModeratorsKey = 'moderator';
+exports.queueStatusActive = 'active';
+exports.queueStatusInactive = 'inactive';
 exports.queueNameKey = 'name';

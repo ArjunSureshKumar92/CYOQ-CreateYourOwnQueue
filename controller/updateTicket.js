@@ -56,23 +56,38 @@ exports.nextTicket = function (req, res) {
             }
         }
         var callbackGetWaitingTicket = function (status, data) {
-            if(status == 500) {
+            if (status == 500) {
                 response.sendResponse(res, 'Error getting waiting tickets', status)
-            } else if(status == 422) {
+            } else if (status == 422) {
                 response.sendResponse(res, 'No waiting tickets', status)
             } else {
                 nextTicketObj['status'] = mongoConstants.ticketStatusActive
                 mongoTicket.mongoDBTicketNext(callbackNextTicket, req.body.companyId, mongoConstants.collectionNameTicket, data.ticketId, nextTicketObj);
             }
         }
-        var callbackGetActiveTicket = function (status, data) {
+        var callbackQueueExistCase = function (status, data) {
             if (status != 200)
-            mongoTicket.mongoDBWaitGetNext(callbackGetWaitingTicket, req.body.companyId, mongoConstants.collectionNameTicket, req.body.queueId, mongoConstants.ticketStatusWait);
+                response.sendResponse(res, 'No such queue exist', status)
+            else {
+                // check if status is active or time is invalid
+                var date = new Date();
+                if (data.status && data.status == mongoConstants.queueStatusInactive) {
+                    response.sendResponse(res, 'Sorry, queue in closed at the moment...', status)
+                } else {
+                    mongoTicket.mongoDBWaitGetNext(callbackGetWaitingTicket, req.body.companyId, mongoConstants.collectionNameTicket, req.body.queueId, mongoConstants.ticketStatusWait);
+                }
+
+            }
+        }
+        var callbackGetActiveTicket = function (status, data) {
+            if (status != 200) {
+                mongoShared.checkQueueExist(callbackQueueExistCase, req.body.companyId, mongoConstants.collectionNameQueue, req.body.queueId);
+            }
             else {
                 response.sendResponse(res, 'Error, A ticket is already active. Please close it and try again...', 442)
             }
         }
-        mongoTicket.mongoDBTicketGet(callbackGetActiveTicket, req.body.companyId, mongoConstants.collectionNameTicket, req.body.servedBy,req.body.queueId,mongoConstants.ticketStatusActive);
+        mongoTicket.mongoDBTicketGet(callbackGetActiveTicket, req.body.companyId, mongoConstants.collectionNameTicket, req.body.servedBy, req.body.queueId, mongoConstants.ticketStatusActive);
     } else {
         response.sendResponse(res, 'Bad Request', 403);
     }

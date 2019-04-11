@@ -4,6 +4,7 @@ var mongoModerator = require('../model/moderator')
 var mongoShared = require('../model/shared')
 var mongoConstants = require('../constants')
 var apiControl = require('./api')
+var mail = require('../common/mail')
 
 
 
@@ -21,8 +22,9 @@ exports.createModerator = function (req, res) {
         }
         var callbackInsertCase = function (status, data) {
             if (status != 200)
-                response.sendResponse(res, 'Error inserting company', status)
+                response.sendResponse(res, 'Error inserting moderator', status)
             else {
+                mail.sendMail('comp231team4@gmail.com',data.email,'New Moderator Created','Hey Moderator, \n This is the link to the dashboard => http://localhost:4200/moderator/'+req.body.companyId+'/'+data.moderatorId,'comp231password');
                 response.sendResponse(res, 'Success, ID => ' + data.moderatorId, 200)
             }
         }

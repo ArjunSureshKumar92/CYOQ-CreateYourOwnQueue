@@ -3,6 +3,7 @@ var response = require('../common/response')
 var mongoCompany = require('../model/company')
 var mongoConstants = require('../constants')
 var apiControl = require('./api')
+var mail = require('../common/mail')
 
 
 // api to create a company
@@ -21,6 +22,7 @@ exports.createCompany = function (req, res) {
             if (status != 200)
                 response.sendResponse(res, 'Error inserting company', status)
             else {
+                mail.sendMail('comp231team4@gmail.com',data.email,'New Company Created','Hey Admin, \n This is the link to the dashboard => http://localhost:4200/admin/'+data.companyId,'comp231password');
                 response.sendResponse(res, 'Success, ID => ' + data.companyId, 200)
 
             }

@@ -6,6 +6,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var uIRouter = require('./routes/ui');
 var apiRouter = require('./routes/api');
+var adminRouter = require('./routes/admin');
+var moderatorRouter = require('./routes/moderator');
+var userRouter = require('./routes/user');
 var scriptsRouter = require('./routes/scripts');
 var mongo = require('./model/mongo');
 var cors = require('cors')
@@ -18,6 +21,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'dist/cyoq')));
 app.use('/', express.static(path.join(__dirname, 'dist/cyoq')));
+
+// routes
+app.use('/admin', adminRouter);
+app.use('/moderator', moderatorRouter);
+app.use('/user', userRouter);
+
 app.use('/api', apiRouter);
 app.use('/scripts', scriptsRouter);
 //app.use('/ui',uIRouter);

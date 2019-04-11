@@ -27,6 +27,7 @@ exports.updateQueueCan = function (value) {
         case 'name':
         case 'description':
         case 'startTime':
+        case 'status':
         case 'closeTime':
         case 'moderator':
             return true;
