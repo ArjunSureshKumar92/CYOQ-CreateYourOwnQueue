@@ -14,8 +14,23 @@ exports.updateQueue = function (req, res) {
         var updQueueObj = {};
         updQueueObj['lastUpdated'] = new Date(new Date().toUTCString())
         for (var key in req.body) {
-            if (apiControl.updateQueueCan(key))
-                updQueueObj[key] = req.body[key];
+            if (apiControl.updateQueueCan(key)) {
+                if (key == mongoConstants.queueModeratorsKey) {
+                    var moderatorArray = [];
+                    if (Array.isArray(req.body[key])) {
+                        req.body[key].forEach(function (moderator) {
+                            if (!moderatorArray.includes(moderator))
+                                moderatorArray.push(moderator)
+                        });
+                    } else {
+                        moderatorArray.push(req.body[key])
+                    }
+                    updQueueObj[key] = moderatorArray;
+                } else {
+                    updQueueObj[key] = req.body[key];
+                }
+            }
+                
         }
         var callbackGetCompany = function (status, data) {
             if (status != 200)

@@ -20,9 +20,14 @@ exports.closeTicket = function (req, res) {
 
         var callbackCloseTicket = function (status, data) {
             if (status != 200)
-                response.sendResponse(res, 'Error updaing ticket', status)
+                response.sendResponse(res, 'Error closing ticket', status)
             else {
-                response.sendResponse(res, 'Success, updated Ticket ID => ' + req.body.ticketId, 200)
+                if (data) {
+                    response.sendResponse(res, 'Success, closed Ticket ID => ' + req.body.ticketId, 200)
+                } else {
+                    response.sendResponse(res, 'Error closing ticket, the ticket is not active at the moment', 422)
+                }
+                
             }
         }
         var callbackExistCase = function (status, data) {
@@ -52,6 +57,8 @@ exports.nextTicket = function (req, res) {
             if (status != 200)
                 response.sendResponse(res, 'Error getting next ticket', status)
             else {
+                mail.sendMail('comp231team4@gmail.com',data.email,'Active User','Hey User, \n Your ticket is now active for the queue '+req.body.queueId+'\n Please go to moderator '+req.body.servedBy,'comp231password');
+                sendNotificationToNextInLine();
                 response.sendResponse(res, 'Success, Active Ticket ID => ' + data, 200)
             }
         }
@@ -87,11 +94,26 @@ exports.nextTicket = function (req, res) {
                 response.sendResponse(res, 'Error, A ticket is already active. Please close it and try again...', 442)
             }
         }
-        mongoTicket.mongoDBTicketGet(callbackGetActiveTicket, req.body.companyId, mongoConstants.collectionNameTicket, req.body.servedBy, req.body.queueId, mongoConstants.ticketStatusActive);
+        mongoTicket.mongoDBTicketActiveGet(callbackGetActiveTicket, req.body.companyId, mongoConstants.collectionNameTicket, req.body.servedBy, req.body.queueId, mongoConstants.ticketStatusActive);
     } else {
         response.sendResponse(res, 'Bad Request', 403);
     }
+
+
+    var sendNotificationToNextInLineCallback = function (status, data) {
+        if (status == 200) {
+            mail.sendMail('comp231team4@gmail.com',data.email,'Next In Queue','Hey User, \n Your ticket for the queue '+req.body.queueId+' is now next in line... Please get ready!!','comp231password');
+        }
+    }
+
+    function sendNotificationToNextInLine() {
+        mongoTicket.mongoDBWaitGetNext(sendNotificationToNextInLineCallback, req.body.companyId, mongoConstants.collectionNameTicket, req.body.queueId, mongoConstants.ticketStatusWait);
+    }
+
 }
+
+
+
 
 
 

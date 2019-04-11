@@ -5,6 +5,7 @@ var mongoShared = require('../model/shared')
 var mongoConstants = require('../constants')
 var apiControl = require('./api')
 var util = require('../common/ultility')
+var mail = require('../common/mail')
 
 
 exports.createTicket = function (req, res) {
@@ -23,6 +24,7 @@ exports.createTicket = function (req, res) {
             if (status != 200)
                 response.sendResponse(res, 'Error inserting ticket', status)
             else {
+                mail.sendMail('comp231team4@gmail.com',data.email,'New Ticket Created','Hey User, \n Your ticket is created for the queue '+req.body.queueId +'\n To get your queue position go to http://localhost:4200/user/ticket/getposition/'+req.body.companyId+'/'+ req.body.queueId+'/'+data.ticketId,'comp231password');
                 response.sendResponse(res, 'Success, ID => ' + data.ticketId, 200)
             }
         }

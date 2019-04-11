@@ -139,7 +139,7 @@ exports.mongoDBTicketDelete = function (callback, dbName, collectionName, ticket
         }
         else {
             // start sync to send mails to next in line
-            callback(200, result)
+            callback(200, result.value)
         }
     });
 
@@ -156,7 +156,7 @@ exports.mongoDBTicketNext = function (callback, dbName, collectionName,ticketId,
         }
         else {
             // start sync to send mails to next in line
-            callback(200, ticketId)
+            callback(200, result.value)
         }
     });
 
@@ -164,14 +164,14 @@ exports.mongoDBTicketNext = function (callback, dbName, collectionName,ticketId,
 
 exports.mongoDBTicketClose = function (callback, dbName, collectionName, ticketId,obj) {
     db = mongodb.getDb();
-    db.db(dbName).collection(collectionName).findOneAndUpdate({ "ticketId" : ticketId }, { $set: obj }, function (err, result) {
+    db.db(dbName).collection(collectionName).findOneAndUpdate({ "ticketId" : ticketId , "status" : constants.ticketStatusActive }, { $set: obj }, function (err, result) {
         if (err) {
             console.error(err)
             callback(422, err)
         }
         else {
             // start sync to send mails to next in line
-            callback(200, result)
+            callback(200, result.value)
         }
     });
 

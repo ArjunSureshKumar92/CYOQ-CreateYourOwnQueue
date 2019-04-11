@@ -67,7 +67,6 @@ exports.updateCompanyCan = function (value) {
 
 exports.closeTicketCan = function (value) {
     switch (value) {
-        case 'companyId':
         case 'ticketId':
         case 'feedback':
             return true;
@@ -78,7 +77,6 @@ exports.closeTicketCan = function (value) {
 
 exports.nextTicketCan = function (value) {
     switch (value) {
-        case 'companyId':
         case 'servedBy':
         case 'queueId':
             return true;
@@ -138,7 +136,7 @@ exports.updateCompanyMust = function (keys, values) {
             return val.trim()
         }
     });
-    return (keys.includes('companyId') && keys.includes('email') && !values.includes(''));
+    return (keys.includes('companyId')  && !values.includes(''));
 }
 
 exports.createModeratorMust = function (keys, values) {
@@ -166,7 +164,7 @@ exports.updateModeratorMust = function (keys, values) {
             return val.trim()
         }
     });
-    return (keys.includes('moderatorId') && keys.includes('email') && !values.includes(''));
+    return (keys.includes('moderatorId') && !values.includes(''));
 }
 
 exports.createQueueMust = function (keys, values) {
