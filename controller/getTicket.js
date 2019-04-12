@@ -9,32 +9,21 @@ var apiControl = require('./api')
 
 exports.getTicketPosition = function (req, res) {
     // get a ticket position
-    if (apiControl.getTicketMust(Object.keys(req.params), Object.values(req.params))) {
-        var callbackGetTicketPosition = function (status, data) {
-            if (status != 200)
-                response.sendResponse(res, 'Error getting ticket position', status)
-            else {
-                response.sendResponse(res, data, 200)
-            }
-        }
-        mongoTicket.mongoDBTicketGetPosition(callbackGetTicketPosition, req.params.companyId, mongoConstants.collectionNameTicket, req.params.queueId, req.params.ticketId);
-    } else {
-        response.sendResponse(res, 'Bad Request', 403);
-    }
-}
-exports.getTicket = function (req, res) {
-    var callbackGetTicket = function (status, data) {
+    var callbackGetTicketPosition = function (status, data) {
         if (status != 200)
-            response.sendResponse(res, 'Error getting ticket', status)
+            response.sendResponse(res, 'Error getting ticket position', status)
         else {
             response.sendResponse(res, data, 200)
         }
     }
     var callbackTicketExistCase = function (status, data) {
         if (status != 200)
-            response.sendResponse(res, 'No such ticket exist', status)
+            response.sendResponse(res, 'No such ticket exist', 401)
         else {
-            mongoTicket.mongoDBTicketGet(callbackGetTicket, req.params.companyId, mongoConstants.collectionNameTicket, req.params.queueId, req.params.ticketId);
+            if (data.email == req.params.authKey)
+            mongoTicket.mongoDBTicketGetPosition(callbackGetTicketPosition, req.params.companyId, mongoConstants.collectionNameTicket, req.params.queueId, req.params.ticketId);
+            else
+                response.sendResponse(res, 'Unauthorised User', 401)
         }
     }
     var callbackQueueExist = function (status, data) {
@@ -44,22 +33,91 @@ exports.getTicket = function (req, res) {
             mongoShared.checkTicketExist(callbackTicketExistCase, req.params.companyId, mongoConstants.collectionNameTicket, req.params.ticketId);
         }
     }
-    var callbackModeratorCase = function (status, data) {
-        if (status != 200) {
-            response.sendResponse(res, 'Unauthorised User or Invalid moderator', 401)
-        } else {
-            mongoShared.checkQueueExist(callbackQueueExist, req.params.companyId, mongoConstants.collectionNameQueue, req.params.queueId);
-        }
-    }
     var callbackExistCase = function (status, data) {
         if (status != 200)
             response.sendResponse(res, 'No such company exist', status)
         else {
-            mongoShared.checkModeratorExists(callbackModeratorCase, req.params.companyId, mongoConstants.collectionNameModerator, req.params.authKey);
+            mongoShared.checkQueueExist(callbackQueueExist, req.params.companyId, mongoConstants.collectionNameQueue, req.params.queueId);
         }
     }
     mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.params.companyId);
     
+}
+exports.getTicket = function (req, res) {
+    console.log(req.originalUrl)
+    if (req.originalUrl.startsWith('/user')) {
+        var callbackGetTicket = function (status, data) {
+            if (status != 200)
+                response.sendResponse(res, 'Error getting ticket', status)
+            else {
+                response.sendResponse(res, data, 200)
+            }
+        }
+        var callbackTicketExistCase = function (status, data) {
+            if (status != 200)
+                response.sendResponse(res, 'No such ticket exist', 401)
+            else {
+                if (data.email == req.params.authKey)
+                    mongoTicket.mongoDBTicketGet(callbackGetTicket, req.params.companyId, mongoConstants.collectionNameTicket, req.params.queueId, req.params.ticketId);
+                else
+                    response.sendResponse(res, 'Unauthorised User', 401)
+            }
+        }
+        var callbackQueueExist = function (status, data) {
+            if (status != 200)
+                response.sendResponse(res, 'No such queue exist', status)
+            else {
+                mongoShared.checkTicketExist(callbackTicketExistCase, req.params.companyId, mongoConstants.collectionNameTicket, req.params.ticketId);
+            }
+        }
+        var callbackExistCase = function (status, data) {
+            if (status != 200)
+                response.sendResponse(res, 'No such company exist', status)
+            else {
+                mongoShared.checkQueueExist(callbackQueueExist, req.params.companyId, mongoConstants.collectionNameQueue, req.params.queueId);
+            }
+        }
+        mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.params.companyId);
+    }
+    else {
+        var callbackGetTicket = function (status, data) {
+            if (status != 200)
+                response.sendResponse(res, 'Error getting ticket', status)
+            else {
+                response.sendResponse(res, data, 200)
+            }
+        }
+        var callbackTicketExistCase = function (status, data) {
+            if (status != 200)
+                response.sendResponse(res, 'No such ticket exist', status)
+            else {
+                mongoTicket.mongoDBTicketGet(callbackGetTicket, req.params.companyId, mongoConstants.collectionNameTicket, req.params.queueId, req.params.ticketId);
+            }
+        }
+        var callbackQueueExist = function (status, data) {
+            if (status != 200)
+                response.sendResponse(res, 'No such queue exist', status)
+            else {
+                mongoShared.checkTicketExist(callbackTicketExistCase, req.params.companyId, mongoConstants.collectionNameTicket, req.params.ticketId);
+            }
+        }
+        var callbackModeratorCase = function (status, data) {
+            if (status != 200) {
+                response.sendResponse(res, 'Unauthorised User or Invalid moderator', 401)
+            } else {
+                mongoShared.checkQueueExist(callbackQueueExist, req.params.companyId, mongoConstants.collectionNameQueue, req.params.queueId);
+            }
+        }
+        var callbackExistCase = function (status, data) {
+            if (status != 200)
+                response.sendResponse(res, 'No such company exist', status)
+            else {
+                mongoShared.checkModeratorExists(callbackModeratorCase, req.params.companyId, mongoConstants.collectionNameModerator, req.params.authKey);
+            }
+        }
+        mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.params.companyId);
+    }
+
 }
 
 exports.getActiveTicket = function (req, res) {

@@ -11,22 +11,22 @@ var deleteTicketController = require('../controller/deleteTicket');
  */
 
 //Create cases
-router.post('/ticket/create', function (req, res) {
+router.post('ticket/create', function (req, res) {
   createTicketController.createTicket(req,res);
 });
 
 //Delete cases
-router.delete('/ticket/delete', function (req, res) {
+router.delete('/:authKey/ticket/delete', function (req, res) {
   deleteTicketController.deleteTicket(req,res);
 });
 
 //Get cases
 
-router.get('/ticket/get/:companyId/:queueId/:ticketId', function (req, res) {
+router.get('/:authKey/ticket/get/:companyId/:queueId/:ticketId', function (req, res) {
   getTicketController.getTicket(req,res);
 });
 
-router.get('/ticket/getposition/:companyId/:queueId/:ticketId', function (req, res) {
+router.get('/:authKey/ticket/getposition/:companyId/:queueId/:ticketId', function (req, res) {
   getTicketController.getTicketPosition(req,res);
 });
 

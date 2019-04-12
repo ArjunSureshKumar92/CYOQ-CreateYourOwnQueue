@@ -9,12 +9,12 @@ var mail = require('../common/mail')
 
 exports.deleteTicket = function (req, res) {
     // delete a queue
-    if (apiControl.deleteTicketMust(Object.keys(req.body),Object.values(req.body))) {
+    if (apiControl.deleteTicketMust(Object.keys(req.body), Object.values(req.body))) {
         var callbackDeleteTicket = function (status, data) {
             if (status != 200)
                 response.sendResponse(res, 'Error deleting ticket', status)
             else {
-                mail.sendMail('comp231team4@gmail.com',data.email,'Ticket Deleted','Hey User, \n Your Ticket '+req.body.ticketId+' has been deleted','comp231password');
+                mail.sendMail('comp231team4@gmail.com', data.email, 'Ticket Deleted', 'Hey User, \n Your Ticket ' + req.body.ticketId + ' has been deleted', 'comp231password');
                 response.sendResponse(res, 'Success, deleted Ticket ID => ' + req.body.ticketId, 200)
             }
         }
@@ -29,23 +29,34 @@ exports.deleteTicket = function (req, res) {
                 if (data == 1) {
                     response.sendResponse(res, 'You are the next in queue. Cannot delete your ticket now...', status)
                     return;
-                } 
+                }
                 if (data == -1) {
                     response.sendResponse(res, 'You ticket is already closed. Cannot delete your ticket now...', status)
                     return;
-                }  
-                mongoTicket.mongoDBTicketDelete(callbackDeleteTicket, req.body.companyId, mongoConstants.collectionNameTicket, req.body.ticketId,mongoConstants.ticketStatusCancel);
+                }
+                mongoTicket.mongoDBTicketDelete(callbackDeleteTicket, req.body.companyId, mongoConstants.collectionNameTicket, req.body.ticketId, mongoConstants.ticketStatusCancel);
             }
         }
         var callbackExistCase = function (status, data) {
             if (status != 200)
-                response.sendResponse(res, 'No such ticket exist', status)
+                response.sendResponse(res, 'No such ticket exists', 422)
             else {
-                mongoTicket.mongoDBTicketGetPosition(callbackGetTicketPosition, req.body.companyId, mongoConstants.collectionNameTicket, data.queueId,req.body.ticketId);
-                
+                if (data.email == req.params.authKey)
+                    mongoTicket.mongoDBTicketGetPosition(callbackGetTicketPosition, req.body.companyId, mongoConstants.collectionNameTicket, data.queueId, req.body.ticketId);
+                else {
+                    response.sendResponse(res, 'Unauthorised User', 401)
+                }
             }
         }
-        mongoShared.checkTicketExist(callbackExistCase, req.body.companyId, mongoConstants.collectionNameTicket, req.body.ticketId);
+        var callbackCompanyExistCase = function (status, data) {
+            if (status != 200)
+                response.sendResponse(res, 'No such company exist', status)
+            else {
+                mongoShared.checkTicketExist(callbackExistCase, req.body.companyId, mongoConstants.collectionNameTicket, req.body.ticketId);
+            }
+        }
+        mongoShared.checkCustomerExist(callbackCompanyExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.body.companyId);
+
     } else {
         response.sendResponse(res, 'Bad Request', 403);
     }

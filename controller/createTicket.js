@@ -28,14 +28,6 @@ exports.createTicket = function (req, res) {
                 response.sendResponse(res, 'Success, ID => ' + data.ticketId, 200)
             }
         }
-        var callbackCompanyExistCase = function (status, data) {
-            if (status != 200)
-                response.sendResponse(res, 'No such company exist', status)
-            else {
-                mongoShared.checkQueueExist(callbackQueueExistCase, req.body.companyId, mongoConstants.collectionNameQueue, req.body.queueId);
-            }
-        }
-
         var callbackQueueExistCase = function (status, data) {
             if (status != 200)
                 response.sendResponse(res, 'No such queue exist', status)
@@ -49,7 +41,14 @@ exports.createTicket = function (req, res) {
                 } else {
                     mongoTicket.mongoDBTicketInsert(callbackInsertCase, req.body.companyId, mongoConstants.collectionNameTicket, createTicketObj);
                 }
-
+            }
+        }
+        var callbackCompanyExistCase = function (status, data) {
+            if (status != 200)
+                response.sendResponse(res, 'No such company exist', status)
+            else {
+                mongoShared.checkQueueExist(callbackQueueExistCase, req.body.companyId, mongoConstants.collectionNameQueue, req.body.queueId);
+                
             }
         }
         mongoShared.checkCustomerExist(callbackCompanyExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.body.companyId);
