@@ -14,6 +14,22 @@ exports.checkCustomerExist = function (callback, dbName, collectionName, company
     });
 }
 
+
+exports.checkModeratorExists = function (callback, dbName, collectionName, moderatorId) {
+    db = mongodb.getDb();
+    var obj = {};
+    obj.moderatorId = moderatorId;
+    db.db(dbName).collection(collectionName).findOne(obj, function (err, result) {
+        if (err) {
+            callback(500, result);
+        } else if (result) {
+            callback(200, result);
+        } else {
+            callback(422, result);
+        }
+    });
+}
+
 exports.checkModeratorExist = function (callback, dbName, collectionName, moderators) {
     db = mongodb.getDb();
     if (moderators) {

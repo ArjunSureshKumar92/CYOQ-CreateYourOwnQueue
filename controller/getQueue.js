@@ -37,19 +37,29 @@ exports.getQueue = function (req, res) {
 }
 
 exports.getModeratorRelatedQueue = function (req, res) {
-    // get a queue
-    if (apiControl.getModeratorRelatedQueueMust(Object.keys(req.params), Object.values(req.params))) {
-        var callbackGetQueue = function (status, data) {
-            if (status != 200)
-                response.sendResponse(res, 'Error getting queue', status)
-            else {
-                response.sendResponse(res, data, 200)
-            }
+    var callbackGetQueue = function (status, data) {
+        if (status != 200)
+            response.sendResponse(res, 'Error getting queue', status)
+        else {
+            response.sendResponse(res, data, 200)
         }
-        mongoQueue.mongoDBModeratorRelatedQueueGet(callbackGetQueue, req.params.companyId, mongoConstants.collectionNameQueue, req.params.moderatorId);
-    } else {
-        response.sendResponse(res, 'Bad Request', 403);
     }
+    var callbackModeratorCase = function (status, data) {
+        if (status != 200) {
+            response.sendResponse(res, 'Unauthorised User or Invalid moderator', 401)
+        } else {
+            mongoQueue.mongoDBModeratorRelatedQueueGet(callbackGetQueue, req.params.companyId, mongoConstants.collectionNameQueue, req.params.authKey);
+        }
+    }
+    var callbackExistCase = function (status, data) {
+        if (status != 200)
+            response.sendResponse(res, 'No such company exist', status)
+        else {
+            mongoShared.checkModeratorExists(callbackModeratorCase, req.params.companyId, mongoConstants.collectionNameModerator, req.params.authKey);
+        }
+    }
+    mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.params.companyId);
+
 }
 
 
@@ -69,9 +79,9 @@ exports.getAllQueue = function (req, res) {
         else {
             if (data.email == req.params.authKey) {
                 if (req.query.searchName) {
-                   mongoQueue.mongoDBQueueGetAllWithSearch(callbackGetAllQueue, req.params.companyId, mongoConstants.collectionNameQueue, req.query.searchName);
+                    mongoQueue.mongoDBQueueGetAllWithSearch(callbackGetAllQueue, req.params.companyId, mongoConstants.collectionNameQueue, req.query.searchName);
                 } else {
-                   mongoQueue.mongoDBQueueGetAll(callbackGetAllQueue, req.params.companyId, mongoConstants.collectionNameQueue);
+                    mongoQueue.mongoDBQueueGetAll(callbackGetAllQueue, req.params.companyId, mongoConstants.collectionNameQueue);
                 }
             }
             else

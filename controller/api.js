@@ -77,7 +77,6 @@ exports.closeTicketCan = function (value) {
 
 exports.nextTicketCan = function (value) {
     switch (value) {
-        case 'servedBy':
         case 'queueId':
             return true;
         default:
@@ -208,63 +207,6 @@ exports.getQueueMust = function (keys, values) {
     });
     return (keys.includes('queueId') && keys.includes('companyId') && !values.includes(''));
 }
-
-exports.getModeratorRelatedQueueMust = function (keys, values) {
-    values = values.map(function (val) {
-        if (Array.isArray(val)) {
-            val = val.map(function (v) {
-               return v.trim()
-            });
-            return val
-        } else {
-            return val.trim()
-        }
-    });
-    return (keys.includes('moderatorId') && keys.includes('companyId') && !values.includes(''));
-}
-
-exports.getTicketMust = function (keys, values) {
-    values = values.map(function (val) {
-        if (Array.isArray(val)) {
-            val = val.map(function (v) {
-               return v.trim()
-            });
-            return val
-        } else {
-            return val.trim()
-        }
-    });
-    return (keys.includes('queueId') && keys.includes('companyId') && keys.includes('ticketId') && !values.includes(''));
-}
-exports.getActiveTicketMust = function (keys, values) {
-    values = values.map(function (val) {
-        if (Array.isArray(val)) {
-            val = val.map(function (v) {
-               return v.trim()
-            });
-            return val
-        } else {
-            return val.trim()
-        }
-    });
-    return (keys.includes('companyId') && keys.includes('moderatorId') && keys.includes('queueId') && !values.includes(''));
-}
-
-
-exports.getWaitTicketMust = function (keys, values) {
-    values = values.map(function (val) {
-        if (Array.isArray(val)) {
-            val = val.map(function (v) {
-               return v.trim()
-            });
-            return val
-        } else {
-            return val.trim()
-        }
-    });
-    return (keys.includes('companyId') && keys.includes('queueId') && !values.includes(''));
-}
-
 exports.closeTicketMust = function (keys, values) {
     values = values.map(function (val) {
         if (Array.isArray(val)) {
@@ -290,7 +232,7 @@ exports.nextTicketMust = function (keys, values) {
             return val.trim()
         }
     });
-    return (keys.includes('companyId') && keys.includes('queueId') && keys.includes('servedBy') && !values.includes(''));
+    return (keys.includes('companyId') && keys.includes('queueId') && !values.includes(''));
 }
 
 exports.updateQueueMust = function (keys, values) {

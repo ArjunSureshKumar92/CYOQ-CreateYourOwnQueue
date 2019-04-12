@@ -24,10 +24,10 @@ exports.updateModerator = function (req, res) {
         }
 
         var callbackModeratorCase = function (status, data) {
-            if (status == 200) {
-                mongoModerator.mongoDBModeratorUpdate(callback, req.body.companyId, mongoConstants.collectionNameModerator, updModeratorObj, req.body.moderatorId);
-            } else if (status == 300) {
+            if (status != 200) {
                 response.sendResponse(res, 'Invalid moderator', status)
+            } else {
+                mongoModerator.mongoDBModeratorUpdate(callback, req.body.companyId, mongoConstants.collectionNameModerator, updModeratorObj, req.body.moderatorId);
             }
         }
 
@@ -36,7 +36,7 @@ exports.updateModerator = function (req, res) {
                 response.sendResponse(res, 'No such company exist', status)
             else {
                 if (data.email == req.params.authKey)
-                    mongoShared.checkModeratorExist(callbackModeratorCase, req.body.companyId, mongoConstants.collectionNameModerator, req.body.moderatorId);
+                    mongoShared.checkModeratorExists(callbackModeratorCase, req.body.companyId, mongoConstants.collectionNameModerator, req.body.moderatorId);
 
                 else
                     response.sendResponse(res, 'Unauthorised User', 401)

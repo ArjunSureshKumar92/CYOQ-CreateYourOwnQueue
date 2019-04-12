@@ -27,10 +27,10 @@ exports.closeTicket = function (req, res) {
                 } else {
                     response.sendResponse(res, 'Error closing ticket, the ticket is not active at the moment', 422)
                 }
-                
+
             }
         }
-        var callbackExistCase = function (status, data) {
+        var callbackTicketExistCase = function (status, data) {
             if (status != 200)
                 response.sendResponse(res, 'No such ticket exist', status)
             else {
@@ -38,14 +38,27 @@ exports.closeTicket = function (req, res) {
                 mongoTicket.mongoDBTicketClose(callbackCloseTicket, req.body.companyId, mongoConstants.collectionNameTicket, req.body.ticketId, closeTicketObj);
             }
         }
-        mongoShared.checkTicketExist(callbackExistCase, req.body.companyId, mongoConstants.collectionNameTicket, req.body.ticketId);
+        var callbackModeratorCase = function (status, data) {
+            if (status != 200) {
+                response.sendResponse(res, 'Unauthorised User or Invalid moderator', 401)
+            } else {
+                mongoShared.checkTicketExist(callbackTicketExistCase, req.body.companyId, mongoConstants.collectionNameTicket, req.body.ticketId);
+            }
+        }
+        var callbackExistCase = function (status, data) {
+            if (status != 200)
+                response.sendResponse(res, 'No such company exist', status)
+            else {
+                mongoShared.checkModeratorExists(callbackModeratorCase, req.body.companyId, mongoConstants.collectionNameModerator, req.params.authKey);
+            }
+        }
+        mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.body.companyId);
     } else {
         response.sendResponse(res, 'Bad Request', 403);
     }
 }
 
 exports.nextTicket = function (req, res) {
-    // update a ticket
     if (apiControl.nextTicketMust(Object.keys(req.body), Object.values(req.body))) {
         var nextTicketObj = {};
         nextTicketObj['lastUpdated'] = new Date(new Date().toUTCString())
@@ -57,7 +70,7 @@ exports.nextTicket = function (req, res) {
             if (status != 200)
                 response.sendResponse(res, 'Error getting next ticket', status)
             else {
-                mail.sendMail('comp231team4@gmail.com',data.email,'Active User','Hey User, \n Your ticket is now active for the queue '+req.body.queueId+'\n Please go to moderator '+req.body.servedBy,'comp231password');
+                mail.sendMail('comp231team4@gmail.com', data.email, 'Active User', 'Hey User, \n Your ticket is now active for the queue ' + req.body.queueId + '\n Please go to moderator ' + req.body.servedBy, 'comp231password');
                 sendNotificationToNextInLine();
                 response.sendResponse(res, 'Success, Active Ticket ID => ' + data, 200)
             }
@@ -69,6 +82,7 @@ exports.nextTicket = function (req, res) {
                 response.sendResponse(res, 'No waiting tickets', status)
             } else {
                 nextTicketObj['status'] = mongoConstants.ticketStatusActive
+                nextTicketObj['servedBy'] = req.params.authKey
                 mongoTicket.mongoDBTicketNext(callbackNextTicket, req.body.companyId, mongoConstants.collectionNameTicket, data.ticketId, nextTicketObj);
             }
         }
@@ -94,7 +108,22 @@ exports.nextTicket = function (req, res) {
                 response.sendResponse(res, 'Error, A ticket is already active. Please close it and try again...', 442)
             }
         }
-        mongoTicket.mongoDBTicketActiveGet(callbackGetActiveTicket, req.body.companyId, mongoConstants.collectionNameTicket, req.body.servedBy, req.body.queueId, mongoConstants.ticketStatusActive);
+        var callbackModeratorCase = function (status, data) {
+            if (status != 200) {
+                response.sendResponse(res, 'Unauthorised User or Invalid moderator', 401)
+            } else {
+                mongoTicket.mongoDBTicketActiveGet(callbackGetActiveTicket, req.body.companyId, mongoConstants.collectionNameTicket, req.params.authKey, req.body.queueId, mongoConstants.ticketStatusActive);
+            }
+        }
+        var callbackExistCase = function (status, data) {
+            if (status != 200)
+                response.sendResponse(res, 'No such company exist', status)
+            else {
+                mongoShared.checkModeratorExists(callbackModeratorCase, req.body.companyId, mongoConstants.collectionNameModerator, req.params.authKey);
+            }
+        }
+        mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.body.companyId);
+        
     } else {
         response.sendResponse(res, 'Bad Request', 403);
     }
@@ -102,7 +131,7 @@ exports.nextTicket = function (req, res) {
 
     var sendNotificationToNextInLineCallback = function (status, data) {
         if (status == 200) {
-            mail.sendMail('comp231team4@gmail.com',data.email,'Next In Queue','Hey User, \n Your ticket for the queue '+req.body.queueId+' is now next in line... Please get ready!!','comp231password');
+            mail.sendMail('comp231team4@gmail.com', data.email, 'Next In Queue', 'Hey User, \n Your ticket for the queue ' + req.body.queueId + ' is now next in line... Please get ready!!', 'comp231password');
         }
     }
 

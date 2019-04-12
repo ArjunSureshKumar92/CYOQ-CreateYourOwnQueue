@@ -60,6 +60,10 @@ router.get('/:authKey/queue/all/:companyId', function (req, res) {
   getQueueController.getAllQueue(req,res);
 });
 
+router.get('/:authKey/moderator/get/:companyId/:moderatorId', function (req, res) {
+  getModeratorController.getModerator(req,res);
+});
+
 router.get('/:authKey/moderator/all/:companyId', function (req, res) {
   getModeratorController.getAllModerators(req,res);
 });

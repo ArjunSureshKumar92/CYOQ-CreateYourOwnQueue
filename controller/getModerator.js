@@ -8,7 +8,6 @@ var mail = require('../common/mail')
 
 
 exports.getModerator = function (req, res) {
-    // get a queue
     var callbackGetModerator = function (status, data) {
         if (status != 200)
             response.sendResponse(res, 'Error getting moderator', status)
@@ -17,10 +16,10 @@ exports.getModerator = function (req, res) {
         }
     }
     var callbackModeratorCase = function (status, data) {
-        if (status == 200) {
-            mongoModerator.mongoDBModeratorGet(callbackGetModerator, req.params.companyId, mongoConstants.collectionNameModerator, req.params.moderatorId);
-        } else if (status == 300) {
+        if (status != 200)
             response.sendResponse(res, 'Invalid moderator', status)
+        else {
+            mongoModerator.mongoDBModeratorGet(callbackGetModerator, req.params.companyId, mongoConstants.collectionNameModerator, req.params.moderatorId);
         }
     }
     var callbackExistCase = function (status, data) {
@@ -28,7 +27,7 @@ exports.getModerator = function (req, res) {
             response.sendResponse(res, 'No such company exist', status)
         else {
             if (data.email == req.params.authKey) {
-                mongoShared.checkModeratorExist(callbackModeratorCase, req.body.companyId, mongoConstants.collectionNameModerator, req.body.moderator);
+                mongoShared.checkModeratorExists(callbackModeratorCase, req.params.companyId, mongoConstants.collectionNameModerator, req.params.moderatorId);
             }
             else
                 response.sendResponse(res, 'Unauthorised User', 401)
