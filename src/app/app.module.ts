@@ -24,6 +24,7 @@ import { EndUserHomeComponent } from './components/end-user/enduser-home/enduser
 import { ModeratorHomeComponent } from './components/moderator/moderator-home/moderator-home.component';
 import { EndUserListComponent } from './components/moderator/end-user-list/end-user-list.component';
 import { TicketItemComponent } from './components/moderator/ticket-item/ticket-item.component';
+import { ModeratorQueueListComponent } from './components/moderator/moderator-queue-list/moderator-queue-list.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { TicketItemComponent } from './components/moderator/ticket-item/ticket-i
     EndUserHomeComponent,
     ModeratorHomeComponent,
     EndUserListComponent,
-    TicketItemComponent
+    TicketItemComponent,
+    ModeratorQueueListComponent
   ],
   imports: [
     BrowserModule,

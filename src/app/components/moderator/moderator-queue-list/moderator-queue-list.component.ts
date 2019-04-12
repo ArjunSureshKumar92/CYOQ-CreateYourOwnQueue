@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { QueueService } from '../../../services/queue.service';
 
 @Component({
-  selector: 'app-queue-list',
+  selector: 'app-moderator-queue-list',
   template: `
   <div class="input-group">
     <input [(ngModel)]="searchText" class="form-control" />
@@ -26,7 +26,7 @@ import { QueueService } from '../../../services/queue.service';
   }
   `]
 })
-export class QueueListComponent implements OnInit {
+export class ModeratorQueueListComponent implements OnInit {
     queues: any;
 
     constructor(private qs: QueueService) {

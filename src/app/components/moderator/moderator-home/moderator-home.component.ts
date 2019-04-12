@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-moderator-home',
   template: `
   <h1 class="text-center">Your Queues</h1>
-  <app-queue-list></app-queue-list>
+  <app-moderator-queue-list></app-moderator-queue-list>
   `
 })
 export class ModeratorHomeComponent implements OnInit {
