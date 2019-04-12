@@ -39,7 +39,7 @@ exports.createQueue = function (req, res) {
             if (status != 200)
                 response.sendResponse(res, 'Error getting company', status)
             else {
-                mail.sendMail('comp231team4@gmail.com',data.email,'New Queue Created','Hey Admin, \n This is the link to view the new queue => http://localhost:4200/admin/queue/get/'+req.body.companyId+'/'+createQueueObj['queueId']+'\n This link is for users to add tickets to the queue: http://localhost:4200/user/queue/'+req.body.companyId+'/'+createQueueObj['queueId']+'/ticketForm','comp231password');
+                mail.sendMail('comp231team4@gmail.com',data.email,'New Queue Created','Hey Admin, \n This is the link to view the new queue => http://localhost:4200/admin/'+req.params.authKey+'/queue/get/'+req.body.companyId+'/'+createQueueObj['queueId']+'\n\n\n This link is for users to add tickets to the queue: http://localhost:4200/user/ticket/create    Please pass the company id and queue Id and email as post parameters...','comp231password');
                 response.sendResponse(res, 'Success, ID => ' + createQueueObj['queueId'], 200)
             }
         }

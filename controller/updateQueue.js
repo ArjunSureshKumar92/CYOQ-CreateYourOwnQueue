@@ -36,7 +36,7 @@ exports.updateQueue = function (req, res) {
             if (status != 200)
                 response.sendResponse(res, 'Error getting company', status)
             else {
-                mail.sendMail('comp231team4@gmail.com', data.email, 'Queue updated', 'Hey Admin, \n This is the link to view the updated queue => http://localhost:4200/admin/queue/get/' + req.body.companyId + '/' + req.body.queueId, 'comp231password');
+                mail.sendMail('comp231team4@gmail.com', data.email, 'Queue updated', 'Hey Admin, \n This is the link to view the updated queue => http://localhost:4200/admin/'+ req.params.authKey+'/queue/get/' + req.body.companyId + '/' + req.body.queueId, 'comp231password');
                 response.sendResponse(res, 'Success, ID => ' + req.body.queueId, 200)
             }
         }

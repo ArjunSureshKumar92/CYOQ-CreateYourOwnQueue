@@ -8,8 +8,18 @@ exports.isTimeWithinRange = function (lowerLimit, upperLimit, value) {
 }
 
 
-exports.minutesToHourString = function (value) {
-    hour = Math.floor(value/60);
-    minute = value%60;
-    return ''+hour+' hour(s) and '+minute+' minute(s)'
+exports.minutesToHourString = function (start, current) {
+    console.log(start)
+    console.log(current)
+    if (start < current) {
+        console.log('less')
+        current = 1440 -  parseInt(current, 10) +  parseInt(start, 10)
+    }
+    
+    else
+        current = start - current
+        console.log(current)
+    hour = Math.floor(current / 60);
+    minute = current % 60;
+    return '' + hour + ' hour(s) and ' + minute + ' minute(s)'
 }

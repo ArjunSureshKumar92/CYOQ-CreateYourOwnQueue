@@ -1,4 +1,3 @@
-var random = require('../common/random')
 var response = require('../common/response')
 var mongoTicket = require('../model/ticket')
 var mongoConstants = require('../constants')
@@ -6,6 +5,7 @@ var apiControl = require('./api')
 var mongoShared = require('../model/shared')
 var mail = require('../common/mail')
 
+global.queueName = '';
 
 exports.closeTicket = function (req, res) {
     // update a ticket
@@ -30,7 +30,7 @@ exports.closeTicket = function (req, res) {
 
             }
         }
-        var callbackTicketExistCase = function (status, data) {
+        var callbackTicketExistCase = function (status) {
             if (status != 200)
                 response.sendResponse(res, 'No such ticket exist', status)
             else {
@@ -38,14 +38,14 @@ exports.closeTicket = function (req, res) {
                 mongoTicket.mongoDBTicketClose(callbackCloseTicket, req.body.companyId, mongoConstants.collectionNameTicket, req.body.ticketId, closeTicketObj);
             }
         }
-        var callbackModeratorCase = function (status, data) {
+        var callbackModeratorCase = function (status) {
             if (status != 200) {
                 response.sendResponse(res, 'Unauthorised User or Invalid moderator', 401)
             } else {
                 mongoShared.checkTicketExist(callbackTicketExistCase, req.body.companyId, mongoConstants.collectionNameTicket, req.body.ticketId);
             }
         }
-        var callbackExistCase = function (status, data) {
+        var callbackExistCase = function (status) {
             if (status != 200)
                 response.sendResponse(res, 'No such company exist', status)
             else {
@@ -70,9 +70,9 @@ exports.nextTicket = function (req, res) {
             if (status != 200)
                 response.sendResponse(res, 'Error getting next ticket', status)
             else {
-                mail.sendMail('comp231team4@gmail.com', data.email, 'Active User', 'Hey User, \n Your ticket is now active for the queue ' + req.body.queueId + '\n Please go to moderator ' + req.body.servedBy, 'comp231password');
+                mail.sendMail('comp231team4@gmail.com', data.email, 'Active User', 'Hey User, \n Your ticket is now active for the queue: ' + queueName, 'comp231password');
                 sendNotificationToNextInLine();
-                response.sendResponse(res, 'Success, Active Ticket ID => ' + data, 200)
+                response.sendResponse(res, 'Success, Active Ticket ID => ' + data.ticketId, 200)
             }
         }
         var callbackGetWaitingTicket = function (status, data) {
@@ -90,8 +90,7 @@ exports.nextTicket = function (req, res) {
             if (status != 200)
                 response.sendResponse(res, 'No such queue exist', status)
             else {
-                // check if status is active or time is invalid
-                var date = new Date();
+                queueName = data.name
                 if (data.status && data.status == mongoConstants.queueStatusInactive) {
                     response.sendResponse(res, 'Sorry, queue in closed at the moment...', status)
                 } else {
@@ -100,7 +99,7 @@ exports.nextTicket = function (req, res) {
 
             }
         }
-        var callbackGetActiveTicket = function (status, data) {
+        var callbackGetActiveTicket = function (status) {
             if (status != 200) {
                 mongoShared.checkQueueExist(callbackQueueExistCase, req.body.companyId, mongoConstants.collectionNameQueue, req.body.queueId);
             }
@@ -108,14 +107,14 @@ exports.nextTicket = function (req, res) {
                 response.sendResponse(res, 'Error, A ticket is already active. Please close it and try again...', 442)
             }
         }
-        var callbackModeratorCase = function (status, data) {
+        var callbackModeratorCase = function (status) {
             if (status != 200) {
                 response.sendResponse(res, 'Unauthorised User or Invalid moderator', 401)
             } else {
                 mongoTicket.mongoDBTicketActiveGet(callbackGetActiveTicket, req.body.companyId, mongoConstants.collectionNameTicket, req.params.authKey, req.body.queueId, mongoConstants.ticketStatusActive);
             }
         }
-        var callbackExistCase = function (status, data) {
+        var callbackExistCase = function (status) {
             if (status != 200)
                 response.sendResponse(res, 'No such company exist', status)
             else {
@@ -131,7 +130,7 @@ exports.nextTicket = function (req, res) {
 
     var sendNotificationToNextInLineCallback = function (status, data) {
         if (status == 200) {
-            mail.sendMail('comp231team4@gmail.com', data.email, 'Next In Queue', 'Hey User, \n Your ticket for the queue ' + req.body.queueId + ' is now next in line... Please get ready!!', 'comp231password');
+            mail.sendMail('comp231team4@gmail.com', data.email, 'Next In Queue', 'Hey User, \n Your ticket for the queue: ' + queueName + ' is now next in line... Please get ready!!', 'comp231password');
         }
     }
 

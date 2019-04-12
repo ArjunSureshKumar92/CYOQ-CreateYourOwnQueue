@@ -246,7 +246,7 @@ exports.updateQueueMust = function (keys, values) {
             return val.trim()
         }
     });
-    return (keys.includes('queueId') && keys.includes('companyId') && keys.includes('moderator') && !values.includes(''));
+    return (keys.includes('queueId') && keys.includes('companyId') && !values.includes(''));
 }
 
 exports.deleteQueueMust = function (keys, values) {

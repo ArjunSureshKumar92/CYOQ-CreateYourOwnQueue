@@ -44,7 +44,6 @@ exports.getTicketPosition = function (req, res) {
     
 }
 exports.getTicket = function (req, res) {
-    console.log(req.originalUrl)
     if (req.originalUrl.startsWith('/user')) {
         var callbackGetTicket = function (status, data) {
             if (status != 200)

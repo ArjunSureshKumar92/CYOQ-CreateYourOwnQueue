@@ -24,7 +24,7 @@ exports.createModerator = function (req, res) {
             if (status != 200)
                 response.sendResponse(res, 'Error inserting moderator', status)
             else {
-                mail.sendMail('comp231team4@gmail.com', data.email, 'New Moderator Created', 'Hey Moderator, \n This is the link to the dashboard => http://localhost:4200/moderator/' + req.body.companyId + '/' + data.moderatorId, 'comp231password');
+                mail.sendMail('comp231team4@gmail.com', data.email, 'New Moderator Created', 'Hey Moderator, \n This is the link to your company dashboard => http://localhost:4200/moderator/'+data.moderatorId + '/'+req.body.companyId, 'comp231password');
                 response.sendResponse(res, 'Success, ID => ' + data.moderatorId, 200)
             }
         }

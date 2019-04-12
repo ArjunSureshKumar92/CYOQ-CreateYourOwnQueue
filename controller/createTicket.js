@@ -7,6 +7,8 @@ var apiControl = require('./api')
 var util = require('../common/ultility')
 var mail = require('../common/mail')
 
+global.queueName = '';
+
 
 exports.createTicket = function (req, res) {
     // create a simple ticket
@@ -24,7 +26,7 @@ exports.createTicket = function (req, res) {
             if (status != 200)
                 response.sendResponse(res, 'Error inserting ticket', status)
             else {
-                mail.sendMail('comp231team4@gmail.com',data.email,'New Ticket Created','Hey User, \n Your ticket is created for the queue '+req.body.queueId +'\n To get your queue position go to http://localhost:4200/user/ticket/getposition/'+req.body.companyId+'/'+ req.body.queueId+'/'+data.ticketId,'comp231password');
+                mail.sendMail('comp231team4@gmail.com', data.email, 'New Ticket Created', 'Hey User, \n Your ticket is created for the queue ' + queueName + '\n To get your queue position go to http://localhost:4200/user/' + req.body.email + '/ticket/getposition/' + req.body.companyId + '/' + req.body.queueId + '/' + data.ticketId, 'comp231password');
                 response.sendResponse(res, 'Success, ID => ' + data.ticketId, 200)
             }
         }
@@ -36,9 +38,10 @@ exports.createTicket = function (req, res) {
                 var date = new Date();
                 if (data.status && data.status == mongoConstants.queueStatusInactive) {
                     response.sendResponse(res, 'Sorry, queue in closed at the moment...', status)
-                } else if (data.startTime && data.closeTime && !util.isTimeWithinRange(data.startTime,data.closeTime, date.getHours()*60+date.getMinutes())) {
-                    response.sendResponse(res, 'Sorry, queue in closed at the moment... Please try after '+util.minutesToHourString(data.startTime - (date.getHours()*60+date.getMinutes())), status)
+                } else if (data.startTime && data.closeTime && !util.isTimeWithinRange(data.startTime, data.closeTime, date.getHours() * 60 + date.getMinutes())) {
+                    response.sendResponse(res, 'Sorry, queue in closed at the moment... Please try after ' + util.minutesToHourString(data.startTime,(date.getHours() * 60 + date.getMinutes())), status)
                 } else {
+                    queueName = data.name
                     mongoTicket.mongoDBTicketInsert(callbackInsertCase, req.body.companyId, mongoConstants.collectionNameTicket, createTicketObj);
                 }
             }
@@ -48,7 +51,7 @@ exports.createTicket = function (req, res) {
                 response.sendResponse(res, 'No such company exist', status)
             else {
                 mongoShared.checkQueueExist(callbackQueueExistCase, req.body.companyId, mongoConstants.collectionNameQueue, req.body.queueId);
-                
+
             }
         }
         mongoShared.checkCustomerExist(callbackCompanyExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.body.companyId);

@@ -11,6 +11,10 @@ var getQueueController = require('../controller/getQueue');
  */
 
 //Get cases
+router.get('/:authKey/queue/get/:companyId/:queueId', function (req, res) {
+  getQueueController.getQueue(req,res);
+});
+
 router.get('/:authKey/queue/get/:companyId', function (req, res) {
   getQueueController.getModeratorRelatedQueue(req,res);
 });

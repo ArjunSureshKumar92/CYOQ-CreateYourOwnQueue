@@ -11,7 +11,7 @@ var deleteTicketController = require('../controller/deleteTicket');
  */
 
 //Create cases
-router.post('ticket/create', function (req, res) {
+router.post('/ticket/create', function (req, res) {
   createTicketController.createTicket(req,res);
 });
 
