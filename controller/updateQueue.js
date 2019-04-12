@@ -10,7 +10,7 @@ var mongoCompany = require('../model/company')
 
 exports.updateQueue = function (req, res) {
     // update a queue
-    if (apiControl.updateQueueMust(Object.keys(req.body),Object.values(req.body))) {
+    if (apiControl.updateQueueMust(Object.keys(req.body), Object.values(req.body))) {
         var updQueueObj = {};
         updQueueObj['lastUpdated'] = new Date(new Date().toUTCString())
         for (var key in req.body) {
@@ -30,13 +30,13 @@ exports.updateQueue = function (req, res) {
                     updQueueObj[key] = req.body[key];
                 }
             }
-                
+
         }
         var callbackGetCompany = function (status, data) {
             if (status != 200)
                 response.sendResponse(res, 'Error getting company', status)
             else {
-                mail.sendMail('comp231team4@gmail.com',data.email,'Queue updated','Hey Admin, \n This is the link to view the updated queue => http://localhost:4200/admin/queue/get/'+req.body.companyId+'/'+req.body.queueId,'comp231password');
+                mail.sendMail('comp231team4@gmail.com', data.email, 'Queue updated', 'Hey Admin, \n This is the link to view the updated queue => http://localhost:4200/admin/queue/get/' + req.body.companyId + '/' + req.body.queueId, 'comp231password');
                 response.sendResponse(res, 'Success, ID => ' + req.body.queueId, 200)
             }
         }
@@ -68,7 +68,10 @@ exports.updateQueue = function (req, res) {
             if (status != 200)
                 response.sendResponse(res, 'No such company exist', status)
             else {
-                mongoShared.checkModeratorExist(callbackModeratorCase, req.body.companyId, mongoConstants.collectionNameModerator, req.body.moderator);
+                if (data.email == req.params.authKey)
+                    mongoShared.checkModeratorExist(callbackModeratorCase, req.body.companyId, mongoConstants.collectionNameModerator, req.body.moderator);
+                else
+                    response.sendResponse(res, 'Unauthorised User', 401)
             }
         }
         mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.body.companyId);

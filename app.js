@@ -27,7 +27,7 @@ app.use('/admin', adminRouter);
 app.use('/moderator', moderatorRouter);
 app.use('/user', userRouter);
 
-app.use('/api', apiRouter);
+//app.use('/api', apiRouter);
 app.use('/scripts', scriptsRouter);
 //app.use('/ui',uIRouter);
 

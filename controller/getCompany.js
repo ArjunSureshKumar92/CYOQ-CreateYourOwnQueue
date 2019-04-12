@@ -12,7 +12,7 @@ exports.getAllCompany = function (req, res) {
     // get all company
     var callbackGetAllCompany = function (status, data) {
         if (status != 200)
-            response.sendResponse(res, 'Error getting company', status)
+            response.sendResponse(res, 'Error getting companies', status)
         else {
             response.sendResponse(res, data, 200)
         }
@@ -24,12 +24,15 @@ exports.getCompany = function (req, res) {
     // get all company
     var callbackGetCompany = function (status, data) {
         if (status != 200)
-            response.sendResponse(res, 'Error getting company', status)
+            response.sendResponse(res, 'No such company exists', status)
         else {
-            response.sendResponse(res, data, 200)
+            if (data.email == req.params.authKey)
+                response.sendResponse(res, data, 200)
+            else
+                response.sendResponse(res, 'Unauthorised User', 401)
         }
     }
-    mongoCompany.mongoDBCompanyGet(callbackGetCompany, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers,req.params.companyId);
+    mongoCompany.mongoDBCompanyGet(callbackGetCompany, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.params.companyId);
 }
 
 

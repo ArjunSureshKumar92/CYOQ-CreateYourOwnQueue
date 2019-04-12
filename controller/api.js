@@ -265,40 +265,6 @@ exports.getWaitTicketMust = function (keys, values) {
     return (keys.includes('companyId') && keys.includes('queueId') && !values.includes(''));
 }
 
-
-
-
-
-
-exports.getAllQueueMust = function (keys, values) {
-    values = values.map(function (val) {
-        if (Array.isArray(val)) {
-            val = val.map(function (v) {
-               return v.trim()
-            });
-            return val
-        } else {
-            return val.trim()
-        }
-    });
-    return (keys.includes('companyId') && !values.includes(''));
-}
-
-exports.getAllModeratorMust = function (keys, values) {
-    values = values.map(function (val) {
-        if (Array.isArray(val)) {
-            val = val.map(function (v) {
-               return v.trim()
-            });
-            return val
-        } else {
-            return val.trim()
-        }
-    });
-    return (keys.includes('companyId') && !values.includes(''));
-}
-
-
 exports.closeTicketMust = function (keys, values) {
     values = values.map(function (val) {
         if (Array.isArray(val)) {
@@ -366,7 +332,7 @@ exports.deleteCompanyMust = function (keys, values) {
             return val.trim()
         }
     });
-    return (keys.includes('companyId') && !values.includes(''));
+    return (keys.includes('companyId')  && !values.includes(''));
 }
 
 exports.deleteModeratorMust = function (keys, values) {

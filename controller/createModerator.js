@@ -11,7 +11,7 @@ var mail = require('../common/mail')
 // create moderator
 exports.createModerator = function (req, res) {
     // create a simple moderator
-    if (apiControl.createModeratorMust(Object.keys(req.body),Object.values(req.body))) {
+    if (apiControl.createModeratorMust(Object.keys(req.body), Object.values(req.body))) {
         var createModeratorObj = {};
         createModeratorObj['moderatorId'] = random.getRandom(8);
         createModeratorObj['createdDate'] = new Date(new Date().toUTCString())
@@ -24,7 +24,7 @@ exports.createModerator = function (req, res) {
             if (status != 200)
                 response.sendResponse(res, 'Error inserting moderator', status)
             else {
-                mail.sendMail('comp231team4@gmail.com',data.email,'New Moderator Created','Hey Moderator, \n This is the link to the dashboard => http://localhost:4200/moderator/'+req.body.companyId+'/'+data.moderatorId,'comp231password');
+                mail.sendMail('comp231team4@gmail.com', data.email, 'New Moderator Created', 'Hey Moderator, \n This is the link to the dashboard => http://localhost:4200/moderator/' + req.body.companyId + '/' + data.moderatorId, 'comp231password');
                 response.sendResponse(res, 'Success, ID => ' + data.moderatorId, 200)
             }
         }
@@ -32,7 +32,10 @@ exports.createModerator = function (req, res) {
             if (status != 200)
                 response.sendResponse(res, 'No such company exist', status)
             else {
-                mongoModerator.mongoDBModeratorInsert(callbackInsertCase, req.body.companyId, mongoConstants.collectionNameModerator, createModeratorObj);
+                if (data.email == req.params.authKey)
+                    mongoModerator.mongoDBModeratorInsert(callbackInsertCase, req.body.companyId, mongoConstants.collectionNameModerator, createModeratorObj);
+                else
+                    response.sendResponse(res, 'Unauthorised User', 401)
             }
         }
         mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.body.companyId);

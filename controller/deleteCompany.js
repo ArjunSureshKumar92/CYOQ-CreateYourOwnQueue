@@ -9,7 +9,7 @@ var mail = require('../common/mail')
 
 exports.deleteCompany = function (req, res) {
     // delete a company
-    if (apiControl.deleteCompanyMust(Object.keys(req.body),Object.values(req.body))) {
+    if (apiControl.deleteCompanyMust(Object.keys(req.body), Object.values(req.body))) {
         var callbackDeleteCompany = function (status, data) {
             if (status != 200)
                 response.sendResponse(res, 'Error deleting company', status)
@@ -17,7 +17,19 @@ exports.deleteCompany = function (req, res) {
                 response.sendResponse(res, 'Success, deleted Company ID => ' + req.body.companyId, 200)
             }
         }
-        mongoCompany.mongoDBCompanyDelete(callbackDeleteCompany, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.body.companyId);
+        var callbackExistCase = function (status, data) {
+            if (status != 200)
+                response.sendResponse(res, 'No such company exist', status)
+            else {
+                if (data.email == req.params.authKey) {
+                   mongoCompany.mongoDBCompanyDelete(callbackDeleteCompany, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.body.companyId);
+                } else {
+                    response.sendResponse(res, 'Unauthorised User', 401)
+                }
+            }
+        }
+        mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.body.companyId);
+        
     } else {
         response.sendResponse(res, 'Bad Request', 403);
     }

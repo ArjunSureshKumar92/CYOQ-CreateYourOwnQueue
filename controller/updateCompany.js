@@ -26,7 +26,11 @@ exports.updateCompany = function (req, res) {
             if (status != 200)
                 response.sendResponse(res, 'No such company exist', status)
             else {
+                if (data.email == req.params.authKey)
                 mongoCompany.mongoDBCompanyUpdate(callback, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers,updCompanyObj, req.body.companyId);
+                    
+                else
+                    response.sendResponse(res, 'Unauthorised User', 401)
             }
         }
         mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.body.companyId);

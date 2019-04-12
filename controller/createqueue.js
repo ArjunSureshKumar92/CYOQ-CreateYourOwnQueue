@@ -10,6 +10,7 @@ var mongoCompany = require('../model/company')
 
 exports.createQueue = function (req, res) {
     // create a simple queue
+    console.log(req.params)
     if (apiControl.createQueueMust(Object.keys(req.body), Object.values(req.body))) {
         var createQueueObj = {};
         createQueueObj['queueId'] = random.getRandom(8);
@@ -62,7 +63,11 @@ exports.createQueue = function (req, res) {
             if (status != 200)
                 response.sendResponse(res, 'No such company exist', status)
             else {
-                mongoShared.checkModeratorExist(callbackModeratorCase, req.body.companyId, mongoConstants.collectionNameModerator, req.body.moderator);
+                if(data.email == req.params.authKey) {
+                    mongoShared.checkModeratorExist(callbackModeratorCase, req.body.companyId, mongoConstants.collectionNameModerator, req.body.moderator);
+                } else {
+                    response.sendResponse(res, 'Unauthorised User', 401)
+                }
             }
         }
         mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.body.companyId);
