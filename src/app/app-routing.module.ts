@@ -5,47 +5,82 @@ import { CreateQueueComponent } from './components/admin/create-queue/create-que
 import { CreateModeratorComponent } from './components/admin/create-moderator/create-moderator.component';
 import { ModeratorListComponent } from './components/admin/moderator-list/moderator-list.component';
 import { CompanyDetailsComponent } from './components/admin/company-details/company-details.component';
+import { ModeratorQueueListComponent } from './components/moderator/moderator-queue-list/moderator-queue-list.component';
+import { EndUserHomeComponent } from './components/end-user/enduser-home/enduser-home.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: '/queue/list',
-    pathMatch: 'full'
-  },
-  {
-    path: 'queue',
-    children: [
-        {
-            path: 'list',
-            component: AdminHomeComponent
-        },
-        {
-            path: 'create',
-            component: CreateQueueComponent
-        }
-    ]
-  },
-  {
-    path: 'moderator',
-    children: [
-        {
-            path: 'create',
-            component: CreateModeratorComponent
-        },
-        {
-            path: 'list',
-            component: ModeratorListComponent
-        }
-    ]
-  },
-  {
-      path: 'company',
-      component: CompanyDetailsComponent
-  }
+    {
+        path: '',
+        redirectTo: '/admin/queue/list',
+        pathMatch: 'full'
+    },
+    {
+        path: 'admin',
+        children: [
+            {
+                path: 'queue',
+                children: [
+                    {
+                        path: 'list',
+                        component: AdminHomeComponent
+                    },
+                    {
+                        path: 'create',
+                        component: CreateQueueComponent
+                    }
+                ]
+            },
+            {
+                path: 'moderator',
+                children: [
+                    {
+                        path: 'create',
+                        component: CreateModeratorComponent
+                    },
+                    {
+                        path: 'list',
+                        component: ModeratorListComponent
+                    }
+                ]
+            },
+            {
+                path: 'company',
+                component: CompanyDetailsComponent
+            }
+        ]
+    },
+    {
+        path: 'user',
+        children: [
+            {
+                path: ':company/:queue',
+                children: [
+                    {
+                        path: 'view',
+                        component: EndUserHomeComponent
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        path: 'moderator',
+        children: [
+            {
+                path: 'queue',
+                children: [
+                    {
+                        path: 'list',
+                        component: ModeratorQueueListComponent
+                    }
+                ]
+            }
+        ]
+    }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule { }

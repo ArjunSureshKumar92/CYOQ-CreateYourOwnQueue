@@ -8,13 +8,13 @@ import { Component } from '@angular/core';
         <div id="navbar">
           <ul class="list-inline nav">
             <li class="list-inline-item nav-item">
-              <a routerLink="/queue/list" class="nav-link" routerLinkActive="active">Queues</a>
+              <a routerLink="/admin/queue/list" class="nav-link" routerLinkActive="active">Queues</a>
             </li>
             <li class="list-inline-item nav-item">
-              <a routerLink="/moderator/list" class="nav-link" routerLinkActive="active">Moderators</a>
+              <a routerLink="/admin/moderator/list" class="nav-link" routerLinkActive="active">Moderators</a>
             </li>
             <li class="list-inline-item nav-item">
-              <a routerLink="/company" class="nav-link" routerLinkActive="active">Company</a>
+              <a routerLink="/admin/company" class="nav-link" routerLinkActive="active">Company</a>
             </li>
           </ul>
         </div>

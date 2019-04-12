@@ -5,7 +5,7 @@ import { QueueService } from 'src/app/services/queue.service';
   selector: 'app-end-user-list',
   template: `
   <div class="container-fluid">
-    <app-ticket-item *ngFor="let t of tickets" name="{{t.name}}" ticketId="{{t.ticketId}} queueId="{{queueId}}"></app-ticket-item>
+    <app-ticket-item *ngFor="let t of tickets" name="{{t.name}}" ticketId="{{t.ticketId}}" queueId="{{queueId}}"></app-ticket-item>
   </div>
   `,
   styles: [`

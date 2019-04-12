@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { QueueService } from '../../services/queue.service';
+import { QueueService } from 'src/app/services/queue.service';
 
 @Component({
   selector: 'app-company-list',

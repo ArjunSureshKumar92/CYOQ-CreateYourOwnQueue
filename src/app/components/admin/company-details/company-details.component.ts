@@ -6,28 +6,32 @@ import { QueueService } from 'src/app/services/queue.service';
   selector: 'app-company-details',
   template: `
   <h1 class="text-center">Company Profile</h1>
-  <div class="container-fluid">
-    <div class="form-group">
-      <label for="name">Company name</label>
-      <input type="text" disabled="disabled" class="form-control form-control-lg" id="name" name="name" value="Centennial College" />
+  <form action="http://localhost:4200/api/company/update" method="PUT">
+    <div class="container-fluid">
+        <div class="form-group">
+            <label for="name">Company name</label>
+            <input type="text" class="form-control form-control-lg" id="name" name="name" value="Centennial College" />
+        </div>
+        <div class="form-group">
+            <label for="name">Address</label>
+            <input type="text" class="form-control" id="address" name="address" value="Progress Ave" />
+        </div>
+        <div class="form-group">
+            <label for="name">Company website</label>
+            <input type="text" class="form-control" id="website" name="website" value="www.centennialcollege.ca" />
+        </div>
+        <div class="form-group">
+            <label for="name">Phone</label>
+            <input type="text" class="form-control" id="phone" name="phone" value="4162895000" />
+        </div>
+        <div class="form-group">
+            <label for="name">No. of employees</label>
+            <input type="text" class="form-control" id="employeeNum" name="employeeNum" value="20" />
+        </div>
+        <input type="text" class="form-control" id="companyId" name="companyId" value="824187727" />
+        <input type="submit" class="btn btn-primary btn-block btn-lg" value="Save" (click)="form.submit()" />
     </div>
-    <div class="form-group">
-      <label for="name">Address</label>
-      <input type="text" disabled="disabled" class="form-control" id="address" name="address" value="Progress Ave" />
-    </div>
-    <div class="form-group">
-      <label for="name">Company website</label>
-      <input type="text" disabled="disabled" class="form-control" id="website" name="website" value="www.centennialcollege.ca" />
-    </div>
-    <div class="form-group">
-      <label for="name">Phone</label>
-      <input type="text" disabled="disabled" class="form-control" id="phone" name="phone" value="4162895000" />
-    </div>
-    <div class="form-group">
-      <label for="name">No. of employees</label>
-      <input type="text" disabled="disabled" class="form-control" id="employeeNum" name="employeeNum" value="20" />
-    </div>
-  </div>
+  </form>
   `
 })
 export class CompanyDetailsComponent implements OnInit {
