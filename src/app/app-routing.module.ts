@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AdminHomeComponent } from './components/admin-home/admin-home.component';
-import { CreateQueueComponent } from './components/create-queue/create-queue.component';
-import { CreateModeratorComponent } from './components/create-moderator/create-moderator.component';
-import { ModeratorListComponent } from './components/moderator-list/moderator-list.component';
-import { QueueDetailsComponent } from './components/queue-details/queue-details.component';
-import { CompanyDetailsComponent } from './components/company-details/company-details.component';
+import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
+import { CreateQueueComponent } from './components/admin/create-queue/create-queue.component';
+import { CreateModeratorComponent } from './components/admin/create-moderator/create-moderator.component';
+import { ModeratorListComponent } from './components/admin/moderator-list/moderator-list.component';
+import { CompanyDetailsComponent } from './components/admin/company-details/company-details.component';
 
 const routes: Routes = [
   {
@@ -23,10 +22,6 @@ const routes: Routes = [
         {
             path: 'create',
             component: CreateQueueComponent
-        },
-        {
-            path: 'details/:queue',
-            component: QueueDetailsComponent
         }
     ]
   },
