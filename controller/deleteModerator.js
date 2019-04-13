@@ -8,9 +8,8 @@ var mail = require('../common/mail')
 
 
 exports.deleteModerator = function (req, res) {
-    // create a simple queue
-    if (apiControl.deleteModeratorMust(Object.keys(req.body))) {
-        var createQueueObj = {};
+    // delete a moderator
+    if (apiControl.deleteModeratorMust(Object.keys(req.body),Object.values(req.body))) {
         var callbackDeleteModerator = function (status, data) {
             if (status != 200)
                 response.sendResponse(res, 'Error deleting moderator', status)
@@ -18,7 +17,26 @@ exports.deleteModerator = function (req, res) {
                 response.sendResponse(res, 'Success, deleted Moderator ID => ' + req.body.moderatorId, 200)
             }
         }
-        mongoModerator.mongoDBModeratorDelete(callbackDeleteModerator, req.body.companyId, mongoConstants.collectionNameModerator, req.body.moderatorId);
+        var callbackModeratorCase = function (status, data) {
+            if (status == 200) {
+               mongoModerator.mongoDBModeratorDelete(callbackDeleteModerator, req.body.companyId, mongoConstants.collectionNameModerator,mongoConstants.collectionNameQueue, req.body.moderatorId);
+            } else if (status == 300) {
+                response.sendResponse(res, 'Invalid moderator', status)
+            }
+        }
+        var callbackExistCase = function (status, data) {
+            if (status != 200)
+                response.sendResponse(res, 'No such company exist', status)
+            else {
+                if(data.email == req.params.authKey) {
+                    mongoShared.checkModeratorExist(callbackModeratorCase, req.body.companyId, mongoConstants.collectionNameModerator, req.body.moderatorId);
+                } else {
+                    response.sendResponse(res, 'Unauthorised User', 401)
+                }
+            }
+        }
+        mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.body.companyId);
+        
     } else {
         response.sendResponse(res, 'Bad Request', 403);
     }

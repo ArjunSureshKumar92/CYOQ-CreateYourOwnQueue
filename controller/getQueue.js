@@ -8,57 +8,120 @@ var mail = require('../common/mail')
 
 
 exports.getQueue = function (req, res) {
-    // create a simple queue
-    if (apiControl.getQueueMust(Object.keys(req.params))) {
+    // get a queue
+    if (req.originalUrl.startsWith('/moderator')) {
         var callbackGetQueue = function (status, data) {
-            if (status != 200)
-                res.render('viewQueue', {
-                    success: '',
-                    error:'Error getting queue!!',
-                    name:'',
-                    description: '',
-                    startTime: '',
-                    closeTime:'',
-                });
-            else {
-                res.render('viewQueue', {
-                    success: '',
-                    error:'',
-                    name: data.name,
-                    description: data.description,
-                    startTime: data.startTime,
-                    closeTime:data.closeTime,
-                    queueId:data.queueId,
-                });
-            }
-        }
-        mongoQueue.mongoDBQueueGet(callbackGetQueue, req.params.companyId, mongoConstants.collectionNameQueue, req.params.queueId);
-    } else {
-        res.render('viewQueue', {
-            success: '',
-            error:'Bad Request!!',
-            name:'',
-            description: '',
-            startTime: '',
-            closeTime:'',
-        });
-    }
-}
-
-exports.getAllQueue = function (req, res) {
-    // create a simple queue
-    if (apiControl.getAllQueueMust(Object.keys(req.params))) {
-        var callbackGetAllQueue = function (status, data) {
             if (status != 200)
                 response.sendResponse(res, 'Error getting queue', status)
             else {
                 response.sendResponse(res, data, 200)
             }
         }
-        mongoQueue.mongoDBQueueGetAll(callbackGetAllQueue, req.params.companyId, mongoConstants.collectionNameQueue);
-    } else {
-        response.sendResponse(res, 'Bad Request', 403);
+        var callbackQueueExist = function (status, data) {
+            if (status != 200)
+                response.sendResponse(res, 'No such queue exist', status)
+            else {
+                mongoQueue.mongoDBQueueGet(callbackGetQueue, req.params.companyId, mongoConstants.collectionNameQueue, req.params.queueId);
+            }
+        }
+        var callbackModeratorCase = function (status, data) {
+            if (status != 200) {
+                response.sendResponse(res, 'Unauthorised User or Invalid moderator', 401)
+            } else {
+                mongoShared.checkQueueExist(callbackQueueExist, req.params.companyId, mongoConstants.collectionNameQueue, req.params.queueId);
+            }
+        }
+        var callbackExistCase = function (status, data) {
+            if (status != 200)
+                response.sendResponse(res, 'No such company exist', status)
+            else {
+                mongoShared.checkModeratorExists(callbackModeratorCase, req.params.companyId, mongoConstants.collectionNameModerator, req.params.authKey);
+            }
+        }
+        mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.params.companyId);
+    }
+    else {
+        var callbackGetQueue = function (status, data) {
+            if (status != 200)
+                response.sendResponse(res, 'Error getting queue', status)
+            else {
+                response.sendResponse(res, data, 200)
+            }
+        }
+        var callbackQueueExist = function (status, data) {
+            if (status != 200)
+                response.sendResponse(res, 'No such queue exist', status)
+            else {
+                mongoQueue.mongoDBQueueGet(callbackGetQueue, req.params.companyId, mongoConstants.collectionNameQueue, req.params.queueId);
+            }
+        }
+        var callbackExistCase = function (status, data) {
+            if (status != 200)
+                response.sendResponse(res, 'No such company exist', status)
+            else {
+                if (data.email == req.params.authKey)
+                    mongoShared.checkQueueExist(callbackQueueExist, req.params.companyId, mongoConstants.collectionNameQueue, req.params.queueId);
+                else
+                    response.sendResponse(res, 'Unauthorised User', 401)
+            }
+        }
+        mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.params.companyId);
     }
 }
 
+exports.getModeratorRelatedQueue = function (req, res) {
+    var callbackGetQueue = function (status, data) {
+        if (status != 200)
+            response.sendResponse(res, 'Error getting queue', status)
+        else {
+            response.sendResponse(res, data, 200)
+        }
+    }
+    var callbackModeratorCase = function (status, data) {
+        if (status != 200) {
+            response.sendResponse(res, 'Unauthorised User or Invalid moderator', 401)
+        } else {
+            mongoQueue.mongoDBModeratorRelatedQueueGet(callbackGetQueue, req.params.companyId, mongoConstants.collectionNameQueue, req.params.authKey);
+        }
+    }
+    var callbackExistCase = function (status, data) {
+        if (status != 200)
+            response.sendResponse(res, 'No such company exist', status)
+        else {
+            mongoShared.checkModeratorExists(callbackModeratorCase, req.params.companyId, mongoConstants.collectionNameModerator, req.params.authKey);
+        }
+    }
+    mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.params.companyId);
 
+}
+
+
+
+exports.getAllQueue = function (req, res) {
+    // get all queue
+    var callbackGetAllQueue = function (status, data) {
+        if (status != 200)
+            response.sendResponse(res, 'Error getting queue', status)
+        else {
+            response.sendResponse(res, data, 200)
+        }
+    }
+    var callbackExistCase = function (status, data) {
+        if (status != 200)
+            response.sendResponse(res, 'No such company exist', status)
+        else {
+            if (data.email == req.params.authKey) {
+                if (req.query.searchName) {
+                    mongoQueue.mongoDBQueueGetAllWithSearch(callbackGetAllQueue, req.params.companyId, mongoConstants.collectionNameQueue, req.query.searchName);
+                } else {
+                    mongoQueue.mongoDBQueueGetAll(callbackGetAllQueue, req.params.companyId, mongoConstants.collectionNameQueue);
+                }
+            }
+            else
+                response.sendResponse(res, 'Unauthorised User', 401)
+        }
+    }
+    mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.params.companyId);
+
+
+}

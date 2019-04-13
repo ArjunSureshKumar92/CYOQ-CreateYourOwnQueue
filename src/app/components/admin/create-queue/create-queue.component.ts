@@ -30,7 +30,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
             <timepicker></timepicker>
         </div>
     </div>
-    <input type="text" class="form-control" id="companyId" name="companyId" value="467908090" hidden />
+    <input type="text" class="form-control" id="companyId" name="companyId" value="824187727" hidden />
     <input type="text" class="form-control" id="startTime" name="startTime" value="09:00" hidden />
     <input type="text" class="form-control" id="closeTime" name="closeTime" value="17:00" hidden />
     <input type="submit" class="btn btn-primary btn-block btn-lg" value="Create Queue" (click)="form.submit()"/>

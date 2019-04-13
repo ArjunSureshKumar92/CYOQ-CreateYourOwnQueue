@@ -8,8 +8,8 @@ var mail = require('../common/mail')
 
 
 exports.deleteQueue = function (req, res) {
-    // create a simple queue
-    if (apiControl.deleteQueueMust(Object.keys(req.body))) {
+    // delete a queue
+    if (apiControl.deleteQueueMust(Object.keys(req.body),Object.values(req.body))) {
         var createQueueObj = {};
         var callbackDeleteQueue = function (status, data) {
             if (status != 200)
@@ -18,8 +18,26 @@ exports.deleteQueue = function (req, res) {
                 response.sendResponse(res, 'Success, deleted Queue ID => ' + req.body.queueId, 200)
             }
         }
-
-        mongoQueue.mongoDBQueueDelete(callbackDeleteQueue, req.body.companyId, mongoConstants.collectionNameQueue, req.body.queueId);
+        var callbackQueueExist = function (status, data) {
+            if (status != 200)
+                response.sendResponse(res, 'No such queue exist', status)
+            else {
+               mongoQueue.mongoDBQueueDelete(callbackDeleteQueue, req.body.companyId, mongoConstants.collectionNameQueue, req.body.queueId);
+            }
+        }
+        var callbackExistCase = function (status, data) {
+            if (status != 200)
+                response.sendResponse(res, 'No such company exist', status)
+            else {
+                if(data.email == req.params.authKey) {
+                    mongoShared.checkQueueExist(callbackQueueExist, req.body.companyId, mongoConstants.collectionNameQueue, req.body.queueId);
+                } else {
+                    response.sendResponse(res, 'Unauthorised User', 401)
+                }
+            }
+        }
+        mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.body.companyId);
+        
     } else {
         response.sendResponse(res, 'Bad Request', 403);
     }

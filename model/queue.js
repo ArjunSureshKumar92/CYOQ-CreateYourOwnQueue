@@ -1,5 +1,6 @@
 const mongodb = require('../model/mongo');
 exports.mongoDBQueueInsert = function (callback, dbName, collectionName, obj) {
+    var index = {"name": "text" }
     db = mongodb.getDb();
     db.db(dbName).collection(collectionName).insertOne(obj, (err, result) => {
         if (err) {
@@ -7,6 +8,7 @@ exports.mongoDBQueueInsert = function (callback, dbName, collectionName, obj) {
             callback(422, err)
         }
         else {
+            db.db(dbName).collection(collectionName).createIndex(index)
             callback(200, result.ops[0])
         }
         //db.close(); using global connection string.
@@ -19,7 +21,7 @@ exports.mongoDBQueueUpdate = function (callback, dbName, collectionName, obj, qu
     var queue = { queueId: queueId };
     //var tmp = {$set:{ name: "success-advisor-queue1" }};
     //console.log(queue.queueId + ' - '+tmp.name);
-    db.db(dbName).collection(collectionName).findOneAndUpdate(queue, {$set: obj}, (err, result) => {
+    db.db(dbName).collection(collectionName).findOneAndUpdate(queue, { $set: obj }, (err, result) => {
         if (err) {
             console.error(err)
             callback(422, err)
@@ -43,7 +45,49 @@ exports.mongoDBQueueGet = function (callback, dbName, collectionName, queueId) {
             console.log(result);
             callback(200, result);
         } else {
+            callback(422, result);
+        }
+    });
+
+}
+
+exports.mongoDBModeratorRelatedQueueGet = function (callback, dbName, collectionName, moderatorId) {
+    db = mongodb.getDb();
+    var obj = { moderator: { $in: [moderatorId] } };
+    db.db(dbName).collection(collectionName).find(obj).toArray(function (err, result) {
+        if (err) {
+            console.log(err);
+            callback(500, result);
+        } else if (result) {
             console.log(result);
+            if (result.length > 0)
+                callback(200, result);
+            else
+                callback(422, result);
+        } else {
+            callback(422, result);
+        }
+    });
+
+}
+
+
+
+exports.mongoDBQueueGetAllWithSearch = function (callback, dbName, collectionName,search) {
+    db = mongodb.getDb();
+    var obj = { $text : {$search : search}}
+    console.log(obj)
+    db.db(dbName).collection(collectionName).find(obj).toArray(function (err, result) {
+        if (err) {
+            console.log(err);
+            callback(500, result);
+        } else if (result) {
+            console.log(result);
+            if (result.length > 0)
+                callback(200, result);
+            else
+                callback(422, result);
+        } else {
             callback(422, result);
         }
     });
@@ -52,15 +96,17 @@ exports.mongoDBQueueGet = function (callback, dbName, collectionName, queueId) {
 
 exports.mongoDBQueueGetAll = function (callback, dbName, collectionName) {
     db = mongodb.getDb();
-    db.db(dbName).collection(collectionName).find({}).toArray(function(err, result) {
+    db.db(dbName).collection(collectionName).find({}).toArray(function (err, result) {
         if (err) {
             console.log(err);
             callback(500, result);
         } else if (result) {
             console.log(result);
-            callback(200, result);
+            if (result.length > 0)
+                callback(200, result);
+            else
+                callback(422, result);
         } else {
-            console.log(result);
             callback(422, result);
         }
     });

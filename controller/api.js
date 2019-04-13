@@ -11,11 +11,23 @@ exports.createQueueCan = function (value) {
     }
 }
 
+exports.createTicketCan = function (value) {
+    switch (value) {
+        case 'description':
+        case 'email':
+        case 'queueId':
+            return true;
+        default:
+            return false;
+    }
+}
+
 exports.updateQueueCan = function (value) {
     switch (value) {
         case 'name':
         case 'description':
         case 'startTime':
+        case 'status':
         case 'closeTime':
         case 'moderator':
             return true;
@@ -29,6 +41,7 @@ exports.createCompanyCan = function (value) {
     switch (value) {
         case 'name':
         case 'address':
+        case 'email':
         case 'phone':
         case 'website':
         case 'employeeCount':
@@ -42,6 +55,7 @@ exports.updateCompanyCan = function (value) {
     switch (value) {
         case 'name':
         case 'address':
+        case 'email':
         case 'phone':
         case 'website':
         case 'employeeCount':
@@ -51,9 +65,31 @@ exports.updateCompanyCan = function (value) {
     }
 }
 
+exports.closeTicketCan = function (value) {
+    switch (value) {
+        case 'ticketId':
+        case 'feedback':
+            return true;
+        default:
+            return false;
+    }
+}
+
+exports.nextTicketCan = function (value) {
+    switch (value) {
+        case 'queueId':
+            return true;
+        default:
+            return false;
+    }
+}
+
+
+
 exports.createModeratorCan = function (value) {
     switch (value) {
         case 'name':
+        case 'email':
         case 'address':
         case 'phone':
             return true;
@@ -66,6 +102,7 @@ exports.updateModeratorCan = function (value) {
     switch (value) {
         case 'name':
         case 'address':
+        case 'email':
         case 'phone':
             return true;
         default:
@@ -73,32 +110,115 @@ exports.updateModeratorCan = function (value) {
     }
 }
 
-exports.createCompanyMust = function (value) {
-    return (value.includes('name'));
+exports.createCompanyMust = function (keys, values) {
+    values = values.map(function (val) {
+        if (Array.isArray(val)) {
+            val = val.map(function (v) {
+               return v.trim()
+            });
+            return val
+        } else {
+            return val.trim()
+        }
+    });
+    return (keys.includes('name') && keys.includes('email') && !values.includes(''));
 }
 
-exports.updateCompanyMust = function (value) {
-    return (value.includes('companyId'));
+exports.updateCompanyMust = function (keys, values) {
+    values = values.map(function (val) {
+        if (Array.isArray(val)) {
+            val = val.map(function (v) {
+               return v.trim()
+            });
+            return val
+        } else {
+            return val.trim()
+        }
+    });
+    return (keys.includes('companyId')  && !values.includes(''));
 }
 
-exports.createModeratorMust = function (value) {
-    return (value.includes('name') && value.includes('companyId'));
+exports.createModeratorMust = function (keys, values) {
+    values = values.map(function (val) {
+        if (Array.isArray(val)) {
+            val = val.map(function (v) {
+               return v.trim()
+            });
+            return val
+        } else {
+            return val.trim()
+        }
+    });
+    return (keys.includes('name') && keys.includes('companyId') && keys.includes('email') && !values.includes(''));
 }
 
-exports.updateModeratorMust = function (value) {
-    return (value.includes('moderatorId'));
+exports.updateModeratorMust = function (keys, values) {
+    values = values.map(function (val) {
+        if (Array.isArray(val)) {
+            val = val.map(function (v) {
+               return v.trim()
+            });
+            return val
+        } else {
+            return val.trim()
+        }
+    });
+    return (keys.includes('moderatorId') && !values.includes(''));
 }
 
-exports.createQueueMust = function (value) {
-    return (value.includes('name') && value.includes('companyId'));
+exports.createQueueMust = function (keys, values) {
+    values = values.map(function (val) {
+        if (Array.isArray(val)) {
+            val = val.map(function (v) {
+               return v.trim()
+            });
+            return val
+        } else {
+            return val.trim()
+        }
+    });
+    return (keys.includes('name') && keys.includes('companyId') && keys.includes('moderator') && !values.includes(''));
 }
 
-exports.getQueueMust = function (value) {
-    return (value.includes('queueId') && value.includes('companyId'));
+exports.createTicketMust = function (keys, values) {
+    values = values.map(function (val) {
+        if (Array.isArray(val)) {
+            val = val.map(function (v) {
+               return v.trim()
+            });
+            return val
+        } else {
+            return val.trim()
+        }
+    });
+    return (keys.includes('queueId') && keys.includes('companyId') && keys.includes('email') && !values.includes(''));
 }
 
-exports.getAllQueueMust = function (value) {
-    return (value.includes('companyId'));
+exports.getQueueMust = function (keys, values) {
+    values = values.map(function (val) {
+        if (Array.isArray(val)) {
+            val = val.map(function (v) {
+               return v.trim()
+            });
+            return val
+        } else {
+            return val.trim()
+        }
+    });
+    return (keys.includes('queueId') && keys.includes('companyId') && !values.includes(''));
+}
+exports.closeTicketMust = function (keys, values) {
+    values = values.map(function (val) {
+        if (Array.isArray(val)) {
+            val = val.map(function (v) {
+               return v.trim()
+            });
+            return val
+        } else {
+            return val.trim()
+        }
+    });
+    return (keys.includes('companyId') && keys.includes('ticketId') && !values.includes(''));
 }
 
 exports.getModeratorMust = function (value) {
@@ -109,20 +229,87 @@ exports.getAllModeratorMust = function (value) {
     return (value.includes('companyId'));
 }
 
-
-
-exports.updateQueueMust = function (value) {
-    return (value.includes('queueId') && value.includes('companyId'));
+exports.nextTicketMust = function (keys, values) {
+    values = values.map(function (val) {
+        if (Array.isArray(val)) {
+            val = val.map(function (v) {
+               return v.trim()
+            });
+            return val
+        } else {
+            return val.trim()
+        }
+    });
+    return (keys.includes('companyId') && keys.includes('queueId') && !values.includes(''));
 }
 
-exports.deleteQueueMust = function (value) {
-    return (value.includes('queueId') && value.includes('companyId'));
+exports.updateQueueMust = function (keys, values) {
+    values = values.map(function (val) {
+        if (Array.isArray(val)) {
+            val = val.map(function (v) {
+               return v.trim()
+            });
+            return val
+        } else {
+            return val.trim()
+        }
+    });
+    return (keys.includes('queueId') && keys.includes('companyId') && !values.includes(''));
 }
 
-exports.deleteCompanyMust = function (value) {
-    return (value.includes('companyId'));
+exports.deleteQueueMust = function (keys, values) {
+    values = values.map(function (val) {
+        if (Array.isArray(val)) {
+            val = val.map(function (v) {
+               return v.trim()
+            });
+            return val
+        } else {
+            return val.trim()
+        }
+    });
+    return (keys.includes('queueId') && keys.includes('companyId') && !values.includes(''));
 }
 
-exports.deleteModeratorMust = function (value) {
-    return (value.includes('moderatorId') && value.includes('companyId'));
+exports.deleteCompanyMust = function (keys, values) {
+    values = values.map(function (val) {
+        if (Array.isArray(val)) {
+            val = val.map(function (v) {
+               return v.trim()
+            });
+            return val
+        } else {
+            return val.trim()
+        }
+    });
+    return (keys.includes('companyId')  && !values.includes(''));
 }
+
+exports.deleteModeratorMust = function (keys, values) {
+    values = values.map(function (val) {
+        if (Array.isArray(val)) {
+            val = val.map(function (v) {
+               return v.trim()
+            });
+            return val
+        } else {
+            return val.trim()
+        }
+    });
+    return (keys.includes('moderatorId') && keys.includes('companyId') && !values.includes(''));
+}
+
+exports.deleteTicketMust = function (keys, values) {
+    values = values.map(function (val) {
+        if (Array.isArray(val)) {
+            val = val.map(function (v) {
+               return v.trim()
+            });
+            return val
+        } else {
+            return val.trim()
+        }
+    });
+    return (keys.includes('companyId') && keys.includes('ticketId') && !values.includes(''));
+}
+
