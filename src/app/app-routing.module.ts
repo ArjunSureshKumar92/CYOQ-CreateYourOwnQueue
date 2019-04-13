@@ -7,6 +7,7 @@ import { ModeratorListComponent } from './components/admin/moderator-list/modera
 import { CompanyDetailsComponent } from './components/admin/company-details/company-details.component';
 import { ModeratorQueueListComponent } from './components/moderator/moderator-queue-list/moderator-queue-list.component';
 import { EndUserHomeComponent } from './components/end-user/enduser-home/enduser-home.component';
+import { ModeratorQueueComponent } from './components/moderator/moderator-queue/moderator-queue.component';
 
 const routes: Routes = [
     {
@@ -72,6 +73,10 @@ const routes: Routes = [
                     {
                         path: 'list',
                         component: ModeratorQueueListComponent
+                    },
+                    {
+                        path: 'get/:companyId/:queueId',
+                        component: ModeratorQueueComponent
                     }
                 ]
             }

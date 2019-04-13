@@ -33,6 +33,10 @@ export class QueueService {
         });
     }
 
+    getModeratorId() {
+        return '123';
+    }
+
 
     getAllCompany(callback, instance) {
         var responses;
@@ -44,9 +48,15 @@ export class QueueService {
     }
     
 
-    getQueues(callback, instance) {
+    getQueues(callback, instance, moderatorId?) {
         var responses;
-        this.http.get('http://localhost:4200/api/queue/all/824187727').subscribe(data => {
+        var url = 'http://localhost:4200/api/queue/all/824187727';
+
+        if (moderatorId) {
+            url = `http://localhost:4200/api/queue/get/824187727/${moderatorId}`;
+        }
+
+        this.http.get(url).subscribe(data => {
             responses = data;
             console.log(responses.response[0].name);
             callback(responses.response, instance);

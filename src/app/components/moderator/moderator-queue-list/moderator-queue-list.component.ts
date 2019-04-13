@@ -11,7 +11,7 @@ import { QueueService } from '../../../services/queue.service';
     </div>
   </div>
   <div class="container-fluid">
-    <app-queue-item *ngFor="let q of queues | filter : searchText" name="{{q.name}}" queueId="{{q.queueId}}"></app-queue-item>
+    <app-moderator-queue-item *ngFor="let q of queues | filter : searchText" name="{{q.name}}" queueId="{{q.queueId}}"></app-moderator-queue-item>
   </div>
   `,
   styles: [`
@@ -35,12 +35,12 @@ export class ModeratorQueueListComponent implements OnInit {
     }
 
     getQueues() {
-      this.qs.getQueues(this.getCallback,this)
+        this.qs.getQueues(this.getCallback,this, this.qs.getModeratorId());
     }
 
     getCallback(val,instance) {
-      console.log("val"+val[0].name);
-      instance.queues = val; 
+        console.log("val"+val[0].name);
+        instance.queues = val; 
     }
 
     ngOnInit() {

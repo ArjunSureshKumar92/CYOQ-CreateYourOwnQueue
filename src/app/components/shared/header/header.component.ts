@@ -13,7 +13,7 @@ import { Component, OnInit } from '@angular/core';
   `
 })
 export class HeaderComponent implements OnInit {
-  company = 'Centennial'
+  company = 'Centennial College'
 
   constructor() { }
 
