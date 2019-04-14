@@ -9,6 +9,8 @@ import { Queue, QueueAdapter } from '../models/queue.model';
 })
 export class QueueService {
     uri = 'http://localhost:4200/api/queue/all/';
+    adminId = 'comp231team4@gmail.com';
+
     constructor(private http: HttpClient, private adapter: QueueAdapter) { }
 
     createQueue(name: String, description: String, startTime, closeTime) {
@@ -36,7 +38,6 @@ export class QueueService {
     getModeratorId() {
         return '123';
     }
-
 
     getAllCompany(callback, instance) {
         var responses;

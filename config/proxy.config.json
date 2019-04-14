@@ -13,5 +13,20 @@
         "target": "http://localhost:3000",
         "secure": false,
         "changeOrigin": true
+    },
+    "/admin": {
+        "target": "http://localhost:3000",
+        "secure": false,
+        "changeOrigin": true
+    },
+    "/moderator": {
+        "target": "http://localhost:3000",
+        "secure": false,
+        "changeOrigin": true
+    },
+    "/user": {
+        "target": "http://localhost:3000",
+        "secure": false,
+        "changeOrigin": true
     }
 }

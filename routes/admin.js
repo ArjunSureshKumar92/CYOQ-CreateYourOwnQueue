@@ -12,12 +12,16 @@ var updateModeratorController = require('../controller/updateModerator');
 var getModeratorController = require('../controller/getModerator');
 var getCompanyController = require('../controller/getCompany');
 var getQueueController = require('../controller/getQueue');
-
+var uiController = require('../controller/ui');
 
 
 /**
  * All the routes that are starting with admin. 
  */
+//Displaying UI
+router.get('/moderator/create', function (req, res) {
+    uiController.createModeratorUI(req,res);
+});
 
 //Create cases
 router.post('/:authKey/queue/create', function (req, res) {

@@ -8,7 +8,7 @@ import { QueueService } from 'src/app/services/queue.service';
   template: `
   <h1 class="text-center">Moderators</h1>
   <div class="text-right">
-    <a href="http://localhost:4200/api/moderator/create" class="btn btn-primary">+ Add Moderator</a>
+    <a href="http://localhost:4200/admin/moderator/create" class="btn btn-primary">+ Add Moderator</a>
   </div>
   <div class="container-fluid">
     <app-moderator-item *ngFor="let m of moderators" name="{{m.name}}" moderatorId="{{m.moderatorId}}"></app-moderator-item>
@@ -24,10 +24,12 @@ import { QueueService } from 'src/app/services/queue.service';
 })
 export class ModeratorListComponent implements OnInit {
     moderators: any;
+    adminId: String = '';
 
     constructor(private qs: QueueService) {
         this.moderators = [];
         this.getModerator();
+        this.adminId = this.qs.adminId;
     }
 
     getModerator() {
