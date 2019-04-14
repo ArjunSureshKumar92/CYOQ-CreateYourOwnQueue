@@ -16,6 +16,7 @@ exports.createTicketCan = function (value) {
         case 'description':
         case 'email':
         case 'queueId':
+        case 'name':
             return true;
         default:
             return false;

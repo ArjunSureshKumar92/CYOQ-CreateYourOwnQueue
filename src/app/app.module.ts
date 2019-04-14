@@ -27,6 +27,7 @@ import { TicketItemComponent } from './components/moderator/ticket-item/ticket-i
 import { ModeratorQueueListComponent } from './components/moderator/moderator-queue-list/moderator-queue-list.component';
 import { ModeratorQueueComponent } from './components/moderator/moderator-queue/moderator-queue.component';
 import { ModeratorQueueItemComponent } from './components/moderator/moderator-queue-item/moderator-queue-item.component';
+import { RegisterQueueComponent } from './components/end-user/register-queue/register-queue.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { ModeratorQueueItemComponent } from './components/moderator/moderator-qu
     TicketItemComponent,
     ModeratorQueueListComponent,
     ModeratorQueueComponent,
-    ModeratorQueueItemComponent
+    ModeratorQueueItemComponent,
+    RegisterQueueComponent
   ],
   imports: [
     BrowserModule,

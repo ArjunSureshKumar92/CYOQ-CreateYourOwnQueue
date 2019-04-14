@@ -8,6 +8,7 @@ import { CompanyDetailsComponent } from './components/admin/company-details/comp
 import { ModeratorQueueListComponent } from './components/moderator/moderator-queue-list/moderator-queue-list.component';
 import { EndUserHomeComponent } from './components/end-user/enduser-home/enduser-home.component';
 import { ModeratorQueueComponent } from './components/moderator/moderator-queue/moderator-queue.component';
+import { RegisterQueueComponent } from './components/end-user/register-queue/register-queue.component';
 
 const routes: Routes = [
     {
@@ -59,8 +60,13 @@ const routes: Routes = [
                     {
                         path: 'view',
                         component: EndUserHomeComponent
+                    },
+                    {
+                        path: 'register',
+                        component: RegisterQueueComponent
                     }
-                ]
+                ],
+
             }
         ]
     },

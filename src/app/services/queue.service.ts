@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Queue, QueueAdapter } from '../models/queue.model';
 
 
@@ -8,8 +9,10 @@ import { Queue, QueueAdapter } from '../models/queue.model';
     providedIn: 'root'
 })
 export class QueueService {
+    baseUri = 'http://localhost:3000'
     uri = 'http://localhost:4200/api/queue/all/';
     adminId = 'comp231team4@gmail.com';
+    companyId = '350195980';
 
     constructor(private http: HttpClient, private adapter: QueueAdapter) { }
 
@@ -23,8 +26,12 @@ export class QueueService {
         this.http.post(`${this.uri}/create`, newQueue).subscribe(res => console.log('Queue created.'));
     }
 
-    getQueue() { }
-
+    getQueueAdmin(companyId: String, queueId: String): Observable<Queue[]> {
+        var url = `${this.baseUri}/admin/${this.adminId}/queue/get/${companyId}/${queueId}`;
+        return this.http.get(url).pipe(
+            map((data: any[]) => data.map(item => this.adapter.adapt(item)))
+        );
+    }
 
     getModerators(callback, instance) {
         var responses;
