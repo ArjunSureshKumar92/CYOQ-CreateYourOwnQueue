@@ -27,7 +27,7 @@ import { Router } from '@angular/router';
         <input type="text" class="form-control" id="moderatorId" name="moderatorId" value="{{moderatorId}}" />
     </div>
     <input type="submit" class="btn btn-primary btn-block btn-lg" [disabled]="angForm.pristine || angForm.invalid" value="Save Changes" />
-    <input type="button" onclick="delete()" formaction="http://localhost:3000/admin/{{adminId}}/moderator/delete" class="btn btn-danger btn-block btn-lg" name="delete" id="delete" value="Delete Moderator" />
+    <input type="button" (click)="delete()" class="btn btn-danger btn-block btn-lg" name="delete" id="delete" value="Delete Moderator" />
   </form>
   `
 })
@@ -95,12 +95,23 @@ export class ModeratorDetailsComponent implements OnInit {
     }
 
     delete() {
-        let data: Moderator = new Moderator(
-            this.angForm.get('name').value,
-            this.moderatorId,
-            this.companyId,
-            this.angForm.get('email').value
-        );
+        let data = {
+            name: this.angForm.get('name').value,
+            email: this.angForm.get('email').value,
+            companyId: this.companyId,
+            moderatorId: this.moderatorId
+        };
+        this.qs.deleteModerator(data).subscribe(
+            res => {
+                this.router.navigate(['']);
+            },
+            err => {
+                console.log(err);
+            },
+            () => {
+                console.log('Deleted moderator');
+            }
+        )
         console.log('deleting');
     }
 }

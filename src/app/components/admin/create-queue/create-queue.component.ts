@@ -11,7 +11,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
         <app-navbar></app-navbar>
     </div>
     <form [formGroup]="angForm" (ngSubmit)="form.submit()" action="http://localhost:3000/admin/{{adminId}}/queue/create" method="POST" #form>
-        <button type="button" class="close" aria-label="Close">
+        <button (click)="close()" type="button" class="close" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
         <div class="form-group">
@@ -81,11 +81,13 @@ export class CreateQueueComponent implements OnInit {
     }
 
     getModerators() {
-        this.qs.getModerators(function(val, instance) {
-                console.log("val"+val[0].name);
-                instance.moderators = val;
-                instance.setValues();
-            }, this);
+        this.qs.getModerators().subscribe(
+            res => {
+                this.moderators = res.response;
+            },
+            err => { console.log(err); },
+            () => { console.log('Retrieved moderators'); }
+        );
     }
 
     setValues() {

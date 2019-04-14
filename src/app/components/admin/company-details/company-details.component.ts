@@ -60,12 +60,14 @@ export class CompanyDetailsComponent implements OnInit {
     }
 
     getCompany() {
-        this.qs.getCompany(this.getCallback, this, this.companyId);
-    }
-
-    getCallback(val,instance) {
-        instance.company = val;
-        instance.setValues();
+        this.qs.getCompany(this.companyId).subscribe(
+            res => {
+                this.company = res.response;
+                this.setValues();
+            },
+            err => { console.log(err); },
+            () => { console.log('Retrieved company details.') }
+        );
     }
 
     setValues() {

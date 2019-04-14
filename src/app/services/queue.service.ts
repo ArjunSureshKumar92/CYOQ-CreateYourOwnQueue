@@ -27,42 +27,24 @@ export class QueueService {
         this.http.post(`${this.uri}/create`, newQueue).subscribe(res => console.log('Queue created.'));
     }
 
-    getQueueAdmin(companyId: String, queueId: String): Observable<Queue[]> {
-        var url = `${this.baseUri}/admin/${this.adminId}/queue/get/${companyId}/${queueId}`;
-        return this.http.get(url).pipe(
-            map((data: any[]) => data.map(item => this.adapter.adapt(item)))
-        );
+    getQueueAdmin(companyId: String, queueId: String) {
+        return this.http.get(`${this.baseUri}/admin/${this.adminId}/queue/get/${companyId}/${queueId}`);
     }
 
     getModerator(callback, instance, moderatorId) {
-        var responses;
-        this.http.get(`${this.baseUri}/admin/${this.adminId}/moderator/get/${this.companyId}/${moderatorId}`).subscribe(data => {
-            responses = data;
-            console.log(responses);
-            callback(responses.response, instance);
-        });
+        return this.http.get(`${this.baseUri}/admin/${this.adminId}/moderator/get/${this.companyId}/${moderatorId}`);
     }
 
-    getModerators(callback, instance) {
-        var responses;
-        this.http.get(`${this.baseUri}/admin/${this.adminId}/moderator/all/${this.companyId}`).subscribe(data => {
-            responses = data;
-            console.log(responses.response[0].name);
-            callback(responses.response, instance);
-        });
+    getModerators() {
+        return this.http.get(`${this.baseUri}/admin/${this.adminId}/moderator/all/${this.companyId}`);
     }
 
     getModeratorId() {
         return '123';
     }
 
-    getCompany(callback, instance, companyId) {
-        var responses;
-        this.http.get(`${this.baseUri}/admin/${this.adminId}/company/get/${companyId}`).subscribe(data => {
-            responses = data;
-            console.log(responses);
-            callback(responses.response, instance);
-        });
+    getCompany(companyId) {
+        return this.http.get(`${this.baseUri}/admin/${this.adminId}/company/get/${companyId}`);
     }
 
     getAllCompany(callback, instance) {
@@ -108,21 +90,23 @@ export class QueueService {
     }
 
 
-    updateQueue() { }
+    updateQueue(data) {
+        return this.http.post(`${this.baseUri}/admin/${this.adminId}/queue/update`, data);
+    }
 
     updateCompany(data) {
-        this.http.put(`${this.baseUri}/admin/${this.adminId}/company/update`, data).subscribe(res => console.log('Company updated.'));
+        return this.http.post(`${this.baseUri}/admin/${this.adminId}/company/update`, data);
     }
 
     updateModerator(data) {
         return this.http.post(`${this.baseUri}/admin/${this.adminId}/moderator/update`, data);
     }
 
-    deleteQueue(queueId) {
-        this.http.delete(`${this.uri}/delete`, queueId).subscribe(res => console.log('Queue deleted.'));
+    deleteQueue(data) {
+        return this.http.post(`${this.baseUri}/admin/${this.adminId}/queue/delete`, data);
     }
 
     deleteModerator(data) {
-        this.http.delete(`${this.baseUri}/admin/${this.adminId}/moderator/delete`, data).subscribe(res => console.log('Moderator deleted.'));
+        return this.http.post(`${this.baseUri}/admin/${this.adminId}/moderator/delete`, data);
     }
 }

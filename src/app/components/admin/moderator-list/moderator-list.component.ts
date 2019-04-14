@@ -38,12 +38,17 @@ export class ModeratorListComponent implements OnInit {
     }
 
     getModerator() {
-      this.qs.getModerators(this.getCallback,this)
-    }
-
-    getCallback(val,instance) {
-      console.log("val"+val[0].name);
-      instance.moderators = val; 
+      this.qs.getModerators().subscribe(
+          res => {
+              this.moderators = res.response;
+          },
+          err => {
+              console.log(err);
+          },
+          () => {
+              console.log('Retrieved moderators');
+          }
+      );
     }
 
     ngOnInit() {

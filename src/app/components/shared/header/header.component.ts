@@ -14,7 +14,7 @@ import { QueueService } from 'src/app/services/queue.service';
   `
 })
 export class HeaderComponent implements OnInit {
-    company = 'Centennial College';
+    company = 'Create Your Own Queue';
     companyId: String = '';
 
     constructor(private qs: QueueService) {
@@ -26,11 +26,6 @@ export class HeaderComponent implements OnInit {
     }
 
     getCompany() {
-        this.qs.getCompany(this.getCallback, this, this.companyId);
+        this.qs.getCompany(this.companyId).subscribe(res => this.company = res.response.name);
     }
-
-    getCallback(val,instance) {
-        instance.company = val.name;
-    }
-
 }
