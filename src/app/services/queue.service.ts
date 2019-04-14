@@ -73,7 +73,15 @@ export class QueueService {
             callback(responses.response, instance);
         });
     }
-    
+
+    getQueue(callback, instance, queueId) {
+        var responses;
+        this.http.get(`${this.baseUri}/admin/${this.adminId}/queue/get/${this.companyId}/${queueId}`).subscribe(data => {
+            responses = data;
+            console.log(responses);
+            callback(responses.response, instance);
+        });
+    }
 
     getQueues(callback, instance, moderatorId?) {
         var responses;

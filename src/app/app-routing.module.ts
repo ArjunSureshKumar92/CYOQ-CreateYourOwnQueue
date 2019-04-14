@@ -10,6 +10,7 @@ import { EndUserHomeComponent } from './components/end-user/enduser-home/enduser
 import { ModeratorQueueComponent } from './components/moderator/moderator-queue/moderator-queue.component';
 import { RegisterQueueComponent } from './components/end-user/register-queue/register-queue.component';
 import { ModeratorDetailsComponent } from './components/admin/moderator-details/moderator-details.component';
+import { QueueDetailsComponent } from './components/admin/queue-details/queue-details.component';
 
 const routes: Routes = [
     {
@@ -30,6 +31,10 @@ const routes: Routes = [
                     {
                         path: 'create',
                         component: CreateQueueComponent
+                    },
+                    {
+                        path: 'view/:companyId/:queueId',
+                        component: QueueDetailsComponent
                     }
                 ]
             },
