@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   <div>
     <app-navbar></app-navbar>
   </div>
-  <form [formGroup]="angForm" (ngSubmit)="form.submit()" action="http://localhost:3000/admin/{{adminId}}/moderator/update" method="POST" #form>
+  <form [formGroup]="angForm" (ngSubmit)="submit()" action="http://localhost:3000/admin/{{adminId}}/moderator/update" method="POST" #form>
     <div class="form-group">
         <label for="name">Moderator name</label>
         <input type="text" class="form-control form-control-lg" formControlName="name" id="name" name="name" />
@@ -27,7 +27,7 @@ import { Router } from '@angular/router';
         <input type="text" class="form-control" id="moderatorId" name="moderatorId" value="{{moderatorId}}" />
     </div>
     <input type="submit" class="btn btn-primary btn-block btn-lg" [disabled]="angForm.pristine || angForm.invalid" value="Save Changes" />
-    <input type="button" formaction="http://localhost:3000/admin/{{adminId}}/moderator/delete" class="btn btn-danger btn-block btn-lg" name="delete" id="delete" value="Delete Moderator" />
+    <input type="button" onclick="delete()" formaction="http://localhost:3000/admin/{{adminId}}/moderator/delete" class="btn btn-danger btn-block btn-lg" name="delete" id="delete" value="Delete Moderator" />
   </form>
   `
 })
@@ -74,6 +74,26 @@ export class ModeratorDetailsComponent implements OnInit {
         this.angForm.get('email').setValue(this.moderator.email);
     }
 
+    submit() {
+        let data = {
+            name: this.angForm.get('name').value,
+            email: this.angForm.get('email').value,
+            companyId: this.companyId,
+            moderatorId: this.moderatorId
+        };
+        this.qs.updateModerator(data).subscribe(
+            res => {
+                this.router.navigate(['']);
+            },
+            err => {
+                console.log(err);
+            },
+            () => {
+                console.log('Updated moderator.');
+            }
+        );
+    }
+
     delete() {
         let data: Moderator = new Moderator(
             this.angForm.get('name').value,
@@ -81,5 +101,6 @@ export class ModeratorDetailsComponent implements OnInit {
             this.companyId,
             this.angForm.get('email').value
         );
+        console.log('deleting');
     }
 }

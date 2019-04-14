@@ -114,6 +114,10 @@ export class QueueService {
         this.http.put(`${this.baseUri}/admin/${this.adminId}/company/update`, data).subscribe(res => console.log('Company updated.'));
     }
 
+    updateModerator(data) {
+        return this.http.post(`${this.baseUri}/admin/${this.adminId}/moderator/update`, data);
+    }
+
     deleteQueue(queueId) {
         this.http.delete(`${this.uri}/delete`, queueId).subscribe(res => console.log('Queue deleted.'));
     }
