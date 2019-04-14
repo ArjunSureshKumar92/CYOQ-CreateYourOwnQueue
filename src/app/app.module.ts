@@ -28,6 +28,7 @@ import { ModeratorQueueListComponent } from './components/moderator/moderator-qu
 import { ModeratorQueueComponent } from './components/moderator/moderator-queue/moderator-queue.component';
 import { ModeratorQueueItemComponent } from './components/moderator/moderator-queue-item/moderator-queue-item.component';
 import { RegisterQueueComponent } from './components/end-user/register-queue/register-queue.component';
+import { ModeratorDetailsComponent } from './components/admin/moderator-details/moderator-details.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { RegisterQueueComponent } from './components/end-user/register-queue/reg
     ModeratorQueueListComponent,
     ModeratorQueueComponent,
     ModeratorQueueItemComponent,
-    RegisterQueueComponent
+    RegisterQueueComponent,
+    ModeratorDetailsComponent
   ],
   imports: [
     BrowserModule,

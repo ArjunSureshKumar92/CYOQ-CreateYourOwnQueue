@@ -5,7 +5,7 @@ import { Component, OnInit, Input } from '@angular/core';
   template: `
   <div class="container-fluid clickable row">
     <h5 class="d-inline col">{{name}}</h5>
-    <a href="/api/moderator/get/824187727/{{moderatorId}}" class="divLink"></a>
+    <a href="/admin/moderator/view/{{companyId}}/{{moderatorId}}" class="divLink"></a>
   </div>
   `,
   styles: [`
@@ -22,6 +22,9 @@ export class ModeratorItemComponent implements OnInit {
 
   @Input()
   moderatorId: String = '';
+
+  @Input()
+  companyId: String = '';
 
   constructor() { }
 

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Queue, QueueAdapter } from '../models/queue.model';
+import { Moderator } from '../models/moderator.model';
 
 
 @Injectable({
@@ -10,7 +11,7 @@ import { Queue, QueueAdapter } from '../models/queue.model';
 })
 export class QueueService {
     baseUri = 'http://localhost:3000'
-    uri = 'http://localhost:4200/api/queue/all/';
+    uri = 'http://localhost:3000/queue/all/';
     adminId = 'comp231team4@gmail.com';
     companyId = '350195980';
 
@@ -33,9 +34,18 @@ export class QueueService {
         );
     }
 
+    getModerator(callback, instance, moderatorId) {
+        var responses;
+        this.http.get(`${this.baseUri}/admin/${this.adminId}/moderator/get/${this.companyId}/${moderatorId}`).subscribe(data => {
+            responses = data;
+            console.log(responses);
+            callback(responses.response, instance);
+        });
+    }
+
     getModerators(callback, instance) {
         var responses;
-        this.http.get('http://localhost:4200/api/moderator/all/824187727').subscribe(data => {
+        this.http.get(`${this.baseUri}/admin/${this.adminId}/moderator/all/${this.companyId}`).subscribe(data => {
             responses = data;
             console.log(responses.response[0].name);
             callback(responses.response, instance);
@@ -58,13 +68,22 @@ export class QueueService {
 
     getQueues(callback, instance, moderatorId?) {
         var responses;
-        var url = 'http://localhost:4200/api/queue/all/824187727';
+        var url = `${this.baseUri}/admin/${this.adminId}/queue/all/${this.companyId}`;
 
         if (moderatorId) {
-            url = `http://localhost:4200/api/queue/get/824187727/${moderatorId}`;
+            url = `${this.baseUri}/moderator/${moderatorId}/queue/get/${this.companyId}`;
         }
 
         this.http.get(url).subscribe(data => {
+            responses = data;
+            console.log(responses.response[0].name);
+            callback(responses.response, instance);
+        });
+    }
+
+    getTickets(callback, instance, queueId) {
+        var responses;
+        this.http.get(`${this.baseUri}/api/ticket/get/${this.companyId}/${queueId}/all`).subscribe(data => {
             responses = data;
             console.log(responses.response[0].name);
             callback(responses.response, instance);
@@ -78,12 +97,7 @@ export class QueueService {
         this.http.delete(`${this.uri}/delete`, queueId).subscribe(res => console.log('Queue deleted.'));
     }
 
-    getTickets(callback, instance, queueId) {
-        var responses;
-        this.http.get(`http://localhost:4200/api/ticket/get/824187727/${queueId}/all`).subscribe(data => {
-            responses = data;
-            console.log(responses.response[0].name);
-            callback(responses.response, instance);
-        });
+    deleteModerator(data) {
+        this.http.delete(`${this.baseUri}/admin/${this.adminId}/moderator/delete`, data).subscribe(res => console.log('Moderator deleted.'));
     }
 }
