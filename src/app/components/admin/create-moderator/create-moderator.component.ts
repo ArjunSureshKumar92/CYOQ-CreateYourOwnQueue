@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
+import { QueueService } from 'src/app/services/queue.service';
 
 @Component({
   selector: 'app-create-moderator',
@@ -18,7 +19,7 @@ import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
         <input type="text" class="form-control" formControlName="email" name="email" id="email" placeholder="mail@email.com" />
     </div>
     <div hidden>
-        <input type="text" class="form-control" id="companyId" name="companyId" value="350195980" />
+        <input type="text" class="form-control" id="companyId" name="companyId" value="{{companyId}}" />
     </div>
     <input type="submit" class="btn btn-primary btn-block btn-lg" [disabled]="modForm.pristine || modForm.invalid" value="Create Moderator" />
   </form>
@@ -26,8 +27,11 @@ import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
 })
 export class CreateModeratorComponent implements OnInit {
     modForm: FormGroup;
-    constructor(private location: Location, private fb: FormBuilder) {
+    companyId: String = '';
+
+    constructor(private location: Location, private fb: FormBuilder, private qs: QueueService) {
         this.createForm();
+        this.companyId = this.qs.companyId;
     }
 
     ngOnInit() {

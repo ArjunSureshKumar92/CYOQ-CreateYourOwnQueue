@@ -6,7 +6,7 @@ import { QueueService } from 'src/app/services/queue.service';
   selector: 'app-company-details',
   template: `
   <h1 class="text-center">Company Profile</h1>
-  <form action="http://localhost:4200/api/company/update" method="PUT">
+  <form action="http://localhost:4200/admin/company/update" method="PUT">
     <div class="container-fluid">
         <div class="form-group">
             <label for="name">Company name</label>
@@ -17,16 +17,12 @@ import { QueueService } from 'src/app/services/queue.service';
             <input type="text" class="form-control" id="address" name="address" value="Progress Ave" />
         </div>
         <div class="form-group">
-            <label for="name">Company website</label>
-            <input type="text" class="form-control" id="website" name="website" value="www.centennialcollege.ca" />
-        </div>
-        <div class="form-group">
             <label for="name">Phone</label>
             <input type="text" class="form-control" id="phone" name="phone" value="4162895000" />
         </div>
         <div class="form-group">
-            <label for="name">No. of employees</label>
-            <input type="text" class="form-control" id="employeeNum" name="employeeNum" value="20" />
+            <label for="name">Email</label>
+            <input type="text" class="form-control" id="email" name="email" value="www.centennialcollege.ca" />
         </div>
         <input type="text" class="form-control" id="companyId" name="companyId" value="824187727" />
         <input type="submit" class="btn btn-primary btn-block btn-lg" value="Save" (click)="form.submit()" />
