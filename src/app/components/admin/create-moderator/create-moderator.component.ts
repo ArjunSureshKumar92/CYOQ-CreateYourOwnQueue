@@ -6,6 +6,9 @@ import { QueueService } from 'src/app/services/queue.service';
 @Component({
   selector: 'app-create-moderator',
   template: `
+  <div>
+    <app-navbar></app-navbar>
+  </div>
   <form [formGroup]="modForm" (ngSubmit)="form.submit()" action="http://localhost:3000/admin/{{adminId}}/moderator/create" method="POST" #form>
     <button type="button" (click)="close()" class="close" aria-label="Close">
       <span aria-hidden="true">&times;</span>

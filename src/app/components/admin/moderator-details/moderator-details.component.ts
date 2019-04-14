@@ -8,6 +8,9 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-moderator-details',
   template: `
+  <div>
+    <app-navbar></app-navbar>
+  </div>
   <form [formGroup]="angForm" (ngSubmit)="form.submit()" action="http://localhost:3000/admin/{{adminId}}/moderator/update" method="PUT" #form>
     <div class="form-group">
         <label for="name">Moderator name</label>

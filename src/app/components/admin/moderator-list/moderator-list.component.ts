@@ -6,6 +6,9 @@ import { QueueService } from 'src/app/services/queue.service';
 @Component({
   selector: 'app-moderator-list',
   template: `
+  <div>
+    <app-navbar></app-navbar>
+  </div>
   <h1 class="text-center">Moderators</h1>
   <div class="text-right">
     <a href="http://localhost:4200/admin/moderator/create" class="btn btn-primary">+ Add Moderator</a>

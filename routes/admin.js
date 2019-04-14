@@ -38,15 +38,15 @@ router.post('/:authKey/moderator/create', function (req, res) {
 
 
 //Delete cases
-router.delete('/:authKey/queue/delete', function (req, res) {
+router.post('/:authKey/queue/delete', function (req, res) {
   deleteQueueController.deleteQueue(req,res);
 });
 
-router.delete('/:authKey/company/delete', function (req, res) {
+router.post('/:authKey/company/delete', function (req, res) {
   deleteCompanyController.deleteCompany(req,res);
 });
 
-router.delete('/:authKey/moderator/delete', function (req, res) {
+router.post('/:authKey/moderator/delete', function (req, res) {
   deleteModeratorController.deleteModerator(req,res);
 });
 
@@ -78,15 +78,15 @@ router.get('/company/all', function (req, res) {
 
 
 //Update cases
-router.put('/:authKey/queue/update', function (req, res) {
+router.post('/:authKey/queue/update', function (req, res) {
   updateQueueController.updateQueue(req,res);
 });
 
-router.put('/:authKey/company/update', function (req, res) {
+router.post('/:authKey/company/update', function (req, res) {
   updateCompanyController.updateCompany(req,res);
 });
 
-router.put('/:authKey/moderator/update', function (req, res) {
+router.post('/:authKey/moderator/update', function (req, res) {
   updateModeratorController.updateModerator(req,res);
 });
 

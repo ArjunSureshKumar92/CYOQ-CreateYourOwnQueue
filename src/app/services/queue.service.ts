@@ -56,9 +56,18 @@ export class QueueService {
         return '123';
     }
 
+    getCompany(callback, instance, companyId) {
+        var responses;
+        this.http.get(`${this.baseUri}/admin/${this.adminId}/company/get/${companyId}`).subscribe(data => {
+            responses = data;
+            console.log(responses);
+            callback(responses.response, instance);
+        });
+    }
+
     getAllCompany(callback, instance) {
         var responses;
-        this.http.get('http://localhost:4200/api/company/all').subscribe(data => {
+        this.http.get(`${this.baseUri}/admin/company/all`).subscribe(data => {
             responses = data;
             console.log(responses.response[0].name);
             callback(responses.response, instance);
@@ -92,6 +101,10 @@ export class QueueService {
 
 
     updateQueue() { }
+
+    updateCompany(data) {
+        this.http.put(`${this.baseUri}/admin/${this.adminId}/company/update`, data).subscribe(res => console.log('Company updated.'));
+    }
 
     deleteQueue(queueId) {
         this.http.delete(`${this.uri}/delete`, queueId).subscribe(res => console.log('Queue deleted.'));

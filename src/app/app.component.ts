@@ -6,9 +6,6 @@ import { Component } from '@angular/core';
   <div class="header">
     <app-header></app-header>
   </div>
-  <div>
-    <app-navbar></app-navbar>
-  </div>
   <main class="container-fluid scrollbar">
     <router-outlet></router-outlet>
   </main>
