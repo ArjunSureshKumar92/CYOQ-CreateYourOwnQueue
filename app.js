@@ -28,7 +28,7 @@ app.use('/admin', adminRouter);
 app.use('/moderator', moderatorRouter);
 app.use('/user', userRouter);
 
-//app.use('/api', apiRouter);
+app.use('/ui', uIRouter);
 app.use('/scripts', scriptsRouter);
 
 mongo.connectMongo();
