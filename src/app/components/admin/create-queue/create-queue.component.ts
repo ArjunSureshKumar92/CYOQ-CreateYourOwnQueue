@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { QueueService } from 'src/app/services/queue.service';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Component({
     selector: 'app-create-queue',
@@ -35,7 +34,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 
         <label>Moderators</label>
         <div formArrayName="moderator" *ngFor="let mod of moderators; let i = index">
-            <input type="checkbox" [formControlName]="i" value="{{moderators[i].moderatorId}}" /> {{moderators[i].name}}
+            <input type="checkbox" [formControlName]="i" name="moderator" value="{{moderators[i].moderatorId}}" /> {{moderators[i].name}}
         </div>
 
         <div hidden>

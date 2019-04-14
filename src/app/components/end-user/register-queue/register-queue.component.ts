@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-register-queue',
   template: `
-    <form [formGroup]="regForm" (ngSubmit)="form.submit()" action="http://localhost:3000/user/queue/register" method="POST" #form>
+    <form [formGroup]="regForm" (ngSubmit)="submit()" #form>
         <div class="form-group">
             <label>You are registering for:</label>
             <h3>{{queue.name}}</h3>
@@ -43,6 +43,7 @@ export class RegisterQueueComponent implements OnInit {
         let url = this.router.url.split('/');
         this.queueId = url[url.length - 2];
         this.companyId = this.qs.companyId;
+        this.getQueue();
         this.createForm();
     }
 
@@ -57,10 +58,28 @@ export class RegisterQueueComponent implements OnInit {
     }
 
     getQueue() {
-        try {
-            this.queue = this.qs.getQueueAdmin(this.companyId, this.queueId)[0];
-        } catch (e) {
-            console.log(e);
+        this.qs.getQueueAdmin(this.companyId, this.queueId).subscribe(
+            res => {
+                this.queue = res.response;
+            },
+            err => { console.log(err); },
+            () => { console.log('Retrieved queue info.'); }
+        );
+    }
+
+    submit() {
+        let data = {
+            name: this.regForm.get('name').value,
+            email: this.regForm.get('email').value,
+            companyId: this.companyId,
+            queueId: this.queueId
         }
+        this.qs.createTicket(data).subscribe(
+            res => {
+                this.router.navigateByUrl(`/user/${this.companyId}/${this.queueId}/view`);
+            },
+            err => { console.log(err); },
+            () => { console.log('Registered for queue.'); }
+        )
     }
 }

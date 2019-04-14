@@ -27,6 +27,10 @@ export class QueueService {
         this.http.post(`${this.uri}/create`, newQueue).subscribe(res => console.log('Queue created.'));
     }
 
+    createTicket(data) {
+        return this.http.post(`${this.baseUri}/user/ticket/create`, data);
+    }
+
     getQueueAdmin(companyId: String, queueId: String) {
         return this.http.get(`${this.baseUri}/admin/${this.adminId}/queue/get/${companyId}/${queueId}`);
     }
