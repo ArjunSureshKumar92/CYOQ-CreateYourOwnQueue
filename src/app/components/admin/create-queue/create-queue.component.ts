@@ -7,6 +7,9 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 @Component({
     selector: 'app-create-queue',
     template: `
+    <div>
+        <app-navbar></app-navbar>
+    </div>
     <form [formGroup]="angForm" (ngSubmit)="form.submit()" action="http://localhost:3000/admin/{{adminId}}/queue/create" method="POST" #form>
         <button type="button" class="close" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -56,6 +59,7 @@ export class CreateQueueComponent implements OnInit {
         this.closeTime.setHours(17, 0, 0, 0);
         this.companyId = this.qs.companyId;
         this.adminId = this.qs.adminId;
+        this.createForm();
         this.getModerators();
     }
 
@@ -70,8 +74,7 @@ export class CreateQueueComponent implements OnInit {
             name: ['', Validators.required],
             description: ['', Validators.required],
             startTime: ['', Validators.required],
-            closeTime: ['', Validators.required],
-            moderator: new FormArray(this.moderators.map(mod => new FormControl(false)))
+            closeTime: ['', Validators.required]
         });
         this.angForm.get('startTime').setValue('09:00');
         this.angForm.get('closeTime').setValue('17:00');
@@ -81,7 +84,11 @@ export class CreateQueueComponent implements OnInit {
         this.qs.getModerators(function(val, instance) {
                 console.log("val"+val[0].name);
                 instance.moderators = val;
-                instance.createForm();
+                instance.setValues();
             }, this);
+    }
+
+    setValues() {
+        this.angForm.addControl('moderator', new FormArray(this.moderators.map(mod => new FormControl(false))));
     }
 }
