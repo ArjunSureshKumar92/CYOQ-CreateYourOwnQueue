@@ -11,14 +11,14 @@ import { Router } from '@angular/router';
   <div>
     <app-navbar></app-navbar>
   </div>
-  <form [formGroup]="angForm" (ngSubmit)="form.submit()" action="http://localhost:3000/admin/{{adminId}}/moderator/update" method="PUT" #form>
+  <form [formGroup]="angForm" (ngSubmit)="form.submit()" action="http://localhost:3000/admin/{{adminId}}/moderator/update" method="POST" #form>
     <div class="form-group">
         <label for="name">Moderator name</label>
-        <input type="text" class="form-control form-control-lg" formControlName="name" id="name" name="name" value="{{moderator.name}}" />
+        <input type="text" class="form-control form-control-lg" formControlName="name" id="name" name="name" />
     </div>
     <div class="form-group">
         <label for="name">Email</label>
-        <input type="text" class="form-control" formControlName="email" id="email" name="email" value="{{moderator.email}}" />
+        <input type="text" class="form-control" formControlName="email" id="email" name="email" />
     </div>
     <div hidden>
         <input type="text" class="form-control" id="companyId" name="companyId" value="{{companyId}}"  />
@@ -27,8 +27,7 @@ import { Router } from '@angular/router';
         <input type="text" class="form-control" id="moderatorId" name="moderatorId" value="{{moderatorId}}" />
     </div>
     <input type="submit" class="btn btn-primary btn-block btn-lg" [disabled]="angForm.pristine || angForm.invalid" value="Save Changes" />
-    <input type="submit" class="btn btn-danger btn-block btn-lg" name="DeleteModerator"
-      value="Delete Moderator" (click)="delete()" />
+    <input type="button" formaction="http://localhost:3000/admin/{{adminId}}/moderator/delete" class="btn btn-danger btn-block btn-lg" name="delete" id="delete" value="Delete Moderator" />
   </form>
   `
 })
@@ -45,6 +44,8 @@ export class ModeratorDetailsComponent implements OnInit {
         this.moderatorId = url[url.length - 1];
         this.companyId = url[url.length - 2];
         this.adminId = this.qs.adminId;
+        this.createForm();
+        this.getModerator();
     }
 
     ngOnInit() {
@@ -63,8 +64,14 @@ export class ModeratorDetailsComponent implements OnInit {
 
     getModerator() {
         this.qs.getModerator(function(val, instance) {
-                instance.moderator = val; 
+                instance.moderator = val;
+                instance.setValues(); 
             }, this, this.moderatorId);
+    }
+
+    setValues() {
+        this.angForm.get('name').setValue(this.moderator.name);
+        this.angForm.get('email').setValue(this.moderator.email);
     }
 
     delete() {

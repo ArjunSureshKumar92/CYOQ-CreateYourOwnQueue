@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { QueueService } from 'src/app/services/queue.service';
 
 @Component({
   selector: 'app-header',
@@ -13,11 +14,23 @@ import { Component, OnInit } from '@angular/core';
   `
 })
 export class HeaderComponent implements OnInit {
-  company = 'Centennial College'
+    company = 'Centennial College';
+    companyId: String = '';
 
-  constructor() { }
+    constructor(private qs: QueueService) {
+        this.companyId = this.qs.companyId;
+        this.getCompany();
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
+
+    getCompany() {
+        this.qs.getCompany(this.getCallback, this, this.companyId);
+    }
+
+    getCallback(val,instance) {
+        instance.company = val.name;
+    }
 
 }
