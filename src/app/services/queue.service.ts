@@ -84,6 +84,8 @@ export class QueueService {
         });
     }
 
+
+
     getTickets(callback, instance, queueId) {
         var responses;
         this.http.get(`${this.baseUri}/api/ticket/get/${this.companyId}/${queueId}/all`).subscribe(data => {
@@ -92,7 +94,6 @@ export class QueueService {
             callback(responses.response, instance);
         });
     }
-
 
     updateQueue(data) {
         return this.http.post(`${this.baseUri}/admin/${this.adminId}/queue/update`, data);
@@ -112,5 +113,9 @@ export class QueueService {
 
     deleteModerator(data) {
         return this.http.post(`${this.baseUri}/admin/${this.adminId}/moderator/delete`, data);
+    }
+
+    closeTicket(data) {
+        return this.http.post(`${this.baseUri}/user/${this.adminId}/ticket/delete`, data);
     }
 }

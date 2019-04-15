@@ -5,7 +5,7 @@ import { Component, OnInit, Input } from '@angular/core';
   template: `
   <div class="container-fluid clickable row">
     <h5 class="d-inline col">{{name}}</h5>
-    <a href="/api/ticket/get/824187727/{{queueId}}/{{ticketId}}" class="divLink"></a>
+    <a href="http://localhost:4200/moderator/ticket/get/{{companyId}}/{{queueId}}/{{ticketId}}" class="divLink"></a>
   </div>
   `,
   styles: [`

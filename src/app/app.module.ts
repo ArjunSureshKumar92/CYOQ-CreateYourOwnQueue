@@ -31,6 +31,7 @@ import { RegisterQueueComponent } from './components/end-user/register-queue/reg
 import { ModeratorDetailsComponent } from './components/admin/moderator-details/moderator-details.component';
 import { ModeratorNavbarComponent } from './components/moderator/moderator-navbar/moderator-navbar.component';
 import { QueueDetailsComponent } from './components/admin/queue-details/queue-details.component';
+import { TicketDetailsComponent } from './components/moderator/ticket-details/ticket-details.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { QueueDetailsComponent } from './components/admin/queue-details/queue-de
     RegisterQueueComponent,
     ModeratorDetailsComponent,
     ModeratorNavbarComponent,
-    QueueDetailsComponent
+    QueueDetailsComponent,
+    TicketDetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -11,6 +11,8 @@ import { ModeratorQueueComponent } from './components/moderator/moderator-queue/
 import { RegisterQueueComponent } from './components/end-user/register-queue/register-queue.component';
 import { ModeratorDetailsComponent } from './components/admin/moderator-details/moderator-details.component';
 import { QueueDetailsComponent } from './components/admin/queue-details/queue-details.component';
+import { EndUserListComponent } from './components/moderator/end-user-list/end-user-list.component';
+import { TicketDetailsComponent } from './components/moderator/ticket-details/ticket-details.component';
 
 const routes: Routes = [
     {
@@ -91,7 +93,20 @@ const routes: Routes = [
                     },
                     {
                         path: 'get/:companyId/:queueId',
-                        component: ModeratorQueueComponent
+                        children: [
+                            {
+                                path: '',
+                                component: ModeratorQueueComponent
+                            },
+                            {
+                                path: 'tickets',
+                                component: EndUserListComponent
+                            },
+                            {
+                                path: 'ticket/:ticketId',
+                                component: TicketDetailsComponent
+                            }
+                        ]
                     }
                 ]
             }
