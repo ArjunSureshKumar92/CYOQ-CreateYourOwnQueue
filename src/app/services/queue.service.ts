@@ -14,6 +14,7 @@ export class QueueService {
     uri = 'http://localhost:3000/queue/all/';
     adminId = 'comp231team4@gmail.com';
     companyId = '350195980';
+    moderatorId = '126755968';
 
     constructor(private http: HttpClient, private adapter: QueueAdapter) { }
 
@@ -105,6 +106,10 @@ export class QueueService {
 
     updateModerator(data) {
         return this.http.post(`${this.baseUri}/admin/${this.adminId}/moderator/update`, data);
+    }
+
+    callTicket(data, moderatorId) {
+        return this.http.post(`${this.baseUri}/moderator/${moderatorId}/ticket/next`, data);
     }
 
     deleteQueue(data) {
