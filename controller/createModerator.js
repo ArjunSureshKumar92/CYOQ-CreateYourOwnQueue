@@ -22,15 +22,34 @@ exports.createModerator = function (req, res) {
         }
         var callbackInsertCase = function (status, data) {
             if (status != 200)
+<<<<<<< HEAD
                 response.sendResponse(res, 'Error inserting moderator', status)
             else {
                 mail.sendMail('comp231team4@gmail.com', data.email, 'New Moderator Created', 'Hey Moderator, \n This is the link to your company dashboard => http://localhost:4200/moderator/'+data.moderatorId + '/'+req.body.companyId, 'comp231password');
                 response.sendResponse(res, 'Success, ID => ' + data.moderatorId, 200)
+=======
+                res.render('createModerator', {
+                    success: '',
+                    error: 'Error inserting company',
+                });
+            else {
+                res.render('createModerator', {
+                    success: 'Successfully added a Moderator',
+                    error: '',
+                });
+>>>>>>> 024538fc4c609ea04ddecc1f2d0b1110b5964e21
             }
         }
         var callbackExistCase = function (status, data) {
             if (status != 200)
+<<<<<<< HEAD
                 response.sendResponse(res, 'No such company exist', status)
+=======
+                res.render('createModerator', {
+                    success: '',
+                    error: 'No such company exist',
+                });
+>>>>>>> 024538fc4c609ea04ddecc1f2d0b1110b5964e21
             else {
                 if (data.email == req.params.authKey)
                     mongoModerator.mongoDBModeratorInsert(callbackInsertCase, req.body.companyId, mongoConstants.collectionNameModerator, createModeratorObj);
@@ -40,7 +59,14 @@ exports.createModerator = function (req, res) {
         }
         mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.body.companyId);
     } else {
+<<<<<<< HEAD
         response.sendResponse(res, 'Bad Request', 403);
+=======
+        res.render('createModerator', {
+            success: '',
+            error: 'Bad Request',
+        });
+>>>>>>> 024538fc4c609ea04ddecc1f2d0b1110b5964e21
     }
 
 }
