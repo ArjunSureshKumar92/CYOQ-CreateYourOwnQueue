@@ -17,6 +17,9 @@ Step 5: Navigate into the new folder created:
 Step 6: Get all the dependencies:
 > ```npm install```
 
+Step 7: The final release is in the v1.0 branch
+> ```git checkout v1.0```
+
 ## Make changes
 Make any changes on the ```dev``` branch. Changes will be merged into the ```master``` branch upon each release. To switch to the ```dev``` branch, on your command line enter:
 > ```git checkout dev```
