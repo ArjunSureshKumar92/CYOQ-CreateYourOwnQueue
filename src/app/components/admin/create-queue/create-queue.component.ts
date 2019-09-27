@@ -92,4 +92,8 @@ export class CreateQueueComponent implements OnInit {
     setValues() {
         this.angForm.addControl('moderator', new FormArray(this.moderators.map(mod => new FormControl(false))));
     }
+
+    onSubmit() {
+        
+    }
 }

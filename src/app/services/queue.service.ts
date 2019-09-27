@@ -96,6 +96,10 @@ export class QueueService {
         });
     }
 
+    getTicketPriority(queueId, ticketId) {
+        return this.http.get(`${this.baseUri}/user/${this.companyId}/ticket/getposition/${this.companyId}/${queueId}/${ticketId}`);
+    }
+
     updateQueue(data) {
         return this.http.post(`${this.baseUri}/admin/${this.adminId}/queue/update`, data);
     }
