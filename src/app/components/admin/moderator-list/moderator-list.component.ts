@@ -40,7 +40,7 @@ export class ModeratorListComponent implements OnInit {
     getModerator() {
       this.qs.getModerators().subscribe(
           res => {
-              this.moderators = res.response;
+              this.moderators = res['response'];
           },
           err => {
               console.log(err);

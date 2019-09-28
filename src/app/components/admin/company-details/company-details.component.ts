@@ -62,7 +62,7 @@ export class CompanyDetailsComponent implements OnInit {
     getCompany() {
         this.qs.getCompany(this.companyId).subscribe(
             res => {
-                this.company = res.response;
+                this.company = res['response'];
                 this.setValues();
             },
             err => { console.log(err); },

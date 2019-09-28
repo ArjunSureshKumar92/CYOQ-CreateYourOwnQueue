@@ -61,7 +61,7 @@ export class RegisterQueueComponent implements OnInit {
         this.qs.getQueueAdmin(this.companyId, this.queueId).subscribe(
             res => {
                 console.log(res);
-                this.queue = res.response;
+                this.queue = res['response'];
             },
             err => { console.log(err); },
             () => { console.log('Retrieved queue info.'); }

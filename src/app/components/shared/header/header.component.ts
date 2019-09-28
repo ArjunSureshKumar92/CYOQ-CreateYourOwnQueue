@@ -26,6 +26,6 @@ export class HeaderComponent implements OnInit {
     }
 
     getCompany() {
-        this.qs.getCompany(this.companyId).subscribe(res => this.company = res.response.name);
+        this.qs.getCompany(this.companyId).subscribe(res => this.company = res['response'].name);
     }
 }

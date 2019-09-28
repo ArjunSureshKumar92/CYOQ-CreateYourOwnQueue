@@ -53,6 +53,7 @@ export class CreateQueueComponent implements OnInit {
     angForm: FormGroup;
     moderators: any;
 
+
     constructor(private location: Location, private fb: FormBuilder, private qs: QueueService) {
         this.startTime.setHours(9, 0, 0, 0);
         this.closeTime.setHours(17, 0, 0, 0);
@@ -82,7 +83,8 @@ export class CreateQueueComponent implements OnInit {
     getModerators() {
         this.qs.getModerators().subscribe(
             res => {
-                this.moderators = res.response;
+                this.moderators = res['response'];
+                this.setValues();
             },
             err => { console.log(err); },
             () => { console.log('Retrieved moderators'); }
