@@ -11,7 +11,7 @@ import { QueueService } from '../../../services/queue.service';
     </div>
   </div>
   <div class="container-fluid">
-    <app-queue-item *ngFor="let q of queues | filter : searchText" name="{{q.name}}" queueId="{{q.queueId}}"></app-queue-item>
+    <app-queue-item *ngFor="let q of queues | filter : searchText" name="{{q.name}}" queueId="{{q.queueId}}" companyId="{{companyId}}"></app-queue-item>
   </div>
   `,
   styles: [`
@@ -28,10 +28,12 @@ import { QueueService } from '../../../services/queue.service';
 })
 export class QueueListComponent implements OnInit {
     queues: any;
+    companyId: string;
 
     constructor(private qs: QueueService) {
         this.queues = [];
         this.getQueues();
+        this.companyId = this.qs.companyId;
     }
 
     getQueues() {

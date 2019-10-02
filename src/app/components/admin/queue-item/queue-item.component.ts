@@ -5,7 +5,7 @@ import { Component, OnInit, Input } from '@angular/core';
   template: `
   <div class="container-fluid clickable row">
     <h5 class="d-inline col">{{name}}</h5>
-    <a href="/api/queue/get/824187727/{{queueId}}" class="divLink"></a>
+    <a href="/admin/queue/view/{{companyId}}/{{queueId}}" class="divLink"></a>
   </div>
   `,
   styles: [`
@@ -22,6 +22,9 @@ export class QueueItemComponent implements OnInit {
 
   @Input()
   queueId: String = '';
+
+  @Input()
+  companyId: String = '';
 
   constructor() { }
 

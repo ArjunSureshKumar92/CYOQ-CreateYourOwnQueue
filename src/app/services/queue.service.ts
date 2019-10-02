@@ -28,6 +28,10 @@ export class QueueService {
         this.http.post(`${this.uri}/create`, newQueue).subscribe(res => console.log('Queue created.'));
     }
 
+    createModerator(data) {
+        return this.http.post(`${this.baseUri}`, data);
+    }
+
     createTicket(data) {
         return this.http.post(`${this.baseUri}/user/ticket/create`, data);
     }

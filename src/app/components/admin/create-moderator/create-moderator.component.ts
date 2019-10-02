@@ -9,7 +9,7 @@ import { QueueService } from 'src/app/services/queue.service';
   <div>
     <app-navbar></app-navbar>
   </div>
-  <form [formGroup]="modForm" (ngSubmit)="form.submit()" action="http://localhost:3000/admin/{{adminId}}/moderator/create" method="POST" #form>
+  <form [formGroup]="modForm" (ngSubmit)="onSubmit()" action="http://localhost:3000/admin/{{adminId}}/moderator/create" method="POST" #form>
     <button type="button" (click)="close()" class="close" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -51,5 +51,20 @@ export class CreateModeratorComponent implements OnInit {
             name: ['', Validators.required],
             email: ['', Validators.required]
         });
+    }
+
+    onSubmit() {
+        const data = {
+            'name': this.modForm.get('name').value,
+            'email': this.modForm.get('email').value,
+            'companyId': this.companyId,
+        }
+        this.qs.createModerator(data).subscribe(
+            res => {
+                this.location.back();
+                console.log('Moderator created.');
+            },
+            err => { console.log(err); }
+        )
     }
 }
