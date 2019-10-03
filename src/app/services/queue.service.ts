@@ -29,7 +29,7 @@ export class QueueService {
     }
 
     createModerator(data) {
-        return this.http.post(`${this.baseUri}`, data);
+        return this.http.post(`${this.baseUri}/admin/${this.adminId}/moderator/create`, data);
     }
 
     createTicket(data) {

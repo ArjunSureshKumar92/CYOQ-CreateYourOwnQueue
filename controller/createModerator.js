@@ -32,6 +32,7 @@ exports.createModerator = function (req, res) {
             if (status != 200)
                 response.sendResponse(res, 'No such company exist', status)
             else {
+                console.log(`${data.email}, ${req.params.authKey}`)
                 if (data.email == req.params.authKey)
                     mongoModerator.mongoDBModeratorInsert(callbackInsertCase, req.body.companyId, mongoConstants.collectionNameModerator, createModeratorObj);
                 else

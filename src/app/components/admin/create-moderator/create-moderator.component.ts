@@ -9,7 +9,7 @@ import { QueueService } from 'src/app/services/queue.service';
   <div>
     <app-navbar></app-navbar>
   </div>
-  <form [formGroup]="modForm" (ngSubmit)="onSubmit()" action="http://localhost:3000/admin/{{adminId}}/moderator/create" method="POST" #form>
+  <form [formGroup]="modForm" (ngSubmit)="onSubmit()" #form>
     <button type="button" (click)="close()" class="close" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
