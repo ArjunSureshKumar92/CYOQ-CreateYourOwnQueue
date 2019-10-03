@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { QueueService } from 'src/app/services/queue.service';
 
 @Component({
-  selector: 'app-create-moderator',
-  template: `
+    selector: 'app-create-moderator',
+    template: `
   <div>
     <app-navbar></app-navbar>
   </div>
@@ -59,6 +59,8 @@ export class CreateModeratorComponent implements OnInit {
             'email': this.modForm.get('email').value,
             'companyId': this.companyId,
         }
+
+
         this.qs.createModerator(data).subscribe(
             res => {
                 this.location.back();

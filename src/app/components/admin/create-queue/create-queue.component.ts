@@ -9,7 +9,7 @@ import { QueueService } from 'src/app/services/queue.service';
     <div>
         <app-navbar></app-navbar>
     </div>
-    <form [formGroup]="angForm" (ngSubmit)="form.submit()" action="http://localhost:3000/admin/{{adminId}}/queue/create" method="POST" #form>
+    <form [formGroup]="angForm" (ngSubmit)="onSubmit()" action="http://localhost:3000/admin/{{adminId}}/queue/create" method="POST" #form>
         <button (click)="close()" type="button" class="close" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -34,7 +34,7 @@ import { QueueService } from 'src/app/services/queue.service';
 
         <label>Moderators</label>
         <div formArrayName="moderator" *ngFor="let mod of moderators; let i = index">
-            <input type="checkbox" [formControlName]="i" name="moderator" value="{{moderators[i].moderatorId}}" /> {{moderators[i].name}}
+            <input type="checkbox" [formControlName]="i" name="moderator" value="{{moderators[i].moderatorId}}" (change)="onChangeCategory($event, mod)" /> {{moderators[i].name}}
         </div>
 
         <div hidden>
@@ -52,7 +52,7 @@ export class CreateQueueComponent implements OnInit {
     adminId: String = '';
     angForm: FormGroup;
     moderators: any;
-
+    selectedModerators: string[] = [];
 
     constructor(private location: Location, private fb: FormBuilder, private qs: QueueService) {
         this.startTime.setHours(9, 0, 0, 0);
@@ -95,7 +95,34 @@ export class CreateQueueComponent implements OnInit {
         this.angForm.addControl('moderator', new FormArray(this.moderators.map(mod => new FormControl(false))));
     }
 
+
     onSubmit() {
-        
+        var arrayControl = this.angForm.get('moderator') as FormArray;
+        for (let i = 0; i < arrayControl.controls.length; i++) {
+            console.log(arrayControl.controls[i].value);
+            if (arrayControl.controls[i].value === true) {
+                console.log("added");
+                this.selectedModerators.push(this.moderators[i].moderatorId);
+            }
+        }
+        console.log(this.selectedModerators);
+        const data = {
+            'name': this.angForm.get('name').value,
+            'description': this.angForm.get('description').value,
+            'time': [this.angForm.get('startTime').value, this.angForm.get('closeTime').value,],
+            'moderator': this.selectedModerators,
+            'companyId': this.companyId
+        }
+        this.qs.createQueue(data).subscribe(
+            res => {
+                this.location.back();
+                console.log('Queue created.');
+            },
+            err => { console.log(err); }
+        )
+    }
+
+    onChangeCategory(event, mod: any) { // Use appropriate model type instead of any
+
     }
 }

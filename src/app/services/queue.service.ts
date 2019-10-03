@@ -13,12 +13,12 @@ export class QueueService {
     baseUri = 'http://localhost:3000'
     uri = 'http://localhost:3000/queue/all/';
     adminId = 'comp231team4@gmail.com';
-    companyId = '350195980';
+    companyId = '481242708';
     moderatorId = '126755968';
 
     constructor(private http: HttpClient, private adapter: QueueAdapter) { }
 
-    createQueue(name: String, description: String, startTime, closeTime) {
+    /*createQueue(name: String, description: String, startTime, closeTime) {
         const newQueue = {
             name: name,
             description: description,
@@ -26,8 +26,11 @@ export class QueueService {
             closeTime: closeTime
         };
         this.http.post(`${this.uri}/create`, newQueue).subscribe(res => console.log('Queue created.'));
-    }
+    }*/
 
+    createQueue(data) {
+        return this.http.post(`${this.baseUri}/admin/${this.adminId}/queue/create`, data);
+    }
     createModerator(data) {
         return this.http.post(`${this.baseUri}/admin/${this.adminId}/moderator/create`, data);
     }

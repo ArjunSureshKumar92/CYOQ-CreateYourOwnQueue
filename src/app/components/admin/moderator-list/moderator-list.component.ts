@@ -26,33 +26,35 @@ import { QueueService } from 'src/app/services/queue.service';
   `]
 })
 export class ModeratorListComponent implements OnInit {
-    moderators: any;
-    adminId: String = '';
-    companyId: String = '';
+  moderators: any;
+  adminId: String = '';
+  companyId: String = '';
 
-    constructor(private qs: QueueService) {
-        this.moderators = [];
-        this.getModerator();
-        this.adminId = this.qs.adminId;
-        this.companyId = this.qs.companyId;
-    }
+  constructor(private qs: QueueService) {
+    this.moderators = [];
+    this.getModerator();
+    this.adminId = this.qs.adminId;
+    this.companyId = this.qs.companyId;
+  }
 
-    getModerator() {
-      this.qs.getModerators().subscribe(
-          res => {
-              this.moderators = res['response'];
-          },
-          err => {
-              console.log(err);
-          },
-          () => {
-              console.log('Retrieved moderators');
-          }
-      );
-    }
+  getModerator() {
+    this.qs.getModerators().subscribe(
+      res => {
+        this.moderators = res['response'];
+      },
+      err => {
+        console.log(err);
+      },
+      () => {
+        console.log('Retrieved moderators');
+      }
+    );
+  }
 
-    ngOnInit() {
-    }
+  ngOnInit() {
+    console.log("Onb Init Called");
+    this.getModerator();
+  }
 
 }
 
