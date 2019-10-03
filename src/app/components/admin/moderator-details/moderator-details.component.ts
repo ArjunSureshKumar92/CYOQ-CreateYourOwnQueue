@@ -62,10 +62,13 @@ export class ModeratorDetailsComponent implements OnInit {
     }
 
     getModerator() {
-        this.qs.getModerator(function(val, instance) {
-                instance.moderator = val;
-                instance.setValues(); 
-            }, this, this.moderatorId);
+        this.qs.getModerator(this.moderatorId).subscribe(
+            res => {
+                this.moderator = res['response'];
+                this.setValues();
+            },
+            err => { console.log(err); }
+        );
     }
 
     setValues() {

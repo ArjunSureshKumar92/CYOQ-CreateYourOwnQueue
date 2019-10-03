@@ -40,7 +40,7 @@ export class QueueService {
         return this.http.get(`${this.baseUri}/admin/${this.adminId}/queue/get/${companyId}/${queueId}`);
     }
 
-    getModerator(callback, instance, moderatorId) {
+    getModerator(moderatorId) {
         return this.http.get(`${this.baseUri}/admin/${this.adminId}/moderator/get/${this.companyId}/${moderatorId}`);
     }
 
