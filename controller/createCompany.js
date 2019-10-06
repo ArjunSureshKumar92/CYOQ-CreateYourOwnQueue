@@ -18,14 +18,17 @@ exports.createCompany = function (req, res) {
             if (apiControl.createCompanyCan(key))
                 createCompanyObj[key] = req.body[key];
         }
+        // the callback funtion which is called after mongo db call
         var callback = function (status, data) {
             if (status != 200)
                 response.sendResponse(res, 'Error inserting company', status)
             else {
+                // function to send an email
                 mail.sendMail('comp231team4@gmail.com',data.email,'New Company Created','Hey Admin, \n This is the link to the company dashboard => http://localhost:4200/admin/'+data.email+'/'+data.companyId,'comp231password');
                 response.sendResponse(res, 'Success, ID => ' + data.companyId, 200)
             }
         }
+        // Function to insert company details to mongo
         mongoCompany.mongoDBCompanyInsert(callback, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, createCompanyObj);
     } else {
         response.sendResponse(res, 'Bad Request', 403);

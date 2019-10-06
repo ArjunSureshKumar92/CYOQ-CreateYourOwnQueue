@@ -12,6 +12,7 @@ exports.createQueue = function(req, res) {
   console.log(req.body);
   console.log(req.params);
   if (
+    // checking required parameters
     apiControl.createQueueMust(Object.keys(req.body), Object.values(req.body))
   ) {
     var createQueueObj = {};
@@ -20,9 +21,11 @@ exports.createQueue = function(req, res) {
     createQueueObj["lastUpdated"] = new Date(new Date().toUTCString());
     createQueueObj["status"] = mongoConstants.queueStatusActive;
     for (var key in req.body) {
+      // check optional paramets
       if (apiControl.createQueueCan(key)) {
         if (key == mongoConstants.queueModeratorsKey) {
           var moderatorArray = [];
+          // when making a queue, we can optionally add moderators, so we need to validate them
           if (Array.isArray(req.body[key])) {
             req.body[key].forEach(function(moderator) {
               if (!moderatorArray.includes(moderator))
@@ -37,6 +40,7 @@ exports.createQueue = function(req, res) {
         }
       }
     }
+    // callback after getting company
     var callbackGetCompany = function(status, data) {
       if (status != 200)
         response.sendResponse(res, "Error getting company", status);
@@ -61,10 +65,12 @@ exports.createQueue = function(req, res) {
         );
       }
     };
+    // callback after queue insert
     var callbackInsertQueue = function(status, data) {
       if (status != 200)
         response.sendResponse(res, "Error inserting queue", status);
       else {
+        // get company details for notification purposes
         mongoCompany.mongoDBCompanyGet(
           callbackGetCompany,
           mongoConstants.globalDbName,
@@ -73,9 +79,10 @@ exports.createQueue = function(req, res) {
         );
       }
     };
-
+    // callback after moderator check
     var callbackModeratorCase = function(status, data) {
       if (status == 200) {
+        // function to insert queue to mongo
         mongoQueue.mongoDBQueueInsert(
           callbackInsertQueue,
           req.body.companyId,
@@ -86,12 +93,13 @@ exports.createQueue = function(req, res) {
         response.sendResponse(res, "Invalid moderator", status);
       }
     };
-
+    //callback after company exist check
     var callbackExistCase = function(status, data) {
       if (status != 200)
         response.sendResponse(res, "No such company exist", status);
       else {
         if (data.email == req.params.authKey) {
+          // checking moderator exists
           mongoShared.checkModeratorExist(
             callbackModeratorCase,
             req.body.companyId,
@@ -103,6 +111,7 @@ exports.createQueue = function(req, res) {
         }
       }
     };
+    // check if the company exist
     mongoShared.checkCustomerExist(
       callbackExistCase,
       mongoConstants.globalDbName,

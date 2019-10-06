@@ -1,3 +1,5 @@
+// All the routes used in the application
+
 var express = require("express");
 var router = express.Router();
 var createQueueController = require("../controller/createQueue");
@@ -14,10 +16,7 @@ var getCompanyController = require("../controller/getCompany");
 var getQueueController = require("../controller/getQueue");
 var uiController = require("../controller/ui");
 
-/**
- * All the routes that are starting with admin.
- */
-//Displaying UI
+// All the create cases, for company, moderator, queue and ticket
 router.get("/moderator/create", function(req, res) {
   uiController.createModeratorUI(req, res);
 });
@@ -35,7 +34,7 @@ router.post("/:authKey/moderator/create", function(req, res) {
   createModeratorController.createModerator(req, res);
 });
 
-//Delete cases
+// All the delete cases, for company, moderator, queue and ticket
 router.post("/:authKey/queue/delete", function(req, res) {
   deleteQueueController.deleteQueue(req, res);
 });
@@ -48,7 +47,7 @@ router.post("/:authKey/moderator/delete", function(req, res) {
   deleteModeratorController.deleteModerator(req, res);
 });
 
-//Get cases
+// All the get cases, for company(s), moderator(s), queue(s) and ticket(s)
 router.get("/:authKey/queue/get/:companyId/:queueId", function(req, res) {
   getQueueController.getQueue(req, res);
 });
@@ -76,7 +75,7 @@ router.get("/company/all", function(req, res) {
   getCompanyController.getAllCompany(req, res);
 });
 
-//Update cases
+// All the update cases, for company, moderator, queue and ticket
 router.post("/:authKey/queue/update", function(req, res) {
   updateQueueController.updateQueue(req, res);
 });

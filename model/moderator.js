@@ -1,3 +1,5 @@
+// All the mongo db CRUD operations for moderators
+
 const mongodb = require('../model/mongo');
 exports.mongoDBModeratorInsert = function (callback, dbName, collectionName, obj) {
     db = mongodb.getDb();

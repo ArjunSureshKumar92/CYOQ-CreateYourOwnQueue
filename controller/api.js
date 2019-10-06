@@ -1,3 +1,8 @@
+// Contains two types of exports
+// Can - optional parameters
+// Must - required parameters
+
+
 exports.createQueueCan = function (value) {
     switch (value) {
         case 'name':

@@ -1,3 +1,6 @@
+// All the mongo db CRUD operations for company
+
+
 const mongodb = require('../model/mongo');
 exports.mongoDBCompanyInsert = function (callback,dbName,collectionName,obj) {
     db = mongodb.getDb();

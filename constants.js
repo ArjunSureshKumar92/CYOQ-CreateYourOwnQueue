@@ -1,3 +1,5 @@
+// constants used in the application
+
 exports.dbActionQueueInsertCommand = 'InsertQueue';
 exports.dbActionCompanyInsertCommand = 'InsertCompany';
 exports.globalDbName = 'CYOQ';

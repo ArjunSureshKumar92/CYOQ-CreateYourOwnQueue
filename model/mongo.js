@@ -1,3 +1,5 @@
+// Setting up mongo db connections
+
 var mongo = require('mongodb').MongoClient;
 var mongoConfig = require('../config/mongo');
 
