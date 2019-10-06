@@ -125,5 +125,3 @@ exports.getAllQueue = function (req, res) {
 
 
 }
-
-

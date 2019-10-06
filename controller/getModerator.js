@@ -58,5 +58,3 @@ exports.getAllModerators = function (req, res) {
     }
     mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.params.companyId);
 }
-
-

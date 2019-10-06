@@ -21,19 +21,21 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'dist/cyoq')));
 app.use('/', express.static(path.join(__dirname, 'dist/cyoq')));
+app.use('/public', express.static('public'));
 
 // routes
 app.use('/admin', adminRouter);
 app.use('/moderator', moderatorRouter);
 app.use('/user', userRouter);
 
-//app.use('/api', apiRouter);
+app.use('/ui', uIRouter);
 app.use('/scripts', scriptsRouter);
 
 mongo.connectMongo();
 
 app.use(function(req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type, x-xsrf-token, X-Requested-With, Accept, Expires, Last-Modified, Cache-Control");
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
     if ('OPTIONS' === req.method) {

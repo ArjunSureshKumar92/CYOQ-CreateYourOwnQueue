@@ -16,6 +16,7 @@ exports.createTicketCan = function (value) {
         case 'description':
         case 'email':
         case 'queueId':
+        case 'name':
             return true;
         default:
             return false;
@@ -219,6 +220,14 @@ exports.closeTicketMust = function (keys, values) {
         }
     });
     return (keys.includes('companyId') && keys.includes('ticketId') && !values.includes(''));
+}
+
+exports.getModeratorMust = function (value) {
+    return (value.includes('moderatorId') && value.includes('companyId'));
+}
+
+exports.getAllModeratorMust = function (value) {
+    return (value.includes('companyId'));
 }
 
 exports.nextTicketMust = function (keys, values) {

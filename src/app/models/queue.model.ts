@@ -5,6 +5,7 @@ export class Queue {
     constructor(
         public name: String,
         public queueId: String,
+        public description: String
     ) {}
 }
 
@@ -16,6 +17,7 @@ export class QueueAdapter implements Adapter<Queue> {
         return new Queue(
             item.name,
             item.queueId,
+            item.description
         );
     }
 }

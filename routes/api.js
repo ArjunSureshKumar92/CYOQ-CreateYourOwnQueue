@@ -17,6 +17,8 @@ var getTicketController = require('../controller/getTicket');
 var getQueueController = require('../controller/getQueue');
 var deleteTicketController = require('../controller/deleteTicket');
 
+var registerQueueController = require('../controller/registerQueue');
+
 
 
 /**
@@ -47,12 +49,19 @@ router.post('/ticket/create', function (req, res) {
   createTicketController.createTicket(req,res);
 });
 
+router.get('/queue/register/:queueId', function(req, res) {
+  registerQueueController.registerQueueUI(req,res);
+});
 
 
 //Delete cases
 router.delete('/queue/delete', function (req, res) {
   deleteQueueController.deleteQueue(req,res);
 });
+
+router.delete('/moderator/delete', function (req, res) {
+    deleteModeratorController.deleteModerator(req,res);
+  });
 
 router.delete('/company/delete', function (req, res) {
   deleteCompanyController.deleteCompany(req,res);
@@ -89,6 +98,10 @@ router.get('/queue/all/:companyId', function (req, res) {
 
 router.get('/moderator/all/:companyId', function (req, res) {
   getModeratorController.getAllModerators(req,res);
+});
+
+router.get('/moderator/get/:companyId/:moderatorId', function (req, res) {
+  getModeratorController.getModerator(req,res);
 });
 
 router.get('/company/all', function (req, res) {

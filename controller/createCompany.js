@@ -29,7 +29,6 @@ exports.createCompany = function (req, res) {
         mongoCompany.mongoDBCompanyInsert(callback, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, createCompanyObj);
     } else {
         response.sendResponse(res, 'Bad Request', 403);
-
     }
 }
 

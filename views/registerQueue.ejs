@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/styles.css" />
+</head>
+
+<body>
+  <main class="container-fluid scrollbar">
+    <form style="margin: 5%" action="http://localhost:4200/api/queue/register" method="POST">
+        <div class="form-group">
+            <label>You are registering for:</label>
+            <h3><%= queue.name %></h3>
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <p><%= queue.description %></p>
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="e.g. Bob Ross" />
+        </div>
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="text" id="email" name="email" placeholder="e.g. test123@email.com" />
+        </div>
+    
+        <input type="text" class="form-control" id="companyId" name="companyId" value="824187727" hidden />
+        <input type="text" class="form-control" id="queueId" name="queueId" value="<%= queue.queueId %>" hidden />
+        <input type="submit" class="btn btn-primary btn-block btn-lg" value="Register" (click)="form.submit()" />
+    </form>
+  </main>
+</body>
+
+</html>
