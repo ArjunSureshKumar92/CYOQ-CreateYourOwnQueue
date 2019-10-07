@@ -1,3 +1,8 @@
+// Contains two types of exports
+// Can - optional parameters
+// Must - required parameters
+
+
 exports.createQueueCan = function (value) {
     switch (value) {
         case 'name':
@@ -313,4 +318,3 @@ exports.deleteTicketMust = function (keys, values) {
     });
     return (keys.includes('companyId') && keys.includes('ticketId') && !values.includes(''));
 }
-

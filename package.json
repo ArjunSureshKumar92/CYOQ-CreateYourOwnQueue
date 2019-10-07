@@ -9,7 +9,7 @@
     "sass": "node-sass src/styles.scss public/css/styles.css",
     "start": "npm-run-all -p client server api sass",
     "build": "ng build",
-    "test": "ng test",
+    "test": "mocha",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
