@@ -2,7 +2,7 @@
 
 exports.dbActionQueueInsertCommand = 'InsertQueue';
 exports.dbActionCompanyInsertCommand = 'InsertCompany';
-exports.globalDbName = 'CYOQ';
+exports.globalDbName = 'cyoq';
 exports.collectionNameCustomers = 'customer';
 exports.collectionNameModerator = 'moderator';
 exports.collectionNameTicket = 'ticket';

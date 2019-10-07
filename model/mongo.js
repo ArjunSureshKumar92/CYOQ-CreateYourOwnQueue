@@ -6,12 +6,15 @@ var mongoConfig = require('../config/mongo');
 let mongoConnection = null;
 
 module.exports.connectMongo = () => new Promise((resolve, reject) => {
-    mongo.connect(mongoConfig.connectionName,  { useNewUrlParser: true }, function(err, client) {
+    mongo.connect(mongoConfig.connectionName,{ useUnifiedTopology: true, useNewUrlParser: true }, function(err, client) {
         if (err) { reject(err); process.exit(); return; };
         resolve(client);
         mongoConnection = client;
     });
+    
 });
+
+
 
 module.exports.getDb = function () {
     if(!mongoConnection) {
@@ -21,4 +24,3 @@ module.exports.getDb = function () {
     }
     
 }
-
