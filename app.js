@@ -5,7 +5,6 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var uIRouter = require('./routes/ui');
-var apiRouter = require('./routes/api');
 var adminRouter = require('./routes/admin');
 var moderatorRouter = require('./routes/moderator');
 var userRouter = require('./routes/user');
@@ -50,8 +49,8 @@ app.use(function(req, res, next) {
 });
 
 // Set the application view engine and 'views' folder
-app.set('views', 'views');
-app.set('view engine', 'ejs');
+//app.set('views', 'views');
+//app.set('view engine', 'ejs');
 
 // error handler
 app.use(function(err, req, res, next) {

@@ -1,3 +1,5 @@
+// function to get a random unique id
+
 exports.getRandom = function(rand) {
     min = Math.ceil(Math.pow(10,rand));
     max = (9*Math.floor(Math.pow(10,rand)));

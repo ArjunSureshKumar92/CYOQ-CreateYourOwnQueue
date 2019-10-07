@@ -1,3 +1,5 @@
+// All the mongo db CRUD operations for queues
+
 const mongodb = require('../model/mongo');
 exports.mongoDBQueueInsert = function (callback, dbName, collectionName, obj) {
     var index = {"name": "text" }

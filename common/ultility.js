@@ -1,3 +1,5 @@
+// Common utility functions required
+
 exports.isTimeWithinRange = function (lowerLimit, upperLimit, value) {
     console.log(value)
     console.log(lowerLimit)

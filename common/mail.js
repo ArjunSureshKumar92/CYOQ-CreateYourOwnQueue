@@ -1,3 +1,5 @@
+// function to send an email
+
 var nodemailer = require('nodemailer');
 
 exports.sendMail = function (from,to,subject,body,pass) {

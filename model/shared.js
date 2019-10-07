@@ -1,3 +1,5 @@
+// All the db calls that are used in many controllers
+
 const mongodb = require('../model/mongo');
 exports.checkCustomerExist = function (callback, dbName, collectionName, companyId) {
     db = mongodb.getDb();
