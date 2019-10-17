@@ -6,17 +6,9 @@ var queueController = require("../controller/queue");
 var companyController = require("../controller/company");
 var moderatorController = require("../controller/moderator");
 
-<<<<<<< HEAD
 /**
  * All the routes that are starting with admin.
  */
-=======
-// All the create cases, for company, moderator, queue and ticket
-router.get("/moderator/create", function(req, res) {
-  uiController.createModeratorUI(req, res);
-});
-
->>>>>>> heroku
 //Create cases
 router.post("/:authKey/queue/create", function(req, res) {
   queueController.createQueue(req, res);
