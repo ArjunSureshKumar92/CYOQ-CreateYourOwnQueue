@@ -1,3 +1,5 @@
+// All the mongo db CRUD operations for tickets
+
 const mongodb = require('../model/mongo');
 const constants = require('../constants')
 exports.mongoDBTicketInsert = function (callback, dbName, collectionName, obj) {
@@ -12,7 +14,6 @@ exports.mongoDBTicketInsert = function (callback, dbName, collectionName, obj) {
         }
         //db.close(); using global connection string.
     })
-
 }
 
 

@@ -1,3 +1,5 @@
+// 3 unit tests for functions
+
 var assert = require('assert');
 var random = require('../common/random')
 var response = require('../common/response')
