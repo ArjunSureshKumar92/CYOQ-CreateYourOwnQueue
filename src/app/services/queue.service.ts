@@ -10,8 +10,7 @@ import { Moderator } from '../models/moderator.model';
     providedIn: 'root'
 })
 export class QueueService {
-    baseUri = 'http://localhost:3000'
-    uri = 'http://localhost:3000/queue/all/';
+    baseUri = 'https://comp313-cyoq.herokuapp.com'
     adminId = 'comp231team4@gmail.com';
     companyId = '481242708';
     moderatorId = '126755968';
