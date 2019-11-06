@@ -11,7 +11,7 @@ import { QueueService } from 'src/app/services/queue.service';
   </div>
   <h1 class="text-center">Moderators</h1>
   <div class="text-right">
-    <a href="http://localhost:4200/admin/moderator/create" class="btn btn-primary">+ Add Moderator</a>
+    <a href="{{this.qs.baseUri}}/admin/moderator/create" class="btn btn-primary">+ Add Moderator</a>
   </div>
   <div class="container-fluid">
     <app-moderator-item *ngFor="let m of moderators" name="{{m.name}}" moderatorId="{{m.moderatorId}}" companyId="{{companyId}}"></app-moderator-item>

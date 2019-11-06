@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   <div>
     <app-navbar></app-navbar>
   </div>
-  <form [formGroup]="angForm" (ngSubmit)="submit()" #form>
+  <form [formGroup]="angForm" (ngSubmit)="onSubmit()" #form>
     <div class="form-group">
         <label for="name">Moderator name</label>
         <input type="text" class="form-control form-control-lg" formControlName="name" id="name" name="name" />
@@ -76,7 +76,7 @@ export class ModeratorDetailsComponent implements OnInit {
         this.angForm.get('email').setValue(this.moderator.email);
     }
 
-    submit() {
+    onSubmit() {
         let data = {
             name: this.angForm.get('name').value,
             email: this.angForm.get('email').value,
@@ -114,6 +114,5 @@ export class ModeratorDetailsComponent implements OnInit {
                 console.log('Deleted moderator');
             }
         )
-        console.log('deleting');
     }
 }
