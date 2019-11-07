@@ -7,7 +7,7 @@
     "server": "nodemon app.js",
     "api": "node bin/www",
     "sass": "node-sass src/styles.scss public/css/styles.css",
-    "start": "npm-run-all -p server sass",
+    "start": "npm-run-all -p server api sass",
     "postinstall": "ng build",
     "build": "ng build",
     "test": "mocha",
