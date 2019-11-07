@@ -91,8 +91,6 @@ export class QueueService {
         });
     }
 
-
-
     getTickets(callback, instance, queueId) {
         var responses;
         this.http.get(`${this.baseUri}/api/ticket/get/${this.companyId}/${queueId}/all`).subscribe(data => {

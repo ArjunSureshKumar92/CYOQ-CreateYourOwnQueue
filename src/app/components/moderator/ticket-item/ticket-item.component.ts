@@ -1,11 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { QueueService } from 'src/app/services/queue.service';
 
 @Component({
   selector: 'app-ticket-item',
   template: `
   <div class="container-fluid clickable row">
     <h5 class="d-inline col">{{name}}</h5>
-    <a href="http://localhost:4200/moderator/ticket/get/{{companyId}}/{{queueId}}/{{ticketId}}" class="divLink"></a>
+    <a href="{{this.qs.baseUri}}/moderator/ticket/get/{{this.qs.companyId}}/{{queueId}}/{{ticketId}}" class="divLink"></a>
   </div>
   `,
   styles: [`
@@ -26,7 +27,7 @@ export class TicketItemComponent implements OnInit {
     @Input()
     queueId: String = '';
 
-    constructor() { }
+    constructor(private qs: QueueService) { }
 
     ngOnInit() {
     }
