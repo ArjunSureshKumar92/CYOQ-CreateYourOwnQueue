@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "client": "ng serve --proxy-config config/proxy.config.json",
+    "client": "ng serve",
     "server": "nodemon app.js",
     "api": "node bin/www",
     "sass": "node-sass src/styles.scss public/css/styles.css",
