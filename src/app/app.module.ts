@@ -15,8 +15,6 @@ import { CreateModeratorComponent } from './components/admin/create-moderator/cr
 import { ModeratorListComponent } from './components/admin/moderator-list/moderator-list.component';
 import { ModeratorItemComponent } from './components/admin/moderator-item/moderator-item.component';
 import { CompanyDetailsComponent } from './components/admin/company-details/company-details.component';
-import { CompanyListComponent } from './components/admin/company-list/company-list.component';
-import { CompanyItemComponent } from './components/admin/company-item/company-item.component';
 import { QueueListComponent } from './components/admin/queue-list/queue-list.component';
 import { QueueItemComponent } from './components/admin/queue-item/queue-item.component';
 import { FilterPipe } from './filter.pipe';
@@ -46,8 +44,6 @@ import { TicketDetailsComponent } from './components/moderator/ticket-details/ti
     QueueListComponent,
     QueueItemComponent,
     ModeratorItemComponent,
-    CompanyListComponent,
-    CompanyItemComponent,
     FilterPipe,
     EndUserHomeComponent,
     ModeratorHomeComponent,
