@@ -9,7 +9,7 @@ import { QueueService } from 'src/app/services/queue.service';
   </div>
   <h1 class="text-center">Queues</h1>
   <div class="text-right">
-    <a href="{{this.qs.baseUri}}/admin/queue/create" class="btn btn-primary">+ Add Queue</a>
+    <a routerLink="/admin/queue/create" class="btn btn-primary">+ Add Queue</a>
   </div>
   <app-queue-list></app-queue-list>
   `
