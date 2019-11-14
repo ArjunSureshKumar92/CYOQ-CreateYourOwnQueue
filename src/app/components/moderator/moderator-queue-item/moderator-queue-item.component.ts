@@ -6,7 +6,7 @@ import { QueueService } from 'src/app/services/queue.service';
     template: `
     <div class="container-fluid clickable row">
         <h5 class="d-inline col">{{name}}</h5>
-        <a href="http://localhost:4200/moderator/queue/get/{{companyId}}/{{queueId}}" class="divLink"></a>
+        <a href="{{this.qs.baseUri}}/moderator/queue/get/{{companyId}}/{{queueId}}" class="divLink"></a>
     </div>
     `,
     styles: [`

@@ -10,45 +10,34 @@ import { Moderator } from '../models/moderator.model';
     providedIn: 'root'
 })
 export class QueueService {
-    baseUri = 'http://localhost:3000'
-    uri = 'http://localhost:3000/queue/all/';
+    baseUri = 'https://comp313-cyoq.herokuapp.com'
     adminId = 'comp231team4@gmail.com';
     companyId = '481242708';
     moderatorId = '126755968';
 
     constructor(private http: HttpClient, private adapter: QueueAdapter) { }
 
-    /*createQueue(name: String, description: String, startTime, closeTime) {
-        const newQueue = {
-            name: name,
-            description: description,
-            startTime: startTime,
-            closeTime: closeTime
-        };
-        this.http.post(`${this.uri}/create`, newQueue).subscribe(res => console.log('Queue created.'));
-    }*/
-
     createQueue(data) {
-        return this.http.post(`${this.baseUri}/admin/${this.adminId}/queue/create`, data);
+        return this.http.post(`${this.baseUri}/api/admin/${this.adminId}/queue/create`, data);
     }
     createModerator(data) {
-        return this.http.post(`${this.baseUri}/admin/${this.adminId}/moderator/create`, data);
+        return this.http.post(`${this.baseUri}/api/admin/${this.adminId}/moderator/create`, data);
     }
 
     createTicket(data) {
-        return this.http.post(`${this.baseUri}/user/ticket/create`, data);
+        return this.http.post(`${this.baseUri}/api/user/ticket/create`, data);
     }
 
     getQueueAdmin(companyId: String, queueId: String) {
-        return this.http.get(`${this.baseUri}/admin/${this.adminId}/queue/get/${companyId}/${queueId}`);
+        return this.http.get(`${this.baseUri}/api/admin/${this.adminId}/queue/get/${companyId}/${queueId}`);
     }
 
     getModerator(moderatorId) {
-        return this.http.get(`${this.baseUri}/admin/${this.adminId}/moderator/get/${this.companyId}/${moderatorId}`);
+        return this.http.get(`${this.baseUri}/api/admin/${this.adminId}/moderator/get/${this.companyId}/${moderatorId}`);
     }
 
     getModerators() {
-        return this.http.get(`${this.baseUri}/admin/${this.adminId}/moderator/all/${this.companyId}`);
+        return this.http.get(`${this.baseUri}/api/admin/${this.adminId}/moderator/all/${this.companyId}`);
     }
 
     getModeratorId() {
@@ -56,12 +45,12 @@ export class QueueService {
     }
 
     getCompany(companyId) {
-        return this.http.get(`${this.baseUri}/admin/${this.adminId}/company/get/${companyId}`);
+        return this.http.get(`${this.baseUri}/api/admin/${this.adminId}/company/get/${companyId}`);
     }
 
     getAllCompany(callback, instance) {
         var responses;
-        this.http.get(`${this.baseUri}/admin/company/all`).subscribe(data => {
+        this.http.get(`${this.baseUri}/api/admin/company/all`).subscribe(data => {
             responses = data;
             console.log(responses.response[0].name);
             callback(responses.response, instance);
@@ -70,7 +59,7 @@ export class QueueService {
 
     getQueue(callback, instance, queueId) {
         var responses;
-        this.http.get(`${this.baseUri}/admin/${this.adminId}/queue/get/${this.companyId}/${queueId}`).subscribe(data => {
+        this.http.get(`${this.baseUri}/api/admin/${this.adminId}/queue/get/${this.companyId}/${queueId}`).subscribe(data => {
             responses = data;
             console.log(responses);
             callback(responses.response, instance);
@@ -79,10 +68,10 @@ export class QueueService {
 
     getQueues(callback, instance, moderatorId?) {
         var responses;
-        var url = `${this.baseUri}/admin/${this.adminId}/queue/all/${this.companyId}`;
+        var url = `${this.baseUri}/api/admin/${this.adminId}/queue/all/${this.companyId}`;
 
         if (moderatorId) {
-            url = `${this.baseUri}/moderator/${moderatorId}/queue/get/${this.companyId}`;
+            url = `${this.baseUri}/api/moderator/${moderatorId}/queue/get/${this.companyId}`;
         }
 
         this.http.get(url).subscribe(data => {
@@ -91,8 +80,6 @@ export class QueueService {
             callback(responses.response, instance);
         });
     }
-
-
 
     getTickets(callback, instance, queueId) {
         var responses;
@@ -104,34 +91,34 @@ export class QueueService {
     }
 
     getTicketPriority(queueId, ticketId) {
-        return this.http.get(`${this.baseUri}/user/${this.companyId}/ticket/getposition/${this.companyId}/${queueId}/${ticketId}`);
+        return this.http.get(`${this.baseUri}/api/user/${this.companyId}/ticket/getposition/${this.companyId}/${queueId}/${ticketId}`);
     }
 
     updateQueue(data) {
-        return this.http.post(`${this.baseUri}/admin/${this.adminId}/queue/update`, data);
+        return this.http.post(`${this.baseUri}/api/admin/${this.adminId}/queue/update`, data);
     }
 
     updateCompany(data) {
-        return this.http.post(`${this.baseUri}/admin/${this.adminId}/company/update`, data);
+        return this.http.post(`${this.baseUri}/api/admin/${this.adminId}/company/update`, data);
     }
 
     updateModerator(data) {
-        return this.http.post(`${this.baseUri}/admin/${this.adminId}/moderator/update`, data);
+        return this.http.post(`${this.baseUri}/api/admin/${this.adminId}/moderator/update`, data);
     }
 
     callTicket(data, moderatorId) {
-        return this.http.post(`${this.baseUri}/moderator/${moderatorId}/ticket/next`, data);
+        return this.http.post(`${this.baseUri}/api/moderator/${moderatorId}/ticket/next`, data);
     }
 
     deleteQueue(data) {
-        return this.http.post(`${this.baseUri}/admin/${this.adminId}/queue/delete`, data);
+        return this.http.post(`${this.baseUri}/api/admin/${this.adminId}/queue/delete`, data);
     }
 
     deleteModerator(data) {
-        return this.http.post(`${this.baseUri}/admin/${this.adminId}/moderator/delete`, data);
+        return this.http.post(`${this.baseUri}/api/admin/${this.adminId}/moderator/delete`, data);
     }
 
     closeTicket(data) {
-        return this.http.post(`${this.baseUri}/user/${this.adminId}/ticket/delete`, data);
+        return this.http.post(`${this.baseUri}/api/user/${this.adminId}/ticket/delete`, data);
     }
 }

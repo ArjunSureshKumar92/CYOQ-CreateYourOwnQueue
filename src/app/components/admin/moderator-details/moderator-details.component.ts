@@ -114,6 +114,5 @@ export class ModeratorDetailsComponent implements OnInit {
                 console.log('Deleted moderator');
             }
         )
-        console.log('deleting');
     }
 }

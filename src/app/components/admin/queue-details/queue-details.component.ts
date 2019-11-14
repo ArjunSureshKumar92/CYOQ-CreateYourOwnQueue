@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   <div>
     <app-navbar></app-navbar>
   </div>
-  <form [formGroup]="angForm" (ngSubmit)="form.submit()" action="http://localhost:3000/admin/{{adminId}}/queue/update" method="POST" #form>
+  <form [formGroup]="angForm" (ngSubmit)="submit()" #form>
     <div class="form-group">
         <label for="name">Queue name</label>
         <input type="text" class="form-control form-control-lg" formControlName="name" id="name" name="name" />
@@ -36,7 +36,7 @@ import { Router } from '@angular/router';
         <input type="text" class="form-control" id="queueId" name="queueId" value="{{queueId}}" />
     </div>
     <input type="submit" class="btn btn-primary btn-block btn-lg" [disabled]="angForm.pristine || angForm.invalid" value="Save Changes" />
-    <input type="button" formaction="http://localhost:3000/admin/{{adminId}}/queue/delete" class="btn btn-danger btn-block btn-lg" name="delete" id="delete" value="Delete Queue" />
+    <input type="button" (click)="delete()" class="btn btn-danger btn-block btn-lg" name="delete" id="delete" value="Delete Queue" />
   </form>
   `
 })
@@ -88,12 +88,43 @@ export class QueueDetailsComponent implements OnInit {
         this.angForm.get('closeTime').setValue(this.queue.closeTime);
     }
 
-    delete() {
+    submit() {
         let data = {
             name: this.angForm.get('name').value,
             queueId: this.queueId,
             companyId: this.companyId,
-            description: this.angForm.get('description').value
+            description: this.angForm.get('description').value,
+            startTime: this.angForm.get('startTime').value,
+            closeTime: this.angForm.get('closeTime').value
         };
+        this.qs.updateQueue(data).subscribe(
+            res => {
+                this.router.navigate(['']);
+            },
+            err => {
+                console.log(err);
+            },
+            () => {
+                console.log('Updated queue.');
+            }
+        )
+    }
+
+    delete() {
+        let data = {
+            queueId: this.queueId,
+            companyId: this.companyId
+        };
+        this.qs.deleteQueue(data).subscribe(
+            res => {
+                this.router.navigate(['']);
+            },
+            err => {
+                console.log(err);
+            },
+            () => {
+                console.log('Deleted queue');
+            }
+        )
     }
 }

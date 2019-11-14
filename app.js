@@ -23,9 +23,9 @@ app.use('/', express.static(path.join(__dirname, 'dist/cyoq')));
 app.use('/public', express.static('public'));
 
 // routes
-app.use('/admin', adminRouter);
-app.use('/moderator', moderatorRouter);
-app.use('/user', userRouter);
+app.use('/api/admin', adminRouter);
+app.use('/api/moderator', moderatorRouter);
+app.use('/api/user', userRouter);
 
 app.use('/ui', uIRouter);
 app.use('/scripts', scriptsRouter);

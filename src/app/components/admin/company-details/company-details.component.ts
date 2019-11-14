@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { QueueService } from 'src/app/services/queue.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
@@ -10,7 +11,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
     <app-navbar></app-navbar>
   </div>
   <h1 class="text-center">Company Profile</h1>
-  <form [formGroup]="angForm" (ngSubmit)="form.submit()" action="http://localhost:3000/admin/{{adminId}}/company/update" method="POST" #form>
+  <form [formGroup]="angForm" (ngSubmit)="onSubmit()" #form>
     <div class="container-fluid">
         <div class="form-group">
             <label for="name">Company name</label>
@@ -42,7 +43,7 @@ export class CompanyDetailsComponent implements OnInit {
     adminId: String = '';
     angForm: FormGroup;
 
-    constructor(private fb: FormBuilder, private qs: QueueService) {
+    constructor(private fb: FormBuilder, private qs: QueueService, private location: Location) {
         this.company = [];
         this.companyId = this.qs.companyId;
         this.adminId = this.qs.adminId;
@@ -75,6 +76,24 @@ export class CompanyDetailsComponent implements OnInit {
         this.angForm.get('email').setValue(this.company.email);
         this.angForm.get('phone').setValue(this.company.phone);
         this.angForm.get('address').setValue(this.company.address);
+    }
+
+    onSubmit() {
+        const data = {
+            'name': this.angForm.get('name').value,
+            'address': this.angForm.get('address').value,
+            'phone': this.angForm.get('phone').value,
+            'email': this.angForm.get('email').value,
+            'companyId': this.companyId
+        }
+
+        this.qs.updateCompany(data).subscribe(
+            res => {
+                this.location.back();
+                console.log('Company updated.');
+            },
+            err => { console.log(err); }
+        )
     }
 
     ngOnInit() {

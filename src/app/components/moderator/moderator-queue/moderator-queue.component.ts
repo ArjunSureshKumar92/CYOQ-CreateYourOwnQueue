@@ -46,7 +46,8 @@ export class ModeratorQueueComponent implements OnInit {
 
     closeRegistration() {
         let data = {
-
+            companyId: this.companyId,
+            queueId: this.queueId
         }
     }
 }
