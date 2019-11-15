@@ -4,7 +4,6 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var uIRouter = require('./routes/ui');
 var adminRouter = require('./routes/admin');
 var moderatorRouter = require('./routes/moderator');
 var userRouter = require('./routes/user');
@@ -20,17 +19,18 @@ app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'dist/cyoq')));
-app.use('/', express.static(path.join(__dirname, 'dist/cyoq')));
-app.use('/public', express.static('public'));
+app.use(express.static(path.join(__dirname, 'angular/dist/angular')));
+//app.use('/', express.static(path.join(__dirname, 'angular/dist/angular')));
+//app.use('/public', express.static('public'));
 
 // routes
 app.use('/api/admin', adminRouter);
 app.use('/api/moderator', moderatorRouter);
 app.use('/api/user', userRouter);
-
-app.use('/ui', uIRouter);
 app.use('/scripts', scriptsRouter);
+app.use('*', express.static(path.join(__dirname, 'angular/dist/angular')));
+
+
 
 
 app.use(function(req, res, next) {
