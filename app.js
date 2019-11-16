@@ -2,33 +2,30 @@ global.__basedir = __dirname;
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
 var adminRouter = require('./routes/admin');
 var moderatorRouter = require('./routes/moderator');
 var userRouter = require('./routes/user');
 var scriptsRouter = require('./routes/scripts');
 var cors = require('cors')
-var debug = require('debug')('mean-angular6:server');
 var http = require('http');
 var mongoDB = require('./model/mongo');
 
 
 var app = express();
 app.use(cors());
-app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'angular/dist/angular')));
-//app.use('/', express.static(path.join(__dirname, 'angular/dist/angular')));
-//app.use('/public', express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // routes
 app.use('/api/admin', adminRouter);
 app.use('/api/moderator', moderatorRouter);
 app.use('/api/user', userRouter);
 app.use('/scripts', scriptsRouter);
-app.use('*', express.static(path.join(__dirname, 'angular/dist/angular')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
+});
 
 
 

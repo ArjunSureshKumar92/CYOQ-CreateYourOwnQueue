@@ -3,22 +3,11 @@
   "version": "1.0.0",
   "description": "General Purpose Queue System which also includes notification capabilities and intelligent scheduling.",
   "main": "app.js",
-  "directories": {
-    "test": "tests"
-  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ArjunSureshKumar92/CYOQ-CreateYourOwnQueue.git"
+    "start": "node app"
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ArjunSureshKumar92/CYOQ-CreateYourOwnQueue/issues"
-  },
-  "homepage": "https://github.com/ArjunSureshKumar92/CYOQ-CreateYourOwnQueue#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
