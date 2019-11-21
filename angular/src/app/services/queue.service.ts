@@ -10,10 +10,10 @@ import { Moderator } from '../models/moderator.model';
     providedIn: 'root'
 })
 export class QueueService {
-    baseUri = 'https://comp313-cyoq.herokuapp.com'
-    adminId = 'comp231team4@gmail.com';
-    companyId = '481242708';
-    moderatorId = '126755968';
+    baseUri = 'https://cyoq-web.herokuapp.com'
+    adminId = 'comp313.2019@gmail.com';
+    companyId = '496477151';
+    moderatorId = '126755968333';
 
     constructor(private http: HttpClient, private adapter: QueueAdapter) { }
 

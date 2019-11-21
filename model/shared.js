@@ -2,7 +2,7 @@
 
 const mongodb = require('../model/mongo');
 exports.checkCustomerExist = function (callback, dbName, collectionName, companyId) {
-    db = mongodb.getDb();
+    db = mongodb.getMainDb();
     var obj = {};
     obj.companyId = companyId;
     db.db(dbName).collection(collectionName).findOne(obj, function (err, result) {
@@ -18,7 +18,7 @@ exports.checkCustomerExist = function (callback, dbName, collectionName, company
 
 
 exports.checkModeratorExists = function (callback, dbName, collectionName, moderatorId) {
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     var obj = {};
     obj.moderatorId = moderatorId;
     db.db(dbName).collection(collectionName).findOne(obj, function (err, result) {
@@ -32,8 +32,23 @@ exports.checkModeratorExists = function (callback, dbName, collectionName, moder
     });
 }
 
+exports.checkUserExists = function (callback, dbName, collectionName, userID) {
+    db = mongodb.getCustomerDb();
+    var obj = {};
+    obj.email = userID;
+    db.db(dbName).collection(collectionName).findOne(obj, function (err, result) {
+        if (err) {
+            callback(500, result);
+        } else if (result) {
+            callback(200, result);
+        } else {
+            callback(422, result);
+        }
+    });
+}
+
 exports.checkModeratorExist = function (callback, dbName, collectionName, moderators) {
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     if (moderators) {
         var moderator = [];
         db.db(dbName).collection(collectionName).find().forEach(function (result) {
@@ -74,7 +89,7 @@ exports.checkModeratorExist = function (callback, dbName, collectionName, modera
 
 
 exports.checkQueueExist = function (callback, dbName, collectionName, queueId) {
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     var obj = {};
     obj.queueId = queueId;
     db.db(dbName).collection(collectionName).findOne(obj, function (err, result) {
@@ -89,7 +104,7 @@ exports.checkQueueExist = function (callback, dbName, collectionName, queueId) {
 }
 
 exports.checkTicketExist = function (callback, dbName, collectionName, ticketId) {
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     var obj = {};
     obj.ticketId = ticketId;
     db.db(dbName).collection(collectionName).findOne(obj, function (err, result) {

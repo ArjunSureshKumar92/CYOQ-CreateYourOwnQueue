@@ -810,7 +810,8 @@
                     var data = {
                         'name': this.angForm.get('name').value,
                         'description': this.angForm.get('description').value,
-                        'time': [this.angForm.get('startTime').value, this.angForm.get('closeTime').value,],
+                        'startTime': this.angForm.get('startTime').value,
+                        'closeTime': this.angForm.get('closeTime').value,
                         'moderator': this.selectedModerators,
                         'companyId': this.companyId
                     };
@@ -1816,10 +1817,10 @@
                 function QueueService(http, adapter) {
                     this.http = http;
                     this.adapter = adapter;
-                    this.baseUri = 'https://comp313-cyoq.herokuapp.com';
-                    this.adminId = 'comp231team4@gmail.com';
-                    this.companyId = '481242708';
-                    this.moderatorId = '126755968';
+                    this.baseUri = 'https://cyoq-web.herokuapp.com';
+                    this.adminId = 'comp313.2019@gmail.com';
+                    this.companyId = '496477151';
+                    this.moderatorId = '126755968333';
                 }
                 QueueService.prototype.createQueue = function (data) {
                     return this.http.post(this.baseUri + "/api/admin/" + this.adminId + "/queue/create", data);
@@ -1970,7 +1971,7 @@
           \***************************/
         /*! no static exports found */
         /***/ (function (module, exports, __webpack_require__) {
-            module.exports = __webpack_require__(/*! C:\Users\PC\centennial\fall 2019\sdp\CYOQ-CreateYourOwnQueue\angular\src\main.ts */ "./src/main.ts");
+            module.exports = __webpack_require__(/*! C:\Users\PC\centennial\fall 2019\sdp\my heroku\angular\src\main.ts */ "./src/main.ts");
             /***/ 
         })
     }, [[0, "runtime", "vendor"]]]);

@@ -3,7 +3,7 @@
 const mongodb = require('../model/mongo');
 exports.mongoDBQueueInsert = function (callback, dbName, collectionName, obj) {
     var index = {"name": "text" }
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     db.db(dbName).collection(collectionName).insertOne(obj, (err, result) => {
         if (err) {
             console.error(err)
@@ -19,7 +19,7 @@ exports.mongoDBQueueInsert = function (callback, dbName, collectionName, obj) {
 }
 
 exports.mongoDBQueueUpdate = function (callback, dbName, collectionName, obj, queueId) {
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     var queue = { queueId: queueId };
     //var tmp = {$set:{ name: "success-advisor-queue1" }};
     //console.log(queue.queueId + ' - '+tmp.name);
@@ -37,7 +37,7 @@ exports.mongoDBQueueUpdate = function (callback, dbName, collectionName, obj, qu
 }
 
 exports.mongoDBQueueGet = function (callback, dbName, collectionName, queueId) {
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     var obj = { queueId: queueId };
     db.db(dbName).collection(collectionName).findOne(obj, function (err, result) {
         if (err) {
@@ -54,7 +54,7 @@ exports.mongoDBQueueGet = function (callback, dbName, collectionName, queueId) {
 }
 
 exports.mongoDBModeratorRelatedQueueGet = function (callback, dbName, collectionName, moderatorId) {
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     var obj = { moderator: { $in: [moderatorId] } };
     db.db(dbName).collection(collectionName).find(obj).toArray(function (err, result) {
         if (err) {
@@ -76,7 +76,7 @@ exports.mongoDBModeratorRelatedQueueGet = function (callback, dbName, collection
 
 
 exports.mongoDBQueueGetAllWithSearch = function (callback, dbName, collectionName,search) {
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     var obj = { $text : {$search : search}}
     console.log(obj)
     db.db(dbName).collection(collectionName).find(obj).toArray(function (err, result) {
@@ -97,7 +97,7 @@ exports.mongoDBQueueGetAllWithSearch = function (callback, dbName, collectionNam
 }
 
 exports.mongoDBQueueGetAll = function (callback, dbName, collectionName) {
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     db.db(dbName).collection(collectionName).find({}).toArray(function (err, result) {
         if (err) {
             console.log(err);
@@ -120,7 +120,7 @@ exports.mongoDBQueueGetAll = function (callback, dbName, collectionName) {
 
 
 exports.mongoDBQueueDelete = function (callback, dbName, collectionName, queueId) {
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     var obj = { queueId: queueId };
     db.db(dbName).collection(collectionName).deleteOne(obj, function (err, result) {
         if (err) {

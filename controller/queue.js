@@ -46,17 +46,12 @@ exports.createQueue = function(req, res) {
         response.sendResponse(res, "Error getting company", status);
       else {
         mail.sendMail(
-          "comp231team4@gmail.com",
+            mongoConstants.mailingEmail,
           data.email,
           "New Queue Created",
-          "Hey Admin, \n This is the link to view the new queue => http://localhost:4200/admin/" +
-            req.params.authKey +
-            "/queue/get/" +
-            req.body.companyId +
-            "/" +
-            createQueueObj["queueId"] +
-            "\n\n\n This link is for users to add tickets to the queue: http://localhost:4200/user/ticket/create    Please pass the company id and queue Id and email as post parameters...",
-          "comp231password"
+          "Hey Admin, \n A new queue was created. Please go to your dashboard to view the queue: "+mongoConstants.baseUrl +
+            "\n\n\n This link is for users to add tickets to the queue:" +mongoConstants.baseUrl+"/api/user/ticket/create    Please pass the company id and queue Id and email as post parameters...",
+            mongoConstants.mailingPassword
         );
         response.sendResponse(
           res,
@@ -151,7 +146,7 @@ exports.updateQueue = function (req, res) {
             if (status != 200)
                 response.sendResponse(res, 'Error getting company', status)
             else {
-                mail.sendMail('comp231team4@gmail.com', data.email, 'Queue updated', 'Hey Admin, \n This is the link to view the updated queue => http://localhost:4200/admin/'+ req.params.authKey+'/queue/get/' + req.body.companyId + '/' + req.body.queueId, 'comp231password');
+               // mail.sendMail('comp313.2019@gmail.com', data.email, 'Queue updated', 'Hey Admin, \n This is the link to view the updated queue => http://localhost:4200/admin/'+ req.params.authKey+'/queue/get/' + req.body.companyId + '/' + req.body.queueId, mongoConstants.mailingPassword);
                 response.sendResponse(res, 'Success, ID => ' + req.body.queueId, 200)
             }
         }

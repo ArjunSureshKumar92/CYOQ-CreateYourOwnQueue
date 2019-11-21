@@ -109,7 +109,8 @@ export class CreateQueueComponent implements OnInit {
         const data = {
             'name': this.angForm.get('name').value,
             'description': this.angForm.get('description').value,
-            'time': [this.angForm.get('startTime').value, this.angForm.get('closeTime').value,],
+            'startTime': this.angForm.get('startTime').value,
+            'closeTime': this.angForm.get('closeTime').value,
             'moderator': this.selectedModerators,
             'companyId': this.companyId
         }

@@ -26,7 +26,7 @@ exports.createModerator = function (req, res) {
                 response.sendResponse(res, 'Error inserting moderator', status)
             else {
                 // function to send an email
-                mail.sendMail('comp231team4@gmail.com', data.email, 'New Moderator Created', 'Hey Moderator, \n This is the link to your company dashboard => http://localhost:4200/moderator/'+data.moderatorId + '/'+req.body.companyId, 'comp231password');
+                mail.sendMail(mongoConstants.mailingEmail, data.email, 'New Moderator Created', 'Hey Moderator, \n This is the link to your dashboard => '+mongoConstants.baseUrl+'/api/moderator/'+data.moderatorId + '/queue/get/'+req.body.companyId, mongoConstants.mailingPassword); 
                 response.sendResponse(res, 'Success, ID => ' + data.moderatorId, 200)
             }
         }

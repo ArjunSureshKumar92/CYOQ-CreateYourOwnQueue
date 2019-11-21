@@ -26,7 +26,7 @@ exports.createTicket = function (req, res) {
             if (status != 200)
                 response.sendResponse(res, 'Error inserting ticket', status)
             else {
-                mail.sendMail('comp231team4@gmail.com', data.email, 'New Ticket Created', 'Hey User, \n Your ticket is created for the queue ' + queueName + '\n To get your queue position go to http://localhost:4200/user/' + req.body.email + '/ticket/getposition/' + req.body.companyId + '/' + req.body.queueId + '/' + data.ticketId, 'comp231password');
+                mail.sendMail(mongoConstants.mailingEmail, data.email, 'New Ticket Created', 'Hey User, \n Your ticket is created for the queue ' + queueName +'\n Go to '+mongoConstants.baseUrl+'/api/user/'+data.email+'/queue/get/'+ req.body.companyId +'\n To get your queue position go to '+mongoConstants.baseUrl+'/api/user/' + req.body.email + '/ticket/getposition/' + req.body.companyId + '/' + req.body.queueId + '/' + data.ticketId, mongoConstants.mailingPassword);
                 response.sendResponse(res, 'Success, ID => ' + data.ticketId, 200)
             }
         }
@@ -40,8 +40,10 @@ exports.createTicket = function (req, res) {
                     response.sendResponse(res, 'Sorry, queue in closed at the moment...', status)
                 } else if (data.startTime && data.closeTime && !util.isTimeWithinRange(data.startTime, data.closeTime, date.getHours() * 60 + date.getMinutes())) {
                     response.sendResponse(res, 'Sorry, queue in closed at the moment... Please try after ' + util.minutesToHourString(data.startTime,(date.getHours() * 60 + date.getMinutes())), status)
-                } else {
+                } 
+                else {
                     queueName = data.name
+                    createTicketObj['queueName'] = queueName;
                     mongoTicket.mongoDBTicketInsert(callbackInsertCase, req.body.companyId, mongoConstants.collectionNameTicket, createTicketObj);
                 }
             }
@@ -123,7 +125,7 @@ exports.nextTicket = function (req, res) {
             if (status != 200)
                 response.sendResponse(res, 'Error getting next ticket', status)
             else {
-                mail.sendMail('comp231team4@gmail.com', data.email, 'Active User', 'Hey User, \n Your ticket is now active for the queue: ' + queueName, 'comp231password');
+                mail.sendMail(mongoConstants.mailingEmail, data.email, 'Active User', 'Hey User, \n Your ticket is now active for the queue: ' + queueName, mongoConstants.mailingPassword);
                 sendNotificationToNextInLine();
                 response.sendResponse(res, 'Success, Active Ticket ID => ' + data.ticketId, 200)
             }
@@ -183,7 +185,7 @@ exports.nextTicket = function (req, res) {
 
     var sendNotificationToNextInLineCallback = function (status, data) {
         if (status == 200) {
-            mail.sendMail('comp231team4@gmail.com', data.email, 'Next In Queue', 'Hey User, \n Your ticket for the queue: ' + queueName + ' is now next in line... Please get ready!!', 'comp231password');
+            mail.sendMail(mongoConstants.mailingEmail, data.email, 'Next In Queue', 'Hey User, \n Your ticket for the queue: ' + queueName + ' is now next in line... Please get ready!!',mongoConstants.mailingPassword);
         }
     }
 
@@ -200,7 +202,7 @@ exports.deleteTicket = function (req, res) {
             if (status != 200)
                 response.sendResponse(res, 'Error deleting ticket', status)
             else {
-                mail.sendMail('comp231team4@gmail.com', data.email, 'Ticket Deleted', 'Hey User, \n Your Ticket ' + req.body.ticketId + ' has been deleted', 'comp231password');
+                mail.sendMail(mongoConstants.mailingEmail, data.email, 'Ticket Deleted', 'Hey User, \n Your Ticket ' + req.body.ticketId + ' has been deleted', mongoConstants.mailingPassword);
                 response.sendResponse(res, 'Success, deleted Ticket ID => ' + req.body.ticketId, 200)
             }
         }
@@ -425,3 +427,30 @@ exports.getWaitTicket = function (req, res) {
     }
     mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.params.companyId);
 }
+
+exports.getUserRelatedQueueTicket = function (req, res) {
+    var callbackGetQueueTicket = function (status, data) {
+        if (status != 200)
+            response.sendResponse(res, 'Error getting queue', status)
+        else {
+            response.sendResponse(res, data, 200)
+        }
+    }
+    var callbackUserCase = function (status, data) {
+        if (status != 200) {
+            response.sendResponse(res, 'Unauthorised User', 401)
+        } else {
+            mongoTicket.mongoDBUserRelatedQueueTicketGet(callbackGetQueueTicket, req.params.companyId, mongoConstants.collectionNameTicket, req.params.authKey);
+        }
+    }
+    var callbackExistCase = function (status, data) {
+        if (status != 200)
+            response.sendResponse(res, 'No such company exist', status)
+        else {
+            mongoShared.checkUserExists(callbackUserCase, req.params.companyId, mongoConstants.collectionNameModerator, req.params.authKey);
+        }
+    }
+    mongoShared.checkCustomerExist(callbackExistCase, mongoConstants.globalDbName, mongoConstants.collectionNameCustomers, req.params.companyId);
+}
+
+

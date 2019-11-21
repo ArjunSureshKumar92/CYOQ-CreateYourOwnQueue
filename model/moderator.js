@@ -2,7 +2,7 @@
 
 const mongodb = require('../model/mongo');
 exports.mongoDBModeratorInsert = function (callback, dbName, collectionName, obj) {
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     db.db(dbName).collection(collectionName).insertOne(obj, (err, result) => {
         if (err) {
             console.error(err)
@@ -17,7 +17,7 @@ exports.mongoDBModeratorInsert = function (callback, dbName, collectionName, obj
 }
 
 exports.mongoDBModeratorUpdate = function (callback, dbName, collectionName, obj, modId) {
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     var moderatorId = { moderatorId: modId };
     db.db(dbName).collection(collectionName).findOneAndUpdate(moderatorId, { $set: obj }, (err, result) => {
         if (err) {
@@ -33,7 +33,7 @@ exports.mongoDBModeratorUpdate = function (callback, dbName, collectionName, obj
 }
 
 exports.mongoDBModeratorDelete = function (callback, dbName, collectionName, queueCollectionName, moderatorId) {
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     var obj = { moderatorId: moderatorId };
     db.db(dbName).collection(collectionName).deleteOne(obj, function (err, result) {
         if (err) {
@@ -50,7 +50,7 @@ exports.mongoDBModeratorDelete = function (callback, dbName, collectionName, que
 }
 
 exports.mongoDBModeratorGet = function (callback, dbName, collectionName, moderatorId) {
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     var obj = { moderatorId: moderatorId };
     db.db(dbName).collection(collectionName).findOne(obj, function (err, result) {
         if (err) {
@@ -67,7 +67,7 @@ exports.mongoDBModeratorGet = function (callback, dbName, collectionName, modera
 }
 
 exports.mongoDBModeratorGetAll = function (callback, dbName, collectionName) {
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     db.db(dbName).collection(collectionName).find({}).toArray(function (err, result) {
         if (err) {
             console.log(err);
@@ -85,23 +85,6 @@ exports.mongoDBModeratorGetAll = function (callback, dbName, collectionName) {
     });
 
 }
-
-
-// exports.mongoDBModeratorUpdate = function (callback, dbName, collectionName, obj, modId) {
-//     db = mongodb.getDb();
-//     var moderatorId = { moderatorId: modId };
-//     db.db(dbName).collection(collectionName).findOneAndUpdate(moderatorId, { $set: obj }, (err, result) => {
-//         if (err) {
-//             console.error(err)
-//             callback(422, err)
-//         }
-//         else {
-//             callback(200, result)
-//         }
-//         //db.close(); using global connection string.
-//     })
-
-// }
 
 
 function deleteQueueModerator(callback,dbName,collectionName, moderatorId) {
@@ -130,7 +113,7 @@ function deleteQueueModerator(callback,dbName,collectionName, moderatorId) {
 }
 
 exports.checkCustomerExist = function (callback, dbName, collectionName, companyId) {
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     var obj = {};
     obj.companyId = companyId;
     db.db(dbName).collection(collectionName).findOne(obj, function (err, result) {

@@ -2,9 +2,9 @@
 
 exports.isTimeWithinRange = function (lowerLimit, upperLimit, value) {
     console.log(value)
-    console.log(lowerLimit)
-    console.log(upperLimit)
-    if (lowerLimit <= value && upperLimit >= value)
+    console.log(parseInt(lowerLimit, 10))
+    console.log(parseInt(upperLimit, 10))
+    if (parseInt(lowerLimit, 10) <= value && parseInt(upperLimit, 10) >= value)
         return true
     return false
 }

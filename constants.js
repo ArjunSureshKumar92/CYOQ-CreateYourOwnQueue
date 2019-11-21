@@ -15,3 +15,6 @@ exports.queueModeratorsKey = 'moderator';
 exports.queueStatusActive = 'active';
 exports.queueStatusInactive = 'inactive';
 exports.queueNameKey = 'name';
+exports.mailingEmail = 'comp313.2019@gmail.com';
+exports.mailingPassword = 'Centennial@2019';
+exports.baseUrl = 'https://cyoq-web.herokuapp.com'
