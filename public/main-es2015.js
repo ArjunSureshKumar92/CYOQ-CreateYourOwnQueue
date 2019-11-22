@@ -2251,7 +2251,7 @@ let QueueService = class QueueService {
     constructor(http, adapter) {
         this.http = http;
         this.adapter = adapter;
-        this.baseUri = 'https://cyoqapp.herokuapp.com';
+        this.baseUri = 'https://cyoqappbyrj.herokuapp.com';
         this.adminId = 'comp313.2019@gmail.com';
         this.companyId = '496477151';
         this.moderatorId = '126755968333';
