@@ -1594,11 +1594,12 @@ let RegisterQueueComponent = class RegisterQueueComponent {
         }, err => { console.log(err); }, () => { console.log('Retrieved queue info.'); });
     }
     submit() {
+        console.log("register user for queue called");
         let data = {
-            name: this.regForm.get('name').value,
-            email: this.regForm.get('email').value,
-            companyId: this.companyId,
-            queueId: this.queueId
+            'name': this.regForm.get('name').value,
+            'email': this.regForm.get('email').value,
+            'companyId': this.companyId,
+            'queueId': this.queueId
         };
         this.qs.createTicket(data).subscribe(res => {
             this.router.navigateByUrl(`/user/${this.companyId}/${this.queueId}/view`);

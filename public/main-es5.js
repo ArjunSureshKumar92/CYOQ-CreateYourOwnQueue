@@ -1325,11 +1325,12 @@
                 };
                 RegisterQueueComponent.prototype.submit = function () {
                     var _this = this;
+                    console.log("register user for queue called");
                     var data = {
-                        name: this.regForm.get('name').value,
-                        email: this.regForm.get('email').value,
-                        companyId: this.companyId,
-                        queueId: this.queueId
+                        'name': this.regForm.get('name').value,
+                        'email': this.regForm.get('email').value,
+                        'companyId': this.companyId,
+                        'queueId': this.queueId
                     };
                     this.qs.createTicket(data).subscribe(function (res) {
                         _this.router.navigateByUrl("/user/" + _this.companyId + "/" + _this.queueId + "/view");
