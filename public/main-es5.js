@@ -1971,7 +1971,7 @@
           \***************************/
         /*! no static exports found */
         /***/ (function (module, exports, __webpack_require__) {
-            module.exports = __webpack_require__(/*! C:\Users\PC\centennial\fall 2019\sdp\my heroku\angular\src\main.ts */ "./src/main.ts");
+            module.exports = __webpack_require__(/*! D:\Study\Software Development Project-2\Structure_Reworked\CYOQ-CreateYourOwnQueue\angular\src\main.ts */ "./src/main.ts");
             /***/ 
         })
     }, [[0, "runtime", "vendor"]]]);
