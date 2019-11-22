@@ -25,6 +25,9 @@ exports.createTicket = function(req, res) {
       if (apiControl.createTicketCan(key)) createTicketObj[key] = req.body[key];
     }
     var callbackInsertCase = function(status, data) {
+      console.log("Status");
+      console.log(status);
+      console.log(data);
       if (status != 200)
         response.sendResponse(res, "Error inserting ticket", status);
       else {
