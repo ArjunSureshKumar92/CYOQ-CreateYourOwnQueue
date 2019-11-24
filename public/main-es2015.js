@@ -1602,7 +1602,9 @@ let RegisterQueueComponent = class RegisterQueueComponent {
             'queueId': this.queueId
         };
         this.qs.createTicket(data).subscribe(res => {
-            this.router.navigateByUrl(`/user/${this.companyId}/${this.queueId}/view`);
+            console.log("Response received from server");
+            console.log(res.toString());
+            //this.router.navigateByUrl(`/user/${this.companyId}/${this.queueId}/view`);
         }, err => { console.log(err); }, () => { console.log('Registered for queue.'); });
     }
 };
