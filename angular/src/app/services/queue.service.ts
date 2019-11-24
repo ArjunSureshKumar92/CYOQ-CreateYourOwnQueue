@@ -13,7 +13,6 @@ export class QueueService {
     baseUri = 'https://cyoqappbyrj.herokuapp.com'
     adminId = 'comp313.2019@gmail.com';
     companyId = '496477151';
-    moderatorId = '126755968333';
 
     constructor(private http: HttpClient, private adapter: QueueAdapter) { }
 
@@ -66,28 +65,17 @@ export class QueueService {
         });
     }
 
-    getQueues(callback, instance, moderatorId?) {
-        var responses;
+    getQueues(moderatorId?) {
         var url = `${this.baseUri}/api/admin/${this.adminId}/queue/all/${this.companyId}`;
-
         if (moderatorId) {
             url = `${this.baseUri}/api/moderator/${moderatorId}/queue/get/${this.companyId}`;
         }
 
-        this.http.get(url).subscribe(data => {
-            responses = data;
-            console.log(responses.response[0].name);
-            callback(responses.response, instance);
-        });
+        return this.http.get(url);
     }
 
-    getTickets(callback, instance, queueId) {
-        var responses;
-        this.http.get(`${this.baseUri}/api/ticket/get/${this.companyId}/${queueId}/all`).subscribe(data => {
-            responses = data;
-            console.log(responses.response[0].name);
-            callback(responses.response, instance);
-        });
+    getTickets(queueId) {
+        return this.http.get(`${this.baseUri}/api/ticket/get/${this.companyId}/${queueId}/all`);
     }
 
     getTicketPriority(queueId, ticketId) {

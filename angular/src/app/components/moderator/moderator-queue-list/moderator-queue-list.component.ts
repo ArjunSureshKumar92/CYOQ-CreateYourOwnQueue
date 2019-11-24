@@ -35,12 +35,14 @@ export class ModeratorQueueListComponent implements OnInit {
     }
 
     getQueues() {
-        this.qs.getQueues(this.getCallback,this, this.qs.getModeratorId());
-    }
-
-    getCallback(val,instance) {
-        console.log("val"+val[0].name);
-        instance.queues = val; 
+        this.qs.getQueues(this.qs.getModeratorId()).subscribe(
+            res => {
+              this.queues = res['response'];
+            }, 
+            err => {
+                console.log(err);
+            }
+        );
     }
 
     ngOnInit() {

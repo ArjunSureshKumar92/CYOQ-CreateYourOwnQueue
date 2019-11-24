@@ -24,7 +24,7 @@ export class ModeratorQueueComponent implements OnInit {
         let url = this.router.url.split('/');
         this.queueId = url[url.length - 1];
         this.companyId = url[url.length - 2];
-        this.moderatorId = this.qs.moderatorId;
+        this.moderatorId = ''; // TODO
     }
 
     ngOnInit() {

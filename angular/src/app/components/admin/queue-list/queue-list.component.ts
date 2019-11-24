@@ -37,7 +37,9 @@ export class QueueListComponent implements OnInit {
     }
 
     getQueues() {
-      this.qs.getQueues(this.getCallback,this)
+        this.qs.getQueues().subscribe(res => {
+            this.queues = res['response'];
+        });
     }
 
     getCallback(val,instance) {

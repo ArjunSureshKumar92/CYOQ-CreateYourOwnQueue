@@ -31,12 +31,13 @@ export class EndUserListComponent implements OnInit {
     }
 
     getTickets() {
-        this.qs.getTickets(this.getCallback, this, this.queueId);
+        this.qs.getTickets(this.queueId).subscribe(
+            res => {
+                this.tickets = res['response'];
+            },
+            err => {
+                console.log(err);
+            }
+        );
     }
-    
-    getCallback(val,instance) {
-        console.log("val"+val[0].name);
-        instance.tickets = val;
-    }
-
 }
