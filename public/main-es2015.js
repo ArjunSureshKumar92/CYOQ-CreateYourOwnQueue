@@ -1603,7 +1603,7 @@ let RegisterQueueComponent = class RegisterQueueComponent {
         };
         this.qs.createTicket(data).subscribe(res => {
             console.log("Response received from server");
-            console.log(res.toString());
+            console.log(res);
             //this.router.navigateByUrl(`/user/${this.companyId}/${this.queueId}/view`);
         }, err => { console.log(err); }, () => { console.log('Registered for queue.'); });
     }

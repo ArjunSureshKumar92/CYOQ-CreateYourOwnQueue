@@ -1333,7 +1333,7 @@
                     };
                     this.qs.createTicket(data).subscribe(function (res) {
                         console.log("Response received from server");
-                        console.log(res.toString());
+                        console.log(res);
                         //this.router.navigateByUrl(`/user/${this.companyId}/${this.queueId}/view`);
                     }, function (err) { console.log(err); }, function () { console.log('Registered for queue.'); });
                 };
