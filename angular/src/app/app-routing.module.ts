@@ -82,7 +82,7 @@ const routes: Routes = [
         ]
     },
     {
-        path: 'moderator',
+        path: 'moderator/:moderatorId',
         children: [
             {
                 path: 'queue',
