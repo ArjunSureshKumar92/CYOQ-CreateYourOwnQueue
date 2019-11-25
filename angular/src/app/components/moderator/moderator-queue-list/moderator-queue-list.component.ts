@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { QueueService } from '../../../services/queue.service';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-moderator-queue-list',
@@ -28,14 +29,14 @@ import { QueueService } from '../../../services/queue.service';
 })
 export class ModeratorQueueListComponent implements OnInit {
     queues: any;
+    moderatorId: string;
 
-    constructor(private qs: QueueService) {
+    constructor(private qs: QueueService, private route: ActivatedRoute) {
         this.queues = [];
-        this.getQueues();
     }
 
     getQueues() {
-        this.qs.getQueues(this.qs.getModeratorId()).subscribe(
+        this.qs.getQueues(this.moderatorId).subscribe(
             res => {
               this.queues = res['response'];
             }, 
@@ -46,6 +47,10 @@ export class ModeratorQueueListComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.route.paramMap.subscribe(params => {
+            this.moderatorId = params.get('moderatorId');
+            this.getQueues();
+        });
     }
 
 }
