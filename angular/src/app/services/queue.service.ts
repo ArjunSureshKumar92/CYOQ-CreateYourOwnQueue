@@ -39,10 +39,6 @@ export class QueueService {
         return this.http.get(`${this.baseUri}/api/admin/${this.adminId}/moderator/all/${this.companyId}`);
     }
 
-    getModeratorId() {
-        return '123';
-    }
-
     getCompany(companyId) {
         return this.http.get(`${this.baseUri}/api/admin/${this.adminId}/company/get/${companyId}`);
     }
