@@ -6,7 +6,7 @@ import { QueueService } from 'src/app/services/queue.service';
     template: `
     <div class="container-fluid clickable row">
         <h5 class="d-inline col">{{name}}</h5>
-        <a href="{{this.qs.baseUri}}/moderator/queue/get/{{companyId}}/{{queueId}}" class="divLink"></a>
+        <a routerLink="/moderator/{{moderatorId}}/queue/get/{{companyId}}/{{queueId}}" class="divLink"></a>
     </div>
     `,
     styles: [`
@@ -23,6 +23,9 @@ export class ModeratorQueueItemComponent implements OnInit {
 
     @Input()
     queueId: String = '';
+
+    @Input()
+    moderatorId: String = '';
 
     companyId: String = '';
 

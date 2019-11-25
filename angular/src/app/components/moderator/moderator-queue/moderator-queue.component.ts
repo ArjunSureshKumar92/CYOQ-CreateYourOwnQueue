@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { QueueService } from 'src/app/services/queue.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
 
@@ -20,14 +20,14 @@ export class ModeratorQueueComponent implements OnInit {
     moderatorId: String = '';
     queueId: String = '';
 
-    constructor(private location: Location, private qs: QueueService, private router: Router) {
-        let url = this.router.url.split('/');
-        this.queueId = url[url.length - 1];
-        this.companyId = url[url.length - 2];
-        this.moderatorId = ''; // TODO
-    }
+    constructor(private location: Location, private qs: QueueService, private route: ActivatedRoute, private router: Router) {}
 
     ngOnInit() {
+        this.route.paramMap.subscribe(params => {
+            this.queueId = params.get('queueId');
+            this.companyId = params.get('companyId');
+            this.moderatorId = params.get('moderatorId');
+        });
     }
 
     submit() {

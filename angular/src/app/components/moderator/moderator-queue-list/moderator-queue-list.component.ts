@@ -12,7 +12,7 @@ import { ActivatedRoute } from "@angular/router";
     </div>
   </div>
   <div class="container-fluid">
-    <app-moderator-queue-item *ngFor="let q of queues | filter : searchText" name="{{q.name}}" queueId="{{q.queueId}}"></app-moderator-queue-item>
+    <app-moderator-queue-item *ngFor="let q of queues | filter : searchText" name="{{q.name}}" queueId="{{q.queueId}}" moderatorId="{{moderatorId}}"></app-moderator-queue-item>
   </div>
   `,
   styles: [`
