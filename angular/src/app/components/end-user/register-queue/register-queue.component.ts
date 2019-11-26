@@ -80,7 +80,7 @@ export class RegisterQueueComponent implements OnInit {
             res => {
                 console.log("Response received from server");
                 console.log(res.toString());
-                this.router.navigateByUrl(`/user/${this.companyId}/view`);
+                this.router.navigateByUrl(`/user/view/${this.regForm.get('email').value}`);
             },
             err => { console.log(err); },
             () => { console.log('Registered for queue.'); }

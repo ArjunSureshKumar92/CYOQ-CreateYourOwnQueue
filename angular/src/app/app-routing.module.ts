@@ -67,17 +67,13 @@ const routes: Routes = [
         path: 'user',
         children: [
             {
-                path: ':company',
-                children: [
-                    {
-                        path: 'view',
-                        component: EndUserHomeComponent
-                    },
-                    {
-                        path: 'register',
-                        component: RegisterQueueComponent
-                    }
-                ],
+                path: ':company/:queue/register',
+                component: RegisterQueueComponent
+            },
+            {
+                path: 'view/:userId',
+                component: EndUserHomeComponent
+
             }
         ]
     },
