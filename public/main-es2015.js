@@ -1576,12 +1576,23 @@ EndUserHomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 </ul>
   </div>
   <div>
-  <table>
+  <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Ticket ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Queue Name</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody>
    <tr *ngFor="let ticket of tickets">
-      <td>{{ticket.ticketId}}</td>
+      <td scope="row">{{ticket.ticketId}}</td>
       <td>{{ticket.name}}</td>
       <td>{{ticket.queueName}}</td>
       <td>{{ticket.status}}</td>
+      </tr>
+  </tbody>
   </table>
   </div>
   `
