@@ -360,7 +360,7 @@ const routes = [
         path: 'user',
         children: [
             {
-                path: ':company/:queue',
+                path: ':company',
                 children: [
                     {
                         path: 'view',
@@ -1535,10 +1535,14 @@ let EndUserHomeComponent = class EndUserHomeComponent {
         console.log(url);
         // this.ticketId = url[url.length - 2];
         //this.queueId = url[url.length - 3];
-        this.qs.getTicketPriority(this.queueId, this.ticketId).subscribe(res => {
-            console.log(res);
-            //this.place = res;
-        }, err => { }, () => { });
+        // this.qs.getTicketPriority(this.queueId, this.ticketId).subscribe(
+        //   res => {
+        //     console.log(res);
+        //     //this.place = res;
+        //   },
+        //   err => { },
+        //   () => { }
+        // );
     }
     getTickets() {
         this.qs.getTickets(this.getCallback, this, this.userId);
@@ -1674,7 +1678,7 @@ let RegisterQueueComponent = class RegisterQueueComponent {
         this.qs.createTicket(data).subscribe(res => {
             console.log("Response received from server");
             console.log(res.toString());
-            this.router.navigateByUrl(`/user/${this.companyId}/${this.queueId}/view`);
+            this.router.navigateByUrl(`/user/${this.companyId}/view`);
         }, err => { console.log(err); }, () => { console.log('Registered for queue.'); });
     }
 };

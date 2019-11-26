@@ -409,7 +409,7 @@
                     path: 'user',
                     children: [
                         {
-                            path: ':company/:queue',
+                            path: ':company',
                             children: [
                                 {
                                     path: 'view',
@@ -1275,10 +1275,14 @@
                     console.log(url);
                     // this.ticketId = url[url.length - 2];
                     //this.queueId = url[url.length - 3];
-                    this.qs.getTicketPriority(this.queueId, this.ticketId).subscribe(function (res) {
-                        console.log(res);
-                        //this.place = res;
-                    }, function (err) { }, function () { });
+                    // this.qs.getTicketPriority(this.queueId, this.ticketId).subscribe(
+                    //   res => {
+                    //     console.log(res);
+                    //     //this.place = res;
+                    //   },
+                    //   err => { },
+                    //   () => { }
+                    // );
                 }
                 EndUserHomeComponent.prototype.getTickets = function () {
                     this.qs.getTickets(this.getCallback, this, this.userId);
@@ -1395,7 +1399,7 @@
                     this.qs.createTicket(data).subscribe(function (res) {
                         console.log("Response received from server");
                         console.log(res.toString());
-                        _this.router.navigateByUrl("/user/" + _this.companyId + "/" + _this.queueId + "/view");
+                        _this.router.navigateByUrl("/user/" + _this.companyId + "/view");
                     }, function (err) { console.log(err); }, function () { console.log('Registered for queue.'); });
                 };
                 return RegisterQueueComponent;
