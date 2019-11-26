@@ -1266,6 +1266,7 @@
                     this.queueId = '';
                     this.userId = '';
                     this.ticketId = '';
+                    this.displayedColumns = ['ticketId', 'name', 'status', 'queueName'];
                     var url = this.router.url.split('/');
                     console.log(url);
                     this.userId = url[url.length - 1];
@@ -1299,7 +1300,7 @@
             EndUserHomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-enduser-home',
-                    template: "\n  <div class=\"text-center\">\n\n    <p class=\"text-uppercase\">Your place in the queue:</p>\n    <h1 class=\"display-1\">#{{place}}</h1>\n    <button class=\"btn btn-danger btn-lg\">Cancel your place</button>\n  </div>\n  <div>\n  <ul>\n  <li *ngFor=\"let ticket of tickets\">\n    <div>{{ticket.ticketId}}</div>\n  </li>\n</ul>\n  </div>\n  "
+                    template: "\n  <div class=\"text-center\">\n\n    <p class=\"text-uppercase\">Your place in the queue:</p>\n    <h1 class=\"display-1\">#{{place}}</h1>\n    <button class=\"btn btn-danger btn-lg\">Cancel your place</button>\n  </div>\n  <div>\n  <ul>\n  <li *ngFor=\"let ticket of tickets\">\n    <div>{{ticket.ticketId}}</div>\n  </li>\n</ul>\n  </div>\n  <div>\n  <table mat-table [dataSource]=\"tickets\" class=\"mat-elevation-z8\">\n\n  <!--- Note that these columns can be defined in any order.\n        The actual rendered columns are set as a property on the row definition\" -->\n\n  <!-- Position Column -->\n  <ng-container matColumnDef=\"ticketId\">\n    <th mat-header-cell *matHeaderCellDef> No. </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.ticketId}} </td>\n  </ng-container>\n\n  <!-- Name Column -->\n  <ng-container matColumnDef=\"name\">\n    <th mat-header-cell *matHeaderCellDef> Name </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.name}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"status\">\n    <th mat-header-cell *matHeaderCellDef> Status </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.status}} </td>\n  </ng-container>\n\n  <!-- Symbol Column -->\n  <ng-container matColumnDef=\"queueName\">\n    <th mat-header-cell *matHeaderCellDef> Queue Name </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.queueName}} </td>\n  </ng-container>\n\n  <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n  <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n</table>\n  </div>\n  "
                 })
             ], EndUserHomeComponent);
             /***/ 
