@@ -1595,7 +1595,7 @@ EndUserHomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
       <td>{{ticket.name}}</td>
       <td>{{ticket.queueName}}</td>
       <td>{{ticket.status}}</td>
-      <td><button (click)="cancelTicket('{{ticket.ticketId}}')">Cancel Ticket</button></td>
+      <td><button (click)="cancelTicket({{ticket.ticketId}})">Cancel Ticket</button></td>
       </tr>
   </tbody>
   </table>
