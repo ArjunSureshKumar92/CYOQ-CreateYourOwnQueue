@@ -1951,7 +1951,7 @@
                     this.http.get(this.baseUri + "/api/user/" + userId + "/queue/get/" + this.companyId).subscribe(function (data) {
                         responses = data;
                         console.log(responses);
-                        callback(responses, instance);
+                        callback(responses.response, instance);
                     });
                 };
                 QueueService.prototype.getTicketPriority = function (queueId, ticketId) {
