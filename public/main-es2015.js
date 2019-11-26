@@ -23,6 +23,19 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/components/end-user/enduser-ticketdetail/enduser-ticketdetail.component.html":
+/*!************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/components/end-user/enduser-ticketdetail/enduser-ticketdetail.component.html ***!
+  \************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<p>enduser-ticketdetail works!</p>\r\n");
+
+/***/ }),
+
 /***/ "./node_modules/tslib/tslib.es6.js":
 /*!*****************************************!*\
   !*** ./node_modules/tslib/tslib.es6.js ***!
@@ -484,6 +497,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_moderator_moderator_navbar_moderator_navbar_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/moderator/moderator-navbar/moderator-navbar.component */ "./src/app/components/moderator/moderator-navbar/moderator-navbar.component.ts");
 /* harmony import */ var _components_admin_queue_details_queue_details_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/admin/queue-details/queue-details.component */ "./src/app/components/admin/queue-details/queue-details.component.ts");
 /* harmony import */ var _components_moderator_ticket_details_ticket_details_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./components/moderator/ticket-details/ticket-details.component */ "./src/app/components/moderator/ticket-details/ticket-details.component.ts");
+/* harmony import */ var _components_end_user_enduser_ticketdetail_enduser_ticketdetail_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./components/end-user/enduser-ticketdetail/enduser-ticketdetail.component */ "./src/app/components/end-user/enduser-ticketdetail/enduser-ticketdetail.component.ts");
+
 
 
 
@@ -542,7 +557,8 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _components_admin_moderator_details_moderator_details_component__WEBPACK_IMPORTED_MODULE_26__["ModeratorDetailsComponent"],
             _components_moderator_moderator_navbar_moderator_navbar_component__WEBPACK_IMPORTED_MODULE_27__["ModeratorNavbarComponent"],
             _components_admin_queue_details_queue_details_component__WEBPACK_IMPORTED_MODULE_28__["QueueDetailsComponent"],
-            _components_moderator_ticket_details_ticket_details_component__WEBPACK_IMPORTED_MODULE_29__["TicketDetailsComponent"]
+            _components_moderator_ticket_details_ticket_details_component__WEBPACK_IMPORTED_MODULE_29__["TicketDetailsComponent"],
+            _components_end_user_enduser_ticketdetail_enduser_ticketdetail_component__WEBPACK_IMPORTED_MODULE_30__["EnduserTicketdetailComponent"]
         ],
         imports: [
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -1534,6 +1550,7 @@ EndUserHomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         selector: 'app-enduser-home',
         template: `
   <div class="text-center">
+
     <p class="text-uppercase">Your place in the queue:</p>
     <h1 class="display-1">#{{place}}</h1>
     <button class="btn btn-danger btn-lg">Cancel your place</button>
@@ -1541,6 +1558,50 @@ EndUserHomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
   `
     })
 ], EndUserHomeComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/components/end-user/enduser-ticketdetail/enduser-ticketdetail.component.css":
+/*!*********************************************************************************************!*\
+  !*** ./src/app/components/end-user/enduser-ticketdetail/enduser-ticketdetail.component.css ***!
+  \*********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZW5kLXVzZXIvZW5kdXNlci10aWNrZXRkZXRhaWwvZW5kdXNlci10aWNrZXRkZXRhaWwuY29tcG9uZW50LmNzcyJ9 */");
+
+/***/ }),
+
+/***/ "./src/app/components/end-user/enduser-ticketdetail/enduser-ticketdetail.component.ts":
+/*!********************************************************************************************!*\
+  !*** ./src/app/components/end-user/enduser-ticketdetail/enduser-ticketdetail.component.ts ***!
+  \********************************************************************************************/
+/*! exports provided: EnduserTicketdetailComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EnduserTicketdetailComponent", function() { return EnduserTicketdetailComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+let EnduserTicketdetailComponent = class EnduserTicketdetailComponent {
+    constructor() { }
+    ngOnInit() {
+    }
+};
+EnduserTicketdetailComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-enduser-ticketdetail',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./enduser-ticketdetail.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/components/end-user/enduser-ticketdetail/enduser-ticketdetail.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./enduser-ticketdetail.component.css */ "./src/app/components/end-user/enduser-ticketdetail/enduser-ticketdetail.component.css")).default]
+    })
+], EnduserTicketdetailComponent);
 
 
 
@@ -1604,6 +1665,8 @@ let RegisterQueueComponent = class RegisterQueueComponent {
         this.qs.createTicket(data).subscribe(res => {
             console.log("Response received from server");
             console.log(res);
+            let id = res.toString().substring(14, 24);
+            console.log(id);
             //this.router.navigateByUrl(`/user/${this.companyId}/${this.queueId}/view`);
         }, err => { console.log(err); }, () => { console.log('Registered for queue.'); });
     }

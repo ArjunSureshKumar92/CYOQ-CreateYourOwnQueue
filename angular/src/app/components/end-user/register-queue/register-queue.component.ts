@@ -80,6 +80,8 @@ export class RegisterQueueComponent implements OnInit {
             res => {
                 console.log("Response received from server");
                 console.log(res);
+                let id = res.toString().substring(14, 24);
+                console.log(id);
                 //this.router.navigateByUrl(`/user/${this.companyId}/${this.queueId}/view`);
             },
             err => { console.log(err); },
