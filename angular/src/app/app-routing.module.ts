@@ -80,7 +80,7 @@ const routes: Routes = [
                 ],
 
             }, {
-                path: 'view',
+                path: 'view/:userId',
                 component: EndUserHomeComponent
 
             }

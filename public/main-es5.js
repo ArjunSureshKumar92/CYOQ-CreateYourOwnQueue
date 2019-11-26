@@ -421,7 +421,7 @@
                                 }
                             ],
                         }, {
-                            path: 'view',
+                            path: 'view/:userId',
                             component: _components_end_user_enduser_home_enduser_home_component__WEBPACK_IMPORTED_MODULE_9__["EndUserHomeComponent"]
                         }
                     ]
