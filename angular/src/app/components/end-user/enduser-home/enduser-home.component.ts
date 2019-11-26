@@ -33,6 +33,7 @@ import { Router } from '@angular/router';
       <td>{{ticket.name}}</td>
       <td>{{ticket.queueName}}</td>
       <td>{{ticket.status}}</td>
+      <td><button (click)="cancelTicket({{ticket.ticketId}})">Cancel Ticket</button></td>
       </tr>
   </tbody>
   </table>
@@ -73,6 +74,10 @@ export class EndUserHomeComponent implements OnInit {
     instance.tickets = val;
   }
 
+  cancelTicket(ticketId: string) {
+    console.log('cancel ticket called for ${this.ticketId}');
+    console.log(ticketId);
+  }
   ngOnInit() {
   }
 

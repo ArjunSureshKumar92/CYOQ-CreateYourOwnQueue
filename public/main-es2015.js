@@ -1551,6 +1551,10 @@ let EndUserHomeComponent = class EndUserHomeComponent {
         console.log(val);
         instance.tickets = val;
     }
+    cancelTicket(ticketId) {
+        console.log('cancel ticket called for ${this.ticketId}');
+        console.log(ticketId);
+    }
     ngOnInit() {
     }
 };
@@ -1591,6 +1595,7 @@ EndUserHomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
       <td>{{ticket.name}}</td>
       <td>{{ticket.queueName}}</td>
       <td>{{ticket.status}}</td>
+      <td><button (click)="cancelTicket({{ticket.ticketId}})">Cancel Ticket</button></td>
       </tr>
   </tbody>
   </table>
