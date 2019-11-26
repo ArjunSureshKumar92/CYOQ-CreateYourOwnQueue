@@ -1529,7 +1529,6 @@ let EndUserHomeComponent = class EndUserHomeComponent {
         this.queueId = '';
         this.userId = '';
         this.ticketId = '';
-        this.displayedColumns = ['ticketId', 'name', 'status', 'queueName'];
         let url = this.router.url.split('/');
         console.log(url);
         this.userId = url[url.length - 1];
@@ -1577,38 +1576,13 @@ EndUserHomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 </ul>
   </div>
   <div>
-  <table mat-table [dataSource]="tickets" class="mat-elevation-z8">
-
-  <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
-
-  <!-- Position Column -->
-  <ng-container matColumnDef="ticketId">
-    <th mat-header-cell *matHeaderCellDef> No. </th>
-    <td mat-cell *matCellDef="let element"> {{element.ticketId}} </td>
-  </ng-container>
-
-  <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-  </ng-container>
-
-  <!-- Weight Column -->
-  <ng-container matColumnDef="status">
-    <th mat-header-cell *matHeaderCellDef> Status </th>
-    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
-  </ng-container>
-
-  <!-- Symbol Column -->
-  <ng-container matColumnDef="queueName">
-    <th mat-header-cell *matHeaderCellDef> Queue Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.queueName}} </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+  <table>
+   <tr ng-repeat="ticket in tickets">
+      <td>{{ticket.ticketId</td>
+      <td>{{ticket.name}}</td>
+      <td>{{ticket.queueName}}</td>
+      <td>{{ticket.status}}</td>
+  </table>
   </div>
   `
     })
