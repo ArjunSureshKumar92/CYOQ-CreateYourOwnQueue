@@ -1578,7 +1578,7 @@ EndUserHomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
   <div>
   <table>
    <tr ng-repeat="ticket in tickets">
-      <td>{{ticket.ticketId</td>
+      <td>{{ticket.ticketId}}</td>
       <td>{{ticket.name}}</td>
       <td>{{ticket.queueName}}</td>
       <td>{{ticket.status}}</td>

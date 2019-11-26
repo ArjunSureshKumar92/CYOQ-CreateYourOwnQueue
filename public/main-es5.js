@@ -1301,7 +1301,7 @@
             EndUserHomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-enduser-home',
-                    template: "\n  <div class=\"text-center\">\n\n    <p class=\"text-uppercase\">Your place in the queue:</p>\n    <h1 class=\"display-1\">#{{place}}</h1>\n    <button class=\"btn btn-danger btn-lg\">Cancel your place</button>\n  </div>\n  <div>\n  <ul>\n  <li *ngFor=\"let ticket of tickets\">\n    <div>{{ticket.ticketId}}</div>\n  </li>\n</ul>\n  </div>\n  <div>\n  <table>\n   <tr ng-repeat=\"ticket in tickets\">\n      <td>{{ticket.ticketId</td>\n      <td>{{ticket.name}}</td>\n      <td>{{ticket.queueName}}</td>\n      <td>{{ticket.status}}</td>\n  </table>\n  </div>\n  "
+                    template: "\n  <div class=\"text-center\">\n\n    <p class=\"text-uppercase\">Your place in the queue:</p>\n    <h1 class=\"display-1\">#{{place}}</h1>\n    <button class=\"btn btn-danger btn-lg\">Cancel your place</button>\n  </div>\n  <div>\n  <ul>\n  <li *ngFor=\"let ticket of tickets\">\n    <div>{{ticket.ticketId}}</div>\n  </li>\n</ul>\n  </div>\n  <div>\n  <table>\n   <tr ng-repeat=\"ticket in tickets\">\n      <td>{{ticket.ticketId}}</td>\n      <td>{{ticket.name}}</td>\n      <td>{{ticket.queueName}}</td>\n      <td>{{ticket.status}}</td>\n  </table>\n  </div>\n  "
                 })
             ], EndUserHomeComponent);
             /***/ 

@@ -20,7 +20,7 @@ import { Router } from '@angular/router';
   <div>
   <table>
    <tr ng-repeat="ticket in tickets">
-      <td>{{ticket.ticketId</td>
+      <td>{{ticket.ticketId}}</td>
       <td>{{ticket.name}}</td>
       <td>{{ticket.queueName}}</td>
       <td>{{ticket.status}}</td>
