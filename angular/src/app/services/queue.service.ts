@@ -130,4 +130,9 @@ export class QueueService {
     closeTicket(data) {
         return this.http.post(`${this.baseUri}/api/user/${this.adminId}/ticket/delete`, data);
     }
+    deleteTicket(data, userId, callback) {
+        return this.http.post(`${this.baseUri}/api/user/${userId}/ticket/delete`, data).subscribe(data => {
+            callback();
+        });
+    }
 }
