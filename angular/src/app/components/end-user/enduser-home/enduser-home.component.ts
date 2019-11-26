@@ -11,6 +11,13 @@ import { Router } from '@angular/router';
     <h1 class="display-1">#{{place}}</h1>
     <button class="btn btn-danger btn-lg">Cancel your place</button>
   </div>
+  <div>
+  <ul>
+  <li *ngFor="let ticket of tickets">
+    <div>{{ticket.ticketId}}</div>
+  </li>
+</ul>
+  </div>
   `
 })
 export class EndUserHomeComponent implements OnInit {
@@ -23,6 +30,8 @@ export class EndUserHomeComponent implements OnInit {
   constructor(private qs: QueueService, private router: Router) {
     let url = this.router.url.split('/');
     console.log(url);
+    this.userId = url[url.length - 1];
+    this.getTickets();
     // this.ticketId = url[url.length - 2];
     //this.queueId = url[url.length - 3];
 

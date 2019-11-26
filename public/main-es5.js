@@ -1268,6 +1268,8 @@
                     this.ticketId = '';
                     var url = this.router.url.split('/');
                     console.log(url);
+                    this.userId = url[url.length - 1];
+                    this.getTickets();
                     // this.ticketId = url[url.length - 2];
                     //this.queueId = url[url.length - 3];
                     // this.qs.getTicketPriority(this.queueId, this.ticketId).subscribe(
@@ -1297,7 +1299,7 @@
             EndUserHomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-enduser-home',
-                    template: "\n  <div class=\"text-center\">\n\n    <p class=\"text-uppercase\">Your place in the queue:</p>\n    <h1 class=\"display-1\">#{{place}}</h1>\n    <button class=\"btn btn-danger btn-lg\">Cancel your place</button>\n  </div>\n  "
+                    template: "\n  <div class=\"text-center\">\n\n    <p class=\"text-uppercase\">Your place in the queue:</p>\n    <h1 class=\"display-1\">#{{place}}</h1>\n    <button class=\"btn btn-danger btn-lg\">Cancel your place</button>\n  </div>\n  <div>\n  <ul>\n  <li *ngFor=\"let ticket of tickets\">\n    <div>{{ticket.ticketId}}</div>\n  </li>\n</ul>\n  </div>\n  "
                 })
             ], EndUserHomeComponent);
             /***/ 
