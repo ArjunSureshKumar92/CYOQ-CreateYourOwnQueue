@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
   </div>
   <div>
   <table>
-   <tr ng-repeat="ticket in tickets">
+   <tr *ngFor="let ticket of tickets">
       <td>{{ticket.ticketId}}</td>
       <td>{{ticket.name}}</td>
       <td>{{ticket.queueName}}</td>

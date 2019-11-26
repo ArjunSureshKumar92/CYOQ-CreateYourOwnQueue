@@ -1577,7 +1577,7 @@ EndUserHomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
   </div>
   <div>
   <table>
-   <tr ng-repeat="ticket in tickets">
+   <tr *ngFor="let ticket of tickets">
       <td>{{ticket.ticketId}}</td>
       <td>{{ticket.name}}</td>
       <td>{{ticket.queueName}}</td>
