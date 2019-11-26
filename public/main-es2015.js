@@ -1563,13 +1563,6 @@ EndUserHomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     <h1 class="display-1">#{{place}}</h1>
     <button class="btn btn-danger btn-lg">Cancel your place</button>
   </div>
-  <div>
-  <ul>
-  <li *ngFor="let ticket of tickets">
-    <div>{{ticket.ticketId}}</div>
-  </li>
-</ul>
-  </div>
   `
     })
 ], EndUserHomeComponent);
