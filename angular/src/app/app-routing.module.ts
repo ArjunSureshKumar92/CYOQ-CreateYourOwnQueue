@@ -70,10 +70,6 @@ const routes: Routes = [
                 path: ':company/:queue',
                 children: [
                     {
-                        path: 'view',
-                        component: EndUserHomeComponent
-                    },
-                    {
                         path: 'register',
                         component: RegisterQueueComponent
                     }

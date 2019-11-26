@@ -412,10 +412,6 @@
                             path: ':company/:queue',
                             children: [
                                 {
-                                    path: 'view',
-                                    component: _components_end_user_enduser_home_enduser_home_component__WEBPACK_IMPORTED_MODULE_9__["EndUserHomeComponent"]
-                                },
-                                {
                                     path: 'register',
                                     component: _components_end_user_register_queue_register_queue_component__WEBPACK_IMPORTED_MODULE_11__["RegisterQueueComponent"]
                                 }
