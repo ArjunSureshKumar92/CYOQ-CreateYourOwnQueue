@@ -360,17 +360,12 @@ const routes = [
         path: 'user',
         children: [
             {
-                path: ':company',
-                children: [
-                    {
-                        path: 'view',
-                        component: _components_end_user_enduser_home_enduser_home_component__WEBPACK_IMPORTED_MODULE_9__["EndUserHomeComponent"]
-                    },
-                    {
-                        path: 'register',
-                        component: _components_end_user_register_queue_register_queue_component__WEBPACK_IMPORTED_MODULE_11__["RegisterQueueComponent"]
-                    }
-                ],
+                path: ':company/:queue/register',
+                component: _components_end_user_register_queue_register_queue_component__WEBPACK_IMPORTED_MODULE_11__["RegisterQueueComponent"]
+            },
+            {
+                path: 'view/:userId',
+                component: _components_end_user_enduser_home_enduser_home_component__WEBPACK_IMPORTED_MODULE_9__["EndUserHomeComponent"]
             }
         ]
     },
@@ -1678,7 +1673,7 @@ let RegisterQueueComponent = class RegisterQueueComponent {
         this.qs.createTicket(data).subscribe(res => {
             console.log("Response received from server");
             console.log(res.toString());
-            this.router.navigateByUrl(`/user/${this.companyId}/view`);
+            this.router.navigateByUrl(`/user/view/${this.regForm.get('email').value}`);
         }, err => { console.log(err); }, () => { console.log('Registered for queue.'); });
     }
 };
