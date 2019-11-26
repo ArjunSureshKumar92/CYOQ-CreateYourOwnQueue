@@ -95,7 +95,7 @@ export class QueueService {
         this.http.get(`${this.baseUri}/api/user/${userId}/queue/get/${this.companyId}`).subscribe(data => {
             responses = data;
             console.log(responses);
-            callback(responses, instance);
+            callback(responses.response, instance);
         });
     }
 
