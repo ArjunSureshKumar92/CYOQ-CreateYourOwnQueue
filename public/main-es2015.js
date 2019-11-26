@@ -1551,9 +1551,17 @@ let EndUserHomeComponent = class EndUserHomeComponent {
         console.log(val);
         instance.tickets = val;
     }
-    cancelTicket(ticketId) {
+    updateTicketsCallback() {
+        this.getTickets();
+    }
+    cancelTicket(ticketId, queueId) {
         console.log('cancel ticket called for ${this.ticketId}');
         console.log(ticketId);
+        var data = {
+            "companyId": this.qs.companyId,
+            "ticketId": ticketId
+        };
+        this.qs.deleteTicket(data, this.userId, this.updateTicketsCallback);
     }
     ngOnInit() {
     }
@@ -1566,19 +1574,6 @@ EndUserHomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-enduser-home',
         template: `
-  <div class="text-center">
-
-    <p class="text-uppercase">Your place in the queue:</p>
-    <h1 class="display-1">#{{place}}</h1>
-    <button class="btn btn-danger btn-lg">Cancel your place</button>
-  </div>
-  <div>
-  <ul>
-  <li *ngFor="let ticket of tickets">
-    <div>{{ticket.ticketId}}</div>
-  </li>
-</ul>
-  </div>
   <div>
   <table class="table">
   <thead class="thead-dark">
@@ -1587,6 +1582,7 @@ EndUserHomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
       <th scope="col">Name</th>
       <th scope="col">Queue Name</th>
       <th scope="col">Status</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -1595,7 +1591,7 @@ EndUserHomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
       <td>{{ticket.name}}</td>
       <td>{{ticket.queueName}}</td>
       <td>{{ticket.status}}</td>
-      <td><button (click)="cancelTicket(ticket.ticketId)">Cancel Ticket</button></td>
+      <td><button class="btn btn-danger" (click)="cancelTicket(ticket.ticketId)">Cancel Ticket</button></td>
       </tr>
   </tbody>
   </table>
@@ -2456,6 +2452,11 @@ let QueueService = class QueueService {
     }
     closeTicket(data) {
         return this.http.post(`${this.baseUri}/api/user/${this.adminId}/ticket/delete`, data);
+    }
+    deleteTicket(data, userId, callback) {
+        return this.http.post(`${this.baseUri}/api/user/${userId}/ticket/delete`, data).subscribe(data => {
+            callback();
+        });
     }
 };
 QueueService.ctorParameters = () => [
