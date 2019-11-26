@@ -27,6 +27,7 @@ import { ModeratorDetailsComponent } from './components/admin/moderator-details/
 import { ModeratorNavbarComponent } from './components/moderator/moderator-navbar/moderator-navbar.component';
 import { QueueDetailsComponent } from './components/admin/queue-details/queue-details.component';
 import { TicketDetailsComponent } from './components/moderator/ticket-details/ticket-details.component';
+import { EnduserTicketdetailComponent } from './components/end-user/enduser-ticketdetail/enduser-ticketdetail.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { TicketDetailsComponent } from './components/moderator/ticket-details/ti
     ModeratorDetailsComponent,
     ModeratorNavbarComponent,
     QueueDetailsComponent,
-    TicketDetailsComponent
+    TicketDetailsComponent,
+    EnduserTicketdetailComponent
   ],
   imports: [
     BrowserModule,
