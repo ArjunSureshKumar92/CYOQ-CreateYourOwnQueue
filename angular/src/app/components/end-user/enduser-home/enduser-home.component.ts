@@ -11,17 +11,26 @@ import { Router } from '@angular/router';
     <h1 class="display-1">#{{place}}</h1>
     <button class="btn btn-danger btn-lg">Cancel your place</button>
   </div>
+  <div>
+  <ul>
+  <li *ngFor="let ticket of tickets">
+    <div>{{ticket.ticketId}}</div>
+  </li>
+</ul>
+  </div>
   `
 })
 export class EndUserHomeComponent implements OnInit {
   place: String = '(Loading)'
   queueId: String = '';
+  userId: String = '';
   ticketId: String = '';
+  tickets: any;
 
   constructor(private qs: QueueService, private router: Router) {
-    let url = this.router.url.split('/');
-    this.ticketId = url[url.length - 2];
-    this.queueId = url[url.length - 3];
+    // let url = this.router.url.split('/');
+    // this.ticketId = url[url.length - 2];
+    //this.queueId = url[url.length - 3];
 
     this.qs.getTicketPriority(this.queueId, this.ticketId).subscribe(
       res => {
@@ -31,6 +40,15 @@ export class EndUserHomeComponent implements OnInit {
       err => { },
       () => { }
     );
+  }
+
+  getTickets() {
+    this.qs.getTickets(this.getCallback, this, this.userId)
+  }
+
+  getCallback(val, instance) {
+    console.log(val);
+    instance.tickets = val;
   }
 
   ngOnInit() {

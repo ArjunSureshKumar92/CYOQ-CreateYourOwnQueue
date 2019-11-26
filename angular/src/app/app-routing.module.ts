@@ -78,6 +78,16 @@ const routes: Routes = [
                         component: RegisterQueueComponent
                     }
                 ],
+
+            }, {
+                path: ':userId',
+                children: [
+                    {
+                        path: 'view',
+                        component: EndUserHomeComponent
+                    },
+                ],
+
             }
         ]
     },

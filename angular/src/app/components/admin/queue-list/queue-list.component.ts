@@ -27,25 +27,25 @@ import { QueueService } from '../../../services/queue.service';
   `]
 })
 export class QueueListComponent implements OnInit {
-    queues: any;
-    companyId: string;
+  queues: any;
+  companyId: string;
 
-    constructor(private qs: QueueService) {
-        this.queues = [];
-        this.getQueues();
-        this.companyId = this.qs.companyId;
-    }
+  constructor(private qs: QueueService) {
+    this.queues = [];
+    this.getQueues();
+    this.companyId = this.qs.companyId;
+  }
 
-    getQueues() {
-      this.qs.getQueues(this.getCallback,this)
-    }
+  getQueues() {
+    this.qs.getQueues(this.getCallback, this)
+  }
 
-    getCallback(val,instance) {
-      console.log("val"+val[0].name);
-      instance.queues = val; 
-    }
+  getCallback(val, instance) {
+    console.log("val" + val[0].name);
+    instance.queues = val;
+  }
 
-    ngOnInit() {
-    }
+  ngOnInit() {
+  }
 
 }

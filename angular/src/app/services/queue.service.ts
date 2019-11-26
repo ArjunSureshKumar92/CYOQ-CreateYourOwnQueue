@@ -81,12 +81,21 @@ export class QueueService {
         });
     }
 
-    getTickets(callback, instance, queueId) {
+    // getTickets(callback, instance, queueId) {
+    //     var responses;
+    //     this.http.get(`${this.baseUri}/api/ticket/get/${this.companyId}/${queueId}/all`).subscribe(data => {
+    //         responses = data;
+    //         console.log(responses.response[0].name);
+    //         callback(responses.response, instance);
+    //     });
+    // }
+
+    getTickets(callback, instance, userId) {
         var responses;
-        this.http.get(`${this.baseUri}/api/ticket/get/${this.companyId}/${queueId}/all`).subscribe(data => {
+        this.http.get(`${this.baseUri}/api/user/${userId}/queue/get/${this.companyId}`).subscribe(data => {
             responses = data;
-            console.log(responses.response[0].name);
-            callback(responses.response, instance);
+            console.log(responses);
+            callback(responses, instance);
         });
     }
 

@@ -420,6 +420,14 @@
                                     component: _components_end_user_register_queue_register_queue_component__WEBPACK_IMPORTED_MODULE_11__["RegisterQueueComponent"]
                                 }
                             ],
+                        }, {
+                            path: ':userId',
+                            children: [
+                                {
+                                    path: 'view',
+                                    component: _components_end_user_enduser_home_enduser_home_component__WEBPACK_IMPORTED_MODULE_9__["EndUserHomeComponent"]
+                                },
+                            ],
                         }
                     ]
                 },
@@ -1265,19 +1273,27 @@
             /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
             var EndUserHomeComponent = /** @class */ (function () {
                 function EndUserHomeComponent(qs, router) {
+                    // let url = this.router.url.split('/');
+                    // this.ticketId = url[url.length - 2];
+                    //this.queueId = url[url.length - 3];
                     this.qs = qs;
                     this.router = router;
                     this.place = '(Loading)';
                     this.queueId = '';
+                    this.userId = '';
                     this.ticketId = '';
-                    var url = this.router.url.split('/');
-                    this.ticketId = url[url.length - 2];
-                    this.queueId = url[url.length - 3];
                     this.qs.getTicketPriority(this.queueId, this.ticketId).subscribe(function (res) {
                         console.log(res);
                         //this.place = res;
                     }, function (err) { }, function () { });
                 }
+                EndUserHomeComponent.prototype.getTickets = function () {
+                    this.qs.getTickets(this.getCallback, this, this.userId);
+                };
+                EndUserHomeComponent.prototype.getCallback = function (val, instance) {
+                    console.log(val);
+                    instance.tickets = val;
+                };
                 EndUserHomeComponent.prototype.ngOnInit = function () {
                 };
                 return EndUserHomeComponent;
@@ -1289,7 +1305,7 @@
             EndUserHomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-enduser-home',
-                    template: "\n  <div class=\"text-center\">\n\n    <p class=\"text-uppercase\">Your place in the queue:</p>\n    <h1 class=\"display-1\">#{{place}}</h1>\n    <button class=\"btn btn-danger btn-lg\">Cancel your place</button>\n  </div>\n  "
+                    template: "\n  <div class=\"text-center\">\n\n    <p class=\"text-uppercase\">Your place in the queue:</p>\n    <h1 class=\"display-1\">#{{place}}</h1>\n    <button class=\"btn btn-danger btn-lg\">Cancel your place</button>\n  </div>\n  <div>\n  <ul>\n  <li *ngFor=\"let ticket of tickets\">\n    <div>{{ticket.ticketId}}</div>\n  </li>\n</ul>\n  </div>\n  "
                 })
             ], EndUserHomeComponent);
             /***/ 
@@ -1375,6 +1391,7 @@
                     }, function (err) { console.log(err); }, function () { console.log('Retrieved queue info.'); });
                 };
                 RegisterQueueComponent.prototype.submit = function () {
+                    var _this = this;
                     console.log("register user for queue called");
                     var data = {
                         'name': this.regForm.get('name').value,
@@ -1385,7 +1402,7 @@
                     this.qs.createTicket(data).subscribe(function (res) {
                         console.log("Response received from server");
                         console.log(res.toString());
-                        //this.router.navigateByUrl(`/user/${this.companyId}/${this.queueId}/view`);
+                        _this.router.navigateByUrl("/user/" + _this.regForm.get('email').value + "/view");
                     }, function (err) { console.log(err); }, function () { console.log('Registered for queue.'); });
                 };
                 return RegisterQueueComponent;
@@ -1927,12 +1944,20 @@
                         callback(responses.response, instance);
                     });
                 };
-                QueueService.prototype.getTickets = function (callback, instance, queueId) {
+                // getTickets(callback, instance, queueId) {
+                //     var responses;
+                //     this.http.get(`${this.baseUri}/api/ticket/get/${this.companyId}/${queueId}/all`).subscribe(data => {
+                //         responses = data;
+                //         console.log(responses.response[0].name);
+                //         callback(responses.response, instance);
+                //     });
+                // }
+                QueueService.prototype.getTickets = function (callback, instance, userId) {
                     var responses;
-                    this.http.get(this.baseUri + "/api/ticket/get/" + this.companyId + "/" + queueId + "/all").subscribe(function (data) {
+                    this.http.get(this.baseUri + "/api/user/" + userId + "/queue/get/" + this.companyId).subscribe(function (data) {
                         responses = data;
-                        console.log(responses.response[0].name);
-                        callback(responses.response, instance);
+                        console.log(responses);
+                        callback(responses, instance);
                     });
                 };
                 QueueService.prototype.getTicketPriority = function (queueId, ticketId) {
