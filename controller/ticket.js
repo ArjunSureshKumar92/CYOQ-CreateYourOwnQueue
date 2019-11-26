@@ -64,40 +64,24 @@ exports.createTicket = function(req, res) {
       else {
         // check if status is active or time is invalid
         var date = new Date();
-        if (data.status && data.status == mongoConstants.queueStatusInactive) {
-          response.sendResponse(
-            res,
-            "Sorry, queue in closed at the moment...",
-            status
-          );
-        } else if (
-          data.startTime &&
-          data.closeTime &&
-          !util.isTimeWithinRange(
-            data.startTime,
-            data.closeTime,
-            date.getHours() * 60 + date.getMinutes()
-          )
-        ) {
-          response.sendResponse(
-            res,
-            "Sorry, queue in closed at the moment... Please try after " +
-              util.minutesToHourString(
-                data.startTime,
-                date.getHours() * 60 + date.getMinutes()
-              ),
-            status
-          );
-        } else {
-          queueName = data.name;
-          createTicketObj["queueName"] = queueName;
-          mongoTicket.mongoDBTicketInsert(
-            callbackInsertCase,
-            req.body.companyId,
-            mongoConstants.collectionNameTicket,
-            createTicketObj
-          );
-        }
+        // if (data.status && data.status == mongoConstants.queueStatusInactive) {
+        //     response.sendResponse(res, 'Sorry, queue in closed at the moment...', status)
+        // } else if (data.startTime && data.closeTime && !util.isTimeWithinRange(data.startTime, data.closeTime, date.getHours() * 60 + date.getMinutes())) {
+        //     response.sendResponse(res, 'Sorry, queue in closed at the moment... Please try after ' + util.minutesToHourString(data.startTime,(date.getHours() * 60 + date.getMinutes())), status)
+        // }
+        // else {
+        //     queueName = data.name
+        //     createTicketObj['queueName'] = queueName;
+        //     mongoTicket.mongoDBTicketInsert(callbackInsertCase, req.body.companyId, mongoConstants.collectionNameTicket, createTicketObj);
+        // }
+        queueName = data.name;
+        createTicketObj["queueName"] = queueName;
+        mongoTicket.mongoDBTicketInsert(
+          callbackInsertCase,
+          req.body.companyId,
+          mongoConstants.collectionNameTicket,
+          createTicketObj
+        );
       }
     };
     var callbackCompanyExistCase = function(status, data) {
