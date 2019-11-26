@@ -1297,8 +1297,8 @@
                     console.log('cancel ticket called for ${this.ticketId}');
                     console.log(ticketId);
                     var data = {
-                        "companyId": this.qs.companyId,
-                        "ticketId": ticketId
+                        'companyId': this.qs.companyId,
+                        'ticketId': ticketId
                     };
                     this.qs.deleteTicket(data, this.userId, this.updateTicketsCallback);
                 };
