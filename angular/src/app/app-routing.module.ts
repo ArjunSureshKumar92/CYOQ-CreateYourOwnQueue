@@ -67,7 +67,7 @@ const routes: Routes = [
         path: 'user',
         children: [
             {
-                path: ':company/:queue',
+                path: ':company',
                 children: [
                     {
                         path: 'view',

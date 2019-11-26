@@ -26,14 +26,14 @@ export class EndUserHomeComponent implements OnInit {
     // this.ticketId = url[url.length - 2];
     //this.queueId = url[url.length - 3];
 
-    this.qs.getTicketPriority(this.queueId, this.ticketId).subscribe(
-      res => {
-        console.log(res);
-        //this.place = res;
-      },
-      err => { },
-      () => { }
-    );
+    // this.qs.getTicketPriority(this.queueId, this.ticketId).subscribe(
+    //   res => {
+    //     console.log(res);
+    //     //this.place = res;
+    //   },
+    //   err => { },
+    //   () => { }
+    // );
   }
 
   getTickets() {
