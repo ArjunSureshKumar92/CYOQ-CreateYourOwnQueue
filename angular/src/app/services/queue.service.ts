@@ -131,7 +131,7 @@ export class QueueService {
         return this.http.post(`${this.baseUri}/api/user/${this.adminId}/ticket/delete`, data);
     }
     deleteTicket(data, userId, callback) {
-        return this.http.delete(`${this.baseUri}/api/user/${userId}/ticket/delete`, data).subscribe(data => {
+        return this.http.post(`${this.baseUri}/api/user/${userId}/ticket/delete`, data).subscribe(data => {
             callback();
         });
     }
