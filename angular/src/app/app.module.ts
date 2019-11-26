@@ -28,6 +28,7 @@ import { ModeratorNavbarComponent } from './components/moderator/moderator-navba
 import { QueueDetailsComponent } from './components/admin/queue-details/queue-details.component';
 import { TicketDetailsComponent } from './components/moderator/ticket-details/ticket-details.component';
 import { EnduserTicketdetailComponent } from './components/end-user/enduser-ticketdetail/enduser-ticketdetail.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { EnduserTicketdetailComponent } from './components/end-user/enduser-tick
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

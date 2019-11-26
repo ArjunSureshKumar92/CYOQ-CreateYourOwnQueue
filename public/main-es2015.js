@@ -493,6 +493,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_admin_queue_details_queue_details_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/admin/queue-details/queue-details.component */ "./src/app/components/admin/queue-details/queue-details.component.ts");
 /* harmony import */ var _components_moderator_ticket_details_ticket_details_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./components/moderator/ticket-details/ticket-details.component */ "./src/app/components/moderator/ticket-details/ticket-details.component.ts");
 /* harmony import */ var _components_end_user_enduser_ticketdetail_enduser_ticketdetail_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./components/end-user/enduser-ticketdetail/enduser-ticketdetail.component */ "./src/app/components/end-user/enduser-ticketdetail/enduser-ticketdetail.component.ts");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm2015/animations.js");
+
 
 
 
@@ -561,6 +563,7 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
             _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
+            _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_31__["BrowserAnimationsModule"],
         ],
         providers: [],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]]
