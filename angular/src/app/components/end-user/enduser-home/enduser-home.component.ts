@@ -28,7 +28,8 @@ export class EndUserHomeComponent implements OnInit {
   tickets: any;
 
   constructor(private qs: QueueService, private router: Router) {
-    // let url = this.router.url.split('/');
+    let url = this.router.url.split('/');
+    console.log(url);
     // this.ticketId = url[url.length - 2];
     //this.queueId = url[url.length - 3];
 

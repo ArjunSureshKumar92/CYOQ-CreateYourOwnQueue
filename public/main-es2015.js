@@ -372,13 +372,8 @@ const routes = [
                     }
                 ],
             }, {
-                path: ':userId',
-                children: [
-                    {
-                        path: 'view',
-                        component: _components_end_user_enduser_home_enduser_home_component__WEBPACK_IMPORTED_MODULE_9__["EndUserHomeComponent"]
-                    },
-                ],
+                path: 'view',
+                component: _components_end_user_enduser_home_enduser_home_component__WEBPACK_IMPORTED_MODULE_9__["EndUserHomeComponent"]
             }
         ]
     },
@@ -1533,15 +1528,16 @@ __webpack_require__.r(__webpack_exports__);
 
 let EndUserHomeComponent = class EndUserHomeComponent {
     constructor(qs, router) {
-        // let url = this.router.url.split('/');
-        // this.ticketId = url[url.length - 2];
-        //this.queueId = url[url.length - 3];
         this.qs = qs;
         this.router = router;
         this.place = '(Loading)';
         this.queueId = '';
         this.userId = '';
         this.ticketId = '';
+        let url = this.router.url.split('/');
+        console.log(url);
+        // this.ticketId = url[url.length - 2];
+        //this.queueId = url[url.length - 3];
         this.qs.getTicketPriority(this.queueId, this.ticketId).subscribe(res => {
             console.log(res);
             //this.place = res;
@@ -1688,7 +1684,7 @@ let RegisterQueueComponent = class RegisterQueueComponent {
         this.qs.createTicket(data).subscribe(res => {
             console.log("Response received from server");
             console.log(res.toString());
-            this.router.navigateByUrl(`/user/${this.regForm.get('email').value}/view`);
+            this.router.navigateByUrl(`/user/view/${this.regForm.get('email').value}`);
         }, err => { console.log(err); }, () => { console.log('Registered for queue.'); });
     }
 };

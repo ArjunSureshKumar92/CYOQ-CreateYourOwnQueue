@@ -80,13 +80,8 @@ const routes: Routes = [
                 ],
 
             }, {
-                path: ':userId',
-                children: [
-                    {
-                        path: 'view',
-                        component: EndUserHomeComponent
-                    },
-                ],
+                path: 'view',
+                component: EndUserHomeComponent
 
             }
         ]
