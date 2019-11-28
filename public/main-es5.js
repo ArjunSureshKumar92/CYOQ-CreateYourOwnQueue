@@ -1993,6 +1993,8 @@
                     return this.http.post(this.baseUri + "/api/user/" + this.adminId + "/ticket/delete", data);
                 };
                 QueueService.prototype.deleteTicket = function (data, userId, callback) {
+                    console.log("Delete Ticket Called ");
+                    console.log("data");
                     return this.http.delete(this.baseUri + "/api/user/" + userId + "/ticket/delete", data).subscribe(function (data) {
                         callback();
                     });

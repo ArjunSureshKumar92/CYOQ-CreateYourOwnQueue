@@ -434,6 +434,8 @@ exports.deleteTicket = function(req, res) {
       req.body.companyId
     );
   } else {
+    console.log("This is a bad request");
+    console.log(req.body);
     response.sendResponse(res, "Bad Request", 403);
   }
 };
