@@ -180,7 +180,7 @@ exports.mongoDBTicketClose = function (callback, dbName, collectionName, ticketI
 
 exports.mongoDBUserRelatedQueueTicketGet = function (callback, dbName, collectionName, userId) {
     db = mongodb.getCustomerDb();
-    var obj = { email:userId };
+    var obj = { email:userId, status: constants.ticketStatusWait };
     db.db(dbName).collection(collectionName).find(obj).toArray(function (err, result) {
         if (err) {
             console.log(err);
