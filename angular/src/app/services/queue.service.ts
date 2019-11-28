@@ -132,7 +132,7 @@ export class QueueService {
     }
     deleteTicket(data, userId, callback) {
         console.log("Delete Ticket Called ");
-        console.log("data");
+        console.log(data);
         return this.http.delete(`${this.baseUri}/api/user/${userId}/ticket/delete`, data).subscribe(data => {
             callback();
         });

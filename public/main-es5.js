@@ -1994,7 +1994,7 @@
                 };
                 QueueService.prototype.deleteTicket = function (data, userId, callback) {
                     console.log("Delete Ticket Called ");
-                    console.log("data");
+                    console.log(data);
                     return this.http.delete(this.baseUri + "/api/user/" + userId + "/ticket/delete", data).subscribe(function (data) {
                         callback();
                     });

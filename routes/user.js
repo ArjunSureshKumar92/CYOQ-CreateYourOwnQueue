@@ -13,7 +13,6 @@ router.post("/ticket/create", function(req, res) {
 //Delete cases
 router.delete("/:authKey/ticket/delete", function(req, res) {
   console.log("Got the path in the server");
-  console.log(req);
   console.log(req.body);
   ticketController.deleteTicket(req, res);
 });
