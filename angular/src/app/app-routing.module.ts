@@ -16,11 +16,6 @@ import { TicketDetailsComponent } from './components/moderator/ticket-details/ti
 
 const routes: Routes = [
     {
-        path: '',
-        redirectTo: '/admin/queue/list',
-        pathMatch: 'full'
-    },
-    {
         path: 'admin',
         children: [
             {
@@ -101,6 +96,15 @@ const routes: Routes = [
                 ]
             }
         ]
+    },
+    {
+        path: '',
+        redirectTo: '/admin/queue/list',
+        pathMatch: 'full'
+    },
+    {
+        path: '**',
+        redirectTo: '/admin/queue/list'
     }
 ];
 
