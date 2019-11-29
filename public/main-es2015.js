@@ -1175,9 +1175,12 @@ ModeratorListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
   <div class="text-right">
     <a routerLink="/admin/moderator/create" class="btn btn-primary">+ Add Moderator</a>
   </div>
-  <div class="container-fluid">
+  <div *ngIf="moderators?.length > 0; else displayEmpty" class="container-fluid">
     <app-moderator-item *ngFor="let m of moderators" name="{{m.name}}" moderatorId="{{m.moderatorId}}" companyId="{{companyId}}"></app-moderator-item>
   </div>
+  <ng-template #displayEmpty>
+    <div class="container-fluid text-center">No moderators yet.</div>
+  </ng-template>
   `,
         styles: ["\n  .container-fluid {\n    background: rgb(240,240,240);\n    margin: 0.5em auto;\n    padding: 1em;\n  }\n  "]
     })
@@ -1472,9 +1475,12 @@ QueueListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         <button class="btn btn-primary">Search</button>
     </div>
   </div>
-  <div class="container-fluid">
+  <div *ngIf="queues?.length > 0; else displayEmpty" class="container-fluid">
     <app-queue-item *ngFor="let q of queues | filter : searchText" name="{{q.name}}" queueId="{{q.queueId}}" companyId="{{companyId}}"></app-queue-item>
   </div>
+  <ng-template #displayEmpty>
+    <div class="container-fluid text-center">No queues created yet.</div>
+  </ng-template>
   `,
         styles: ["\n  .container-fluid {\n    background: rgb(240,240,240);\n    margin: 0.5em auto;\n    padding: 1em;\n  }\n\n  .input-group {\n    margin: 2em 0 0 0;\n  }\n  "]
     })

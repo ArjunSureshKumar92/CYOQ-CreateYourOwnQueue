@@ -10,9 +10,12 @@ import { QueueService } from '../../../services/queue.service';
         <button class="btn btn-primary">Search</button>
     </div>
   </div>
-  <div class="container-fluid">
+  <div *ngIf="queues?.length > 0; else displayEmpty" class="container-fluid">
     <app-queue-item *ngFor="let q of queues | filter : searchText" name="{{q.name}}" queueId="{{q.queueId}}" companyId="{{companyId}}"></app-queue-item>
   </div>
+  <ng-template #displayEmpty>
+    <div class="container-fluid text-center">No queues created yet.</div>
+  </ng-template>
   `,
   styles: [`
   .container-fluid {

@@ -1015,7 +1015,7 @@
             ModeratorListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-moderator-list',
-                    template: "\n  <div>\n    <app-navbar></app-navbar>\n  </div>\n  <h1 class=\"text-center\">Moderators</h1>\n  <div class=\"text-right\">\n    <a routerLink=\"/admin/moderator/create\" class=\"btn btn-primary\">+ Add Moderator</a>\n  </div>\n  <div class=\"container-fluid\">\n    <app-moderator-item *ngFor=\"let m of moderators\" name=\"{{m.name}}\" moderatorId=\"{{m.moderatorId}}\" companyId=\"{{companyId}}\"></app-moderator-item>\n  </div>\n  ",
+                    template: "\n  <div>\n    <app-navbar></app-navbar>\n  </div>\n  <h1 class=\"text-center\">Moderators</h1>\n  <div class=\"text-right\">\n    <a routerLink=\"/admin/moderator/create\" class=\"btn btn-primary\">+ Add Moderator</a>\n  </div>\n  <div *ngIf=\"moderators?.length > 0; else displayEmpty\" class=\"container-fluid\">\n    <app-moderator-item *ngFor=\"let m of moderators\" name=\"{{m.name}}\" moderatorId=\"{{m.moderatorId}}\" companyId=\"{{companyId}}\"></app-moderator-item>\n  </div>\n  <ng-template #displayEmpty>\n    <div class=\"container-fluid text-center\">No moderators yet.</div>\n  </ng-template>\n  ",
                     styles: ["\n  .container-fluid {\n    background: rgb(240,240,240);\n    margin: 0.5em auto;\n    padding: 1em;\n  }\n  "]
                 })
             ], ModeratorListComponent);
@@ -1227,7 +1227,7 @@
             QueueListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-queue-list',
-                    template: "\n  <div class=\"input-group\">\n    <input [(ngModel)]=\"searchText\" class=\"form-control\" />\n    <div class=\"input-group-append\">\n        <button class=\"btn btn-primary\">Search</button>\n    </div>\n  </div>\n  <div class=\"container-fluid\">\n    <app-queue-item *ngFor=\"let q of queues | filter : searchText\" name=\"{{q.name}}\" queueId=\"{{q.queueId}}\" companyId=\"{{companyId}}\"></app-queue-item>\n  </div>\n  ",
+                    template: "\n  <div class=\"input-group\">\n    <input [(ngModel)]=\"searchText\" class=\"form-control\" />\n    <div class=\"input-group-append\">\n        <button class=\"btn btn-primary\">Search</button>\n    </div>\n  </div>\n  <div *ngIf=\"queues?.length > 0; else displayEmpty\" class=\"container-fluid\">\n    <app-queue-item *ngFor=\"let q of queues | filter : searchText\" name=\"{{q.name}}\" queueId=\"{{q.queueId}}\" companyId=\"{{companyId}}\"></app-queue-item>\n  </div>\n  <ng-template #displayEmpty>\n    <div class=\"container-fluid text-center\">No queues created yet.</div>\n  </ng-template>\n  ",
                     styles: ["\n  .container-fluid {\n    background: rgb(240,240,240);\n    margin: 0.5em auto;\n    padding: 1em;\n  }\n\n  .input-group {\n    margin: 2em 0 0 0;\n  }\n  "]
                 })
             ], QueueListComponent);
