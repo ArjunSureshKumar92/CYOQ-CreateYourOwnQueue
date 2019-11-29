@@ -82,29 +82,34 @@ const routes: Routes = [
         ]
     },
     {
-        path: 'moderator/:moderatorId',
+        path: 'moderator',
         children: [
             {
-                path: 'queue',
+                path: ':moderatorId',
                 children: [
                     {
-                        path: 'list',
-                        component: ModeratorQueueListComponent
-                    },
-                    {
-                        path: 'get/:companyId/:queueId',
+                        path: 'queue',
                         children: [
                             {
-                                path: '',
-                                component: ModeratorQueueComponent
+                                path: 'list',
+                                component: ModeratorQueueListComponent
                             },
                             {
-                                path: 'tickets',
-                                component: EndUserListComponent
-                            },
-                            {
-                                path: 'ticket/:ticketId',
-                                component: TicketDetailsComponent
+                                path: 'get/:companyId/:queueId',
+                                children: [
+                                    {
+                                        path: '',
+                                        component: ModeratorQueueComponent
+                                    },
+                                    {
+                                        path: 'tickets',
+                                        component: EndUserListComponent
+                                    },
+                                    {
+                                        path: 'ticket/:ticketId',
+                                        component: TicketDetailsComponent
+                                    }
+                                ]
                             }
                         ]
                     }
