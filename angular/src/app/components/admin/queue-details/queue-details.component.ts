@@ -67,8 +67,7 @@ export class QueueDetailsComponent implements OnInit {
     createForm() {
         this.angForm = this.fb.group({
             name: ['', Validators.required],
-            email: ['', Validators.required],
-            description: [''],
+            description: ['',Validators.required],
             startTime: [0],
             closeTime: [0],
         });

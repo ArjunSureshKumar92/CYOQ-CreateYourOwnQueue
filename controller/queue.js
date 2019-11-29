@@ -6,6 +6,7 @@ var mongoConstants = require("../constants");
 var apiControl = require("./api");
 var mail = require("../common/mail");
 var mongoCompany = require("../model/company");
+var utility = require("../common/ultility");
 
 exports.createQueue = function(req, res) {
   // create a simple queue
@@ -35,6 +36,8 @@ exports.createQueue = function(req, res) {
             moderatorArray.push(req.body[key]);
           }
           createQueueObj[key] = moderatorArray;
+        } else if (key == mongoConstants.queueStartTimeKey || key == mongoConstants.queueCloseTimeKey) {
+            createQueueObj[key] = utility.convertTimeStringtoMinuteString(req.body[key]);
         } else {
           createQueueObj[key] = req.body[key];
         }
@@ -136,6 +139,8 @@ exports.updateQueue = function (req, res) {
                         moderatorArray.push(req.body[key])
                     }
                     updQueueObj[key] = moderatorArray;
+                } else if (key == mongoConstants.queueStartTimeKey || key == mongoConstants.queueCloseTimeKey) {
+                    updQueueObj[key] = utility.convertTimeStringtoMinuteString(req.body[key]);
                 } else {
                     updQueueObj[key] = req.body[key];
                 }

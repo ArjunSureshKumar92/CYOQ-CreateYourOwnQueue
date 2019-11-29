@@ -1090,8 +1090,7 @@
                 QueueDetailsComponent.prototype.createForm = function () {
                     this.angForm = this.fb.group({
                         name: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-                        email: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-                        description: [''],
+                        description: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
                         startTime: [0],
                         closeTime: [0],
                     });
