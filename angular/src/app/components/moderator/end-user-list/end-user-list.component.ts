@@ -5,6 +5,7 @@ import { QueueService } from 'src/app/services/queue.service';
   selector: 'app-end-user-list',
   template: `
   <div class="container-fluid">
+    <span *ngIf="!tickets">No tickets registered yet.</span>
     <app-ticket-item *ngFor="let t of tickets" name="{{t.name}}" ticketId="{{t.ticketId}}" queueId="{{queueId}}"></app-ticket-item>
   </div>
   `,
