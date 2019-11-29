@@ -1687,7 +1687,7 @@ EndUserListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-end-user-list',
         template: `
-  <div *ngIf="tickets; else displayEmpty" class="container-fluid">
+  <div *ngIf="tickets?.length > 0; else displayEmpty" class="container-fluid">
     <app-ticket-item *ngFor="let t of tickets" name="{{t.name}}" ticketId="{{t.ticketId}}" queueId="{{queueId}}"></app-ticket-item>
   </div>
   <ng-template #displayEmpty>
