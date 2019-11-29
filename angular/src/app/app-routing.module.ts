@@ -64,49 +64,39 @@ const routes: Routes = [
         ]
     },
     {
-        path: 'user',
+        path: 'user/:company/:queue',
         children: [
             {
-                path: ':company/:queue',
-                children: [
-                    {
-                        path: 'view',
-                        component: EndUserHomeComponent
-                    },
-                    {
-                        path: 'register',
-                        component: RegisterQueueComponent
-                    }
-                ],
+                path: 'view',
+                component: EndUserHomeComponent
+            },
+            {
+                path: 'register',
+                component: RegisterQueueComponent
             }
         ]
     },
     {
-        path: 'moderator',
+        path: 'moderator/:moderatorId/queue',
         children: [
             {
-                path: 'queue',
+                path: 'list',
+                component: ModeratorQueueListComponent
+            },
+            {
+                path: 'get/:companyId/:queueId',
                 children: [
                     {
-                        path: 'list/:moderatorId',
-                        component: ModeratorQueueListComponent
+                        path: '',
+                        component: ModeratorQueueComponent
                     },
                     {
-                        path: 'get/:companyId/:moderatorId/:queueId',
-                        children: [
-                            {
-                                path: '',
-                                component: ModeratorQueueComponent
-                            },
-                            {
-                                path: 'tickets',
-                                component: EndUserListComponent
-                            },
-                            {
-                                path: 'ticket/:ticketId',
-                                component: TicketDetailsComponent
-                            }
-                        ]
+                        path: 'tickets',
+                        component: EndUserListComponent
+                    },
+                    {
+                        path: 'ticket/:ticketId',
+                        component: TicketDetailsComponent
                     }
                 ]
             }
