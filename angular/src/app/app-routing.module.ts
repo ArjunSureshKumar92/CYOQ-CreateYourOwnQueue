@@ -85,14 +85,14 @@ const routes: Routes = [
         path: 'moderator',
         children: [
             {
-                path: ':moderatorId/queue',
+                path: 'queue',
                 children: [
                     {
-                        path: 'list',
+                        path: 'list/:moderatorId',
                         component: ModeratorQueueListComponent
                     },
                     {
-                        path: 'get/:companyId/:queueId',
+                        path: 'get/:companyId/:moderatorId/:queueId',
                         children: [
                             {
                                 path: '',
