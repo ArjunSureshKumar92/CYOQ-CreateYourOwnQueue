@@ -347,11 +347,6 @@
             /* harmony import */ var _components_moderator_ticket_details_ticket_details_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/moderator/ticket-details/ticket-details.component */ "./src/app/components/moderator/ticket-details/ticket-details.component.ts");
             var routes = [
                 {
-                    path: '',
-                    redirectTo: '/admin/queue/list',
-                    pathMatch: 'full'
-                },
-                {
                     path: 'admin',
                     children: [
                         {
@@ -395,53 +390,52 @@
                     ]
                 },
                 {
-                    path: 'user',
+                    path: 'user/:company/:queue',
                     children: [
                         {
-                            path: ':company/:queue',
-                            children: [
-                                {
-                                    path: 'view',
-                                    component: _components_end_user_enduser_home_enduser_home_component__WEBPACK_IMPORTED_MODULE_9__["EndUserHomeComponent"]
-                                },
-                                {
-                                    path: 'register',
-                                    component: _components_end_user_register_queue_register_queue_component__WEBPACK_IMPORTED_MODULE_11__["RegisterQueueComponent"]
-                                }
-                            ],
+                            path: 'view',
+                            component: _components_end_user_enduser_home_enduser_home_component__WEBPACK_IMPORTED_MODULE_9__["EndUserHomeComponent"]
+                        },
+                        {
+                            path: 'register',
+                            component: _components_end_user_register_queue_register_queue_component__WEBPACK_IMPORTED_MODULE_11__["RegisterQueueComponent"]
                         }
                     ]
                 },
                 {
-                    path: 'moderator',
+                    path: 'moderator/:moderatorId/queue',
                     children: [
                         {
-                            path: 'queue',
+                            path: 'list',
+                            component: _components_moderator_moderator_queue_list_moderator_queue_list_component__WEBPACK_IMPORTED_MODULE_8__["ModeratorQueueListComponent"]
+                        },
+                        {
+                            path: 'get/:companyId/:queueId',
                             children: [
                                 {
-                                    path: 'list',
-                                    component: _components_moderator_moderator_queue_list_moderator_queue_list_component__WEBPACK_IMPORTED_MODULE_8__["ModeratorQueueListComponent"]
+                                    path: '',
+                                    component: _components_moderator_moderator_queue_moderator_queue_component__WEBPACK_IMPORTED_MODULE_10__["ModeratorQueueComponent"]
                                 },
                                 {
-                                    path: 'get/:companyId/:queueId',
-                                    children: [
-                                        {
-                                            path: '',
-                                            component: _components_moderator_moderator_queue_moderator_queue_component__WEBPACK_IMPORTED_MODULE_10__["ModeratorQueueComponent"]
-                                        },
-                                        {
-                                            path: 'tickets',
-                                            component: _components_moderator_end_user_list_end_user_list_component__WEBPACK_IMPORTED_MODULE_14__["EndUserListComponent"]
-                                        },
-                                        {
-                                            path: 'ticket/:ticketId',
-                                            component: _components_moderator_ticket_details_ticket_details_component__WEBPACK_IMPORTED_MODULE_15__["TicketDetailsComponent"]
-                                        }
-                                    ]
+                                    path: 'tickets',
+                                    component: _components_moderator_end_user_list_end_user_list_component__WEBPACK_IMPORTED_MODULE_14__["EndUserListComponent"]
+                                },
+                                {
+                                    path: 'ticket/:ticketId',
+                                    component: _components_moderator_ticket_details_ticket_details_component__WEBPACK_IMPORTED_MODULE_15__["TicketDetailsComponent"]
                                 }
                             ]
                         }
                     ]
+                },
+                {
+                    path: '',
+                    redirectTo: '/admin/queue/list',
+                    pathMatch: 'full'
+                },
+                {
+                    path: '**',
+                    redirectTo: '/admin/queue/list'
                 }
             ];
             var AppRoutingModule = /** @class */ (function () {
@@ -1090,8 +1084,7 @@
                 QueueDetailsComponent.prototype.createForm = function () {
                     this.angForm = this.fb.group({
                         name: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-                        email: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-                        description: [''],
+                        description: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
                         startTime: [0],
                         closeTime: [0],
                     });
@@ -1215,7 +1208,10 @@
                     this.companyId = this.qs.companyId;
                 }
                 QueueListComponent.prototype.getQueues = function () {
-                    this.qs.getQueues(this.getCallback, this);
+                    var _this = this;
+                    this.qs.getQueues().subscribe(function (res) {
+                        _this.queues = res['response'];
+                    });
                 };
                 QueueListComponent.prototype.getCallback = function (val, instance) {
                     console.log("val" + val[0].name);
@@ -1373,11 +1369,12 @@
                 EndUserListComponent.prototype.ngOnInit = function () {
                 };
                 EndUserListComponent.prototype.getTickets = function () {
-                    this.qs.getTickets(this.getCallback, this, this.queueId);
-                };
-                EndUserListComponent.prototype.getCallback = function (val, instance) {
-                    console.log("val" + val[0].name);
-                    instance.tickets = val;
+                    var _this = this;
+                    this.qs.getTickets(this.queueId).subscribe(function (res) {
+                        _this.tickets = res['response'];
+                    }, function (err) {
+                        console.log(err);
+                    });
                 };
                 return EndUserListComponent;
             }());
@@ -1463,6 +1460,7 @@
                     this.qs = qs;
                     this.name = '';
                     this.queueId = '';
+                    this.moderatorId = '';
                     this.companyId = '';
                     this.companyId = this.qs.companyId;
                 }
@@ -1479,10 +1477,13 @@
             tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
             ], ModeratorQueueItemComponent.prototype, "queueId", void 0);
+            tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+                Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
+            ], ModeratorQueueItemComponent.prototype, "moderatorId", void 0);
             ModeratorQueueItemComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-moderator-queue-item',
-                    template: "\n    <div class=\"container-fluid clickable row\">\n        <h5 class=\"d-inline col\">{{name}}</h5>\n        <a href=\"{{this.qs.baseUri}}/moderator/queue/get/{{companyId}}/{{queueId}}\" class=\"divLink\"></a>\n    </div>\n    ",
+                    template: "\n    <div class=\"container-fluid clickable row\">\n        <h5 class=\"d-inline col\">{{name}}</h5>\n        <a routerLink=\"/moderator/{{moderatorId}}/queue/get/{{companyId}}/{{queueId}}\" class=\"divLink\"></a>\n    </div>\n    ",
                     styles: ["\n    .container-fluid {\n        background: rgb(255,255,255);\n        margin: 0.5em;\n        padding: 1em 1.5em;\n    }\n    "]
                 })
             ], ModeratorQueueItemComponent);
@@ -1500,30 +1501,38 @@
             /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
             /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
             /* harmony import */ var _services_queue_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../services/queue.service */ "./src/app/services/queue.service.ts");
+            /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
             var ModeratorQueueListComponent = /** @class */ (function () {
-                function ModeratorQueueListComponent(qs) {
+                function ModeratorQueueListComponent(qs, route) {
                     this.qs = qs;
+                    this.route = route;
                     this.queues = [];
-                    this.getQueues();
                 }
                 ModeratorQueueListComponent.prototype.getQueues = function () {
-                    this.qs.getQueues(this.getCallback, this, this.qs.getModeratorId());
-                };
-                ModeratorQueueListComponent.prototype.getCallback = function (val, instance) {
-                    console.log("val" + val[0].name);
-                    instance.queues = val;
+                    var _this = this;
+                    this.qs.getQueues(this.moderatorId).subscribe(function (res) {
+                        _this.queues = res['response'];
+                    }, function (err) {
+                        console.log(err);
+                    });
                 };
                 ModeratorQueueListComponent.prototype.ngOnInit = function () {
+                    var _this = this;
+                    this.route.paramMap.subscribe(function (params) {
+                        _this.moderatorId = params.get('moderatorId');
+                        _this.getQueues();
+                    });
                 };
                 return ModeratorQueueListComponent;
             }());
             ModeratorQueueListComponent.ctorParameters = function () { return [
-                { type: _services_queue_service__WEBPACK_IMPORTED_MODULE_2__["QueueService"] }
+                { type: _services_queue_service__WEBPACK_IMPORTED_MODULE_2__["QueueService"] },
+                { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] }
             ]; };
             ModeratorQueueListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-moderator-queue-list',
-                    template: "\n  <div class=\"input-group\">\n    <input [(ngModel)]=\"searchText\" class=\"form-control\" />\n    <div class=\"input-group-append\">\n        <button class=\"btn btn-primary\">Search</button>\n    </div>\n  </div>\n  <div class=\"container-fluid\">\n    <app-moderator-queue-item *ngFor=\"let q of queues | filter : searchText\" name=\"{{q.name}}\" queueId=\"{{q.queueId}}\"></app-moderator-queue-item>\n  </div>\n  ",
+                    template: "\n  <div class=\"input-group\">\n    <input [(ngModel)]=\"searchText\" class=\"form-control\" />\n    <div class=\"input-group-append\">\n        <button class=\"btn btn-primary\">Search</button>\n    </div>\n  </div>\n  <div class=\"container-fluid\">\n    <app-moderator-queue-item *ngFor=\"let q of queues | filter : searchText\" name=\"{{q.name}}\" queueId=\"{{q.queueId}}\" moderatorId=\"{{moderatorId}}\"></app-moderator-queue-item>\n  </div>\n  ",
                     styles: ["\n  .container-fluid {\n    background: rgb(240,240,240);\n    margin: 0.5em auto;\n    padding: 1em;\n  }\n\n  .input-group {\n    margin: 2em 0 0 0;\n  }\n  "]
                 })
             ], ModeratorQueueListComponent);
@@ -1544,19 +1553,22 @@
             /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
             /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
             var ModeratorQueueComponent = /** @class */ (function () {
-                function ModeratorQueueComponent(location, qs, router) {
+                function ModeratorQueueComponent(location, qs, route, router) {
                     this.location = location;
                     this.qs = qs;
+                    this.route = route;
                     this.router = router;
                     this.companyId = '';
                     this.moderatorId = '';
                     this.queueId = '';
-                    var url = this.router.url.split('/');
-                    this.queueId = url[url.length - 1];
-                    this.companyId = url[url.length - 2];
-                    this.moderatorId = this.qs.moderatorId;
                 }
                 ModeratorQueueComponent.prototype.ngOnInit = function () {
+                    var _this = this;
+                    this.route.paramMap.subscribe(function (params) {
+                        _this.queueId = params.get('queueId');
+                        _this.companyId = params.get('companyId');
+                        _this.moderatorId = params.get('moderatorId');
+                    });
                 };
                 ModeratorQueueComponent.prototype.submit = function () {
                     var _this = this;
@@ -1579,6 +1591,7 @@
             ModeratorQueueComponent.ctorParameters = function () { return [
                 { type: _angular_common__WEBPACK_IMPORTED_MODULE_4__["Location"] },
                 { type: src_app_services_queue_service__WEBPACK_IMPORTED_MODULE_2__["QueueService"] },
+                { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] },
                 { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
             ]; };
             ModeratorQueueComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -1819,10 +1832,9 @@
                 function QueueService(http, adapter) {
                     this.http = http;
                     this.adapter = adapter;
-                    this.baseUri = 'https://cyoqappbyrj.herokuapp.com';
+                    this.baseUri = 'https://cyoq-frontend.herokuapp.com';
                     this.adminId = 'comp313.2019@gmail.com';
                     this.companyId = '496477151';
-                    this.moderatorId = '126755968333';
                 }
                 QueueService.prototype.createQueue = function (data) {
                     return this.http.post(this.baseUri + "/api/admin/" + this.adminId + "/queue/create", data);
@@ -1841,9 +1853,6 @@
                 };
                 QueueService.prototype.getModerators = function () {
                     return this.http.get(this.baseUri + "/api/admin/" + this.adminId + "/moderator/all/" + this.companyId);
-                };
-                QueueService.prototype.getModeratorId = function () {
-                    return '123';
                 };
                 QueueService.prototype.getCompany = function (companyId) {
                     return this.http.get(this.baseUri + "/api/admin/" + this.adminId + "/company/get/" + companyId);
@@ -1864,25 +1873,15 @@
                         callback(responses.response, instance);
                     });
                 };
-                QueueService.prototype.getQueues = function (callback, instance, moderatorId) {
-                    var responses;
+                QueueService.prototype.getQueues = function (moderatorId) {
                     var url = this.baseUri + "/api/admin/" + this.adminId + "/queue/all/" + this.companyId;
                     if (moderatorId) {
                         url = this.baseUri + "/api/moderator/" + moderatorId + "/queue/get/" + this.companyId;
                     }
-                    this.http.get(url).subscribe(function (data) {
-                        responses = data;
-                        console.log(responses.response[0].name);
-                        callback(responses.response, instance);
-                    });
+                    return this.http.get(url);
                 };
-                QueueService.prototype.getTickets = function (callback, instance, queueId) {
-                    var responses;
-                    this.http.get(this.baseUri + "/api/ticket/get/" + this.companyId + "/" + queueId + "/all").subscribe(function (data) {
-                        responses = data;
-                        console.log(responses.response[0].name);
-                        callback(responses.response, instance);
-                    });
+                QueueService.prototype.getTickets = function (queueId) {
+                    return this.http.get(this.baseUri + "/api/ticket/get/" + this.companyId + "/" + queueId + "/all");
                 };
                 QueueService.prototype.getTicketPriority = function (queueId, ticketId) {
                     return this.http.get(this.baseUri + "/api/user/" + this.companyId + "/ticket/getposition/" + this.companyId + "/" + queueId + "/" + ticketId);
@@ -1973,7 +1972,7 @@
           \***************************/
         /*! no static exports found */
         /***/ (function (module, exports, __webpack_require__) {
-            module.exports = __webpack_require__(/*! D:\Study\Software Development Project-2\Structure_Reworked\CYOQ-CreateYourOwnQueue\angular\src\main.ts */ "./src/main.ts");
+            module.exports = __webpack_require__(/*! C:\Users\user\Documents\semester9\CYOQ-CreateYourOwnQueue\angular\src\main.ts */ "./src/main.ts");
             /***/ 
         })
     }, [[0, "runtime", "vendor"]]]);

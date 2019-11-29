@@ -178,9 +178,53 @@ exports.mongoDBTicketClose = function (callback, dbName, collectionName, ticketI
 
 }
 
+exports.mongoDBNotificationGet = function (callback, dbName, collectionName, ticketId) {
+    db = mongodb.getCustomerDb();
+    var getObj = { ticketId:ticketId, status:constants.notificationStatusNotSend };
+    var setObj = { status:constants.notificationStatusSending };
+    db.db(dbName).collection(collectionName).updateMany(getObj,{$set: setObj},{multi: true}, function(err, result) {
+        if (err) {
+            console.log(err);
+            callback(500, result);
+        } else if (result) {
+            console.log(result);
+            var obj = { ticketId:ticketId,status:constants.notificationStatusSending };
+            db.db(dbName).collection(collectionName).find(obj).toArray(function (err, result) {
+                if (err) {
+                    console.log(err);
+                    callback(500, result);
+                } else if (result) {
+                    console.log(result);
+                    if (result.length > 0) {
+                        var findObj = { ticketId:ticketId,status:constants.notificationStatusSending };
+                        var updateObj = { status:constants.notificationStatusSend };
+                        db.db(dbName).collection(collectionName).updateMany(findObj,{$set: updateObj},{multi: true}, function(err, resul) {
+                            if (err) {
+                                console.log(err);
+                            } else if (resul) {
+                                console.log(resul);
+                            } else {
+                                console.log(resul);
+                            }
+                        });
+                        callback(200, result);
+                    }
+                    else
+                        callback(422, result);
+                } else {
+                    callback(422, result);
+                }
+            });
+        } else {
+            console.log(result);
+            callback(422, result);
+        }
+    });
+}
+
 exports.mongoDBUserRelatedQueueTicketGet = function (callback, dbName, collectionName, userId) {
     db = mongodb.getCustomerDb();
-    var obj = { email:userId };
+    var obj = { email:userId, status: { $in: [constants.ticketStatusActive, constants.ticketStatusWait] } };
     db.db(dbName).collection(collectionName).find(obj).toArray(function (err, result) {
         if (err) {
             console.log(err);

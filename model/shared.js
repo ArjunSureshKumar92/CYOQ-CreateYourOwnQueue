@@ -1,6 +1,7 @@
 // All the db calls that are used in many controllers
 
 const mongodb = require('../model/mongo');
+const constants = require('../constants')
 exports.checkCustomerExist = function (callback, dbName, collectionName, companyId) {
     db = mongodb.getMainDb();
     var obj = {};
@@ -116,4 +117,22 @@ exports.checkTicketExist = function (callback, dbName, collectionName, ticketId)
             callback(422, result);
         }
     });
+}
+
+exports.storeNotification = function(ticketId,userId,message,dbName,collectionName) {
+    console.log('inside send noti')
+    console.log(userId);
+    console.log(ticketId);
+    console.log(message);
+    var obj = {};
+    db = mongodb.getCustomerDb();
+    db.db(dbName).collection(collectionName).insertOne(obj, (err, result) => {
+        if (err) {
+            console.error(err)
+        }
+        else {
+            console.log(200)
+        }
+    })
+    
 }

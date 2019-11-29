@@ -1,6 +1,8 @@
 // All the mongo db CRUD operations for queues
 
 const mongodb = require('../model/mongo');
+const utility = require('../common/ultility');
+
 exports.mongoDBQueueInsert = function (callback, dbName, collectionName, obj) {
     var index = {"name": "text" }
     db = mongodb.getCustomerDb();
@@ -37,20 +39,23 @@ exports.mongoDBQueueUpdate = function (callback, dbName, collectionName, obj, qu
 }
 
 exports.mongoDBQueueGet = function (callback, dbName, collectionName, queueId) {
-    db = mongodb.getCustomerDb();
+    db = mongodb.getCustomerDb(); 
     var obj = { queueId: queueId };
     db.db(dbName).collection(collectionName).findOne(obj, function (err, result) {
         if (err) {
             console.log(err);
             callback(500, result);
         } else if (result) {
+            if (result.hasOwnProperty("startTime"))
+                result.startTime = utility.convertMinuteStringToTimeString(result.startTime);
+            if(result.hasOwnProperty("closeTime"))
+                result.closeTime = utility.convertMinuteStringToTimeString(result.closeTime);
             console.log(result);
             callback(200, result);
         } else {
             callback(422, result);
         }
     });
-
 }
 
 exports.mongoDBModeratorRelatedQueueGet = function (callback, dbName, collectionName, moderatorId) {
