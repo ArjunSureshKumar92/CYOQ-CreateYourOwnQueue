@@ -1691,7 +1691,7 @@ EndUserListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     <app-ticket-item *ngFor="let t of tickets" name="{{t.name}}" ticketId="{{t.ticketId}}" queueId="{{queueId}}"></app-ticket-item>
   </div>
   <ng-template #displayEmpty>
-    <div class="container-fluid">No tickets registered yet.</div>
+    <div class="container-fluid text-center">No tickets registered yet.</div>
   </ng-template>
   `,
         styles: ["\n  .container-fluid {\n    background: rgb(240,240,240);\n    margin: 0.5em auto;\n    padding: 1em;\n  }\n  "]
