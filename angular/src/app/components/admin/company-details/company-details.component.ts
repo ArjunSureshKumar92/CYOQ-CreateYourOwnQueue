@@ -27,7 +27,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
         </div>
         <div class="form-group">
             <label for="name">Email</label>
-            <input type="text" class="form-control" formControlName="email" id="email" name="email" />
+            <input type="text" class="form-control" formControlName="email" id="email" name="email" [readonly]="this.company.email" />
         </div>
         <div hidden>
             <input type="text" class="form-control" id="companyId" name="companyId" value="{{companyId}}" />

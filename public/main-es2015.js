@@ -698,7 +698,7 @@ CompanyDetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         </div>
         <div class="form-group">
             <label for="name">Email</label>
-            <input type="text" class="form-control" formControlName="email" id="email" name="email" />
+            <input type="text" class="form-control" formControlName="email" id="email" name="email" [readonly]="this.company.email" />
         </div>
         <div hidden>
             <input type="text" class="form-control" id="companyId" name="companyId" value="{{companyId}}" />
