@@ -85,31 +85,26 @@ const routes: Routes = [
         path: 'moderator',
         children: [
             {
-                path: ':moderatorId',
+                path: ':moderatorId/queue',
                 children: [
                     {
-                        path: 'queue',
+                        path: 'list',
+                        component: ModeratorQueueListComponent
+                    },
+                    {
+                        path: 'get/:companyId/:queueId',
                         children: [
                             {
-                                path: 'list',
-                                component: ModeratorQueueListComponent
+                                path: '',
+                                component: ModeratorQueueComponent
                             },
                             {
-                                path: 'get/:companyId/:queueId',
-                                children: [
-                                    {
-                                        path: '',
-                                        component: ModeratorQueueComponent
-                                    },
-                                    {
-                                        path: 'tickets',
-                                        component: EndUserListComponent
-                                    },
-                                    {
-                                        path: 'ticket/:ticketId',
-                                        component: TicketDetailsComponent
-                                    }
-                                ]
+                                path: 'tickets',
+                                component: EndUserListComponent
+                            },
+                            {
+                                path: 'ticket/:ticketId',
+                                component: TicketDetailsComponent
                             }
                         ]
                     }
