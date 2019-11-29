@@ -3,24 +3,41 @@
 var mongo = require('mongodb').MongoClient;
 var mongoConfig = require('../config/mongo');
 
-let mongoConnection = null;
+let mongoMainConnection = null;
+let mongoCustomerConnection = null;
 
 module.exports.connectMongo = () => new Promise((resolve, reject) => {
-    mongo.connect(mongoConfig.connectionName,{ useUnifiedTopology: true, useNewUrlParser: true }, function(err, client) {
+    mongo.connect(mongoConfig.connectionNameMain,{ useUnifiedTopology: true, useNewUrlParser: true }, function(err, client) {
         if (err) { reject(err); process.exit(); return; };
         resolve(client);
-        mongoConnection = client;
+        mongoMainConnection = client;
+
+        mongo.connect(mongoConfig.connectionNameCustomer,{ useUnifiedTopology: true, useNewUrlParser: true }, function(err, client) {
+            if (err) { reject(err); process.exit(); return; };
+            resolve(client);
+            mongoCustomerConnection = client;
+        });
     });
+
     
 });
 
 
-
-module.exports.getDb = function () {
-    if(!mongoConnection) {
+module.exports.getCustomerDb = function () {
+    if(!mongoCustomerConnection) {
         console.log('Call connect first!');
     } else {
-        return mongoConnection;
+        return mongoCustomerConnection;
+    }
+    
+}
+
+
+module.exports.getMainDb = function () {
+    if(!mongoMainConnection) {
+        console.log('Call connect first!');
+    } else {
+        return mongoMainConnection;
     }
     
 }

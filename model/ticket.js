@@ -3,7 +3,7 @@
 const mongodb = require('../model/mongo');
 const constants = require('../constants')
 exports.mongoDBTicketInsert = function (callback, dbName, collectionName, obj) {
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     db.db(dbName).collection(collectionName).insertOne(obj, (err, result) => {
         if (err) {
             console.error(err)
@@ -18,7 +18,7 @@ exports.mongoDBTicketInsert = function (callback, dbName, collectionName, obj) {
 
 
 exports.mongoDBTicketGetPosition = function (callback, dbName, collectionName, queueId, ticketId) {
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     var obj = { ticketId: ticketId, queueId: queueId };
 
     db.db(dbName).collection(collectionName).findOne(obj, function (err, result) {
@@ -33,7 +33,7 @@ exports.mongoDBTicketGetPosition = function (callback, dbName, collectionName, q
             }
             else {
                 console.log(result._id)
-                var obj2 = { _id: { $lte: result._id }, status: constants.ticketStatusWait }
+                var obj2 = { _id: { $lte: result._id }, status: constants.ticketStatusWait, queueId: queueId }
                 db.db(dbName).collection(collectionName).find(obj2).toArray(function (err2, result2) {
                     if (err2) {
                         console.log(err2);
@@ -57,7 +57,7 @@ exports.mongoDBTicketGetPosition = function (callback, dbName, collectionName, q
 
 
 exports.mongoDBWaitGetNext = function (callback, dbName, collectionName,queueId,status) {
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     var obj = { status: status,queueId:queueId };
     db.db(dbName).collection(collectionName).find(obj).limit(1).toArray(function (err, result) {
         if (err) {
@@ -76,7 +76,7 @@ exports.mongoDBWaitGetNext = function (callback, dbName, collectionName,queueId,
 }
 
 exports.mongoDBWaitGet = function (callback, dbName, collectionName,queueId,status) {
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     var obj = { status: status,queueId:queueId };
     db.db(dbName).collection(collectionName).find(obj).toArray(function (err, result) {
         if (err) {
@@ -96,7 +96,7 @@ exports.mongoDBWaitGet = function (callback, dbName, collectionName,queueId,stat
 }
 
 exports.mongoDBTicketActiveGet = function (callback, dbName, collectionName, moderatorId,queueId,status) {
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     var obj = { status: status, servedBy: moderatorId, queueId:queueId };
     db.db(dbName).collection(collectionName).findOne(obj, function (err, result) {
         if (err) {
@@ -114,7 +114,7 @@ exports.mongoDBTicketActiveGet = function (callback, dbName, collectionName, mod
 }
 
 exports.mongoDBTicketGet = function (callback, dbName, collectionName, queueId,ticketId) {
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     var obj = { ticketId: ticketId, queueId:queueId };
     db.db(dbName).collection(collectionName).findOne(obj, function (err, result) {
         if (err) {
@@ -132,7 +132,7 @@ exports.mongoDBTicketGet = function (callback, dbName, collectionName, queueId,t
 }
 
 exports.mongoDBTicketDelete = function (callback, dbName, collectionName, ticketId,status) {
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     db.db(dbName).collection(collectionName).findOneAndUpdate({ "ticketId" : ticketId }, { $set: {"status" : status} }, function (err, result) {
         if (err) {
             console.error(err)
@@ -149,7 +149,7 @@ exports.mongoDBTicketDelete = function (callback, dbName, collectionName, ticket
 
 
 exports.mongoDBTicketNext = function (callback, dbName, collectionName,ticketId,obj) {
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     db.db(dbName).collection(collectionName).findOneAndUpdate({ "ticketId" : ticketId }, { $set: obj }, function (err, result) {
         if (err) {
             console.error(err)
@@ -164,7 +164,7 @@ exports.mongoDBTicketNext = function (callback, dbName, collectionName,ticketId,
 }
 
 exports.mongoDBTicketClose = function (callback, dbName, collectionName, ticketId,obj) {
-    db = mongodb.getDb();
+    db = mongodb.getCustomerDb();
     db.db(dbName).collection(collectionName).findOneAndUpdate({ "ticketId" : ticketId , "status" : constants.ticketStatusActive }, { $set: obj }, function (err, result) {
         if (err) {
             console.error(err)
@@ -177,6 +177,71 @@ exports.mongoDBTicketClose = function (callback, dbName, collectionName, ticketI
     });
 
 }
+
+exports.mongoDBNotificationGet = function (callback, dbName, collectionName, ticketId) {
+    db = mongodb.getCustomerDb();
+    var getObj = { ticketId:ticketId, status:constants.notificationStatusNotSend };
+    var setObj = { status:constants.notificationStatusSending };
+    db.db(dbName).collection(collectionName).updateMany(getObj,{$set: setObj},{multi: true}, function(err, result) {
+        if (err) {
+            console.log(err);
+            callback(500, result);
+        } else if (result) {
+            console.log(result);
+            var obj = { ticketId:ticketId,status:constants.notificationStatusSending };
+            db.db(dbName).collection(collectionName).find(obj).toArray(function (err, result) {
+                if (err) {
+                    console.log(err);
+                    callback(500, result);
+                } else if (result) {
+                    console.log(result);
+                    if (result.length > 0) {
+                        var findObj = { ticketId:ticketId,status:constants.notificationStatusSending };
+                        var updateObj = { status:constants.notificationStatusSend };
+                        db.db(dbName).collection(collectionName).updateMany(findObj,{$set: updateObj},{multi: true}, function(err, resul) {
+                            if (err) {
+                                console.log(err);
+                            } else if (resul) {
+                                console.log(resul);
+                            } else {
+                                console.log(resul);
+                            }
+                        });
+                        callback(200, result);
+                    }
+                    else
+                        callback(422, result);
+                } else {
+                    callback(422, result);
+                }
+            });
+        } else {
+            console.log(result);
+            callback(422, result);
+        }
+    });
+}
+
+exports.mongoDBUserRelatedQueueTicketGet = function (callback, dbName, collectionName, userId) {
+    db = mongodb.getCustomerDb();
+    var obj = { email:userId, status: { $in: [constants.ticketStatusActive, constants.ticketStatusWait] } };
+    db.db(dbName).collection(collectionName).find(obj).toArray(function (err, result) {
+        if (err) {
+            console.log(err);
+            callback(500, result);
+        } else if (result) {
+            console.log(result);
+            if (result.length > 0)
+                callback(200, result);
+            else
+                callback(422, result);
+        } else {
+            callback(422, result);
+        }
+    });
+
+}
+
 
 
 

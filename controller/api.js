@@ -318,4 +318,3 @@ exports.deleteTicketMust = function (keys, values) {
     });
     return (keys.includes('companyId') && keys.includes('ticketId') && !values.includes(''));
 }
-
