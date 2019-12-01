@@ -15,7 +15,7 @@ import { ActivatedRoute } from "@angular/router";
     <app-moderator-queue-item *ngFor="let q of queues | filter : searchText" name="{{q.name}}" queueId="{{q.queueId}}" moderatorId="{{moderatorId}}"></app-moderator-queue-item>
   </div>
   <ng-template #displayEmpty>
-    <div class="container-fluid">No queues assigned yet.</div>
+    <div class="container-fluid text-center">No queues assigned yet.</div>
   </ng-template>
   `,
   styles: [`
