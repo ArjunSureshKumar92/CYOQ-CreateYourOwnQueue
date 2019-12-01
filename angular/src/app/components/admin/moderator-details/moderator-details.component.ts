@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { QueueService } from 'src/app/services/queue.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-moderator-details',
@@ -17,13 +17,7 @@ import { Router } from '@angular/router';
     </div>
     <div class="form-group">
         <label for="name">Email</label>
-        <input type="text" class="form-control" formControlName="email" id="email" name="email" />
-    </div>
-    <div hidden>
-        <input type="text" class="form-control" id="companyId" name="companyId" value="{{companyId}}"  />
-    </div>
-    <div hidden>
-        <input type="text" class="form-control" id="moderatorId" name="moderatorId" value="{{moderatorId}}" />
+        <input type="text" class="form-control" formControlName="email" id="email" name="email" [readonly]="moderator?.email" />
     </div>
     <input type="submit" class="btn btn-primary btn-block btn-lg" [disabled]="angForm.pristine || angForm.invalid" value="Save Changes" />
     <input type="button" (click)="delete()" class="btn btn-danger btn-block btn-lg" name="delete" id="delete" value="Delete Moderator" />
@@ -33,21 +27,22 @@ import { Router } from '@angular/router';
 export class ModeratorDetailsComponent implements OnInit {
     angForm: FormGroup;
     moderator: any;
-    adminId: String = '';
-    companyId: String = '';
-    moderatorId: String = '';
+    adminId = '';
+    companyId = '';
+    moderatorId = '';
 
     constructor(private location: Location, private fb: FormBuilder,
-    private qs: QueueService, private router: Router) {
-        let url = this.router.url.split('/');
-        this.moderatorId = url[url.length - 1];
-        this.companyId = url[url.length - 2];
+                private qs: QueueService, private route: ActivatedRoute) {
         this.adminId = this.qs.adminId;
-        this.createForm();
-        this.getModerator();
     }
 
     ngOnInit() {
+        this.route.paramMap.subscribe(params => {
+            this.moderatorId = params.get('moderatorId');
+            this.companyId = params.get('companyId');
+        });
+        this.createForm();
+        this.getModerator();
     }
 
     close() {
@@ -85,7 +80,7 @@ export class ModeratorDetailsComponent implements OnInit {
         };
         this.qs.updateModerator(data).subscribe(
             res => {
-                this.router.navigate(['']);
+                this.location.back();
             },
             err => {
                 console.log(err);
@@ -105,7 +100,7 @@ export class ModeratorDetailsComponent implements OnInit {
         };
         this.qs.deleteModerator(data).subscribe(
             res => {
-                this.router.navigate(['']);
+                this.location.back();
             },
             err => {
                 console.log(err);

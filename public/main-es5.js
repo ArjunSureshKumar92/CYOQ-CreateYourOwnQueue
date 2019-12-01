@@ -847,22 +847,24 @@
             /* harmony import */ var src_app_services_queue_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/queue.service */ "./src/app/services/queue.service.ts");
             /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
             var ModeratorDetailsComponent = /** @class */ (function () {
-                function ModeratorDetailsComponent(location, fb, qs, router) {
+                function ModeratorDetailsComponent(location, fb, qs, route) {
                     this.location = location;
                     this.fb = fb;
                     this.qs = qs;
-                    this.router = router;
+                    this.route = route;
                     this.adminId = '';
                     this.companyId = '';
                     this.moderatorId = '';
-                    var url = this.router.url.split('/');
-                    this.moderatorId = url[url.length - 1];
-                    this.companyId = url[url.length - 2];
                     this.adminId = this.qs.adminId;
-                    this.createForm();
-                    this.getModerator();
                 }
                 ModeratorDetailsComponent.prototype.ngOnInit = function () {
+                    var _this = this;
+                    this.route.paramMap.subscribe(function (params) {
+                        _this.moderatorId = params.get('moderatorId');
+                        _this.companyId = params.get('companyId');
+                    });
+                    this.createForm();
+                    this.getModerator();
                 };
                 ModeratorDetailsComponent.prototype.close = function () {
                     this.location.back();
@@ -893,7 +895,7 @@
                         moderatorId: this.moderatorId
                     };
                     this.qs.updateModerator(data).subscribe(function (res) {
-                        _this.router.navigate(['']);
+                        _this.location.back();
                     }, function (err) {
                         console.log(err);
                     }, function () {
@@ -909,7 +911,7 @@
                         moderatorId: this.moderatorId
                     };
                     this.qs.deleteModerator(data).subscribe(function (res) {
-                        _this.router.navigate(['']);
+                        _this.location.back();
                     }, function (err) {
                         console.log(err);
                     }, function () {
@@ -922,12 +924,12 @@
                 { type: _angular_common__WEBPACK_IMPORTED_MODULE_2__["Location"] },
                 { type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"] },
                 { type: src_app_services_queue_service__WEBPACK_IMPORTED_MODULE_4__["QueueService"] },
-                { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] }
+                { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["ActivatedRoute"] }
             ]; };
             ModeratorDetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-moderator-details',
-                    template: "\n  <div>\n    <app-navbar></app-navbar>\n  </div>\n  <form [formGroup]=\"angForm\" (ngSubmit)=\"submit()\" #form>\n    <div class=\"form-group\">\n        <label for=\"name\">Moderator name</label>\n        <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"name\" id=\"name\" name=\"name\" />\n    </div>\n    <div class=\"form-group\">\n        <label for=\"name\">Email</label>\n        <input type=\"text\" class=\"form-control\" formControlName=\"email\" id=\"email\" name=\"email\" />\n    </div>\n    <div hidden>\n        <input type=\"text\" class=\"form-control\" id=\"companyId\" name=\"companyId\" value=\"{{companyId}}\"  />\n    </div>\n    <div hidden>\n        <input type=\"text\" class=\"form-control\" id=\"moderatorId\" name=\"moderatorId\" value=\"{{moderatorId}}\" />\n    </div>\n    <input type=\"submit\" class=\"btn btn-primary btn-block btn-lg\" [disabled]=\"angForm.pristine || angForm.invalid\" value=\"Save Changes\" />\n    <input type=\"button\" (click)=\"delete()\" class=\"btn btn-danger btn-block btn-lg\" name=\"delete\" id=\"delete\" value=\"Delete Moderator\" />\n  </form>\n  "
+                    template: "\n  <div>\n    <app-navbar></app-navbar>\n  </div>\n  <form [formGroup]=\"angForm\" (ngSubmit)=\"submit()\" #form>\n    <div class=\"form-group\">\n        <label for=\"name\">Moderator name</label>\n        <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"name\" id=\"name\" name=\"name\" />\n    </div>\n    <div class=\"form-group\">\n        <label for=\"name\">Email</label>\n        <input type=\"text\" class=\"form-control\" formControlName=\"email\" id=\"email\" name=\"email\" [readonly]=\"moderator?.email\" />\n    </div>\n    <input type=\"submit\" class=\"btn btn-primary btn-block btn-lg\" [disabled]=\"angForm.pristine || angForm.invalid\" value=\"Save Changes\" />\n    <input type=\"button\" (click)=\"delete()\" class=\"btn btn-danger btn-block btn-lg\" name=\"delete\" id=\"delete\" value=\"Delete Moderator\" />\n  </form>\n  "
                 })
             ], ModeratorDetailsComponent);
             /***/ 

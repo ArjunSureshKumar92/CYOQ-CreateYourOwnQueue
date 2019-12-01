@@ -966,22 +966,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ModeratorDetailsComponent = class ModeratorDetailsComponent {
-    constructor(location, fb, qs, router) {
+    constructor(location, fb, qs, route) {
         this.location = location;
         this.fb = fb;
         this.qs = qs;
-        this.router = router;
+        this.route = route;
         this.adminId = '';
         this.companyId = '';
         this.moderatorId = '';
-        let url = this.router.url.split('/');
-        this.moderatorId = url[url.length - 1];
-        this.companyId = url[url.length - 2];
         this.adminId = this.qs.adminId;
-        this.createForm();
-        this.getModerator();
     }
     ngOnInit() {
+        this.route.paramMap.subscribe(params => {
+            this.moderatorId = params.get('moderatorId');
+            this.companyId = params.get('companyId');
+        });
+        this.createForm();
+        this.getModerator();
     }
     close() {
         this.location.back();
@@ -1010,7 +1011,7 @@ let ModeratorDetailsComponent = class ModeratorDetailsComponent {
             moderatorId: this.moderatorId
         };
         this.qs.updateModerator(data).subscribe(res => {
-            this.router.navigate(['']);
+            this.location.back();
         }, err => {
             console.log(err);
         }, () => {
@@ -1025,7 +1026,7 @@ let ModeratorDetailsComponent = class ModeratorDetailsComponent {
             moderatorId: this.moderatorId
         };
         this.qs.deleteModerator(data).subscribe(res => {
-            this.router.navigate(['']);
+            this.location.back();
         }, err => {
             console.log(err);
         }, () => {
@@ -1037,7 +1038,7 @@ ModeratorDetailsComponent.ctorParameters = () => [
     { type: _angular_common__WEBPACK_IMPORTED_MODULE_2__["Location"] },
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"] },
     { type: src_app_services_queue_service__WEBPACK_IMPORTED_MODULE_4__["QueueService"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["ActivatedRoute"] }
 ];
 ModeratorDetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1053,13 +1054,7 @@ ModeratorDetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     </div>
     <div class="form-group">
         <label for="name">Email</label>
-        <input type="text" class="form-control" formControlName="email" id="email" name="email" />
-    </div>
-    <div hidden>
-        <input type="text" class="form-control" id="companyId" name="companyId" value="{{companyId}}"  />
-    </div>
-    <div hidden>
-        <input type="text" class="form-control" id="moderatorId" name="moderatorId" value="{{moderatorId}}" />
+        <input type="text" class="form-control" formControlName="email" id="email" name="email" [readonly]="moderator?.email" />
     </div>
     <input type="submit" class="btn btn-primary btn-block btn-lg" [disabled]="angForm.pristine || angForm.invalid" value="Save Changes" />
     <input type="button" (click)="delete()" class="btn btn-danger btn-block btn-lg" name="delete" id="delete" value="Delete Moderator" />
