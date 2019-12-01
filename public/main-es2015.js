@@ -630,6 +630,8 @@ let CompanyDetailsComponent = class CompanyDetailsComponent {
         this.company = [];
         this.companyId = this.qs.companyId;
         this.adminId = this.qs.adminId;
+    }
+    ngOnInit() {
         this.createForm();
         this.getCompany();
     }
@@ -655,18 +657,16 @@ let CompanyDetailsComponent = class CompanyDetailsComponent {
     }
     onSubmit() {
         const data = {
-            'name': this.angForm.get('name').value,
-            'address': this.angForm.get('address').value,
-            'phone': this.angForm.get('phone').value,
-            'email': this.angForm.get('email').value,
-            'companyId': this.companyId
+            name: this.angForm.get('name').value,
+            address: this.angForm.get('address').value,
+            phone: this.angForm.get('phone').value,
+            email: this.angForm.get('email').value,
+            companyId: this.companyId
         };
         this.qs.updateCompany(data).subscribe(res => {
             this.location.back();
             console.log('Company updated.');
         }, err => { console.log(err); });
-    }
-    ngOnInit() {
     }
 };
 CompanyDetailsComponent.ctorParameters = () => [
@@ -2147,9 +2147,9 @@ let HeaderComponent = class HeaderComponent {
         this.company = 'Create Your Own Queue';
         this.companyId = '';
         this.companyId = this.qs.companyId;
-        this.getCompany();
     }
     ngOnInit() {
+        this.getCompany();
     }
     getCompany() {
         this.qs.getCompany(this.companyId).subscribe(res => this.company = res['response'].name);
@@ -2298,7 +2298,7 @@ let QueueService = class QueueService {
         return this.http.get(`${this.baseUri}/api/admin/${this.adminId}/company/get/${companyId}`);
     }
     getAllCompany(callback, instance) {
-        var responses;
+        let responses;
         this.http.get(`${this.baseUri}/api/admin/company/all`).subscribe(data => {
             responses = data;
             console.log(responses.response[0].name);
@@ -2306,7 +2306,7 @@ let QueueService = class QueueService {
         });
     }
     getQueue(callback, instance, queueId) {
-        var responses;
+        let responses;
         this.http.get(`${this.baseUri}/api/admin/${this.adminId}/queue/get/${this.companyId}/${queueId}`).subscribe(data => {
             responses = data;
             console.log(responses);
@@ -2314,7 +2314,7 @@ let QueueService = class QueueService {
         });
     }
     getQueues(moderatorId) {
-        var url = `${this.baseUri}/api/admin/${this.adminId}/queue/all/${this.companyId}`;
+        let url = `${this.baseUri}/api/admin/${this.adminId}/queue/all/${this.companyId}`;
         if (moderatorId) {
             url = `${this.baseUri}/api/moderator/${moderatorId}/queue/get/${this.companyId}`;
         }

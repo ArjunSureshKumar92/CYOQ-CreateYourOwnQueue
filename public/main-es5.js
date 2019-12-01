@@ -617,9 +617,11 @@
                     this.company = [];
                     this.companyId = this.qs.companyId;
                     this.adminId = this.qs.adminId;
+                }
+                CompanyDetailsComponent.prototype.ngOnInit = function () {
                     this.createForm();
                     this.getCompany();
-                }
+                };
                 CompanyDetailsComponent.prototype.createForm = function () {
                     this.angForm = this.fb.group({
                         name: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
@@ -644,18 +646,16 @@
                 CompanyDetailsComponent.prototype.onSubmit = function () {
                     var _this = this;
                     var data = {
-                        'name': this.angForm.get('name').value,
-                        'address': this.angForm.get('address').value,
-                        'phone': this.angForm.get('phone').value,
-                        'email': this.angForm.get('email').value,
-                        'companyId': this.companyId
+                        name: this.angForm.get('name').value,
+                        address: this.angForm.get('address').value,
+                        phone: this.angForm.get('phone').value,
+                        email: this.angForm.get('email').value,
+                        companyId: this.companyId
                     };
                     this.qs.updateCompany(data).subscribe(function (res) {
                         _this.location.back();
                         console.log('Company updated.');
                     }, function (err) { console.log(err); });
-                };
-                CompanyDetailsComponent.prototype.ngOnInit = function () {
                 };
                 return CompanyDetailsComponent;
             }());
@@ -1726,9 +1726,9 @@
                     this.company = 'Create Your Own Queue';
                     this.companyId = '';
                     this.companyId = this.qs.companyId;
-                    this.getCompany();
                 }
                 HeaderComponent.prototype.ngOnInit = function () {
+                    this.getCompany();
                 };
                 HeaderComponent.prototype.getCompany = function () {
                     var _this = this;

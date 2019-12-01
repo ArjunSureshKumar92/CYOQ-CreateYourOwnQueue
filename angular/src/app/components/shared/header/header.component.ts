@@ -19,10 +19,10 @@ export class HeaderComponent implements OnInit {
 
     constructor(private qs: QueueService) {
         this.companyId = this.qs.companyId;
-        this.getCompany();
     }
 
     ngOnInit() {
+        this.getCompany();
     }
 
     getCompany() {
