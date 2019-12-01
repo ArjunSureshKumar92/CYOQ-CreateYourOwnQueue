@@ -11,9 +11,12 @@ import { ActivatedRoute } from "@angular/router";
         <button class="btn btn-primary">Search</button>
     </div>
   </div>
-  <div class="container-fluid">
+  <div *ngIf="queues; else displayEmpty" class="container-fluid">
     <app-moderator-queue-item *ngFor="let q of queues | filter : searchText" name="{{q.name}}" queueId="{{q.queueId}}" moderatorId="{{moderatorId}}"></app-moderator-queue-item>
   </div>
+  <ng-template #displayEmpty>
+    <div class="container-fluid">No queues assigned yet.</div>
+  </ng-template>
   `,
   styles: [`
   .container-fluid {
