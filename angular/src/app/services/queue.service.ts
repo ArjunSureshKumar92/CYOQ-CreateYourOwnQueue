@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Queue, QueueAdapter } from '../models/queue.model';
@@ -130,11 +130,25 @@ export class QueueService {
     closeTicket(data) {
         return this.http.post(`${this.baseUri}/api/user/${this.adminId}/ticket/delete`, data);
     }
-    deleteTicket(data, userId, callback) {
-        console.log("Delete Ticket Called ");
-        console.log(data);
-        return this.http.delete(`${this.baseUri}/api/user/${userId}/ticket/delete`, data).subscribe(data => {
-            callback();
-        });
+    deleteTicket(ticketId, userId, callback) {
+        // console.log("Delete Ticket Called ");
+        // console.log(data);
+        // return this.http.delete(`${this.baseUri}/api/user/${userId}/ticket/delete`, data).subscribe(data => {
+        //     callback();
+        // });
+        const options = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+            }),
+            body: {
+                'companyId': this.companyId,
+                'ticketId': ticketId
+            },
+        };
+        this.http
+            .delete(`${this.baseUri}/api/user/${userId}/ticket/delete`, options)
+            .subscribe((s) => {
+                console.log(s);
+            });
     }
 }

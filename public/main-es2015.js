@@ -1557,11 +1557,11 @@ let EndUserHomeComponent = class EndUserHomeComponent {
     cancelTicket(ticketId, queueId) {
         console.log('cancel ticket called for ${this.ticketId}');
         console.log(ticketId);
-        var data = {
+        const data = {
             'companyId': this.qs.companyId,
             'ticketId': ticketId
         };
-        this.qs.deleteTicket(data, this.userId, this.updateTicketsCallback);
+        this.qs.deleteTicket(ticketId, this.userId, this.updateTicketsCallback);
     }
     ngOnInit() {
     }
@@ -2453,11 +2453,25 @@ let QueueService = class QueueService {
     closeTicket(data) {
         return this.http.post(`${this.baseUri}/api/user/${this.adminId}/ticket/delete`, data);
     }
-    deleteTicket(data, userId, callback) {
-        console.log("Delete Ticket Called ");
-        console.log(data);
-        return this.http.delete(`${this.baseUri}/api/user/${userId}/ticket/delete`, data).subscribe(data => {
-            callback();
+    deleteTicket(ticketId, userId, callback) {
+        // console.log("Delete Ticket Called ");
+        // console.log(data);
+        // return this.http.delete(`${this.baseUri}/api/user/${userId}/ticket/delete`, data).subscribe(data => {
+        //     callback();
+        // });
+        const options = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+            }),
+            body: {
+                'companyId': this.companyId,
+                'ticketId': ticketId
+            },
+        };
+        this.http
+            .delete(`${this.baseUri}/api/user/${userId}/ticket/delete`, options)
+            .subscribe((s) => {
+            console.log(s);
         });
     }
 };

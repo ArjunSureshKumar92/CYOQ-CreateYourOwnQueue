@@ -1300,7 +1300,7 @@
                         'companyId': this.qs.companyId,
                         'ticketId': ticketId
                     };
-                    this.qs.deleteTicket(data, this.userId, this.updateTicketsCallback);
+                    this.qs.deleteTicket(ticketId, this.userId, this.updateTicketsCallback);
                 };
                 EndUserHomeComponent.prototype.ngOnInit = function () {
                 };
@@ -1992,11 +1992,25 @@
                 QueueService.prototype.closeTicket = function (data) {
                     return this.http.post(this.baseUri + "/api/user/" + this.adminId + "/ticket/delete", data);
                 };
-                QueueService.prototype.deleteTicket = function (data, userId, callback) {
-                    console.log("Delete Ticket Called ");
-                    console.log(data);
-                    return this.http.delete(this.baseUri + "/api/user/" + userId + "/ticket/delete", data).subscribe(function (data) {
-                        callback();
+                QueueService.prototype.deleteTicket = function (ticketId, userId, callback) {
+                    // console.log("Delete Ticket Called ");
+                    // console.log(data);
+                    // return this.http.delete(`${this.baseUri}/api/user/${userId}/ticket/delete`, data).subscribe(data => {
+                    //     callback();
+                    // });
+                    var options = {
+                        headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+                            'Content-Type': 'application/json',
+                        }),
+                        body: {
+                            'companyId': this.companyId,
+                            'ticketId': ticketId
+                        },
+                    };
+                    this.http
+                        .delete(this.baseUri + "/api/user/" + userId + "/ticket/delete", options)
+                        .subscribe(function (s) {
+                        console.log(s);
                     });
                 };
                 return QueueService;

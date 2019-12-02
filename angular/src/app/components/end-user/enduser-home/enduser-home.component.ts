@@ -68,11 +68,11 @@ export class EndUserHomeComponent implements OnInit {
   cancelTicket(ticketId: string, queueId: string) {
     console.log('cancel ticket called for ${this.ticketId}');
     console.log(ticketId)
-    var data = {
+    const data = {
       'companyId': this.qs.companyId,
       'ticketId': ticketId
     }
-    this.qs.deleteTicket(data, this.userId, this.updateTicketsCallback)
+    this.qs.deleteTicket(ticketId, this.userId, this.updateTicketsCallback)
   }
   ngOnInit() {
   }
