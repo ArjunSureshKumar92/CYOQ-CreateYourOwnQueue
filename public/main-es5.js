@@ -31,6 +31,17 @@
             /* harmony default export */ __webpack_exports__["default"] = ("<p>enduser-ticketdetail works!</p>\r\n");
             /***/ 
         }),
+        /***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/modal/modal.component.html": 
+        /*!**********************************************************************************!*\
+          !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/modal/modal.component.html ***!
+          \**********************************************************************************/
+        /*! exports provided: default */
+        /***/ (function (module, __webpack_exports__, __webpack_require__) {
+            "use strict";
+            __webpack_require__.r(__webpack_exports__);
+            /* harmony default export */ __webpack_exports__["default"] = ("<div class=\"modal\" tabindex=\"-1\" role=\"dialog\">\n  <div class=\"modal-dialog\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h5 class=\"modal-title\"><p [(ngModel)]=\"data.title\"></p></h5>\n        <button\n          type=\"button\"\n          class=\"close\"\n          data-dismiss=\"modal\"\n          aria-label=\"Close\"\n          (click)=\"onCloseClick()\"\n        >\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        <p [(ngModel)]=\"data.message\"></p>\n      </div>\n      <div class=\"modal-footer\">\n        <button\n          type=\"button\"\n          class=\"btn btn-secondary\"\n          data-dismiss=\"modal\"\n          (click)=\"onCloseClick()\"\n        >\n          Close\n        </button>\n      </div>\n    </div>\n  </div>\n</div>\n");
+            /***/ 
+        }),
         /***/ "./node_modules/tslib/tslib.es6.js": 
         /*!*****************************************!*\
           !*** ./node_modules/tslib/tslib.es6.js ***!
@@ -530,6 +541,7 @@
             /* harmony import */ var _components_moderator_ticket_details_ticket_details_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./components/moderator/ticket-details/ticket-details.component */ "./src/app/components/moderator/ticket-details/ticket-details.component.ts");
             /* harmony import */ var _components_end_user_enduser_ticketdetail_enduser_ticketdetail_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./components/end-user/enduser-ticketdetail/enduser-ticketdetail.component */ "./src/app/components/end-user/enduser-ticketdetail/enduser-ticketdetail.component.ts");
             /* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm2015/animations.js");
+            /* harmony import */ var _modal_modal_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./modal/modal.component */ "./src/app/modal/modal.component.ts");
             var AppModule = /** @class */ (function () {
                 function AppModule() {
                 }
@@ -562,7 +574,8 @@
                         _components_moderator_moderator_navbar_moderator_navbar_component__WEBPACK_IMPORTED_MODULE_27__["ModeratorNavbarComponent"],
                         _components_admin_queue_details_queue_details_component__WEBPACK_IMPORTED_MODULE_28__["QueueDetailsComponent"],
                         _components_moderator_ticket_details_ticket_details_component__WEBPACK_IMPORTED_MODULE_29__["TicketDetailsComponent"],
-                        _components_end_user_enduser_ticketdetail_enduser_ticketdetail_component__WEBPACK_IMPORTED_MODULE_30__["EnduserTicketdetailComponent"]
+                        _components_end_user_enduser_ticketdetail_enduser_ticketdetail_component__WEBPACK_IMPORTED_MODULE_30__["EnduserTicketdetailComponent"],
+                        _modal_modal_component__WEBPACK_IMPORTED_MODULE_32__["ModalComponent"]
                     ],
                     imports: [
                         _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -1260,10 +1273,13 @@
             /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
             /* harmony import */ var src_app_services_queue_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/queue.service */ "./src/app/services/queue.service.ts");
             /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+            /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+            /* harmony import */ var _modal_modal_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../modal/modal.component */ "./src/app/modal/modal.component.ts");
             var EndUserHomeComponent = /** @class */ (function () {
-                function EndUserHomeComponent(qs, router) {
+                function EndUserHomeComponent(qs, router, dialog) {
                     this.qs = qs;
                     this.router = router;
+                    this.dialog = dialog;
                     this.place = '(Loading)';
                     this.queueId = '';
                     this.userId = '';
@@ -1302,18 +1318,31 @@
                     };
                     this.qs.deleteTicket(ticketId, this.userId, this.updateTicketsCallback);
                 };
+                EndUserHomeComponent.prototype.getPositionClick = function (ticketId, queueId) {
+                    this.qs.getTicketPriority(this.userId, queueId, ticketId, this.getPositionCallBack);
+                };
+                EndUserHomeComponent.prototype.getPositionCallBack = function (status) {
+                    var dialogRef = this.dialog.open(_modal_modal_component__WEBPACK_IMPORTED_MODULE_5__["ModalComponent"], {
+                        width: '250px',
+                        data: { title: 'Title Test', message: status }
+                    });
+                    dialogRef.afterClosed().subscribe(function (result) {
+                        console.log("Dialog box Closed");
+                    });
+                };
                 EndUserHomeComponent.prototype.ngOnInit = function () {
                 };
                 return EndUserHomeComponent;
             }());
             EndUserHomeComponent.ctorParameters = function () { return [
                 { type: src_app_services_queue_service__WEBPACK_IMPORTED_MODULE_2__["QueueService"] },
-                { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
+                { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+                { type: _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatDialog"] }
             ]; };
             EndUserHomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-enduser-home',
-                    template: "\n  <div>\n  <table class=\"table\">\n  <thead class=\"thead-dark\">\n    <tr>\n      <th scope=\"col\">Ticket ID</th>\n      <th scope=\"col\">Name</th>\n      <th scope=\"col\">Queue Name</th>\n      <th scope=\"col\">Status</th>\n      <th scope=\"col\">Action</th>\n    </tr>\n  </thead>\n  <tbody>\n   <tr *ngFor=\"let ticket of tickets\">\n      <td scope=\"row\">{{ticket.ticketId}}</td>\n      <td>{{ticket.name}}</td>\n      <td>{{ticket.queueName}}</td>\n      <td>{{ticket.status}}</td>\n      <td><button class=\"btn btn-danger\" (click)=\"cancelTicket(ticket.ticketId)\">Cancel Ticket</button></td>\n      </tr>\n  </tbody>\n  </table>\n  </div>\n  "
+                    template: "\n  <div>\n  <table class=\"table\">\n  <thead class=\"thead-dark\">\n    <tr>\n      <th scope=\"col\">Ticket ID</th>\n      <th scope=\"col\">Name</th>\n      <th scope=\"col\">Queue Name</th>\n      <th scope=\"col\">Status</th>\n      <th scope=\"col\">Action</th>\n    </tr>\n  </thead>\n  <tbody>\n   <tr *ngFor=\"let ticket of tickets\">\n      <td scope=\"row\">{{ticket.ticketId}}</td>\n      <td>{{ticket.name}}</td>\n      <td>{{ticket.queueName}}</td>\n      <td>{{ticket.status}}</td>\n      <td><button class=\"btn btn-danger\" (click)=\"cancelTicket(ticket.ticketId)\">Cancel Ticket</button></td>\n      <td><button class=\"btn btn-danger\" (click)=\"getPositionClick(ticket.queueId)\">Get Ticket Position</button></td>\n      </tr>\n  </tbody>\n  </table>\n  </div>\n  "
                 })
             ], EndUserHomeComponent);
             /***/ 
@@ -1843,6 +1872,55 @@
             ], FilterPipe);
             /***/ 
         }),
+        /***/ "./src/app/modal/modal.component.css": 
+        /*!*******************************************!*\
+          !*** ./src/app/modal/modal.component.css ***!
+          \*******************************************/
+        /*! exports provided: default */
+        /***/ (function (module, __webpack_exports__, __webpack_require__) {
+            "use strict";
+            __webpack_require__.r(__webpack_exports__);
+            /* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL21vZGFsL21vZGFsLmNvbXBvbmVudC5jc3MifQ== */");
+            /***/ 
+        }),
+        /***/ "./src/app/modal/modal.component.ts": 
+        /*!******************************************!*\
+          !*** ./src/app/modal/modal.component.ts ***!
+          \******************************************/
+        /*! exports provided: ModalComponent */
+        /***/ (function (module, __webpack_exports__, __webpack_require__) {
+            "use strict";
+            __webpack_require__.r(__webpack_exports__);
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModalComponent", function () { return ModalComponent; });
+            /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+            /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+            /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+            var ModalComponent = /** @class */ (function () {
+                function ModalComponent(dialogRef, data) {
+                    this.dialogRef = dialogRef;
+                    this.data = data;
+                }
+                ModalComponent.prototype.onCloseClick = function () {
+                    this.dialogRef.close();
+                };
+                ModalComponent.prototype.ngOnInit = function () {
+                };
+                return ModalComponent;
+            }());
+            ModalComponent.ctorParameters = function () { return [
+                { type: _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+                { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] }
+            ]; };
+            ModalComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+                Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+                    selector: 'app-modal',
+                    template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./modal.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/modal/modal.component.html")).default,
+                    styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./modal.component.css */ "./src/app/modal/modal.component.css")).default]
+                }),
+                tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+            ], ModalComponent);
+            /***/ 
+        }),
         /***/ "./src/app/models/queue.model.ts": 
         /*!***************************************!*\
           !*** ./src/app/models/queue.model.ts ***!
@@ -1968,8 +2046,11 @@
                         callback(responses.response, instance);
                     });
                 };
-                QueueService.prototype.getTicketPriority = function (queueId, ticketId) {
-                    return this.http.get(this.baseUri + "/api/user/" + this.companyId + "/ticket/getposition/" + this.companyId + "/" + queueId + "/" + ticketId);
+                QueueService.prototype.getTicketPriority = function (userId, queueId, ticketId, callback) {
+                    return this.http.get(this.baseUri + "/api/user/" + userId + "/ticket/getposition/" + this.companyId + "/" + queueId + "/" + ticketId).subscribe(function (s) {
+                        callback(s.toString());
+                        console.log(s);
+                    });
                 };
                 QueueService.prototype.updateQueue = function (data) {
                     return this.http.post(this.baseUri + "/api/admin/" + this.adminId + "/queue/update", data);

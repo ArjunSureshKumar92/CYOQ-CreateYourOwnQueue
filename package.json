@@ -9,8 +9,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@angular/animations": "^8.2.14",
+    "@angular/cdk": "^8.2.3",
+    "@angular/material": "^8.2.3",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "hammerjs": "^2.0.8",
     "http-errors": "^1.7.3",
     "mongodb": "^3.3.4",
     "morgan": "^1.9.1",

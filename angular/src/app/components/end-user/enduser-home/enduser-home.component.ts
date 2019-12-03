@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { QueueService } from 'src/app/services/queue.service';
 import { Router } from '@angular/router';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ModalComponent } from '../../../modal/modal.component';
+
 @Component({
   selector: 'app-enduser-home',
   template: `
@@ -22,6 +25,7 @@ import { Router } from '@angular/router';
       <td>{{ticket.queueName}}</td>
       <td>{{ticket.status}}</td>
       <td><button class="btn btn-danger" (click)="cancelTicket(ticket.ticketId)">Cancel Ticket</button></td>
+      <td><button class="btn btn-danger" (click)="getPositionClick(ticket.queueId)">Get Ticket Position</button></td>
       </tr>
   </tbody>
   </table>
@@ -35,7 +39,7 @@ export class EndUserHomeComponent implements OnInit {
   ticketId: String = '';
   tickets: any;
 
-  constructor(private qs: QueueService, private router: Router) {
+  constructor(private qs: QueueService, private router: Router, public dialog: MatDialog) {
     let url = this.router.url.split('/');
     console.log(url);
     this.userId = url[url.length - 1];
@@ -73,6 +77,21 @@ export class EndUserHomeComponent implements OnInit {
       'ticketId': ticketId
     }
     this.qs.deleteTicket(ticketId, this.userId, this.updateTicketsCallback)
+  }
+
+  getPositionClick(ticketId: string, queueId: string): void {
+    this.qs.getTicketPriority(this.userId, queueId, ticketId, this.getPositionCallBack);
+  }
+
+  getPositionCallBack(status: string) {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '250px',
+      data: { title: 'Title Test', message: status }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("Dialog box Closed");
+    });
   }
   ngOnInit() {
   }

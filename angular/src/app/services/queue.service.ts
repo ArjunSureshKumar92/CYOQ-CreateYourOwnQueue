@@ -99,8 +99,11 @@ export class QueueService {
         });
     }
 
-    getTicketPriority(queueId, ticketId) {
-        return this.http.get(`${this.baseUri}/api/user/${this.companyId}/ticket/getposition/${this.companyId}/${queueId}/${ticketId}`);
+    getTicketPriority(userId, queueId, ticketId, callback) {
+        return this.http.get(`${this.baseUri}/api/user/${userId}/ticket/getposition/${this.companyId}/${queueId}/${ticketId}`).subscribe((s) => {
+            callback(s.toString());
+            console.log(s);
+        });
     }
 
     updateQueue(data) {

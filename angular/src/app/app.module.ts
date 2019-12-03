@@ -29,6 +29,7 @@ import { QueueDetailsComponent } from './components/admin/queue-details/queue-de
 import { TicketDetailsComponent } from './components/moderator/ticket-details/ticket-details.component';
 import { EnduserTicketdetailComponent } from './components/end-user/enduser-ticketdetail/enduser-ticketdetail.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ModeratorNavbarComponent,
     QueueDetailsComponent,
     TicketDetailsComponent,
-    EnduserTicketdetailComponent
+    EnduserTicketdetailComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
