@@ -1,6 +1,7 @@
 var random = require('../common/random')
 var response = require('../common/response')
 var mongoCompany = require('../model/company')
+var mongoShared = require('../model/shared')
 var mongoConstants = require('../constants')
 var apiControl = require('./api')
 var mail = require('../common/mail')
@@ -24,7 +25,7 @@ exports.createCompany = function (req, res) {
                 response.sendResponse(res, 'Error inserting company', status)
             else {
                 // function to send an email
-                mail.sendMail('comp231team4@gmail.com',data.email,'New Company Created','Hey Admin, \n This is the link to the company dashboard => http://localhost:4200/admin/'+data.email+'/'+data.companyId,'comp231password');
+                mail.sendMail(mongoConstants.mailingEmail,data.email,'New Company Created','Hey Admin, \n This is the link to the company dashboard => '+mongoConstants.baseUrl,mongoConstants.mailingPassword);
                 response.sendResponse(res, 'Success, ID => ' + data.companyId, 200)
             }
         }

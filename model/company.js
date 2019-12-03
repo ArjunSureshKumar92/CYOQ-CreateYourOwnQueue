@@ -3,7 +3,7 @@
 
 const mongodb = require('../model/mongo');
 exports.mongoDBCompanyInsert = function (callback,dbName,collectionName,obj) {
-    db = mongodb.getDb();
+    db = mongodb.getMainDb();
     db.db(dbName).collection(collectionName).insertOne(obj, (err, result) => {
         var response;
         if (err) {
@@ -19,7 +19,7 @@ exports.mongoDBCompanyInsert = function (callback,dbName,collectionName,obj) {
 }
 
 exports.mongoDBCompanyUpdate = function (callback,dbName,collectionName,obj, companyId) {
-    db = mongodb.getDb();
+    db = mongodb.getMainDb();
     var cmpId = { companyId: companyId };
     db.db(dbName).collection(collectionName).findOneAndUpdate(cmpId, {$set: obj}, (err, result) => {
         var response;
@@ -36,7 +36,7 @@ exports.mongoDBCompanyUpdate = function (callback,dbName,collectionName,obj, com
 }
 
 exports.mongoDBCompanyDelete = function (callback, dbName, collectionName, companyId) {
-    db = mongodb.getDb();
+    db = mongodb.getMainDb();
     var obj = { companyId: companyId };
     db.db(dbName).collection(collectionName).deleteOne(obj, function (err, result) {
         if (err) {
@@ -53,7 +53,7 @@ exports.mongoDBCompanyDelete = function (callback, dbName, collectionName, compa
 }
 
 exports.mongoDBCompanyGet = function (callback, dbName, collectionName, companyId) {
-    db = mongodb.getDb();
+    db = mongodb.getMainDb();
     var obj = { companyId: companyId };
     db.db(dbName).collection(collectionName).findOne(obj, function (err, result) {
         if (err) {
@@ -71,7 +71,7 @@ exports.mongoDBCompanyGet = function (callback, dbName, collectionName, companyI
 
 
 exports.mongoDBCompanyGetAll = function (callback, dbName, collectionName) {
-    db = mongodb.getDb();
+    db = mongodb.getMainDb();
     db.db(dbName).collection(collectionName).find({}).toArray(function(err, result) {
         if (err) {
             console.log(err);
@@ -91,7 +91,7 @@ exports.mongoDBCompanyGetAll = function (callback, dbName, collectionName) {
 }
 
 function deleteCustomerDB(callback,dbName) {
-    db = mongodb.getDb();
+    db = mongodb.getMainDb();
     db.db(dbName).dropDatabase(function(err, result){
         if (err) {
             callback(403, '');

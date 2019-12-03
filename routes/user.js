@@ -25,4 +25,14 @@ router.get('/:authKey/ticket/getposition/:companyId/:queueId/:ticketId', functio
   ticketController.getTicketPosition(req,res);
 });
 
+router.get('/:authKey/queue/get/:companyId', function (req, res) {
+  ticketController.getUserRelatedQueueTicket(req,res);
+});
+
+
+router.get('/:authKey/company/:companyId/ticket/:ticketId/notification', function (req, res) {
+  ticketController.getTicketNotification(req,res);
+});
+
+
 module.exports = router;
