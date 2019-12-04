@@ -49,7 +49,7 @@ var chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised).should();
 describe('getDB()', function(){
   it('should return undefined because connect is not called', function(){
-    assert.equal(mongo.getMainDb(), undefined);
+    assert.equal(mongo.getDB(), undefined);
     });
 });
 
