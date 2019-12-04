@@ -30,7 +30,8 @@ import { TicketDetailsComponent } from './components/moderator/ticket-details/ti
 import { EnduserTicketdetailComponent } from './components/end-user/enduser-ticketdetail/enduser-ticketdetail.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalComponent } from './modal/modal.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MaterialModule } from './material-module';
+import { from } from 'rxjs';
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,7 +68,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
