@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { QueueService } from 'src/app/services/queue.service';
 import { Router } from '@angular/router';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ModalComponent } from '../../../modal/modal.component';
 
 @Component({
@@ -39,7 +39,7 @@ export class EndUserHomeComponent implements OnInit {
   ticketId: String = '';
   tickets: any;
 
-  constructor(private qs: QueueService, private router: Router, public dialog: MatDialog) {
+  constructor(private qs: QueueService, private router: Router, private dialog: MatDialog) {
     let url = this.router.url.split('/');
     console.log(url);
     this.userId = url[url.length - 1];
