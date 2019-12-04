@@ -588,7 +588,8 @@
                         _material_module__WEBPACK_IMPORTED_MODULE_33__["MaterialModule"]
                     ],
                     providers: [],
-                    bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]]
+                    bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]],
+                    entryComponents: [_modal_modal_component__WEBPACK_IMPORTED_MODULE_32__["ModalComponent"]]
                 })
             ], AppModule);
             /***/ 
@@ -1324,9 +1325,10 @@
                     this.qs.getTicketPriority(this.userId, queueId, ticketId, this.getPositionCallBack, this);
                 };
                 EndUserHomeComponent.prototype.getPositionCallBack = function (status, instance) {
+                    console.log("GetPsotion Callback called");
                     var dialogRef = instance.dialog.open(_modal_modal_component__WEBPACK_IMPORTED_MODULE_5__["ModalComponent"], {
                         width: '250px',
-                        data: { title: 'Title Test', message: status }
+                        data: { title: 'Ticket Position Details', message: status }
                     });
                     dialogRef.afterClosed().subscribe(function (result) {
                         console.log("Dialog box Closed");

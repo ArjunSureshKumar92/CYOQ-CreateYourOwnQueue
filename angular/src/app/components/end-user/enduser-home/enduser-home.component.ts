@@ -84,9 +84,11 @@ export class EndUserHomeComponent implements OnInit {
   }
 
   getPositionCallBack(status: string, instance) {
+    console.log("GetPsotion Callback called");
+
     const dialogRef = instance.dialog.open(ModalComponent, {
       width: '250px',
-      data: { title: 'Title Test', message: status }
+      data: { title: 'Ticket Position Details', message: status }
     });
 
     dialogRef.afterClosed().subscribe(result => {
