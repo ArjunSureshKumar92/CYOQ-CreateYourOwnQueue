@@ -542,6 +542,7 @@
             /* harmony import */ var _components_end_user_enduser_ticketdetail_enduser_ticketdetail_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./components/end-user/enduser-ticketdetail/enduser-ticketdetail.component */ "./src/app/components/end-user/enduser-ticketdetail/enduser-ticketdetail.component.ts");
             /* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm2015/animations.js");
             /* harmony import */ var _modal_modal_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./modal/modal.component */ "./src/app/modal/modal.component.ts");
+            /* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
             var AppModule = /** @class */ (function () {
                 function AppModule() {
                 }
@@ -575,6 +576,7 @@
                         _components_admin_queue_details_queue_details_component__WEBPACK_IMPORTED_MODULE_28__["QueueDetailsComponent"],
                         _components_moderator_ticket_details_ticket_details_component__WEBPACK_IMPORTED_MODULE_29__["TicketDetailsComponent"],
                         _components_end_user_enduser_ticketdetail_enduser_ticketdetail_component__WEBPACK_IMPORTED_MODULE_30__["EnduserTicketdetailComponent"],
+                        _angular_material_dialog__WEBPACK_IMPORTED_MODULE_33__["MatDialogModule"],
                         _modal_modal_component__WEBPACK_IMPORTED_MODULE_32__["ModalComponent"]
                     ],
                     imports: [

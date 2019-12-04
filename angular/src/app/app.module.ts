@@ -30,7 +30,7 @@ import { TicketDetailsComponent } from './components/moderator/ticket-details/ti
 import { EnduserTicketdetailComponent } from './components/end-user/enduser-ticketdetail/enduser-ticketdetail.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalComponent } from './modal/modal.component';
-
+import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,6 +58,7 @@ import { ModalComponent } from './modal/modal.component';
     QueueDetailsComponent,
     TicketDetailsComponent,
     EnduserTicketdetailComponent,
+    MatDialogModule,
     ModalComponent
   ],
   imports: [
