@@ -39,7 +39,7 @@
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
             __webpack_require__.r(__webpack_exports__);
-            /* harmony default export */ __webpack_exports__["default"] = ("<div class=\"modal\" tabindex=\"-1\" role=\"dialog\">\n  <div class=\"modal-dialog\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h5 class=\"modal-title\"><p [(ngModel)]=\"data.title\"></p></h5>\n        <button\n          type=\"button\"\n          class=\"close\"\n          data-dismiss=\"modal\"\n          aria-label=\"Close\"\n          (click)=\"onCloseClick()\"\n        >\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        <p [(ngModel)]=\"data.message\"></p>\n      </div>\n      <div class=\"modal-footer\">\n        <button\n          type=\"button\"\n          class=\"btn btn-secondary\"\n          data-dismiss=\"modal\"\n          (click)=\"onCloseClick()\"\n        >\n          Close\n        </button>\n      </div>\n    </div>\n  </div>\n</div>\n");
+            /* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title>Hi {{ data.title }}</h1>\n<div mat-dialog-content>\n  <p>{{ data.message }</p>\n</div>\n<div mat-dialog-actions>\n  <button mat-button (click)=\"onCloseClick()\">Close</button>\n</div>\n");
             /***/ 
         }),
         /***/ "./node_modules/tslib/tslib.es6.js": 

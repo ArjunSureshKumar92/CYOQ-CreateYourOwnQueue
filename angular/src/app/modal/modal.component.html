@@ -1,31 +1,7 @@
-<div class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title"><p [(ngModel)]="data.title"></p></h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-          (click)="onCloseClick()"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p [(ngModel)]="data.message"></p>
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-dismiss="modal"
-          (click)="onCloseClick()"
-        >
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
+<h1 mat-dialog-title>Hi {{ data.title }}</h1>
+<div mat-dialog-content>
+  <p>{{ data.message }</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCloseClick()">Close</button>
 </div>
