@@ -58,7 +58,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     QueueDetailsComponent,
     TicketDetailsComponent,
     EnduserTicketdetailComponent,
-    MatDialogModule,
     ModalComponent
   ],
   imports: [
@@ -68,6 +67,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

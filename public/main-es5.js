@@ -576,7 +576,6 @@
                         _components_admin_queue_details_queue_details_component__WEBPACK_IMPORTED_MODULE_28__["QueueDetailsComponent"],
                         _components_moderator_ticket_details_ticket_details_component__WEBPACK_IMPORTED_MODULE_29__["TicketDetailsComponent"],
                         _components_end_user_enduser_ticketdetail_enduser_ticketdetail_component__WEBPACK_IMPORTED_MODULE_30__["EnduserTicketdetailComponent"],
-                        _angular_material_dialog__WEBPACK_IMPORTED_MODULE_33__["MatDialogModule"],
                         _modal_modal_component__WEBPACK_IMPORTED_MODULE_32__["ModalComponent"]
                     ],
                     imports: [
@@ -586,6 +585,7 @@
                         _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
                         _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
                         _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_31__["BrowserAnimationsModule"],
+                        _angular_material_dialog__WEBPACK_IMPORTED_MODULE_33__["MatDialogModule"]
                     ],
                     providers: [],
                     bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]]
