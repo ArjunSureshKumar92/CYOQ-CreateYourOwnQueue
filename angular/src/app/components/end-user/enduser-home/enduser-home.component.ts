@@ -66,8 +66,8 @@ export class EndUserHomeComponent implements OnInit {
     instance.tickets = val;
   }
 
-  updateTicketsCallback() {
-    this.getTickets();
+  updateTicketsCallback(instance) {
+    instance.getTickets();
   }
   cancelTicket(ticketId: string, queueId: string) {
     console.log('cancel ticket called for ${this.ticketId}');
@@ -76,15 +76,15 @@ export class EndUserHomeComponent implements OnInit {
       'companyId': this.qs.companyId,
       'ticketId': ticketId
     }
-    this.qs.deleteTicket(ticketId, this.userId, this.updateTicketsCallback)
+    this.qs.deleteTicket(ticketId, this.userId, this.updateTicketsCallback, this)
   }
 
   getPositionClick(ticketId: string, queueId: string): void {
-    this.qs.getTicketPriority(this.userId, queueId, ticketId, this.getPositionCallBack);
+    this.qs.getTicketPriority(this.userId, queueId, ticketId, this.getPositionCallBack, this);
   }
 
-  getPositionCallBack(status: string) {
-    const dialogRef = this.dialog.open(ModalComponent, {
+  getPositionCallBack(status: string, instance) {
+    const dialogRef = instance.dialog.open(ModalComponent, {
       width: '250px',
       data: { title: 'Title Test', message: status }
     });

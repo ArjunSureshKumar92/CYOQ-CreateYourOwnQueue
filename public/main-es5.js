@@ -1308,8 +1308,8 @@
                     console.log(val);
                     instance.tickets = val;
                 };
-                EndUserHomeComponent.prototype.updateTicketsCallback = function () {
-                    this.getTickets();
+                EndUserHomeComponent.prototype.updateTicketsCallback = function (instance) {
+                    instance.getTickets();
                 };
                 EndUserHomeComponent.prototype.cancelTicket = function (ticketId, queueId) {
                     console.log('cancel ticket called for ${this.ticketId}');
@@ -1318,13 +1318,13 @@
                         'companyId': this.qs.companyId,
                         'ticketId': ticketId
                     };
-                    this.qs.deleteTicket(ticketId, this.userId, this.updateTicketsCallback);
+                    this.qs.deleteTicket(ticketId, this.userId, this.updateTicketsCallback, this);
                 };
                 EndUserHomeComponent.prototype.getPositionClick = function (ticketId, queueId) {
-                    this.qs.getTicketPriority(this.userId, queueId, ticketId, this.getPositionCallBack);
+                    this.qs.getTicketPriority(this.userId, queueId, ticketId, this.getPositionCallBack, this);
                 };
-                EndUserHomeComponent.prototype.getPositionCallBack = function (status) {
-                    var dialogRef = this.dialog.open(_modal_modal_component__WEBPACK_IMPORTED_MODULE_5__["ModalComponent"], {
+                EndUserHomeComponent.prototype.getPositionCallBack = function (status, instance) {
+                    var dialogRef = instance.dialog.open(_modal_modal_component__WEBPACK_IMPORTED_MODULE_5__["ModalComponent"], {
                         width: '250px',
                         data: { title: 'Title Test', message: status }
                     });
@@ -2158,9 +2158,9 @@
                         callback(responses.response, instance);
                     });
                 };
-                QueueService.prototype.getTicketPriority = function (userId, queueId, ticketId, callback) {
+                QueueService.prototype.getTicketPriority = function (userId, queueId, ticketId, callback, instance) {
                     return this.http.get(this.baseUri + "/api/user/" + userId + "/ticket/getposition/" + this.companyId + "/" + queueId + "/" + ticketId).subscribe(function (s) {
-                        callback(s.toString());
+                        callback(s.toString(), instance);
                         console.log(s);
                     }, function (err) { callback(err.toString()); console.log(err); });
                 };
@@ -2185,7 +2185,7 @@
                 QueueService.prototype.closeTicket = function (data) {
                     return this.http.post(this.baseUri + "/api/user/" + this.adminId + "/ticket/delete", data);
                 };
-                QueueService.prototype.deleteTicket = function (ticketId, userId, callback) {
+                QueueService.prototype.deleteTicket = function (ticketId, userId, callback, instance) {
                     // console.log("Delete Ticket Called ");
                     // console.log(data);
                     // return this.http.delete(`${this.baseUri}/api/user/${userId}/ticket/delete`, data).subscribe(data => {
@@ -2204,6 +2204,7 @@
                         .delete(this.baseUri + "/api/user/" + userId + "/ticket/delete", options)
                         .subscribe(function (s) {
                         console.log(s);
+                        callback(instance);
                     });
                 };
                 return QueueService;

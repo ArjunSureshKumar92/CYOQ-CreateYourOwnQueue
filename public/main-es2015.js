@@ -1575,8 +1575,8 @@ let EndUserHomeComponent = class EndUserHomeComponent {
         console.log(val);
         instance.tickets = val;
     }
-    updateTicketsCallback() {
-        this.getTickets();
+    updateTicketsCallback(instance) {
+        instance.getTickets();
     }
     cancelTicket(ticketId, queueId) {
         console.log('cancel ticket called for ${this.ticketId}');
@@ -1585,13 +1585,13 @@ let EndUserHomeComponent = class EndUserHomeComponent {
             'companyId': this.qs.companyId,
             'ticketId': ticketId
         };
-        this.qs.deleteTicket(ticketId, this.userId, this.updateTicketsCallback);
+        this.qs.deleteTicket(ticketId, this.userId, this.updateTicketsCallback, this);
     }
     getPositionClick(ticketId, queueId) {
-        this.qs.getTicketPriority(this.userId, queueId, ticketId, this.getPositionCallBack);
+        this.qs.getTicketPriority(this.userId, queueId, ticketId, this.getPositionCallBack, this);
     }
-    getPositionCallBack(status) {
-        const dialogRef = this.dialog.open(_modal_modal_component__WEBPACK_IMPORTED_MODULE_5__["ModalComponent"], {
+    getPositionCallBack(status, instance) {
+        const dialogRef = instance.dialog.open(_modal_modal_component__WEBPACK_IMPORTED_MODULE_5__["ModalComponent"], {
             width: '250px',
             data: { title: 'Title Test', message: status }
         });
@@ -2678,9 +2678,9 @@ let QueueService = class QueueService {
             callback(responses.response, instance);
         });
     }
-    getTicketPriority(userId, queueId, ticketId, callback) {
+    getTicketPriority(userId, queueId, ticketId, callback, instance) {
         return this.http.get(`${this.baseUri}/api/user/${userId}/ticket/getposition/${this.companyId}/${queueId}/${ticketId}`).subscribe((s) => {
-            callback(s.toString());
+            callback(s.toString(), instance);
             console.log(s);
         }, err => { callback(err.toString()); console.log(err); });
     }
@@ -2705,7 +2705,7 @@ let QueueService = class QueueService {
     closeTicket(data) {
         return this.http.post(`${this.baseUri}/api/user/${this.adminId}/ticket/delete`, data);
     }
-    deleteTicket(ticketId, userId, callback) {
+    deleteTicket(ticketId, userId, callback, instance) {
         // console.log("Delete Ticket Called ");
         // console.log(data);
         // return this.http.delete(`${this.baseUri}/api/user/${userId}/ticket/delete`, data).subscribe(data => {
@@ -2724,6 +2724,7 @@ let QueueService = class QueueService {
             .delete(`${this.baseUri}/api/user/${userId}/ticket/delete`, options)
             .subscribe((s) => {
             console.log(s);
+            callback(instance);
         });
     }
 };
