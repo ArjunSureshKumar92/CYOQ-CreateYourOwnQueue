@@ -2162,7 +2162,7 @@
                     return this.http.get(this.baseUri + "/api/user/" + userId + "/ticket/getposition/" + this.companyId + "/" + queueId + "/" + ticketId).subscribe(function (s) {
                         callback(s.toString(), instance);
                         console.log(s);
-                    }, function (err) { callback(err.toString()); console.log(err); });
+                    }, function (err) { callback(err.toString(), instance); console.log(err); });
                 };
                 QueueService.prototype.updateQueue = function (data) {
                     return this.http.post(this.baseUri + "/api/admin/" + this.adminId + "/queue/update", data);
