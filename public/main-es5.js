@@ -39,7 +39,7 @@
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
             __webpack_require__.r(__webpack_exports__);
-            /* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title>{{ data.title }}</h1>\r\n<div mat-dialog-content>\r\n  <p>{{ data.message }}</p>\r\n</div>\r\n<div mat-dialog-actions>\r\n  <button mat-button (click)=\"onCloseClick()\">Close</button>\r\n</div>\r\n");
+            /* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title>{{ data.title }}</h1>\n<div mat-dialog-content>\n  <p>{{ data.message }}</p>\n</div>\n<div mat-dialog-actions>\n  <button mat-button (click)=\"onCloseClick()\">Close</button>\n</div>\n");
             /***/ 
         }),
         /***/ "./node_modules/tslib/tslib.es6.js": 
@@ -1302,8 +1302,17 @@
                     console.log(val);
                     instance.tickets = val;
                 };
-                EndUserHomeComponent.prototype.updateTicketsCallback = function (instance) {
-                    instance.getTickets();
+                EndUserHomeComponent.prototype.updateTicketsCallback = function (instance, responseType) {
+                    switch (responseType) {
+                        case "200":
+                            instance.getTickets();
+                        case "201":
+                            this.getPositionCallBack('You are the active ticket holder. Cannot delete your ticket now...', instance);
+                        case "202":
+                            this.getPositionCallBack('You are the next in queue.Cannot delete your ticket now...', instance);
+                        case "203":
+                            this.getPositionCallBack('You ticket is already closed. Cannot delete your ticket now...', instance);
+                    }
                 };
                 EndUserHomeComponent.prototype.cancelTicket = function (ticketId, queueId) {
                     console.log('cancel ticket called for ${this.ticketId}');
@@ -2192,11 +2201,6 @@
                     return this.http.post(this.baseUri + "/api/user/" + this.adminId + "/ticket/delete", data);
                 };
                 QueueService.prototype.deleteTicket = function (ticketId, userId, callback, instance) {
-                    // console.log("Delete Ticket Called ");
-                    // console.log(data);
-                    // return this.http.delete(`${this.baseUri}/api/user/${userId}/ticket/delete`, data).subscribe(data => {
-                    //     callback();
-                    // });
                     var options = {
                         headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
                             'Content-Type': 'application/json',
@@ -2208,9 +2212,21 @@
                     };
                     this.http
                         .delete(this.baseUri + "/api/user/" + userId + "/ticket/delete", options)
-                        .subscribe(function (s) {
-                        console.log(s);
-                        callback(instance);
+                        .subscribe(function (res) {
+                        console.log(res);
+                        var response = res;
+                        if (response.toString().includes('success')) {
+                            callback(instance, '200');
+                        }
+                        else if (response.toString().includes('active ticket')) {
+                            callback(instance, '201');
+                        }
+                        else if (response.toString().includes('next in queue')) {
+                            callback(instance, '202');
+                        }
+                        else if (response.toString().includes('already closed')) {
+                            callback(instance, '203');
+                        }
                     });
                 };
                 return QueueService;
@@ -2278,7 +2294,7 @@
           \***************************/
         /*! no static exports found */
         /***/ (function (module, exports, __webpack_require__) {
-            module.exports = __webpack_require__(/*! C:\Users\PC\centennial\fall 2019\sdp\CYOQ-CreateYourOwnQueue\angular\src\main.ts */ "./src/main.ts");
+            module.exports = __webpack_require__(/*! D:\Study\Software Development Project-2\Structure_Reworked\CYOQ-CreateYourOwnQueue\angular\src\main.ts */ "./src/main.ts");
             /***/ 
         })
     }, [[0, "runtime", "vendor"]]]);

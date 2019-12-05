@@ -37,14 +37,11 @@ router.get("/:authKey/queue/get/:companyId", function(req, res) {
   ticketController.getUserRelatedQueueTicket(req, res);
 });
 
-<<<<<<< HEAD
-
-router.get('/:authKey/company/:companyId/ticket/:ticketId/notification', function (req, res) {
-  ticketController.getTicketNotification(req,res);
-});
-
+router.get(
+  "/:authKey/company/:companyId/ticket/:ticketId/notification",
+  function(req, res) {
+    ticketController.getTicketNotification(req, res);
+  }
+);
 
 module.exports = router;
-=======
-module.exports = router;
->>>>>>> frontend_createticket
