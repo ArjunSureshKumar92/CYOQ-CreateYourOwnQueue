@@ -13,17 +13,17 @@ import { Location } from '@angular/common';
   <form [formGroup]="angForm" (ngSubmit)="submit()" #form>
     <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" class="form-control form-control-lg" formControlName="name" id="name" name="name" />
+        <input type="text" readonly="readonly" class="form-control form-control-lg" formControlName="name" id="name" name="name" />
     </div>
     <div class="form-group">
         <label for="name">Email</label>
-        <input type="text" class="form-control" formControlName="email" id="email" name="email" />
+        <input type="text" readonly="readonly" class="form-control" formControlName="email" id="email" name="email" />
     </div>
     <div hidden>
         <input type="text" class="form-control" id="companyId" name="companyId" value="{{companyId}}" />
         <input type="text" class="form-control" id="ticketId" name="ticketId" value="{{ticketId}}" />
     </div>
-    <input type="submit" class="btn btn-primary btn-block btn-lg" [disabled]="angForm.pristine || angForm.invalid" value="Close Ticket" />
+    <input type="submit" class="btn btn-primary btn-block btn-lg" value="Close Ticket" />
   </form>
   `
 })
