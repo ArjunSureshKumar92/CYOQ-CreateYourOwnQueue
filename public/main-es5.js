@@ -1639,8 +1639,9 @@
                         _this.companyId = params.get('companyId');
                         _this.moderatorId = params.get('moderatorId');
                         _this.queueId = params.get('queueId');
-                        _this.createForm();
+                        _this.getDetails();
                     });
+                    this.createForm();
                 };
                 TicketDetailsComponent.prototype.createForm = function () {
                     this.angForm = this.fb.group({

@@ -2015,8 +2015,9 @@ let TicketDetailsComponent = class TicketDetailsComponent {
             this.companyId = params.get('companyId');
             this.moderatorId = params.get('moderatorId');
             this.queueId = params.get('queueId');
-            this.createForm();
+            this.getDetails();
         });
+        this.createForm();
     }
     createForm() {
         this.angForm = this.fb.group({

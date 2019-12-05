@@ -43,8 +43,9 @@ export class TicketDetailsComponent implements OnInit {
             this.companyId = params.get('companyId');
             this.moderatorId = params.get('moderatorId');
             this.queueId = params.get('queueId');
-            this.createForm();
+            this.getDetails();
         });
+        this.createForm();
     }
 
     createForm() {
