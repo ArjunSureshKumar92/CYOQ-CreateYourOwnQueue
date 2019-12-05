@@ -1366,9 +1366,14 @@
                 function EndUserListComponent(qs) {
                     this.qs = qs;
                     this.tickets = [];
-                    this.getTickets();
                 }
                 EndUserListComponent.prototype.ngOnInit = function () {
+                    this.getTickets();
+                };
+                EndUserListComponent.prototype.ngOnChanges = function (changes) {
+                    if (changes.queueId || changes.moderatorId) {
+                        this.getTickets();
+                    }
                 };
                 EndUserListComponent.prototype.getTickets = function () {
                     var _this = this;

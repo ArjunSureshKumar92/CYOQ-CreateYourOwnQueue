@@ -1666,9 +1666,14 @@ let EndUserListComponent = class EndUserListComponent {
     constructor(qs) {
         this.qs = qs;
         this.tickets = [];
-        this.getTickets();
     }
     ngOnInit() {
+        this.getTickets();
+    }
+    ngOnChanges(changes) {
+        if (changes.queueId || changes.moderatorId) {
+            this.getTickets();
+        }
     }
     getTickets() {
         this.qs.getActiveTickets(this.moderatorId, this.queueId).subscribe(res => {

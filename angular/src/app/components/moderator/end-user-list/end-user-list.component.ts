@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { QueueService } from 'src/app/services/queue.service';
 
 @Component({
@@ -19,7 +19,7 @@ import { QueueService } from 'src/app/services/queue.service';
   }
   `]
 })
-export class EndUserListComponent implements OnInit {
+export class EndUserListComponent implements OnInit, OnChanges {
     tickets: any;
 
     @Input()
@@ -30,10 +30,16 @@ export class EndUserListComponent implements OnInit {
 
     constructor(private qs: QueueService) {
         this.tickets = [];
-        this.getTickets();
     }
 
     ngOnInit() {
+        this.getTickets();
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.queueId || changes.moderatorId) {
+            this.getTickets();
+        }
     }
 
     getTickets() {
