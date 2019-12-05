@@ -39,7 +39,7 @@
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
             __webpack_require__.r(__webpack_exports__);
-            /* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title>Hi {{ data.title }}</h1>\n<div mat-dialog-content>\n  <p>{{ data.message }</p>\n</div>\n<div mat-dialog-actions>\n  <button mat-button (click)=\"onCloseClick()\">Close</button>\n</div>\n");
+            /* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title>Hi {{ data.title }}</h1>\n<div mat-dialog-content>\n  <p>{{ data.message }}</p>\n</div>\n<div mat-dialog-actions>\n  <button mat-button (click)=\"onCloseClick()\">Close</button>\n</div>\n");
             /***/ 
         }),
         /***/ "./node_modules/tslib/tslib.es6.js": 
@@ -1346,7 +1346,7 @@
             EndUserHomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-enduser-home',
-                    template: "\n  <div>\n  <table class=\"table\">\n  <thead class=\"thead-dark\">\n    <tr>\n      <th scope=\"col\">Ticket ID</th>\n      <th scope=\"col\">Name</th>\n      <th scope=\"col\">Queue Name</th>\n      <th scope=\"col\">Status</th>\n      <th scope=\"col\">Action</th>\n    </tr>\n  </thead>\n  <tbody>\n   <tr *ngFor=\"let ticket of tickets\">\n      <td scope=\"row\">{{ticket.ticketId}}</td>\n      <td>{{ticket.name}}</td>\n      <td>{{ticket.queueName}}</td>\n      <td>{{ticket.status}}</td>\n      <td><button class=\"btn btn-danger\" (click)=\"cancelTicket(ticket.ticketId)\">Cancel Ticket</button></td>\n      <td><button class=\"btn btn-danger\" (click)=\"getPositionClick(ticket.queueId)\">Get Ticket Position</button></td>\n      </tr>\n  </tbody>\n  </table>\n  </div>\n  "
+                    template: "\n  <div>\n  <table class=\"table\">\n  <thead class=\"thead-dark\">\n    <tr>\n      <th scope=\"col\">Ticket ID</th>\n      <th scope=\"col\">Name</th>\n      <th scope=\"col\">Queue Name</th>\n      <th scope=\"col\">Status</th>\n      <th scope=\"col\">Delete Ticket</th>\n      <th scope=\"col\">Get Ticket Position</th>\n    </tr>\n  </thead>\n  <tbody>\n   <tr *ngFor=\"let ticket of tickets\">\n      <td scope=\"row\">{{ticket.ticketId}}</td>\n      <td>{{ticket.name}}</td>\n      <td>{{ticket.queueName}}</td>\n      <td>{{ticket.status}}</td>\n      <td><button class=\"btn btn-danger\" (click)=\"cancelTicket(ticket.ticketId)\">Cancel Ticket</button></td>\n      <td><button class=\"btn btn-success\" (click)=\"getPositionClick(ticket.ticketId,ticket.queueId)\">Get Ticket Position</button></td>\n      </tr>\n  </tbody>\n  </table>\n  </div>\n  "
                 })
             ], EndUserHomeComponent);
             /***/ 

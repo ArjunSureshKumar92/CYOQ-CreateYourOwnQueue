@@ -15,7 +15,8 @@ import { ModalComponent } from '../../../modal/modal.component';
       <th scope="col">Name</th>
       <th scope="col">Queue Name</th>
       <th scope="col">Status</th>
-      <th scope="col">Action</th>
+      <th scope="col">Delete Ticket</th>
+      <th scope="col">Get Ticket Position</th>
     </tr>
   </thead>
   <tbody>
@@ -25,7 +26,7 @@ import { ModalComponent } from '../../../modal/modal.component';
       <td>{{ticket.queueName}}</td>
       <td>{{ticket.status}}</td>
       <td><button class="btn btn-danger" (click)="cancelTicket(ticket.ticketId)">Cancel Ticket</button></td>
-      <td><button class="btn btn-danger" (click)="getPositionClick(ticket.queueId)">Get Ticket Position</button></td>
+      <td><button class="btn btn-success" (click)="getPositionClick(ticket.ticketId,ticket.queueId)">Get Ticket Position</button></td>
       </tr>
   </tbody>
   </table>

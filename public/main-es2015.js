@@ -45,7 +45,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title>Hi {{ data.title }}</h1>\n<div mat-dialog-content>\n  <p>{{ data.message }</p>\n</div>\n<div mat-dialog-actions>\n  <button mat-button (click)=\"onCloseClick()\">Close</button>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title>Hi {{ data.title }}</h1>\n<div mat-dialog-content>\n  <p>{{ data.message }}</p>\n</div>\n<div mat-dialog-actions>\n  <button mat-button (click)=\"onCloseClick()\">Close</button>\n</div>\n");
 
 /***/ }),
 
@@ -1621,7 +1621,8 @@ EndUserHomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
       <th scope="col">Name</th>
       <th scope="col">Queue Name</th>
       <th scope="col">Status</th>
-      <th scope="col">Action</th>
+      <th scope="col">Delete Ticket</th>
+      <th scope="col">Get Ticket Position</th>
     </tr>
   </thead>
   <tbody>
@@ -1631,7 +1632,7 @@ EndUserHomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
       <td>{{ticket.queueName}}</td>
       <td>{{ticket.status}}</td>
       <td><button class="btn btn-danger" (click)="cancelTicket(ticket.ticketId)">Cancel Ticket</button></td>
-      <td><button class="btn btn-danger" (click)="getPositionClick(ticket.queueId)">Get Ticket Position</button></td>
+      <td><button class="btn btn-success" (click)="getPositionClick(ticket.ticketId,ticket.queueId)">Get Ticket Position</button></td>
       </tr>
   </tbody>
   </table>
