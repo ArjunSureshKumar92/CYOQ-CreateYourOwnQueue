@@ -2116,7 +2116,7 @@ TicketItemComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: `
   <div class="container-fluid clickable row">
     <h5 class="d-inline col">{{name}}</h5>
-    <a routerLink="{{this.qs.baseUri}}/moderator/ticket/get/{{this.qs.companyId}}/{{queueId}}/{{ticketId}}" class="divLink"></a>
+    <a routerLink="{{this.qs.baseUri}}/moderator/ticket/get/{{this.qs.companyId}}/{{queueId}}/ticket/{{ticketId}}" class="divLink"></a>
   </div>
   `,
         styles: ["\n  .container-fluid {\n    background: rgb(255,255,255);\n    margin: 0.5em;\n    padding: 1em 1.5em;\n  }\n  "]
