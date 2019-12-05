@@ -1366,6 +1366,7 @@
                 function EndUserListComponent(qs) {
                     this.qs = qs;
                     this.queueId = '';
+                    this.moderatorId = '';
                 }
                 EndUserListComponent.prototype.ngOnInit = function () { };
                 EndUserListComponent.prototype.ngOnChanges = function (changes) { };
@@ -1380,10 +1381,13 @@
             tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
             ], EndUserListComponent.prototype, "queueId", void 0);
+            tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+                Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
+            ], EndUserListComponent.prototype, "moderatorId", void 0);
             EndUserListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-end-user-list',
-                    template: "\n  <div *ngIf=\"ticket; else displayEmpty\" class=\"container-fluid\">\n    <app-ticket-item name=\"{{ticket.name}}\" ticketId=\"{{ticket.ticketId}}\" queueId=\"{{queueId}}\"></app-ticket-item>\n  </div>\n  <ng-template #displayEmpty>\n    <div class=\"container-fluid text-center\">No tickets called yet.</div>\n  </ng-template>\n  ",
+                    template: "\n  <div *ngIf=\"ticket; else displayEmpty\" class=\"container-fluid\">\n    <app-ticket-item name=\"{{ticket.name}}\" ticketId=\"{{ticket.ticketId}}\" moderatorId=\"{{moderatorId}}\" queueId=\"{{queueId}}\"></app-ticket-item>\n  </div>\n  <ng-template #displayEmpty>\n    <div class=\"container-fluid text-center\">No tickets called yet.</div>\n  </ng-template>\n  ",
                     styles: ["\n  .container-fluid {\n    background: rgb(240,240,240);\n    margin: 0.5em auto;\n    padding: 1em;\n  }\n  "]
                 })
             ], EndUserListComponent);
@@ -1603,7 +1607,7 @@
             ModeratorQueueComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-moderator-queue',
-                    template: "\n    <form (ngSubmit)=\"submit()\">\n        <input type=\"submit\" value=\"Call Next\" class=\"btn btn-primary btn-lg btn-block\" name=\"call\" id=\"call\" />\n        <app-end-user-list [ticket]=\"ticket\" [queueId]=\"queueId\"></app-end-user-list>\n        <input type=\"button\" (click)=\"closeRegistration()\" value=\"Close Registration\" class=\"btn btn-danger btn-lg btn-block\" name=\"close\" id=\"close\" />\n    </form>\n    "
+                    template: "\n    <form (ngSubmit)=\"submit()\">\n        <input type=\"submit\" value=\"Call Next\" class=\"btn btn-primary btn-lg btn-block\" name=\"call\" id=\"call\" />\n        <app-end-user-list [ticket]=\"ticket\" [queueId]=\"queueId\" [mdoeratorId]=\"moderatorId\"></app-end-user-list>\n        <input type=\"button\" (click)=\"closeRegistration()\" value=\"Close Registration\" class=\"btn btn-danger btn-lg btn-block\" name=\"close\" id=\"close\" />\n    </form>\n    "
                 })
             ], ModeratorQueueComponent);
             /***/ 
@@ -1688,6 +1692,7 @@
                     this.name = '';
                     this.ticketId = '';
                     this.queueId = '';
+                    this.moderatorId = '';
                 }
                 TicketItemComponent.prototype.ngOnInit = function () {
                 };
@@ -1705,10 +1710,13 @@
             tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
             ], TicketItemComponent.prototype, "queueId", void 0);
+            tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+                Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
+            ], TicketItemComponent.prototype, "moderatorId", void 0);
             TicketItemComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-ticket-item',
-                    template: "\n  <div class=\"container-fluid clickable row\">\n    <h5 class=\"d-inline col\">{{name}}</h5>\n    <a routerLink=\"/moderator/ticket/get/{{this.qs.companyId}}/{{queueId}}/ticket/{{ticketId}}\" class=\"divLink\"></a>\n  </div>\n  ",
+                    template: "\n  <div class=\"container-fluid clickable row\">\n    <h5 class=\"d-inline col\">{{name}}</h5>\n    <a routerLink=\"/moderator/{{moderatorId}}/queue/get/{{this.qs.companyId}}/{{queueId}}/ticket/{{ticketId}}\" class=\"divLink\"></a>\n  </div>\n  ",
                     styles: ["\n  .container-fluid {\n    background: rgb(255,255,255);\n    margin: 0.5em;\n    padding: 1em 1.5em;\n  }\n  "]
                 })
             ], TicketItemComponent);

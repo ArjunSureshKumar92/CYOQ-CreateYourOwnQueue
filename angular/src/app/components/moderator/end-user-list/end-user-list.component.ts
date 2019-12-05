@@ -5,7 +5,7 @@ import { QueueService } from 'src/app/services/queue.service';
   selector: 'app-end-user-list',
   template: `
   <div *ngIf="ticket; else displayEmpty" class="container-fluid">
-    <app-ticket-item name="{{ticket.name}}" ticketId="{{ticket.ticketId}}" queueId="{{queueId}}"></app-ticket-item>
+    <app-ticket-item name="{{ticket.name}}" ticketId="{{ticket.ticketId}}" moderatorId="{{moderatorId}}" queueId="{{queueId}}"></app-ticket-item>
   </div>
   <ng-template #displayEmpty>
     <div class="container-fluid text-center">No tickets called yet.</div>
@@ -26,6 +26,9 @@ export class EndUserListComponent implements OnInit, OnChanges {
 
     @Input()
     queueId = '';
+
+    @Input()
+    moderatorId = '';
 
     constructor(private qs: QueueService) {}
 

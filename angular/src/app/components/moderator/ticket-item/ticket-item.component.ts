@@ -6,7 +6,7 @@ import { QueueService } from 'src/app/services/queue.service';
   template: `
   <div class="container-fluid clickable row">
     <h5 class="d-inline col">{{name}}</h5>
-    <a routerLink="/moderator/ticket/get/{{this.qs.companyId}}/{{queueId}}/ticket/{{ticketId}}" class="divLink"></a>
+    <a routerLink="/moderator/{{moderatorId}}/queue/get/{{this.qs.companyId}}/{{queueId}}/ticket/{{ticketId}}" class="divLink"></a>
   </div>
   `,
   styles: [`
@@ -26,6 +26,9 @@ export class TicketItemComponent implements OnInit {
 
     @Input()
     queueId = '';
+
+    @Input()
+    moderatorId = '';
 
     constructor(private qs: QueueService) { }
 
