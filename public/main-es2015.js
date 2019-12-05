@@ -2736,20 +2736,18 @@ let QueueService = class QueueService {
             .delete(`${this.baseUri}/api/user/${userId}/ticket/delete`, options)
             .subscribe((res) => {
             console.log(res);
-            let response = res;
-            if (response.toString().includes('success')) {
+            console.log(res['response']);
+            if (res.toString().includes('success')) {
                 callback(instance, '200');
             }
-            if (response.hasOwnProperty('response')) {
-                if (response.hasOwnProperty('response') && response['response'].toString().includes('active ticket')) {
-                    callback(instance, '201');
-                }
-                else if (response.toString().includes('next in queue')) {
-                    callback(instance, '202');
-                }
-                else if (response.toString().includes('already closed')) {
-                    callback(instance, '203');
-                }
+            if (res['response'] != null && res['response'].toString().includes('active ticket')) {
+                callback(instance, '201');
+            }
+            else if (res['response'] != null && res['response'].toString().includes('next in queue')) {
+                callback(instance, '202');
+            }
+            else if (res['response'] != null && res['response'].toString().includes('already closed')) {
+                callback(instance, '203');
             }
         });
     }
