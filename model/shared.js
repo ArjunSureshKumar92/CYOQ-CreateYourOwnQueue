@@ -125,6 +125,10 @@ exports.storeNotification = function(ticketId,userId,message,dbName,collectionNa
     console.log(ticketId);
     console.log(message);
     var obj = {};
+    obj.ticketId = ticketId;
+    obj.userId = userId;
+    obj.message = message;
+    obj.status = constants.notificationStatusNotSend;
     db = mongodb.getCustomerDb();
     db.db(dbName).collection(collectionName).insertOne(obj, (err, result) => {
         if (err) {

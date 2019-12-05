@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { QueueService } from '../../../services/queue.service';
-import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-moderator-queue-list',
@@ -11,12 +10,9 @@ import { ActivatedRoute } from "@angular/router";
         <button class="btn btn-primary">Search</button>
     </div>
   </div>
-  <div *ngIf="queues?.length > 0; else displayEmpty" class="container-fluid">
-    <app-moderator-queue-item *ngFor="let q of queues | filter : searchText" name="{{q.name}}" queueId="{{q.queueId}}" moderatorId="{{moderatorId}}"></app-moderator-queue-item>
+  <div class="container-fluid">
+    <app-moderator-queue-item *ngFor="let q of queues | filter : searchText" name="{{q.name}}" queueId="{{q.queueId}}"></app-moderator-queue-item>
   </div>
-  <ng-template #displayEmpty>
-    <div class="container-fluid text-center">No queues assigned yet.</div>
-  </ng-template>
   `,
   styles: [`
   .container-fluid {
@@ -32,28 +28,22 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class ModeratorQueueListComponent implements OnInit {
     queues: any;
-    moderatorId: string;
 
-    constructor(private qs: QueueService, private route: ActivatedRoute) {
+    constructor(private qs: QueueService) {
         this.queues = [];
+        this.getQueues();
     }
 
     getQueues() {
-        this.qs.getQueues(this.moderatorId).subscribe(
-            res => {
-              this.queues = res['response'];
-            }, 
-            err => {
-                console.log(err);
-            }
-        );
+        this.qs.getQueues(this.getCallback,this, this.qs.getModeratorId());
+    }
+
+    getCallback(val,instance) {
+        console.log("val"+val[0].name);
+        instance.queues = val; 
     }
 
     ngOnInit() {
-        this.route.paramMap.subscribe(params => {
-            this.moderatorId = params.get('moderatorId');
-            this.getQueues();
-        });
     }
 
 }

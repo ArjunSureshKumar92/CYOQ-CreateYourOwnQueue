@@ -83,12 +83,21 @@ export class CompanyDetailsComponent implements OnInit {
 
     onSubmit() {
         const data = {
+<<<<<<< HEAD:angular/src/app/components/admin/company-details/company-details.component.ts
             name: this.angForm.get('name').value,
             address: this.angForm.get('address').value,
             phone: this.angForm.get('phone').value,
             email: this.angForm.get('email').value,
             companyId: this.companyId
         };
+=======
+            'name': this.angForm.get('name').value,
+            'address': this.angForm.get('address').value,
+            'phone': this.angForm.get('phone').value,
+            'email': this.angForm.get('email').value,
+            'companyId': this.companyId
+        }
+>>>>>>> master:angular/src/app/components/admin/company-details/company-details.component.ts
 
         this.qs.updateCompany(data).subscribe(
             res => {
@@ -96,6 +105,13 @@ export class CompanyDetailsComponent implements OnInit {
                 console.log('Company updated.');
             },
             err => { console.log(err); }
+<<<<<<< HEAD:angular/src/app/components/admin/company-details/company-details.component.ts
         );
+=======
+        )
+    }
+
+    ngOnInit() {
+>>>>>>> master:angular/src/app/components/admin/company-details/company-details.component.ts
     }
 }

@@ -10,9 +10,16 @@ import { Moderator } from '../models/moderator.model';
     providedIn: 'root'
 })
 export class QueueService {
+<<<<<<< HEAD
     baseUri = 'https://cyoq-frontend.herokuapp.com';
     adminId = 'comp313.2019@gmail.com';
     companyId = '496477151';
+=======
+    baseUri = 'https://cyoq-web.herokuapp.com'
+    adminId = 'comp313.2019@gmail.com';
+    companyId = '496477151';
+    moderatorId = '126755968333';
+>>>>>>> master
 
     constructor(private http: HttpClient, private adapter: QueueAdapter) { }
 
@@ -39,12 +46,23 @@ export class QueueService {
         return this.http.get(`${this.baseUri}/api/admin/${this.adminId}/moderator/all/${this.companyId}`);
     }
 
+<<<<<<< HEAD
+=======
+    getModeratorId() {
+        return '123';
+    }
+
+>>>>>>> master
     getCompany(companyId) {
         return this.http.get(`${this.baseUri}/api/admin/${this.adminId}/company/get/${companyId}`);
     }
 
     getAllCompany(callback, instance) {
+<<<<<<< HEAD
         let responses;
+=======
+        var responses;
+>>>>>>> master
         this.http.get(`${this.baseUri}/api/admin/company/all`).subscribe(data => {
             responses = data;
             console.log(responses.response[0].name);
@@ -53,7 +71,11 @@ export class QueueService {
     }
 
     getQueue(callback, instance, queueId) {
+<<<<<<< HEAD
         let responses;
+=======
+        var responses;
+>>>>>>> master
         this.http.get(`${this.baseUri}/api/admin/${this.adminId}/queue/get/${this.companyId}/${queueId}`).subscribe(data => {
             responses = data;
             console.log(responses);
@@ -61,17 +83,41 @@ export class QueueService {
         });
     }
 
+<<<<<<< HEAD
     getQueues(moderatorId?) {
         let url = `${this.baseUri}/api/admin/${this.adminId}/queue/all/${this.companyId}`;
+=======
+    getQueues(callback, instance, moderatorId?) {
+        var responses;
+        var url = `${this.baseUri}/api/admin/${this.adminId}/queue/all/${this.companyId}`;
+
+>>>>>>> master
         if (moderatorId) {
             url = `${this.baseUri}/api/moderator/${moderatorId}/queue/get/${this.companyId}`;
         }
 
+<<<<<<< HEAD
         return this.http.get(url);
     }
 
     getTickets(queueId) {
         return this.http.get(`${this.baseUri}/api/ticket/get/${this.companyId}/${queueId}/all`);
+=======
+        this.http.get(url).subscribe(data => {
+            responses = data;
+            console.log(responses.response[0].name);
+            callback(responses.response, instance);
+        });
+    }
+
+    getTickets(callback, instance, queueId) {
+        var responses;
+        this.http.get(`${this.baseUri}/api/ticket/get/${this.companyId}/${queueId}/all`).subscribe(data => {
+            responses = data;
+            console.log(responses.response[0].name);
+            callback(responses.response, instance);
+        });
+>>>>>>> master
     }
 
     getTicketPriority(queueId, ticketId) {
