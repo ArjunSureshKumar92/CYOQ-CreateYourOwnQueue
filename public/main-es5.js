@@ -1571,6 +1571,7 @@
                     var _this = this;
                     this.qs.getActiveTickets(this.moderatorId, this.queueId).subscribe(function (res) {
                         _this.tickets = res['response'];
+                        console.log(_this.tickets);
                     }, function (err) {
                         console.log(err);
                     });

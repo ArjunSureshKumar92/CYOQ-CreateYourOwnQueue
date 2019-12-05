@@ -36,6 +36,7 @@ export class ModeratorQueueComponent implements OnInit {
         this.qs.getActiveTickets(this.moderatorId, this.queueId).subscribe(
             res => {
                 this.tickets = res['response'];
+                console.log(this.tickets);
             },
             err => {
                 console.log(err);

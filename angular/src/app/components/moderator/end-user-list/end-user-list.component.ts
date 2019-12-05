@@ -17,7 +17,8 @@ import { QueueService } from 'src/app/services/queue.service';
     margin: 0.5em auto;
     padding: 1em;
   }
-  `]
+  `
+  ]
 })
 export class EndUserListComponent implements OnInit, OnChanges {
     @Input()
