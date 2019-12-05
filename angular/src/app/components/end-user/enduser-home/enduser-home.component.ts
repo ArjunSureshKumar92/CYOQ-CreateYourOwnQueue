@@ -45,7 +45,7 @@ export class EndUserHomeComponent implements OnInit {
     console.log(url);
     this.userId = url[url.length - 1];
     this.getTickets();
-    
+
   }
 
   getTickets() {
@@ -57,8 +57,17 @@ export class EndUserHomeComponent implements OnInit {
     instance.tickets = val;
   }
 
-  updateTicketsCallback(instance) {
-    instance.getTickets();
+  updateTicketsCallback(instance, responseType: string) {
+    switch (responseType) {
+      case "200":
+        instance.getTickets();
+      case "201":
+        this.getPositionCallBack('You are the active ticket holder. Cannot delete your ticket now...', instance)
+      case "202":
+        this.getPositionCallBack('You are the next in queue.Cannot delete your ticket now...', instance);
+      case "203":
+        this.getPositionCallBack('You ticket is already closed. Cannot delete your ticket now...', instance)
+    }
   }
   cancelTicket(ticketId: string, queueId: string) {
     console.log('cancel ticket called for ${this.ticketId}');
