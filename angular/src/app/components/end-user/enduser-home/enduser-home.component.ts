@@ -58,7 +58,7 @@ export class EndUserHomeComponent implements OnInit {
   }
 
   updateTicketsCallback(instance) {
-    instance.getUserTickets();
+    instance.getTickets();
   }
   cancelTicket(ticketId: string, queueId: string) {
     console.log('cancel ticket called for ${this.ticketId}');

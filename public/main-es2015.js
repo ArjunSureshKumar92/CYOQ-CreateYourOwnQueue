@@ -1568,7 +1568,7 @@ let EndUserHomeComponent = class EndUserHomeComponent {
         instance.tickets = val;
     }
     updateTicketsCallback(instance) {
-        instance.getUserTickets();
+        instance.getTickets();
     }
     cancelTicket(ticketId, queueId) {
         console.log('cancel ticket called for ${this.ticketId}');

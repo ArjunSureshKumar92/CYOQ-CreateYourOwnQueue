@@ -1303,7 +1303,7 @@
                     instance.tickets = val;
                 };
                 EndUserHomeComponent.prototype.updateTicketsCallback = function (instance) {
-                    instance.getUserTickets();
+                    instance.getTickets();
                 };
                 EndUserHomeComponent.prototype.cancelTicket = function (ticketId, queueId) {
                     console.log('cancel ticket called for ${this.ticketId}');
