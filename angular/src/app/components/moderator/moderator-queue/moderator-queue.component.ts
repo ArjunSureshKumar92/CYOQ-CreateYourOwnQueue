@@ -10,7 +10,6 @@ import { Location } from '@angular/common';
     <form (ngSubmit)="submit()">
         <input type="submit" value="Call Next" class="btn btn-primary btn-lg btn-block" name="call" id="call" />
         <app-end-user-list [ticket]="ticket" [queueId]="queueId" [moderatorId]="moderatorId"></app-end-user-list>
-        <input type="button" (click)="closeRegistration()" value="Close Registration" class="btn btn-danger btn-lg btn-block" name="close" id="close" />
     </form>
     `
 })
@@ -56,12 +55,5 @@ export class ModeratorQueueComponent implements OnInit {
             err => { console.log(err); },
             () => { console.log('Called next ticket.'); }
         );
-    }
-
-    closeRegistration() {
-        let data = {
-            companyId: this.companyId,
-            queueId: this.queueId
-        }
     }
 }

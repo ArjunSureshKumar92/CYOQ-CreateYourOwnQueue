@@ -1590,12 +1590,6 @@
                         _this.router.navigateByUrl(_this.router.url);
                     }, function (err) { console.log(err); }, function () { console.log('Called next ticket.'); });
                 };
-                ModeratorQueueComponent.prototype.closeRegistration = function () {
-                    var data = {
-                        companyId: this.companyId,
-                        queueId: this.queueId
-                    };
-                };
                 return ModeratorQueueComponent;
             }());
             ModeratorQueueComponent.ctorParameters = function () { return [
@@ -1607,7 +1601,7 @@
             ModeratorQueueComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-moderator-queue',
-                    template: "\n    <form (ngSubmit)=\"submit()\">\n        <input type=\"submit\" value=\"Call Next\" class=\"btn btn-primary btn-lg btn-block\" name=\"call\" id=\"call\" />\n        <app-end-user-list [ticket]=\"ticket\" [queueId]=\"queueId\" [moderatorId]=\"moderatorId\"></app-end-user-list>\n        <input type=\"button\" (click)=\"closeRegistration()\" value=\"Close Registration\" class=\"btn btn-danger btn-lg btn-block\" name=\"close\" id=\"close\" />\n    </form>\n    "
+                    template: "\n    <form (ngSubmit)=\"submit()\">\n        <input type=\"submit\" value=\"Call Next\" class=\"btn btn-primary btn-lg btn-block\" name=\"call\" id=\"call\" />\n        <app-end-user-list [ticket]=\"ticket\" [queueId]=\"queueId\" [moderatorId]=\"moderatorId\"></app-end-user-list>\n    </form>\n    "
                 })
             ], ModeratorQueueComponent);
             /***/ 
@@ -1628,24 +1622,37 @@
             /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
             /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
             var TicketDetailsComponent = /** @class */ (function () {
-                function TicketDetailsComponent(location, fb, qs, router) {
+                function TicketDetailsComponent(location, fb, qs, route) {
                     this.location = location;
                     this.fb = fb;
                     this.qs = qs;
-                    this.router = router;
+                    this.route = route;
                     this.companyId = '';
                     this.ticketId = '';
-                    var url = this.router.url.split('/');
-                    this.ticketId = url[url.length - 1];
-                    this.companyId = url[url.length - 4];
-                    this.createForm();
+                    this.moderatorId = '';
+                    this.queueId = '';
                 }
                 TicketDetailsComponent.prototype.ngOnInit = function () {
+                    var _this = this;
+                    this.route.paramMap.subscribe(function (params) {
+                        _this.ticketId = params.get('ticketId');
+                        _this.companyId = params.get('companyId');
+                        _this.moderatorId = params.get('moderatorId');
+                        _this.queueId = params.get('queueId');
+                        _this.createForm();
+                    });
                 };
                 TicketDetailsComponent.prototype.createForm = function () {
                     this.angForm = this.fb.group({
                         name: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
                         email: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
+                    });
+                };
+                TicketDetailsComponent.prototype.getDetails = function () {
+                    var _this = this;
+                    this.qs.getActiveTickets(this.moderatorId, this.queueId).subscribe(function (res) {
+                        _this.angForm.get('name').setValue(res['response'].name);
+                        _this.angForm.get('email').setValue(res['response'].email);
                     });
                 };
                 TicketDetailsComponent.prototype.submit = function () {
@@ -1664,12 +1671,12 @@
                 { type: _angular_common__WEBPACK_IMPORTED_MODULE_5__["Location"] },
                 { type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"] },
                 { type: src_app_services_queue_service__WEBPACK_IMPORTED_MODULE_3__["QueueService"] },
-                { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
+                { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"] }
             ]; };
             TicketDetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-ticket-details',
-                    template: "\n  <div>\n    <app-moderator-navbar></app-moderator-navbar>\n  </div>\n  <form [formGroup]=\"angForm\" (ngSubmit)=\"submit()\" #form>\n    <div class=\"form-group\">\n        <label for=\"name\">Name</label>\n        <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"name\" id=\"name\" name=\"name\" />\n    </div>\n    <div class=\"form-group\">\n        <label for=\"name\">Email</label>\n        <input type=\"text\" class=\"form-control\" formControlName=\"email\" id=\"email\" name=\"email\" />\n    </div>\n    <div class=\"form-group\">\n        <label for=\"description\">Notes</label>\n        <input type=\"text\" class=\"form-control\" formControlName=\"description\" id=\"description\" name=\"description\" />\n    </div>\n    <div hidden>\n        <input type=\"text\" class=\"form-control\" id=\"companyId\" name=\"companyId\" value=\"{{companyId}}\" />\n        <input type=\"text\" class=\"form-control\" id=\"ticketId\" name=\"ticketId\" value=\"{{ticketId}}\" />\n    </div>\n    <input type=\"submit\" class=\"btn btn-primary btn-block btn-lg\" [disabled]=\"angForm.pristine || angForm.invalid\" value=\"Close Ticket\" />\n  </form>\n  "
+                    template: "\n  <div>\n    <app-moderator-navbar></app-moderator-navbar>\n  </div>\n  <form [formGroup]=\"angForm\" (ngSubmit)=\"submit()\" #form>\n    <div class=\"form-group\">\n        <label for=\"name\">Name</label>\n        <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"name\" id=\"name\" name=\"name\" />\n    </div>\n    <div class=\"form-group\">\n        <label for=\"name\">Email</label>\n        <input type=\"text\" class=\"form-control\" formControlName=\"email\" id=\"email\" name=\"email\" />\n    </div>\n    <div hidden>\n        <input type=\"text\" class=\"form-control\" id=\"companyId\" name=\"companyId\" value=\"{{companyId}}\" />\n        <input type=\"text\" class=\"form-control\" id=\"ticketId\" name=\"ticketId\" value=\"{{ticketId}}\" />\n    </div>\n    <input type=\"submit\" class=\"btn btn-primary btn-block btn-lg\" [disabled]=\"angForm.pristine || angForm.invalid\" value=\"Close Ticket\" />\n  </form>\n  "
                 })
             ], TicketDetailsComponent);
             /***/ 

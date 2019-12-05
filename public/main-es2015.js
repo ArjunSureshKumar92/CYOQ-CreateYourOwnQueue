@@ -1953,12 +1953,6 @@ let ModeratorQueueComponent = class ModeratorQueueComponent {
             this.router.navigateByUrl(this.router.url);
         }, err => { console.log(err); }, () => { console.log('Called next ticket.'); });
     }
-    closeRegistration() {
-        let data = {
-            companyId: this.companyId,
-            queueId: this.queueId
-        };
-    }
 };
 ModeratorQueueComponent.ctorParameters = () => [
     { type: _angular_common__WEBPACK_IMPORTED_MODULE_4__["Location"] },
@@ -1973,7 +1967,6 @@ ModeratorQueueComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     <form (ngSubmit)="submit()">
         <input type="submit" value="Call Next" class="btn btn-primary btn-lg btn-block" name="call" id="call" />
         <app-end-user-list [ticket]="ticket" [queueId]="queueId" [moderatorId]="moderatorId"></app-end-user-list>
-        <input type="button" (click)="closeRegistration()" value="Close Registration" class="btn btn-danger btn-lg btn-block" name="close" id="close" />
     </form>
     `
     })
@@ -2006,24 +1999,35 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let TicketDetailsComponent = class TicketDetailsComponent {
-    constructor(location, fb, qs, router) {
+    constructor(location, fb, qs, route) {
         this.location = location;
         this.fb = fb;
         this.qs = qs;
-        this.router = router;
+        this.route = route;
         this.companyId = '';
         this.ticketId = '';
-        let url = this.router.url.split('/');
-        this.ticketId = url[url.length - 1];
-        this.companyId = url[url.length - 4];
-        this.createForm();
+        this.moderatorId = '';
+        this.queueId = '';
     }
     ngOnInit() {
+        this.route.paramMap.subscribe(params => {
+            this.ticketId = params.get('ticketId');
+            this.companyId = params.get('companyId');
+            this.moderatorId = params.get('moderatorId');
+            this.queueId = params.get('queueId');
+            this.createForm();
+        });
     }
     createForm() {
         this.angForm = this.fb.group({
             name: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
             email: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
+        });
+    }
+    getDetails() {
+        this.qs.getActiveTickets(this.moderatorId, this.queueId).subscribe(res => {
+            this.angForm.get('name').setValue(res['response'].name);
+            this.angForm.get('email').setValue(res['response'].email);
         });
     }
     submit() {
@@ -2040,7 +2044,7 @@ TicketDetailsComponent.ctorParameters = () => [
     { type: _angular_common__WEBPACK_IMPORTED_MODULE_5__["Location"] },
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"] },
     { type: src_app_services_queue_service__WEBPACK_IMPORTED_MODULE_3__["QueueService"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"] }
 ];
 TicketDetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -2057,10 +2061,6 @@ TicketDetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     <div class="form-group">
         <label for="name">Email</label>
         <input type="text" class="form-control" formControlName="email" id="email" name="email" />
-    </div>
-    <div class="form-group">
-        <label for="description">Notes</label>
-        <input type="text" class="form-control" formControlName="description" id="description" name="description" />
     </div>
     <div hidden>
         <input type="text" class="form-control" id="companyId" name="companyId" value="{{companyId}}" />
