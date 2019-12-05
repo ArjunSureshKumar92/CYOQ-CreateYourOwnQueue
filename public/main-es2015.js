@@ -1944,7 +1944,7 @@ let ModeratorQueueComponent = class ModeratorQueueComponent {
             companyId: this.companyId,
             queueId: this.queueId
         };
-        this.qs.callTicket(data, this.moderatorId).subscribe(res => {
+        this.qs.callTicket(data).subscribe(res => {
             this.router.navigateByUrl(this.router.url);
         }, err => { console.log(err); }, () => { console.log('Called next ticket.'); });
     }
@@ -2336,8 +2336,8 @@ let QueueService = class QueueService {
     updateModerator(data) {
         return this.http.post(`${this.baseUri}/api/admin/${this.adminId}/moderator/update`, data);
     }
-    callTicket(data, moderatorId) {
-        return this.http.post(`${this.baseUri}/api/moderator/${moderatorId}/ticket/next`, data);
+    callTicket(data) {
+        return this.http.post(`${this.baseUri}/api/moderator/ticket/next`, data);
     }
     deleteQueue(data) {
         return this.http.post(`${this.baseUri}/api/admin/${this.adminId}/queue/delete`, data);

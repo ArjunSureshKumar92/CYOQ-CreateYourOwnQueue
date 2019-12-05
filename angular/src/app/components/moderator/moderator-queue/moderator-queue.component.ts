@@ -35,7 +35,7 @@ export class ModeratorQueueComponent implements OnInit {
             companyId: this.companyId,
             queueId: this.queueId
         }
-        this.qs.callTicket(data, this.moderatorId).subscribe(
+        this.qs.callTicket(data).subscribe(
             res => {
                 this.router.navigateByUrl(this.router.url);
             },
