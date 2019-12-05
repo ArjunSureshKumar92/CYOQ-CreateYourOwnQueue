@@ -2162,7 +2162,7 @@
                 };
                 QueueService.prototype.getTicketPriority = function (userId, queueId, ticketId, callback, instance) {
                     return this.http.get(this.baseUri + "/api/user/" + userId + "/ticket/getposition/" + this.companyId + "/" + queueId + "/" + ticketId).subscribe(function (s) {
-                        callback(s.toString(), instance);
+                        callback(s['response'].toString(), instance);
                         console.log(s);
                     }, function (err) { callback(err.toString(), instance); console.log(err); });
                 };

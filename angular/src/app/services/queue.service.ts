@@ -101,7 +101,7 @@ export class QueueService {
 
     getTicketPriority(userId, queueId, ticketId, callback, instance) {
         return this.http.get(`${this.baseUri}/api/user/${userId}/ticket/getposition/${this.companyId}/${queueId}/${ticketId}`).subscribe((s) => {
-            callback(s.toString(), instance);
+            callback(s['response'].toString(), instance);
             console.log(s);
         }, err => { callback(err.toString(), instance); console.log(err); });
     }
