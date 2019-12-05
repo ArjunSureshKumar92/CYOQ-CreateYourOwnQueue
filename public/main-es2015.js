@@ -1665,33 +1665,19 @@ __webpack_require__.r(__webpack_exports__);
 let EndUserListComponent = class EndUserListComponent {
     constructor(qs) {
         this.qs = qs;
-        this.tickets = [];
+        this.queueId = '';
     }
-    ngOnInit() {
-        this.getTickets();
-    }
-    ngOnChanges(changes) {
-        if (changes.queueId || changes.moderatorId) {
-            this.getTickets();
-        }
-    }
-    getTickets() {
-        this.qs.getActiveTickets(this.moderatorId, this.queueId).subscribe(res => {
-            this.tickets = res['response'];
-        }, err => {
-            console.log(err);
-        });
-    }
+    ngOnInit() { }
 };
 EndUserListComponent.ctorParameters = () => [
     { type: src_app_services_queue_service__WEBPACK_IMPORTED_MODULE_2__["QueueService"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
-], EndUserListComponent.prototype, "queueId", void 0);
+], EndUserListComponent.prototype, "tickets", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
-], EndUserListComponent.prototype, "moderatorId", void 0);
+], EndUserListComponent.prototype, "queueId", void 0);
 EndUserListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-end-user-list',
@@ -1942,6 +1928,14 @@ let ModeratorQueueComponent = class ModeratorQueueComponent {
             this.queueId = params.get('queueId');
             this.companyId = params.get('companyId');
             this.moderatorId = params.get('moderatorId');
+            this.getTickets();
+        });
+    }
+    getTickets() {
+        this.qs.getActiveTickets(this.moderatorId, this.queueId).subscribe(res => {
+            this.tickets = res['response'];
+        }, err => {
+            console.log(err);
         });
     }
     submit() {
@@ -1950,6 +1944,7 @@ let ModeratorQueueComponent = class ModeratorQueueComponent {
             queueId: this.queueId
         };
         this.qs.callTicket(data, this.moderatorId).subscribe(res => {
+            this.getTickets();
             this.router.navigateByUrl(this.router.url);
         }, err => { console.log(err); }, () => { console.log('Called next ticket.'); });
     }
@@ -1972,7 +1967,7 @@ ModeratorQueueComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: `
     <form (ngSubmit)="submit()">
         <input type="submit" value="Call Next" class="btn btn-primary btn-lg btn-block" name="call" id="call" />
-        <app-end-user-list [moderatorId]="moderatorId" [queueId]="queueId"></app-end-user-list>
+        <app-end-user-list [tickets]="tickets" [queueId]="queueId"></app-end-user-list>
         <input type="button" (click)="closeRegistration()" value="Close Registration" class="btn btn-danger btn-lg btn-block" name="close" id="close" />
     </form>
     `

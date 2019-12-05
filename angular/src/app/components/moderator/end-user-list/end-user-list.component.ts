@@ -19,37 +19,14 @@ import { QueueService } from 'src/app/services/queue.service';
   }
   `]
 })
-export class EndUserListComponent implements OnInit, OnChanges {
-    tickets: any;
+export class EndUserListComponent implements OnInit {
+    @Input()
+    tickets: any[];
 
     @Input()
-    queueId: string;
+    queueId = '';
 
-    @Input()
-    moderatorId: string;
+    constructor(private qs: QueueService) {}
 
-    constructor(private qs: QueueService) {
-        this.tickets = [];
-    }
-
-    ngOnInit() {
-        this.getTickets();
-    }
-
-    ngOnChanges(changes: SimpleChanges) {
-        if (changes.queueId || changes.moderatorId) {
-            this.getTickets();
-        }
-    }
-
-    getTickets() {
-        this.qs.getActiveTickets(this.moderatorId, this.queueId).subscribe(
-            res => {
-                this.tickets = res['response'];
-            },
-            err => {
-                console.log(err);
-            }
-        );
-    }
+    ngOnInit() {}
 }
