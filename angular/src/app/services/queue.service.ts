@@ -134,12 +134,15 @@ export class QueueService {
                 let response = res;
                 if (response.toString().includes('success')) {
                     callback(instance, '200')
-                } else if (response.toString().includes('active ticket')) {
-                    callback(instance, '201')
-                } else if (response.toString().includes('next in queue')) {
-                    callback(instance, '202')
-                } else if (response.toString().includes('already closed')) {
-                    callback(instance, '203')
+                }
+                if (response.hasOwnProperty('response')) {
+                    if (response.hasOwnProperty('response') && response['response'].toString().includes('active ticket')) {
+                        callback(instance, '201')
+                    } else if (response.toString().includes('next in queue')) {
+                        callback(instance, '202')
+                    } else if (response.toString().includes('already closed')) {
+                        callback(instance, '203')
+                    }
                 }
             });
     }
