@@ -365,7 +365,7 @@ const routes = [
         ]
     },
     {
-        path: 'user/:company/:queue',
+        path: 'user',
         children: [
             {
                 path: ':company/:queue/register',
