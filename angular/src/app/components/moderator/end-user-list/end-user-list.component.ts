@@ -19,7 +19,7 @@ import { QueueService } from 'src/app/services/queue.service';
   }
   `]
 })
-export class EndUserListComponent implements OnInit {
+export class EndUserListComponent implements OnInit, OnChanges {
     @Input()
     tickets: any[];
 
@@ -29,4 +29,6 @@ export class EndUserListComponent implements OnInit {
     constructor(private qs: QueueService) {}
 
     ngOnInit() {}
+
+    ngOnChanges(changes: SimpleChanges) {}
 }

@@ -1368,6 +1368,7 @@
                     this.queueId = '';
                 }
                 EndUserListComponent.prototype.ngOnInit = function () { };
+                EndUserListComponent.prototype.ngOnChanges = function (changes) { };
                 return EndUserListComponent;
             }());
             EndUserListComponent.ctorParameters = function () { return [
@@ -1707,7 +1708,7 @@
             TicketItemComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-ticket-item',
-                    template: "\n  <div class=\"container-fluid clickable row\">\n    <h5 class=\"d-inline col\">{{name}}</h5>\n    <a href=\"{{this.qs.baseUri}}/moderator/ticket/get/{{this.qs.companyId}}/{{queueId}}/{{ticketId}}\" class=\"divLink\"></a>\n  </div>\n  ",
+                    template: "\n  <div class=\"container-fluid clickable row\">\n    <h5 class=\"d-inline col\">{{name}}</h5>\n    <a routerLink=\"{{this.qs.baseUri}}/moderator/ticket/get/{{this.qs.companyId}}/{{queueId}}/{{ticketId}}\" class=\"divLink\"></a>\n  </div>\n  ",
                     styles: ["\n  .container-fluid {\n    background: rgb(255,255,255);\n    margin: 0.5em;\n    padding: 1em 1.5em;\n  }\n  "]
                 })
             ], TicketItemComponent);
