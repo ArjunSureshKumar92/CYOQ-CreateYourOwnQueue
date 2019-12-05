@@ -2685,7 +2685,7 @@ let QueueService = class QueueService {
         return this.http.get(`${this.baseUri}/api/user/${userId}/ticket/getposition/${this.companyId}/${queueId}/${ticketId}`).subscribe((s) => {
             callback(s['response'].toString(), instance);
             console.log(s);
-        }, err => { callback(err['response'].toString(), instance); console.log(err); });
+        }, err => { console.log(err); callback(err['response'].toString(), instance); });
     }
     updateQueue(data) {
         return this.http.post(`${this.baseUri}/api/admin/${this.adminId}/queue/update`, data);
