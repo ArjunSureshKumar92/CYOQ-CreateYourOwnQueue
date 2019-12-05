@@ -79,8 +79,8 @@ export class RegisterQueueComponent implements OnInit {
         this.qs.createTicket(data).subscribe(
             res => {
                 console.log("Response received from server");
-                console.log(res);
-                //this.router.navigateByUrl(`/user/${this.companyId}/${this.queueId}/view`);
+                console.log(res.toString());
+                this.router.navigateByUrl(`/user/view/${this.regForm.get('email').value}`);
             },
             err => { console.log(err); },
             () => { console.log('Registered for queue.'); }

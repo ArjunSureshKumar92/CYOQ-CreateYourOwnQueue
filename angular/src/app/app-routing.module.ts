@@ -62,12 +62,13 @@ const routes: Routes = [
         path: 'user/:company/:queue',
         children: [
             {
-                path: 'view',
-                component: EndUserHomeComponent
+                path: ':company/:queue/register',
+                component: RegisterQueueComponent
             },
             {
-                path: 'register',
-                component: RegisterQueueComponent
+                path: 'view/:userId',
+                component: EndUserHomeComponent
+
             }
         ]
     },
