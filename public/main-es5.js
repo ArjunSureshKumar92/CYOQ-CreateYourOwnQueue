@@ -1376,14 +1376,14 @@
             ]; };
             tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
-            ], EndUserListComponent.prototype, "tickets", void 0);
+            ], EndUserListComponent.prototype, "ticket", void 0);
             tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
             ], EndUserListComponent.prototype, "queueId", void 0);
             EndUserListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-end-user-list',
-                    template: "\n  <div *ngIf=\"tickets?.length > 0; else displayEmpty\" class=\"container-fluid\">\n    <app-ticket-item *ngFor=\"let t of tickets\" name=\"{{t.name}}\" ticketId=\"{{t.ticketId}}\" queueId=\"{{queueId}}\"></app-ticket-item>\n  </div>\n  <ng-template #displayEmpty>\n    <div class=\"container-fluid text-center\">No tickets called yet.</div>\n  </ng-template>\n  ",
+                    template: "\n  <div *ngIf=\"ticket; else displayEmpty\" class=\"container-fluid\">\n    <app-ticket-item name=\"{{ticket.name}}\" ticketId=\"{{ticket.ticketId}}\" queueId=\"{{queueId}}\"></app-ticket-item>\n  </div>\n  <ng-template #displayEmpty>\n    <div class=\"container-fluid text-center\">No tickets called yet.</div>\n  </ng-template>\n  ",
                     styles: ["\n  .container-fluid {\n    background: rgb(240,240,240);\n    margin: 0.5em auto;\n    padding: 1em;\n  }\n  "]
                 })
             ], EndUserListComponent);
@@ -1557,7 +1557,6 @@
                     this.companyId = '';
                     this.moderatorId = '';
                     this.queueId = '';
-                    this.tickets = [];
                 }
                 ModeratorQueueComponent.prototype.ngOnInit = function () {
                     var _this = this;
@@ -1565,14 +1564,13 @@
                         _this.queueId = params.get('queueId');
                         _this.companyId = params.get('companyId');
                         _this.moderatorId = params.get('moderatorId');
-                        _this.getTickets();
+                        _this.getActiveTicket();
                     });
                 };
-                ModeratorQueueComponent.prototype.getTickets = function () {
+                ModeratorQueueComponent.prototype.getActiveTicket = function () {
                     var _this = this;
                     this.qs.getActiveTickets(this.moderatorId, this.queueId).subscribe(function (res) {
-                        _this.tickets = res['response'];
-                        console.log(_this.tickets);
+                        _this.ticket = res['response'];
                     }, function (err) {
                         console.log(err);
                     });
@@ -1584,7 +1582,7 @@
                         queueId: this.queueId
                     };
                     this.qs.callTicket(data, this.moderatorId).subscribe(function (res) {
-                        _this.getTickets();
+                        _this.getActiveTicket();
                         _this.router.navigateByUrl(_this.router.url);
                     }, function (err) { console.log(err); }, function () { console.log('Called next ticket.'); });
                 };
@@ -1605,7 +1603,7 @@
             ModeratorQueueComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-moderator-queue',
-                    template: "\n    <form (ngSubmit)=\"submit()\">\n        <input type=\"submit\" value=\"Call Next\" class=\"btn btn-primary btn-lg btn-block\" name=\"call\" id=\"call\" />\n        <app-end-user-list [tickets]=\"tickets\" [queueId]=\"queueId\"></app-end-user-list>\n        <input type=\"button\" (click)=\"closeRegistration()\" value=\"Close Registration\" class=\"btn btn-danger btn-lg btn-block\" name=\"close\" id=\"close\" />\n    </form>\n    "
+                    template: "\n    <form (ngSubmit)=\"submit()\">\n        <input type=\"submit\" value=\"Call Next\" class=\"btn btn-primary btn-lg btn-block\" name=\"call\" id=\"call\" />\n        <app-end-user-list [ticket]=\"ticket\" [queueId]=\"queueId\"></app-end-user-list>\n        <input type=\"button\" (click)=\"closeRegistration()\" value=\"Close Registration\" class=\"btn btn-danger btn-lg btn-block\" name=\"close\" id=\"close\" />\n    </form>\n    "
                 })
             ], ModeratorQueueComponent);
             /***/ 

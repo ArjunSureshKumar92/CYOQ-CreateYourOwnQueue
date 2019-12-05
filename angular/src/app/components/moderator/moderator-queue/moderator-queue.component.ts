@@ -9,7 +9,7 @@ import { Location } from '@angular/common';
     template: `
     <form (ngSubmit)="submit()">
         <input type="submit" value="Call Next" class="btn btn-primary btn-lg btn-block" name="call" id="call" />
-        <app-end-user-list [tickets]="tickets" [queueId]="queueId"></app-end-user-list>
+        <app-end-user-list [ticket]="ticket" [queueId]="queueId"></app-end-user-list>
         <input type="button" (click)="closeRegistration()" value="Close Registration" class="btn btn-danger btn-lg btn-block" name="close" id="close" />
     </form>
     `
@@ -19,7 +19,7 @@ export class ModeratorQueueComponent implements OnInit {
     companyId = '';
     moderatorId = '';
     queueId = '';
-    tickets: any[] = [];
+    ticket: any;
 
     constructor(private location: Location, private qs: QueueService, private route: ActivatedRoute, private router: Router) {}
 
@@ -28,15 +28,14 @@ export class ModeratorQueueComponent implements OnInit {
             this.queueId = params.get('queueId');
             this.companyId = params.get('companyId');
             this.moderatorId = params.get('moderatorId');
-            this.getTickets();
+            this.getActiveTicket();
         });
     }
 
-    getTickets() {
+    getActiveTicket() {
         this.qs.getActiveTickets(this.moderatorId, this.queueId).subscribe(
             res => {
-                this.tickets = res['response'];
-                console.log(this.tickets);
+                this.ticket = res['response'];
             },
             err => {
                 console.log(err);
@@ -51,7 +50,7 @@ export class ModeratorQueueComponent implements OnInit {
         }
         this.qs.callTicket(data, this.moderatorId).subscribe(
             res => {
-                this.getTickets();
+                this.getActiveTicket();
                 this.router.navigateByUrl(this.router.url);
             },
             err => { console.log(err); },
