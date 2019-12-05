@@ -91,7 +91,7 @@ export class QueueService {
     }
 
     callTicket(data) {
-        return this.http.post(`${this.baseUri}/api/moderator/ticket/next`, data);
+        return this.http.put(`${this.baseUri}/api/moderator/ticket/next`, data);
     }
 
     deleteQueue(data) {

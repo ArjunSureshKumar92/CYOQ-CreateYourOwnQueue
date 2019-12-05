@@ -1901,7 +1901,7 @@
                     return this.http.post(this.baseUri + "/api/admin/" + this.adminId + "/moderator/update", data);
                 };
                 QueueService.prototype.callTicket = function (data) {
-                    return this.http.post(this.baseUri + "/api/moderator/ticket/next", data);
+                    return this.http.put(this.baseUri + "/api/moderator/ticket/next", data);
                 };
                 QueueService.prototype.deleteQueue = function (data) {
                     return this.http.post(this.baseUri + "/api/admin/" + this.adminId + "/queue/delete", data);
