@@ -16,11 +16,6 @@ import { TicketDetailsComponent } from './components/moderator/ticket-details/ti
 
 const routes: Routes = [
     {
-        path: '',
-        redirectTo: '/admin/queue/list',
-        pathMatch: 'full'
-    },
-    {
         path: 'admin',
         children: [
             {
@@ -67,50 +62,50 @@ const routes: Routes = [
         path: 'user',
         children: [
             {
-                path: ':company/:queue',
-                children: [
-                    {
-                        path: 'view',
-                        component: EndUserHomeComponent
-                    },
-                    {
-                        path: 'register',
-                        component: RegisterQueueComponent
-                    }
-                ],
+                path: ':company/:queue/register',
+                component: RegisterQueueComponent
+            },
+            {
+                path: 'view/:userId',
+                component: EndUserHomeComponent
+
             }
         ]
     },
     {
-        path: 'moderator',
+        path: 'moderator/:moderatorId/queue',
         children: [
             {
-                path: 'queue',
+                path: 'list',
+                component: ModeratorQueueListComponent
+            },
+            {
+                path: 'get/:companyId/:queueId',
                 children: [
                     {
-                        path: 'list',
-                        component: ModeratorQueueListComponent
+                        path: '',
+                        component: ModeratorQueueComponent
                     },
                     {
-                        path: 'get/:companyId/:queueId',
-                        children: [
-                            {
-                                path: '',
-                                component: ModeratorQueueComponent
-                            },
-                            {
-                                path: 'tickets',
-                                component: EndUserListComponent
-                            },
-                            {
-                                path: 'ticket/:ticketId',
-                                component: TicketDetailsComponent
-                            }
-                        ]
+                        path: 'tickets',
+                        component: EndUserListComponent
+                    },
+                    {
+                        path: 'ticket/:ticketId',
+                        component: TicketDetailsComponent
                     }
                 ]
             }
         ]
+    },
+    {
+        path: '',
+        redirectTo: '/admin/queue/list',
+        pathMatch: 'full'
+    },
+    {
+        path: '**',
+        redirectTo: '/admin/queue/list'
     }
 ];
 

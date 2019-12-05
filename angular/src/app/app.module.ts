@@ -27,7 +27,11 @@ import { ModeratorDetailsComponent } from './components/admin/moderator-details/
 import { ModeratorNavbarComponent } from './components/moderator/moderator-navbar/moderator-navbar.component';
 import { QueueDetailsComponent } from './components/admin/queue-details/queue-details.component';
 import { TicketDetailsComponent } from './components/moderator/ticket-details/ticket-details.component';
-
+import { EnduserTicketdetailComponent } from './components/end-user/enduser-ticketdetail/enduser-ticketdetail.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ModalComponent } from './modal/modal.component';
+import { MaterialModule } from './material-module';
+import { from } from 'rxjs';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +57,9 @@ import { TicketDetailsComponent } from './components/moderator/ticket-details/ti
     ModeratorDetailsComponent,
     ModeratorNavbarComponent,
     QueueDetailsComponent,
-    TicketDetailsComponent
+    TicketDetailsComponent,
+    EnduserTicketdetailComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -61,8 +67,11 @@ import { TicketDetailsComponent } from './components/moderator/ticket-details/ti
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ModalComponent]
 })
 export class AppModule { }

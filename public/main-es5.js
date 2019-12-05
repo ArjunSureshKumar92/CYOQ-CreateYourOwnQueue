@@ -20,6 +20,28 @@
             webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
             /***/ 
         }),
+        /***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/components/end-user/enduser-ticketdetail/enduser-ticketdetail.component.html": 
+        /*!************************************************************************************************************************************!*\
+          !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/components/end-user/enduser-ticketdetail/enduser-ticketdetail.component.html ***!
+          \************************************************************************************************************************************/
+        /*! exports provided: default */
+        /***/ (function (module, __webpack_exports__, __webpack_require__) {
+            "use strict";
+            __webpack_require__.r(__webpack_exports__);
+            /* harmony default export */ __webpack_exports__["default"] = ("<p>enduser-ticketdetail works!</p>\r\n");
+            /***/ 
+        }),
+        /***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/modal/modal.component.html": 
+        /*!**********************************************************************************!*\
+          !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/modal/modal.component.html ***!
+          \**********************************************************************************/
+        /*! exports provided: default */
+        /***/ (function (module, __webpack_exports__, __webpack_require__) {
+            "use strict";
+            __webpack_require__.r(__webpack_exports__);
+            /* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title>{{ data.title }}</h1>\r\n<div mat-dialog-content>\r\n  <p>{{ data.message }}</p>\r\n</div>\r\n<div mat-dialog-actions>\r\n  <button mat-button (click)=\"onCloseClick()\">Close</button>\r\n</div>\r\n");
+            /***/ 
+        }),
         /***/ "./node_modules/tslib/tslib.es6.js": 
         /*!*****************************************!*\
           !*** ./node_modules/tslib/tslib.es6.js ***!
@@ -347,11 +369,6 @@
             /* harmony import */ var _components_moderator_ticket_details_ticket_details_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/moderator/ticket-details/ticket-details.component */ "./src/app/components/moderator/ticket-details/ticket-details.component.ts");
             var routes = [
                 {
-                    path: '',
-                    redirectTo: '/admin/queue/list',
-                    pathMatch: 'full'
-                },
-                {
                     path: 'admin',
                     children: [
                         {
@@ -398,50 +415,49 @@
                     path: 'user',
                     children: [
                         {
-                            path: ':company/:queue',
-                            children: [
-                                {
-                                    path: 'view',
-                                    component: _components_end_user_enduser_home_enduser_home_component__WEBPACK_IMPORTED_MODULE_9__["EndUserHomeComponent"]
-                                },
-                                {
-                                    path: 'register',
-                                    component: _components_end_user_register_queue_register_queue_component__WEBPACK_IMPORTED_MODULE_11__["RegisterQueueComponent"]
-                                }
-                            ],
+                            path: ':company/:queue/register',
+                            component: _components_end_user_register_queue_register_queue_component__WEBPACK_IMPORTED_MODULE_11__["RegisterQueueComponent"]
+                        },
+                        {
+                            path: 'view/:userId',
+                            component: _components_end_user_enduser_home_enduser_home_component__WEBPACK_IMPORTED_MODULE_9__["EndUserHomeComponent"]
                         }
                     ]
                 },
                 {
-                    path: 'moderator',
+                    path: 'moderator/:moderatorId/queue',
                     children: [
                         {
-                            path: 'queue',
+                            path: 'list',
+                            component: _components_moderator_moderator_queue_list_moderator_queue_list_component__WEBPACK_IMPORTED_MODULE_8__["ModeratorQueueListComponent"]
+                        },
+                        {
+                            path: 'get/:companyId/:queueId',
                             children: [
                                 {
-                                    path: 'list',
-                                    component: _components_moderator_moderator_queue_list_moderator_queue_list_component__WEBPACK_IMPORTED_MODULE_8__["ModeratorQueueListComponent"]
+                                    path: '',
+                                    component: _components_moderator_moderator_queue_moderator_queue_component__WEBPACK_IMPORTED_MODULE_10__["ModeratorQueueComponent"]
                                 },
                                 {
-                                    path: 'get/:companyId/:queueId',
-                                    children: [
-                                        {
-                                            path: '',
-                                            component: _components_moderator_moderator_queue_moderator_queue_component__WEBPACK_IMPORTED_MODULE_10__["ModeratorQueueComponent"]
-                                        },
-                                        {
-                                            path: 'tickets',
-                                            component: _components_moderator_end_user_list_end_user_list_component__WEBPACK_IMPORTED_MODULE_14__["EndUserListComponent"]
-                                        },
-                                        {
-                                            path: 'ticket/:ticketId',
-                                            component: _components_moderator_ticket_details_ticket_details_component__WEBPACK_IMPORTED_MODULE_15__["TicketDetailsComponent"]
-                                        }
-                                    ]
+                                    path: 'tickets',
+                                    component: _components_moderator_end_user_list_end_user_list_component__WEBPACK_IMPORTED_MODULE_14__["EndUserListComponent"]
+                                },
+                                {
+                                    path: 'ticket/:ticketId',
+                                    component: _components_moderator_ticket_details_ticket_details_component__WEBPACK_IMPORTED_MODULE_15__["TicketDetailsComponent"]
                                 }
                             ]
                         }
                     ]
+                },
+                {
+                    path: '',
+                    redirectTo: '/admin/queue/list',
+                    pathMatch: 'full'
+                },
+                {
+                    path: '**',
+                    redirectTo: '/admin/queue/list'
                 }
             ];
             var AppRoutingModule = /** @class */ (function () {
@@ -522,6 +538,10 @@
             /* harmony import */ var _components_moderator_moderator_navbar_moderator_navbar_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/moderator/moderator-navbar/moderator-navbar.component */ "./src/app/components/moderator/moderator-navbar/moderator-navbar.component.ts");
             /* harmony import */ var _components_admin_queue_details_queue_details_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/admin/queue-details/queue-details.component */ "./src/app/components/admin/queue-details/queue-details.component.ts");
             /* harmony import */ var _components_moderator_ticket_details_ticket_details_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./components/moderator/ticket-details/ticket-details.component */ "./src/app/components/moderator/ticket-details/ticket-details.component.ts");
+            /* harmony import */ var _components_end_user_enduser_ticketdetail_enduser_ticketdetail_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./components/end-user/enduser-ticketdetail/enduser-ticketdetail.component */ "./src/app/components/end-user/enduser-ticketdetail/enduser-ticketdetail.component.ts");
+            /* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm2015/animations.js");
+            /* harmony import */ var _modal_modal_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./modal/modal.component */ "./src/app/modal/modal.component.ts");
+            /* harmony import */ var _material_module__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./material-module */ "./src/app/material-module.ts");
             var AppModule = /** @class */ (function () {
                 function AppModule() {
                 }
@@ -553,7 +573,9 @@
                         _components_admin_moderator_details_moderator_details_component__WEBPACK_IMPORTED_MODULE_26__["ModeratorDetailsComponent"],
                         _components_moderator_moderator_navbar_moderator_navbar_component__WEBPACK_IMPORTED_MODULE_27__["ModeratorNavbarComponent"],
                         _components_admin_queue_details_queue_details_component__WEBPACK_IMPORTED_MODULE_28__["QueueDetailsComponent"],
-                        _components_moderator_ticket_details_ticket_details_component__WEBPACK_IMPORTED_MODULE_29__["TicketDetailsComponent"]
+                        _components_moderator_ticket_details_ticket_details_component__WEBPACK_IMPORTED_MODULE_29__["TicketDetailsComponent"],
+                        _components_end_user_enduser_ticketdetail_enduser_ticketdetail_component__WEBPACK_IMPORTED_MODULE_30__["EnduserTicketdetailComponent"],
+                        _modal_modal_component__WEBPACK_IMPORTED_MODULE_32__["ModalComponent"]
                     ],
                     imports: [
                         _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -561,9 +583,12 @@
                         _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                         _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
                         _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
+                        _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_31__["BrowserAnimationsModule"],
+                        _material_module__WEBPACK_IMPORTED_MODULE_33__["MaterialModule"]
                     ],
                     providers: [],
-                    bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]]
+                    bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]],
+                    entryComponents: [_modal_modal_component__WEBPACK_IMPORTED_MODULE_32__["ModalComponent"]]
                 })
             ], AppModule);
             /***/ 
@@ -623,9 +648,11 @@
                     this.company = [];
                     this.companyId = this.qs.companyId;
                     this.adminId = this.qs.adminId;
+                }
+                CompanyDetailsComponent.prototype.ngOnInit = function () {
                     this.createForm();
                     this.getCompany();
-                }
+                };
                 CompanyDetailsComponent.prototype.createForm = function () {
                     this.angForm = this.fb.group({
                         name: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
@@ -650,18 +677,16 @@
                 CompanyDetailsComponent.prototype.onSubmit = function () {
                     var _this = this;
                     var data = {
-                        'name': this.angForm.get('name').value,
-                        'address': this.angForm.get('address').value,
-                        'phone': this.angForm.get('phone').value,
-                        'email': this.angForm.get('email').value,
-                        'companyId': this.companyId
+                        name: this.angForm.get('name').value,
+                        address: this.angForm.get('address').value,
+                        phone: this.angForm.get('phone').value,
+                        email: this.angForm.get('email').value,
+                        companyId: this.companyId
                     };
                     this.qs.updateCompany(data).subscribe(function (res) {
                         _this.location.back();
                         console.log('Company updated.');
                     }, function (err) { console.log(err); });
-                };
-                CompanyDetailsComponent.prototype.ngOnInit = function () {
                 };
                 return CompanyDetailsComponent;
             }());
@@ -673,7 +698,7 @@
             CompanyDetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-company-details',
-                    template: "\n  <div>\n    <app-navbar></app-navbar>\n  </div>\n  <h1 class=\"text-center\">Company Profile</h1>\n  <form [formGroup]=\"angForm\" (ngSubmit)=\"onSubmit()\" #form>\n    <div class=\"container-fluid\">\n        <div class=\"form-group\">\n            <label for=\"name\">Company name</label>\n            <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"name\" id=\"name\" name=\"name\" />\n        </div>\n        <div class=\"form-group\">\n            <label for=\"name\">Address</label>\n            <input type=\"text\" class=\"form-control\" formControlName=\"address\" id=\"address\" name=\"address\" />\n        </div>\n        <div class=\"form-group\">\n            <label for=\"name\">Phone</label>\n            <input type=\"text\" class=\"form-control\" formControlName=\"phone\" id=\"phone\" name=\"phone\" />\n        </div>\n        <div class=\"form-group\">\n            <label for=\"name\">Email</label>\n            <input type=\"text\" class=\"form-control\" formControlName=\"email\" id=\"email\" name=\"email\" />\n        </div>\n        <div hidden>\n            <input type=\"text\" class=\"form-control\" id=\"companyId\" name=\"companyId\" value=\"{{companyId}}\" />\n        </div>\n        <input type=\"submit\" class=\"btn btn-primary btn-block btn-lg\" [disabled]=\"angForm.pristine || angForm.invalid\" value=\"Save\" />\n    </div>\n  </form>\n  "
+                    template: "\n  <div>\n    <app-navbar></app-navbar>\n  </div>\n  <h1 class=\"text-center\">Company Profile</h1>\n  <form [formGroup]=\"angForm\" (ngSubmit)=\"onSubmit()\" #form>\n    <div class=\"container-fluid\">\n        <div class=\"form-group\">\n            <label for=\"name\">Company name</label>\n            <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"name\" id=\"name\" name=\"name\" />\n        </div>\n        <div class=\"form-group\">\n            <label for=\"name\">Address</label>\n            <input type=\"text\" class=\"form-control\" formControlName=\"address\" id=\"address\" name=\"address\" />\n        </div>\n        <div class=\"form-group\">\n            <label for=\"name\">Phone</label>\n            <input type=\"text\" class=\"form-control\" formControlName=\"phone\" id=\"phone\" name=\"phone\" />\n        </div>\n        <div class=\"form-group\">\n            <label for=\"name\">Email</label>\n            <input type=\"text\" class=\"form-control\" formControlName=\"email\" id=\"email\" name=\"email\" [readonly]=\"this.company.email\" />\n        </div>\n        <div hidden>\n            <input type=\"text\" class=\"form-control\" id=\"companyId\" name=\"companyId\" value=\"{{companyId}}\" />\n        </div>\n        <input type=\"submit\" class=\"btn btn-primary btn-block btn-lg\" [disabled]=\"angForm.pristine || angForm.invalid\" value=\"Save\" />\n    </div>\n  </form>\n  "
                 })
             ], CompanyDetailsComponent);
             /***/ 
@@ -853,22 +878,24 @@
             /* harmony import */ var src_app_services_queue_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/queue.service */ "./src/app/services/queue.service.ts");
             /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
             var ModeratorDetailsComponent = /** @class */ (function () {
-                function ModeratorDetailsComponent(location, fb, qs, router) {
+                function ModeratorDetailsComponent(location, fb, qs, route) {
                     this.location = location;
                     this.fb = fb;
                     this.qs = qs;
-                    this.router = router;
+                    this.route = route;
                     this.adminId = '';
                     this.companyId = '';
                     this.moderatorId = '';
-                    var url = this.router.url.split('/');
-                    this.moderatorId = url[url.length - 1];
-                    this.companyId = url[url.length - 2];
                     this.adminId = this.qs.adminId;
-                    this.createForm();
-                    this.getModerator();
                 }
                 ModeratorDetailsComponent.prototype.ngOnInit = function () {
+                    var _this = this;
+                    this.route.paramMap.subscribe(function (params) {
+                        _this.moderatorId = params.get('moderatorId');
+                        _this.companyId = params.get('companyId');
+                    });
+                    this.createForm();
+                    this.getModerator();
                 };
                 ModeratorDetailsComponent.prototype.close = function () {
                     this.location.back();
@@ -899,7 +926,7 @@
                         moderatorId: this.moderatorId
                     };
                     this.qs.updateModerator(data).subscribe(function (res) {
-                        _this.router.navigate(['']);
+                        _this.location.back();
                     }, function (err) {
                         console.log(err);
                     }, function () {
@@ -915,7 +942,7 @@
                         moderatorId: this.moderatorId
                     };
                     this.qs.deleteModerator(data).subscribe(function (res) {
-                        _this.router.navigate(['']);
+                        _this.location.back();
                     }, function (err) {
                         console.log(err);
                     }, function () {
@@ -928,12 +955,12 @@
                 { type: _angular_common__WEBPACK_IMPORTED_MODULE_2__["Location"] },
                 { type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"] },
                 { type: src_app_services_queue_service__WEBPACK_IMPORTED_MODULE_4__["QueueService"] },
-                { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] }
+                { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["ActivatedRoute"] }
             ]; };
             ModeratorDetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-moderator-details',
-                    template: "\n  <div>\n    <app-navbar></app-navbar>\n  </div>\n  <form [formGroup]=\"angForm\" (ngSubmit)=\"submit()\" #form>\n    <div class=\"form-group\">\n        <label for=\"name\">Moderator name</label>\n        <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"name\" id=\"name\" name=\"name\" />\n    </div>\n    <div class=\"form-group\">\n        <label for=\"name\">Email</label>\n        <input type=\"text\" class=\"form-control\" formControlName=\"email\" id=\"email\" name=\"email\" />\n    </div>\n    <div hidden>\n        <input type=\"text\" class=\"form-control\" id=\"companyId\" name=\"companyId\" value=\"{{companyId}}\"  />\n    </div>\n    <div hidden>\n        <input type=\"text\" class=\"form-control\" id=\"moderatorId\" name=\"moderatorId\" value=\"{{moderatorId}}\" />\n    </div>\n    <input type=\"submit\" class=\"btn btn-primary btn-block btn-lg\" [disabled]=\"angForm.pristine || angForm.invalid\" value=\"Save Changes\" />\n    <input type=\"button\" (click)=\"delete()\" class=\"btn btn-danger btn-block btn-lg\" name=\"delete\" id=\"delete\" value=\"Delete Moderator\" />\n  </form>\n  "
+                    template: "\n  <div>\n    <app-navbar></app-navbar>\n  </div>\n  <form [formGroup]=\"angForm\" (ngSubmit)=\"submit()\" #form>\n    <div class=\"form-group\">\n        <label for=\"name\">Moderator name</label>\n        <input type=\"text\" class=\"form-control form-control-lg\" formControlName=\"name\" id=\"name\" name=\"name\" />\n    </div>\n    <div class=\"form-group\">\n        <label for=\"name\">Email</label>\n        <input type=\"text\" class=\"form-control\" formControlName=\"email\" id=\"email\" name=\"email\" [readonly]=\"moderator?.email\" />\n    </div>\n    <input type=\"submit\" class=\"btn btn-primary btn-block btn-lg\" [disabled]=\"angForm.pristine || angForm.invalid\" value=\"Save Changes\" />\n    <input type=\"button\" (click)=\"delete()\" class=\"btn btn-danger btn-block btn-lg\" name=\"delete\" id=\"delete\" value=\"Delete Moderator\" />\n  </form>\n  "
                 })
             ], ModeratorDetailsComponent);
             /***/ 
@@ -1021,7 +1048,7 @@
             ModeratorListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-moderator-list',
-                    template: "\n  <div>\n    <app-navbar></app-navbar>\n  </div>\n  <h1 class=\"text-center\">Moderators</h1>\n  <div class=\"text-right\">\n    <a routerLink=\"/admin/moderator/create\" class=\"btn btn-primary\">+ Add Moderator</a>\n  </div>\n  <div class=\"container-fluid\">\n    <app-moderator-item *ngFor=\"let m of moderators\" name=\"{{m.name}}\" moderatorId=\"{{m.moderatorId}}\" companyId=\"{{companyId}}\"></app-moderator-item>\n  </div>\n  ",
+                    template: "\n  <div>\n    <app-navbar></app-navbar>\n  </div>\n  <h1 class=\"text-center\">Moderators</h1>\n  <div class=\"text-right\">\n    <a routerLink=\"/admin/moderator/create\" class=\"btn btn-primary\">+ Add Moderator</a>\n  </div>\n  <div *ngIf=\"moderators?.length > 0; else displayEmpty\" class=\"container-fluid\">\n    <app-moderator-item *ngFor=\"let m of moderators\" name=\"{{m.name}}\" moderatorId=\"{{m.moderatorId}}\" companyId=\"{{companyId}}\"></app-moderator-item>\n  </div>\n  <ng-template #displayEmpty>\n    <div class=\"container-fluid text-center\">No moderators yet.</div>\n  </ng-template>\n  ",
                     styles: ["\n  .container-fluid {\n    background: rgb(240,240,240);\n    margin: 0.5em auto;\n    padding: 1em;\n  }\n  "]
                 })
             ], ModeratorListComponent);
@@ -1214,7 +1241,10 @@
                     this.companyId = this.qs.companyId;
                 }
                 QueueListComponent.prototype.getQueues = function () {
-                    this.qs.getQueues(this.getCallback, this);
+                    var _this = this;
+                    this.qs.getQueues().subscribe(function (res) {
+                        _this.queues = res['response'];
+                    });
                 };
                 QueueListComponent.prototype.getCallback = function (val, instance) {
                     console.log("val" + val[0].name);
@@ -1230,7 +1260,7 @@
             QueueListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-queue-list',
-                    template: "\n  <div class=\"input-group\">\n    <input [(ngModel)]=\"searchText\" class=\"form-control\" />\n    <div class=\"input-group-append\">\n        <button class=\"btn btn-primary\">Search</button>\n    </div>\n  </div>\n  <div class=\"container-fluid\">\n    <app-queue-item *ngFor=\"let q of queues | filter : searchText\" name=\"{{q.name}}\" queueId=\"{{q.queueId}}\" companyId=\"{{companyId}}\"></app-queue-item>\n  </div>\n  ",
+                    template: "\n  <div class=\"input-group\">\n    <input [(ngModel)]=\"searchText\" class=\"form-control\" />\n    <div class=\"input-group-append\">\n        <button class=\"btn btn-primary\">Search</button>\n    </div>\n  </div>\n  <div *ngIf=\"queues?.length > 0; else displayEmpty\" class=\"container-fluid\">\n    <app-queue-item *ngFor=\"let q of queues | filter : searchText\" name=\"{{q.name}}\" queueId=\"{{q.queueId}}\" companyId=\"{{companyId}}\"></app-queue-item>\n  </div>\n  <ng-template #displayEmpty>\n    <div class=\"container-fluid text-center\">No queues created yet.</div>\n  </ng-template>\n  ",
                     styles: ["\n  .container-fluid {\n    background: rgb(240,240,240);\n    margin: 0.5em auto;\n    padding: 1em;\n  }\n\n  .input-group {\n    margin: 2em 0 0 0;\n  }\n  "]
                 })
             ], QueueListComponent);
@@ -1249,35 +1279,107 @@
             /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
             /* harmony import */ var src_app_services_queue_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/queue.service */ "./src/app/services/queue.service.ts");
             /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+            /* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
+            /* harmony import */ var _modal_modal_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../modal/modal.component */ "./src/app/modal/modal.component.ts");
             var EndUserHomeComponent = /** @class */ (function () {
-                function EndUserHomeComponent(qs, router) {
+                function EndUserHomeComponent(qs, router, dialog) {
                     this.qs = qs;
                     this.router = router;
+                    this.dialog = dialog;
                     this.place = '(Loading)';
                     this.queueId = '';
+                    this.userId = '';
                     this.ticketId = '';
                     var url = this.router.url.split('/');
-                    this.ticketId = url[url.length - 2];
-                    this.queueId = url[url.length - 3];
-                    this.qs.getTicketPriority(this.queueId, this.ticketId).subscribe(function (res) {
-                        console.log(res);
-                        //this.place = res;
-                    }, function (err) { }, function () { });
+                    console.log(url);
+                    this.userId = url[url.length - 1];
+                    this.getTickets();
                 }
+                EndUserHomeComponent.prototype.getTickets = function () {
+                    this.qs.getUserTickets(this.getCallback, this, this.userId);
+                };
+                EndUserHomeComponent.prototype.getCallback = function (val, instance) {
+                    console.log(val);
+                    instance.tickets = val;
+                };
+                EndUserHomeComponent.prototype.updateTicketsCallback = function (instance) {
+                    instance.getTickets();
+                };
+                EndUserHomeComponent.prototype.cancelTicket = function (ticketId, queueId) {
+                    console.log('cancel ticket called for ${this.ticketId}');
+                    console.log(ticketId);
+                    var data = {
+                        'companyId': this.qs.companyId,
+                        'ticketId': ticketId
+                    };
+                    this.qs.deleteTicket(ticketId, this.userId, this.updateTicketsCallback, this);
+                };
+                EndUserHomeComponent.prototype.getPositionClick = function (ticketId, queueId) {
+                    this.qs.getTicketPriority(this.userId, queueId, ticketId, this.getPositionCallBack, this);
+                };
+                EndUserHomeComponent.prototype.getPositionCallBack = function (status, instance) {
+                    console.log("GetPsotion Callback called");
+                    var dialogRef = instance.dialog.open(_modal_modal_component__WEBPACK_IMPORTED_MODULE_5__["ModalComponent"], {
+                        width: '250px',
+                        data: { title: 'Ticket Position Details', message: status }
+                    });
+                    dialogRef.afterClosed().subscribe(function (result) {
+                        console.log("Dialog box Closed");
+                    });
+                };
                 EndUserHomeComponent.prototype.ngOnInit = function () {
                 };
                 return EndUserHomeComponent;
             }());
             EndUserHomeComponent.ctorParameters = function () { return [
                 { type: src_app_services_queue_service__WEBPACK_IMPORTED_MODULE_2__["QueueService"] },
-                { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
+                { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+                { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__["MatDialog"] }
             ]; };
             EndUserHomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-enduser-home',
-                    template: "\n  <div class=\"text-center\">\n    <p class=\"text-uppercase\">Your place in the queue:</p>\n    <h1 class=\"display-1\">#{{place}}</h1>\n    <button class=\"btn btn-danger btn-lg\">Cancel your place</button>\n  </div>\n  "
+                    template: "\n  <div>\n  <table class=\"table\">\n  <thead class=\"thead-dark\">\n    <tr>\n      <th scope=\"col\">Ticket ID</th>\n      <th scope=\"col\">Name</th>\n      <th scope=\"col\">Queue Name</th>\n      <th scope=\"col\">Status</th>\n      <th scope=\"col\">Delete Ticket</th>\n      <th scope=\"col\">Get Ticket Position</th>\n    </tr>\n  </thead>\n  <tbody>\n   <tr *ngFor=\"let ticket of tickets\">\n      <td scope=\"row\">{{ticket.ticketId}}</td>\n      <td>{{ticket.name}}</td>\n      <td>{{ticket.queueName}}</td>\n      <td>{{ticket.status}}</td>\n      <td><button class=\"btn btn-danger\" (click)=\"cancelTicket(ticket.ticketId)\">Cancel Ticket</button></td>\n      <td><button class=\"btn btn-success\" (click)=\"getPositionClick(ticket.ticketId,ticket.queueId)\">Get Ticket Position</button></td>\n      </tr>\n  </tbody>\n  </table>\n  </div>\n  "
                 })
             ], EndUserHomeComponent);
+            /***/ 
+        }),
+        /***/ "./src/app/components/end-user/enduser-ticketdetail/enduser-ticketdetail.component.css": 
+        /*!*********************************************************************************************!*\
+          !*** ./src/app/components/end-user/enduser-ticketdetail/enduser-ticketdetail.component.css ***!
+          \*********************************************************************************************/
+        /*! exports provided: default */
+        /***/ (function (module, __webpack_exports__, __webpack_require__) {
+            "use strict";
+            __webpack_require__.r(__webpack_exports__);
+            /* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZW5kLXVzZXIvZW5kdXNlci10aWNrZXRkZXRhaWwvZW5kdXNlci10aWNrZXRkZXRhaWwuY29tcG9uZW50LmNzcyJ9 */");
+            /***/ 
+        }),
+        /***/ "./src/app/components/end-user/enduser-ticketdetail/enduser-ticketdetail.component.ts": 
+        /*!********************************************************************************************!*\
+          !*** ./src/app/components/end-user/enduser-ticketdetail/enduser-ticketdetail.component.ts ***!
+          \********************************************************************************************/
+        /*! exports provided: EnduserTicketdetailComponent */
+        /***/ (function (module, __webpack_exports__, __webpack_require__) {
+            "use strict";
+            __webpack_require__.r(__webpack_exports__);
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EnduserTicketdetailComponent", function () { return EnduserTicketdetailComponent; });
+            /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+            /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+            var EnduserTicketdetailComponent = /** @class */ (function () {
+                function EnduserTicketdetailComponent() {
+                }
+                EnduserTicketdetailComponent.prototype.ngOnInit = function () {
+                };
+                return EnduserTicketdetailComponent;
+            }());
+            EnduserTicketdetailComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+                Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+                    selector: 'app-enduser-ticketdetail',
+                    template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./enduser-ticketdetail.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/components/end-user/enduser-ticketdetail/enduser-ticketdetail.component.html")).default,
+                    styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./enduser-ticketdetail.component.css */ "./src/app/components/end-user/enduser-ticketdetail/enduser-ticketdetail.component.css")).default]
+                })
+            ], EnduserTicketdetailComponent);
             /***/ 
         }),
         /***/ "./src/app/components/end-user/register-queue/register-queue.component.ts": 
@@ -1324,14 +1426,17 @@
                 };
                 RegisterQueueComponent.prototype.submit = function () {
                     var _this = this;
+                    console.log("register user for queue called");
                     var data = {
-                        name: this.regForm.get('name').value,
-                        email: this.regForm.get('email').value,
-                        companyId: this.companyId,
-                        queueId: this.queueId
+                        'name': this.regForm.get('name').value,
+                        'email': this.regForm.get('email').value,
+                        'companyId': this.companyId,
+                        'queueId': this.queueId
                     };
                     this.qs.createTicket(data).subscribe(function (res) {
-                        _this.router.navigateByUrl("/user/" + _this.companyId + "/" + _this.queueId + "/view");
+                        console.log("Response received from server");
+                        console.log(res.toString());
+                        _this.router.navigateByUrl("/user/view/" + _this.regForm.get('email').value);
                     }, function (err) { console.log(err); }, function () { console.log('Registered for queue.'); });
                 };
                 return RegisterQueueComponent;
@@ -1370,11 +1475,12 @@
                 EndUserListComponent.prototype.ngOnInit = function () {
                 };
                 EndUserListComponent.prototype.getTickets = function () {
-                    this.qs.getTickets(this.getCallback, this, this.queueId);
-                };
-                EndUserListComponent.prototype.getCallback = function (val, instance) {
-                    console.log("val" + val[0].name);
-                    instance.tickets = val;
+                    var _this = this;
+                    this.qs.getTickets(this.queueId).subscribe(function (res) {
+                        _this.tickets = res['response'];
+                    }, function (err) {
+                        console.log(err);
+                    });
                 };
                 return EndUserListComponent;
             }());
@@ -1387,7 +1493,7 @@
             EndUserListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-end-user-list',
-                    template: "\n  <div class=\"container-fluid\">\n    <app-ticket-item *ngFor=\"let t of tickets\" name=\"{{t.name}}\" ticketId=\"{{t.ticketId}}\" queueId=\"{{queueId}}\"></app-ticket-item>\n  </div>\n  ",
+                    template: "\n  <div *ngIf=\"tickets?.length > 0; else displayEmpty\" class=\"container-fluid\">\n    <app-ticket-item *ngFor=\"let t of tickets\" name=\"{{t.name}}\" ticketId=\"{{t.ticketId}}\" queueId=\"{{queueId}}\"></app-ticket-item>\n  </div>\n  <ng-template #displayEmpty>\n    <div class=\"container-fluid text-center\">No tickets registered yet.</div>\n  </ng-template>\n  ",
                     styles: ["\n  .container-fluid {\n    background: rgb(240,240,240);\n    margin: 0.5em auto;\n    padding: 1em;\n  }\n  "]
                 })
             ], EndUserListComponent);
@@ -1460,6 +1566,7 @@
                     this.qs = qs;
                     this.name = '';
                     this.queueId = '';
+                    this.moderatorId = '';
                     this.companyId = '';
                     this.companyId = this.qs.companyId;
                 }
@@ -1476,10 +1583,13 @@
             tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
             ], ModeratorQueueItemComponent.prototype, "queueId", void 0);
+            tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+                Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
+            ], ModeratorQueueItemComponent.prototype, "moderatorId", void 0);
             ModeratorQueueItemComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-moderator-queue-item',
-                    template: "\n    <div class=\"container-fluid clickable row\">\n        <h5 class=\"d-inline col\">{{name}}</h5>\n        <a href=\"{{this.qs.baseUri}}/moderator/queue/get/{{companyId}}/{{queueId}}\" class=\"divLink\"></a>\n    </div>\n    ",
+                    template: "\n    <div class=\"container-fluid clickable row\">\n        <h5 class=\"d-inline col\">{{name}}</h5>\n        <a routerLink=\"/moderator/{{moderatorId}}/queue/get/{{companyId}}/{{queueId}}\" class=\"divLink\"></a>\n    </div>\n    ",
                     styles: ["\n    .container-fluid {\n        background: rgb(255,255,255);\n        margin: 0.5em;\n        padding: 1em 1.5em;\n    }\n    "]
                 })
             ], ModeratorQueueItemComponent);
@@ -1497,30 +1607,38 @@
             /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
             /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
             /* harmony import */ var _services_queue_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../services/queue.service */ "./src/app/services/queue.service.ts");
+            /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
             var ModeratorQueueListComponent = /** @class */ (function () {
-                function ModeratorQueueListComponent(qs) {
+                function ModeratorQueueListComponent(qs, route) {
                     this.qs = qs;
+                    this.route = route;
                     this.queues = [];
-                    this.getQueues();
                 }
                 ModeratorQueueListComponent.prototype.getQueues = function () {
-                    this.qs.getQueues(this.getCallback, this, this.qs.getModeratorId());
-                };
-                ModeratorQueueListComponent.prototype.getCallback = function (val, instance) {
-                    console.log("val" + val[0].name);
-                    instance.queues = val;
+                    var _this = this;
+                    this.qs.getQueues(this.moderatorId).subscribe(function (res) {
+                        _this.queues = res['response'];
+                    }, function (err) {
+                        console.log(err);
+                    });
                 };
                 ModeratorQueueListComponent.prototype.ngOnInit = function () {
+                    var _this = this;
+                    this.route.paramMap.subscribe(function (params) {
+                        _this.moderatorId = params.get('moderatorId');
+                        _this.getQueues();
+                    });
                 };
                 return ModeratorQueueListComponent;
             }());
             ModeratorQueueListComponent.ctorParameters = function () { return [
-                { type: _services_queue_service__WEBPACK_IMPORTED_MODULE_2__["QueueService"] }
+                { type: _services_queue_service__WEBPACK_IMPORTED_MODULE_2__["QueueService"] },
+                { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] }
             ]; };
             ModeratorQueueListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-moderator-queue-list',
-                    template: "\n  <div class=\"input-group\">\n    <input [(ngModel)]=\"searchText\" class=\"form-control\" />\n    <div class=\"input-group-append\">\n        <button class=\"btn btn-primary\">Search</button>\n    </div>\n  </div>\n  <div class=\"container-fluid\">\n    <app-moderator-queue-item *ngFor=\"let q of queues | filter : searchText\" name=\"{{q.name}}\" queueId=\"{{q.queueId}}\"></app-moderator-queue-item>\n  </div>\n  ",
+                    template: "\n  <div class=\"input-group\">\n    <input [(ngModel)]=\"searchText\" class=\"form-control\" />\n    <div class=\"input-group-append\">\n        <button class=\"btn btn-primary\">Search</button>\n    </div>\n  </div>\n  <div *ngIf=\"queues?.length > 0; else displayEmpty\" class=\"container-fluid\">\n    <app-moderator-queue-item *ngFor=\"let q of queues | filter : searchText\" name=\"{{q.name}}\" queueId=\"{{q.queueId}}\" moderatorId=\"{{moderatorId}}\"></app-moderator-queue-item>\n  </div>\n  <ng-template #displayEmpty>\n    <div class=\"container-fluid text-center\">No queues assigned yet.</div>\n  </ng-template>\n  ",
                     styles: ["\n  .container-fluid {\n    background: rgb(240,240,240);\n    margin: 0.5em auto;\n    padding: 1em;\n  }\n\n  .input-group {\n    margin: 2em 0 0 0;\n  }\n  "]
                 })
             ], ModeratorQueueListComponent);
@@ -1541,19 +1659,22 @@
             /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
             /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
             var ModeratorQueueComponent = /** @class */ (function () {
-                function ModeratorQueueComponent(location, qs, router) {
+                function ModeratorQueueComponent(location, qs, route, router) {
                     this.location = location;
                     this.qs = qs;
+                    this.route = route;
                     this.router = router;
                     this.companyId = '';
                     this.moderatorId = '';
                     this.queueId = '';
-                    var url = this.router.url.split('/');
-                    this.queueId = url[url.length - 1];
-                    this.companyId = url[url.length - 2];
-                    this.moderatorId = this.qs.moderatorId;
                 }
                 ModeratorQueueComponent.prototype.ngOnInit = function () {
+                    var _this = this;
+                    this.route.paramMap.subscribe(function (params) {
+                        _this.queueId = params.get('queueId');
+                        _this.companyId = params.get('companyId');
+                        _this.moderatorId = params.get('moderatorId');
+                    });
                 };
                 ModeratorQueueComponent.prototype.submit = function () {
                     var _this = this;
@@ -1576,6 +1697,7 @@
             ModeratorQueueComponent.ctorParameters = function () { return [
                 { type: _angular_common__WEBPACK_IMPORTED_MODULE_4__["Location"] },
                 { type: src_app_services_queue_service__WEBPACK_IMPORTED_MODULE_2__["QueueService"] },
+                { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] },
                 { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
             ]; };
             ModeratorQueueComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -1710,9 +1832,9 @@
                     this.company = 'Create Your Own Queue';
                     this.companyId = '';
                     this.companyId = this.qs.companyId;
-                    this.getCompany();
                 }
                 HeaderComponent.prototype.ngOnInit = function () {
+                    this.getCompany();
                 };
                 HeaderComponent.prototype.getCompany = function () {
                     var _this = this;
@@ -1762,6 +1884,165 @@
                     name: 'filter'
                 })
             ], FilterPipe);
+            /***/ 
+        }),
+        /***/ "./src/app/material-module.ts": 
+        /*!************************************!*\
+          !*** ./src/app/material-module.ts ***!
+          \************************************/
+        /*! exports provided: MaterialModule */
+        /***/ (function (module, __webpack_exports__, __webpack_require__) {
+            "use strict";
+            __webpack_require__.r(__webpack_exports__);
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MaterialModule", function () { return MaterialModule; });
+            /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+            /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+            /* harmony import */ var _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/cdk/a11y */ "./node_modules/@angular/cdk/esm2015/a11y.js");
+            /* harmony import */ var _angular_cdk_drag_drop__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/cdk/drag-drop */ "./node_modules/@angular/cdk/esm2015/drag-drop.js");
+            /* harmony import */ var _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/cdk/portal */ "./node_modules/@angular/cdk/esm2015/portal.js");
+            /* harmony import */ var _angular_cdk_scrolling__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/cdk/scrolling */ "./node_modules/@angular/cdk/esm2015/scrolling.js");
+            /* harmony import */ var _angular_cdk_stepper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/cdk/stepper */ "./node_modules/@angular/cdk/esm2015/stepper.js");
+            /* harmony import */ var _angular_cdk_table__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/cdk/table */ "./node_modules/@angular/cdk/esm2015/table.js");
+            /* harmony import */ var _angular_cdk_tree__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/cdk/tree */ "./node_modules/@angular/cdk/esm2015/tree.js");
+            /* harmony import */ var _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/autocomplete */ "./node_modules/@angular/material/esm2015/autocomplete.js");
+            /* harmony import */ var _angular_material_badge__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/material/badge */ "./node_modules/@angular/material/esm2015/badge.js");
+            /* harmony import */ var _angular_material_bottom_sheet__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/material/bottom-sheet */ "./node_modules/@angular/material/esm2015/bottom-sheet.js");
+            /* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/button */ "./node_modules/@angular/material/esm2015/button.js");
+            /* harmony import */ var _angular_material_button_toggle__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/material/button-toggle */ "./node_modules/@angular/material/esm2015/button-toggle.js");
+            /* harmony import */ var _angular_material_card__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/material/card */ "./node_modules/@angular/material/esm2015/card.js");
+            /* harmony import */ var _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/material/checkbox */ "./node_modules/@angular/material/esm2015/checkbox.js");
+            /* harmony import */ var _angular_material_chips__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/material/chips */ "./node_modules/@angular/material/esm2015/chips.js");
+            /* harmony import */ var _angular_material_stepper__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/material/stepper */ "./node_modules/@angular/material/esm2015/stepper.js");
+            /* harmony import */ var _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/material/datepicker */ "./node_modules/@angular/material/esm2015/datepicker.js");
+            /* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
+            /* harmony import */ var _angular_material_divider__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @angular/material/divider */ "./node_modules/@angular/material/esm2015/divider.js");
+            /* harmony import */ var _angular_material_expansion__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @angular/material/expansion */ "./node_modules/@angular/material/esm2015/expansion.js");
+            /* harmony import */ var _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @angular/material/grid-list */ "./node_modules/@angular/material/esm2015/grid-list.js");
+            /* harmony import */ var _angular_material_icon__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @angular/material/icon */ "./node_modules/@angular/material/esm2015/icon.js");
+            /* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @angular/material/input */ "./node_modules/@angular/material/esm2015/input.js");
+            /* harmony import */ var _angular_material_list__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @angular/material/list */ "./node_modules/@angular/material/esm2015/list.js");
+            /* harmony import */ var _angular_material_menu__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @angular/material/menu */ "./node_modules/@angular/material/esm2015/menu.js");
+            /* harmony import */ var _angular_material_core__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @angular/material/core */ "./node_modules/@angular/material/esm2015/core.js");
+            /* harmony import */ var _angular_material_paginator__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @angular/material/paginator */ "./node_modules/@angular/material/esm2015/paginator.js");
+            /* harmony import */ var _angular_material_progress_bar__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @angular/material/progress-bar */ "./node_modules/@angular/material/esm2015/progress-bar.js");
+            /* harmony import */ var _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! @angular/material/progress-spinner */ "./node_modules/@angular/material/esm2015/progress-spinner.js");
+            /* harmony import */ var _angular_material_radio__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @angular/material/radio */ "./node_modules/@angular/material/esm2015/radio.js");
+            /* harmony import */ var _angular_material_select__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! @angular/material/select */ "./node_modules/@angular/material/esm2015/select.js");
+            /* harmony import */ var _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! @angular/material/sidenav */ "./node_modules/@angular/material/esm2015/sidenav.js");
+            /* harmony import */ var _angular_material_slider__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! @angular/material/slider */ "./node_modules/@angular/material/esm2015/slider.js");
+            /* harmony import */ var _angular_material_slide_toggle__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @angular/material/slide-toggle */ "./node_modules/@angular/material/esm2015/slide-toggle.js");
+            /* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @angular/material/snack-bar */ "./node_modules/@angular/material/esm2015/snack-bar.js");
+            /* harmony import */ var _angular_material_sort__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! @angular/material/sort */ "./node_modules/@angular/material/esm2015/sort.js");
+            /* harmony import */ var _angular_material_table__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! @angular/material/table */ "./node_modules/@angular/material/esm2015/table.js");
+            /* harmony import */ var _angular_material_tabs__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! @angular/material/tabs */ "./node_modules/@angular/material/esm2015/tabs.js");
+            /* harmony import */ var _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! @angular/material/toolbar */ "./node_modules/@angular/material/esm2015/toolbar.js");
+            /* harmony import */ var _angular_material_tooltip__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! @angular/material/tooltip */ "./node_modules/@angular/material/esm2015/tooltip.js");
+            /* harmony import */ var _angular_material_tree__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! @angular/material/tree */ "./node_modules/@angular/material/esm2015/tree.js");
+            var MaterialModule = /** @class */ (function () {
+                function MaterialModule() {
+                }
+                return MaterialModule;
+            }());
+            MaterialModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+                Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+                    exports: [
+                        _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_2__["A11yModule"],
+                        _angular_cdk_stepper__WEBPACK_IMPORTED_MODULE_6__["CdkStepperModule"],
+                        _angular_cdk_table__WEBPACK_IMPORTED_MODULE_7__["CdkTableModule"],
+                        _angular_cdk_tree__WEBPACK_IMPORTED_MODULE_8__["CdkTreeModule"],
+                        _angular_cdk_drag_drop__WEBPACK_IMPORTED_MODULE_3__["DragDropModule"],
+                        _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_9__["MatAutocompleteModule"],
+                        _angular_material_badge__WEBPACK_IMPORTED_MODULE_10__["MatBadgeModule"],
+                        _angular_material_bottom_sheet__WEBPACK_IMPORTED_MODULE_11__["MatBottomSheetModule"],
+                        _angular_material_button__WEBPACK_IMPORTED_MODULE_12__["MatButtonModule"],
+                        _angular_material_button_toggle__WEBPACK_IMPORTED_MODULE_13__["MatButtonToggleModule"],
+                        _angular_material_card__WEBPACK_IMPORTED_MODULE_14__["MatCardModule"],
+                        _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_15__["MatCheckboxModule"],
+                        _angular_material_chips__WEBPACK_IMPORTED_MODULE_16__["MatChipsModule"],
+                        _angular_material_stepper__WEBPACK_IMPORTED_MODULE_17__["MatStepperModule"],
+                        _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_18__["MatDatepickerModule"],
+                        _angular_material_dialog__WEBPACK_IMPORTED_MODULE_19__["MatDialogModule"],
+                        _angular_material_divider__WEBPACK_IMPORTED_MODULE_20__["MatDividerModule"],
+                        _angular_material_expansion__WEBPACK_IMPORTED_MODULE_21__["MatExpansionModule"],
+                        _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_22__["MatGridListModule"],
+                        _angular_material_icon__WEBPACK_IMPORTED_MODULE_23__["MatIconModule"],
+                        _angular_material_input__WEBPACK_IMPORTED_MODULE_24__["MatInputModule"],
+                        _angular_material_list__WEBPACK_IMPORTED_MODULE_25__["MatListModule"],
+                        _angular_material_menu__WEBPACK_IMPORTED_MODULE_26__["MatMenuModule"],
+                        _angular_material_core__WEBPACK_IMPORTED_MODULE_27__["MatNativeDateModule"],
+                        _angular_material_paginator__WEBPACK_IMPORTED_MODULE_28__["MatPaginatorModule"],
+                        _angular_material_progress_bar__WEBPACK_IMPORTED_MODULE_29__["MatProgressBarModule"],
+                        _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_30__["MatProgressSpinnerModule"],
+                        _angular_material_radio__WEBPACK_IMPORTED_MODULE_31__["MatRadioModule"],
+                        _angular_material_core__WEBPACK_IMPORTED_MODULE_27__["MatRippleModule"],
+                        _angular_material_select__WEBPACK_IMPORTED_MODULE_32__["MatSelectModule"],
+                        _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_33__["MatSidenavModule"],
+                        _angular_material_slider__WEBPACK_IMPORTED_MODULE_34__["MatSliderModule"],
+                        _angular_material_slide_toggle__WEBPACK_IMPORTED_MODULE_35__["MatSlideToggleModule"],
+                        _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_36__["MatSnackBarModule"],
+                        _angular_material_sort__WEBPACK_IMPORTED_MODULE_37__["MatSortModule"],
+                        _angular_material_table__WEBPACK_IMPORTED_MODULE_38__["MatTableModule"],
+                        _angular_material_tabs__WEBPACK_IMPORTED_MODULE_39__["MatTabsModule"],
+                        _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_40__["MatToolbarModule"],
+                        _angular_material_tooltip__WEBPACK_IMPORTED_MODULE_41__["MatTooltipModule"],
+                        _angular_material_tree__WEBPACK_IMPORTED_MODULE_42__["MatTreeModule"],
+                        _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_4__["PortalModule"],
+                        _angular_cdk_scrolling__WEBPACK_IMPORTED_MODULE_5__["ScrollingModule"],
+                    ]
+                })
+            ], MaterialModule);
+            /**  Copyright 2019 Google LLC. All Rights Reserved.
+                Use of this source code is governed by an MIT-style license that
+                can be found in the LICENSE file at http://angular.io/license */
+            /***/ 
+        }),
+        /***/ "./src/app/modal/modal.component.css": 
+        /*!*******************************************!*\
+          !*** ./src/app/modal/modal.component.css ***!
+          \*******************************************/
+        /*! exports provided: default */
+        /***/ (function (module, __webpack_exports__, __webpack_require__) {
+            "use strict";
+            __webpack_require__.r(__webpack_exports__);
+            /* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL21vZGFsL21vZGFsLmNvbXBvbmVudC5jc3MifQ== */");
+            /***/ 
+        }),
+        /***/ "./src/app/modal/modal.component.ts": 
+        /*!******************************************!*\
+          !*** ./src/app/modal/modal.component.ts ***!
+          \******************************************/
+        /*! exports provided: ModalComponent */
+        /***/ (function (module, __webpack_exports__, __webpack_require__) {
+            "use strict";
+            __webpack_require__.r(__webpack_exports__);
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModalComponent", function () { return ModalComponent; });
+            /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+            /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+            /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+            var ModalComponent = /** @class */ (function () {
+                function ModalComponent(dialogRef, data) {
+                    this.dialogRef = dialogRef;
+                    this.data = data;
+                }
+                ModalComponent.prototype.onCloseClick = function () {
+                    this.dialogRef.close();
+                };
+                ModalComponent.prototype.ngOnInit = function () {
+                };
+                return ModalComponent;
+            }());
+            ModalComponent.ctorParameters = function () { return [
+                { type: _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+                { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] }
+            ]; };
+            ModalComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+                Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+                    selector: 'app-modal',
+                    template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./modal.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/modal/modal.component.html")).default,
+                    styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./modal.component.css */ "./src/app/modal/modal.component.css")).default]
+                }),
+                tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+            ], ModalComponent);
             /***/ 
         }),
         /***/ "./src/app/models/queue.model.ts": 
@@ -1819,7 +2100,6 @@
                     this.baseUri = 'https://cyoq-web.herokuapp.com';
                     this.adminId = 'comp313.2019@gmail.com';
                     this.companyId = '496477151';
-                    this.moderatorId = '126755968333';
                 }
                 QueueService.prototype.createQueue = function (data) {
                     return this.http.post(this.baseUri + "/api/admin/" + this.adminId + "/queue/create", data);
@@ -1838,9 +2118,6 @@
                 };
                 QueueService.prototype.getModerators = function () {
                     return this.http.get(this.baseUri + "/api/admin/" + this.adminId + "/moderator/all/" + this.companyId);
-                };
-                QueueService.prototype.getModeratorId = function () {
-                    return '123';
                 };
                 QueueService.prototype.getCompany = function (companyId) {
                     return this.http.get(this.baseUri + "/api/admin/" + this.adminId + "/company/get/" + companyId);
@@ -1861,28 +2138,29 @@
                         callback(responses.response, instance);
                     });
                 };
-                QueueService.prototype.getQueues = function (callback, instance, moderatorId) {
-                    var responses;
+                QueueService.prototype.getQueues = function (moderatorId) {
                     var url = this.baseUri + "/api/admin/" + this.adminId + "/queue/all/" + this.companyId;
                     if (moderatorId) {
                         url = this.baseUri + "/api/moderator/" + moderatorId + "/queue/get/" + this.companyId;
                     }
-                    this.http.get(url).subscribe(function (data) {
-                        responses = data;
-                        console.log(responses.response[0].name);
-                        callback(responses.response, instance);
-                    });
+                    return this.http.get(url);
                 };
-                QueueService.prototype.getTickets = function (callback, instance, queueId) {
+                QueueService.prototype.getTickets = function (queueId) {
+                    return this.http.get(this.baseUri + "/api/ticket/get/" + this.companyId + "/" + queueId + "/all");
+                };
+                QueueService.prototype.getUserTickets = function (callback, instance, userId) {
                     var responses;
-                    this.http.get(this.baseUri + "/api/ticket/get/" + this.companyId + "/" + queueId + "/all").subscribe(function (data) {
+                    this.http.get(this.baseUri + "/api/user/" + userId + "/queue/get/" + this.companyId).subscribe(function (data) {
                         responses = data;
-                        console.log(responses.response[0].name);
+                        console.log(responses);
                         callback(responses.response, instance);
                     });
                 };
-                QueueService.prototype.getTicketPriority = function (queueId, ticketId) {
-                    return this.http.get(this.baseUri + "/api/user/" + this.companyId + "/ticket/getposition/" + this.companyId + "/" + queueId + "/" + ticketId);
+                QueueService.prototype.getTicketPriority = function (userId, queueId, ticketId, callback, instance) {
+                    return this.http.get(this.baseUri + "/api/user/" + userId + "/ticket/getposition/" + this.companyId + "/" + queueId + "/" + ticketId).subscribe(function (s) {
+                        callback(s['response'].toString(), instance);
+                        console.log(s);
+                    }, function (err) { console.log(err); var err1 = err['error']; callback(err1['response'].toString(), instance); });
                 };
                 QueueService.prototype.updateQueue = function (data) {
                     return this.http.post(this.baseUri + "/api/admin/" + this.adminId + "/queue/update", data);
@@ -1904,6 +2182,28 @@
                 };
                 QueueService.prototype.closeTicket = function (data) {
                     return this.http.post(this.baseUri + "/api/user/" + this.adminId + "/ticket/delete", data);
+                };
+                QueueService.prototype.deleteTicket = function (ticketId, userId, callback, instance) {
+                    // console.log("Delete Ticket Called ");
+                    // console.log(data);
+                    // return this.http.delete(`${this.baseUri}/api/user/${userId}/ticket/delete`, data).subscribe(data => {
+                    //     callback();
+                    // });
+                    var options = {
+                        headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+                            'Content-Type': 'application/json',
+                        }),
+                        body: {
+                            'companyId': this.companyId,
+                            'ticketId': ticketId
+                        },
+                    };
+                    this.http
+                        .delete(this.baseUri + "/api/user/" + userId + "/ticket/delete", options)
+                        .subscribe(function (s) {
+                        console.log(s);
+                        callback(instance);
+                    });
                 };
                 return QueueService;
             }());
@@ -1970,7 +2270,7 @@
           \***************************/
         /*! no static exports found */
         /***/ (function (module, exports, __webpack_require__) {
-            module.exports = __webpack_require__(/*! C:\Users\PC\centennial\fall 2019\sdp\my heroku\angular\src\main.ts */ "./src/main.ts");
+            module.exports = __webpack_require__(/*! C:\Users\PC\centennial\fall 2019\sdp\CYOQ-CreateYourOwnQueue\angular\src\main.ts */ "./src/main.ts");
             /***/ 
         })
     }, [[0, "runtime", "vendor"]]]);

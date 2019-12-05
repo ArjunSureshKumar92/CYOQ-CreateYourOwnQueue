@@ -13,9 +13,12 @@ import { QueueService } from 'src/app/services/queue.service';
   <div class="text-right">
     <a routerLink="/admin/moderator/create" class="btn btn-primary">+ Add Moderator</a>
   </div>
-  <div class="container-fluid">
+  <div *ngIf="moderators?.length > 0; else displayEmpty" class="container-fluid">
     <app-moderator-item *ngFor="let m of moderators" name="{{m.name}}" moderatorId="{{m.moderatorId}}" companyId="{{companyId}}"></app-moderator-item>
   </div>
+  <ng-template #displayEmpty>
+    <div class="container-fluid text-center">No moderators yet.</div>
+  </ng-template>
   `,
   styles: [`
   .container-fluid {

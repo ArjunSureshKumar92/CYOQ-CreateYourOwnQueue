@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Queue, QueueAdapter } from '../models/queue.model';
@@ -10,10 +10,9 @@ import { Moderator } from '../models/moderator.model';
     providedIn: 'root'
 })
 export class QueueService {
-    baseUri = 'https://cyoq-web.herokuapp.com'
+    baseUri = 'https://cyoq-web.herokuapp.com';
     adminId = 'comp313.2019@gmail.com';
     companyId = '496477151';
-    moderatorId = '126755968333';
 
     constructor(private http: HttpClient, private adapter: QueueAdapter) { }
 
@@ -40,16 +39,12 @@ export class QueueService {
         return this.http.get(`${this.baseUri}/api/admin/${this.adminId}/moderator/all/${this.companyId}`);
     }
 
-    getModeratorId() {
-        return '123';
-    }
-
     getCompany(companyId) {
         return this.http.get(`${this.baseUri}/api/admin/${this.adminId}/company/get/${companyId}`);
     }
 
     getAllCompany(callback, instance) {
-        var responses;
+        let responses;
         this.http.get(`${this.baseUri}/api/admin/company/all`).subscribe(data => {
             responses = data;
             console.log(responses.response[0].name);
@@ -58,7 +53,7 @@ export class QueueService {
     }
 
     getQueue(callback, instance, queueId) {
-        var responses;
+        let responses;
         this.http.get(`${this.baseUri}/api/admin/${this.adminId}/queue/get/${this.companyId}/${queueId}`).subscribe(data => {
             responses = data;
             console.log(responses);
@@ -66,32 +61,33 @@ export class QueueService {
         });
     }
 
-    getQueues(callback, instance, moderatorId?) {
-        var responses;
-        var url = `${this.baseUri}/api/admin/${this.adminId}/queue/all/${this.companyId}`;
-
+    getQueues(moderatorId?) {
+        let url = `${this.baseUri}/api/admin/${this.adminId}/queue/all/${this.companyId}`;
         if (moderatorId) {
             url = `${this.baseUri}/api/moderator/${moderatorId}/queue/get/${this.companyId}`;
         }
 
-        this.http.get(url).subscribe(data => {
-            responses = data;
-            console.log(responses.response[0].name);
-            callback(responses.response, instance);
-        });
+        return this.http.get(url);
     }
 
-    getTickets(callback, instance, queueId) {
+    getTickets(queueId) {
+        return this.http.get(`${this.baseUri}/api/ticket/get/${this.companyId}/${queueId}/all`);
+    }
+
+    getUserTickets(callback, instance, userId) {
         var responses;
-        this.http.get(`${this.baseUri}/api/ticket/get/${this.companyId}/${queueId}/all`).subscribe(data => {
+        this.http.get(`${this.baseUri}/api/user/${userId}/queue/get/${this.companyId}`).subscribe(data => {
             responses = data;
-            console.log(responses.response[0].name);
+            console.log(responses);
             callback(responses.response, instance);
         });
     }
 
-    getTicketPriority(queueId, ticketId) {
-        return this.http.get(`${this.baseUri}/api/user/${this.companyId}/ticket/getposition/${this.companyId}/${queueId}/${ticketId}`);
+    getTicketPriority(userId, queueId, ticketId, callback, instance) {
+        return this.http.get(`${this.baseUri}/api/user/${userId}/ticket/getposition/${this.companyId}/${queueId}/${ticketId}`).subscribe((s) => {
+            callback(s['response'].toString(), instance);
+            console.log(s);
+        }, err => { console.log(err); var err1 = err['error']; callback(err1['response'].toString(), instance); });
     }
 
     updateQueue(data) {
@@ -120,5 +116,27 @@ export class QueueService {
 
     closeTicket(data) {
         return this.http.post(`${this.baseUri}/api/user/${this.adminId}/ticket/delete`, data);
+    }
+    deleteTicket(ticketId, userId, callback, instance) {
+        // console.log("Delete Ticket Called ");
+        // console.log(data);
+        // return this.http.delete(`${this.baseUri}/api/user/${userId}/ticket/delete`, data).subscribe(data => {
+        //     callback();
+        // });
+        const options = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+            }),
+            body: {
+                'companyId': this.companyId,
+                'ticketId': ticketId
+            },
+        };
+        this.http
+            .delete(`${this.baseUri}/api/user/${userId}/ticket/delete`, options)
+            .subscribe((s) => {
+                console.log(s);
+                callback(instance)
+            });
     }
 }

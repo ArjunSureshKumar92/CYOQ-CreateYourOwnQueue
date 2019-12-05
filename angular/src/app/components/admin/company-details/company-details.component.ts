@@ -27,7 +27,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
         </div>
         <div class="form-group">
             <label for="name">Email</label>
-            <input type="text" class="form-control" formControlName="email" id="email" name="email" />
+            <input type="text" class="form-control" formControlName="email" id="email" name="email" [readonly]="this.company.email" />
         </div>
         <div hidden>
             <input type="text" class="form-control" id="companyId" name="companyId" value="{{companyId}}" />
@@ -39,14 +39,17 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 })
 export class CompanyDetailsComponent implements OnInit {
     company: any;
-    companyId: String = '';
-    adminId: String = '';
+    companyId = '';
+    adminId = '';
     angForm: FormGroup;
 
     constructor(private fb: FormBuilder, private qs: QueueService, private location: Location) {
         this.company = [];
         this.companyId = this.qs.companyId;
         this.adminId = this.qs.adminId;
+    }
+
+    ngOnInit() {
         this.createForm();
         this.getCompany();
     }
@@ -80,12 +83,12 @@ export class CompanyDetailsComponent implements OnInit {
 
     onSubmit() {
         const data = {
-            'name': this.angForm.get('name').value,
-            'address': this.angForm.get('address').value,
-            'phone': this.angForm.get('phone').value,
-            'email': this.angForm.get('email').value,
-            'companyId': this.companyId
-        }
+            name: this.angForm.get('name').value,
+            address: this.angForm.get('address').value,
+            phone: this.angForm.get('phone').value,
+            email: this.angForm.get('email').value,
+            companyId: this.companyId
+        };
 
         this.qs.updateCompany(data).subscribe(
             res => {
@@ -93,10 +96,6 @@ export class CompanyDetailsComponent implements OnInit {
                 console.log('Company updated.');
             },
             err => { console.log(err); }
-        )
+        );
     }
-
-    ngOnInit() {
-    }
-    
 }

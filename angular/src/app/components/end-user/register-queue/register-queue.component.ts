@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { QueueService } from 'src/app/services/queue.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-register-queue',
-  template: `
+    selector: 'app-register-queue',
+    template: `
     <form [formGroup]="regForm" (ngSubmit)="submit()" #form>
         <div class="form-group">
             <label>You are registering for:</label>
@@ -69,15 +69,18 @@ export class RegisterQueueComponent implements OnInit {
     }
 
     submit() {
+        console.log("register user for queue called");
         let data = {
-            name: this.regForm.get('name').value,
-            email: this.regForm.get('email').value,
-            companyId: this.companyId,
-            queueId: this.queueId
+            'name': this.regForm.get('name').value,
+            'email': this.regForm.get('email').value,
+            'companyId': this.companyId,
+            'queueId': this.queueId
         }
         this.qs.createTicket(data).subscribe(
             res => {
-                this.router.navigateByUrl(`/user/${this.companyId}/${this.queueId}/view`);
+                console.log("Response received from server");
+                console.log(res.toString());
+                this.router.navigateByUrl(`/user/view/${this.regForm.get('email').value}`);
             },
             err => { console.log(err); },
             () => { console.log('Registered for queue.'); }

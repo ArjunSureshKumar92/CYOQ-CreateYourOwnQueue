@@ -4,9 +4,12 @@ import { QueueService } from 'src/app/services/queue.service';
 @Component({
   selector: 'app-end-user-list',
   template: `
-  <div class="container-fluid">
+  <div *ngIf="tickets?.length > 0; else displayEmpty" class="container-fluid">
     <app-ticket-item *ngFor="let t of tickets" name="{{t.name}}" ticketId="{{t.ticketId}}" queueId="{{queueId}}"></app-ticket-item>
   </div>
+  <ng-template #displayEmpty>
+    <div class="container-fluid text-center">No tickets registered yet.</div>
+  </ng-template>
   `,
   styles: [`
   .container-fluid {
@@ -31,12 +34,13 @@ export class EndUserListComponent implements OnInit {
     }
 
     getTickets() {
-        this.qs.getTickets(this.getCallback, this, this.queueId);
+        this.qs.getTickets(this.queueId).subscribe(
+            res => {
+                this.tickets = res['response'];
+            },
+            err => {
+                console.log(err);
+            }
+        );
     }
-    
-    getCallback(val,instance) {
-        console.log("val"+val[0].name);
-        instance.tickets = val;
-    }
-
 }
