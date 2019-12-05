@@ -1581,7 +1581,7 @@
                         companyId: this.companyId,
                         queueId: this.queueId
                     };
-                    this.qs.callTicket(data).subscribe(function (res) {
+                    this.qs.callTicket(data, this.moderatorId).subscribe(function (res) {
                         _this.router.navigateByUrl(_this.router.url);
                     }, function (err) { console.log(err); }, function () { console.log('Called next ticket.'); });
                 };
@@ -1900,8 +1900,8 @@
                 QueueService.prototype.updateModerator = function (data) {
                     return this.http.post(this.baseUri + "/api/admin/" + this.adminId + "/moderator/update", data);
                 };
-                QueueService.prototype.callTicket = function (data) {
-                    return this.http.put(this.baseUri + "/api/moderator/ticket/next", data);
+                QueueService.prototype.callTicket = function (data, moderatorId) {
+                    return this.http.put(this.baseUri + "/api/moderator/" + moderatorId + "/ticket/next", data);
                 };
                 QueueService.prototype.deleteQueue = function (data) {
                     return this.http.post(this.baseUri + "/api/admin/" + this.adminId + "/queue/delete", data);
