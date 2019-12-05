@@ -2164,7 +2164,7 @@
                     return this.http.get(this.baseUri + "/api/user/" + userId + "/ticket/getposition/" + this.companyId + "/" + queueId + "/" + ticketId).subscribe(function (s) {
                         callback(s['response'].toString(), instance);
                         console.log(s);
-                    }, function (err) { console.log(err); callback(err['response'].toString(), instance); });
+                    }, function (err) { console.log(err); var err1 = err['error']; callback(err1['response'].toString(), instance); });
                 };
                 QueueService.prototype.updateQueue = function (data) {
                     return this.http.post(this.baseUri + "/api/admin/" + this.adminId + "/queue/update", data);
