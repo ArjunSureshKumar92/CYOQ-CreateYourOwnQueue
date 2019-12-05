@@ -1557,6 +1557,7 @@
                     this.companyId = '';
                     this.moderatorId = '';
                     this.queueId = '';
+                    this.tickets = [];
                 }
                 ModeratorQueueComponent.prototype.ngOnInit = function () {
                     var _this = this;

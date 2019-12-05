@@ -1923,6 +1923,7 @@ let ModeratorQueueComponent = class ModeratorQueueComponent {
         this.companyId = '';
         this.moderatorId = '';
         this.queueId = '';
+        this.tickets = [];
     }
     ngOnInit() {
         this.route.paramMap.subscribe(params => {

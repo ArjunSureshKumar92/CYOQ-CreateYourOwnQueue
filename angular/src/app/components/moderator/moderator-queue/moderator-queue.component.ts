@@ -16,10 +16,10 @@ import { Location } from '@angular/common';
 })
 export class ModeratorQueueComponent implements OnInit {
     angForm: FormGroup;
-    companyId: String = '';
-    moderatorId: String = '';
-    queueId: String = '';
-    tickets: any[];
+    companyId = '';
+    moderatorId = '';
+    queueId = '';
+    tickets: any[] = [];
 
     constructor(private location: Location, private qs: QueueService, private route: ActivatedRoute, private router: Router) {}
 
