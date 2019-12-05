@@ -9,7 +9,7 @@ import { Location } from '@angular/common';
     template: `
     <form (ngSubmit)="submit()">
         <input type="submit" value="Call Next" class="btn btn-primary btn-lg btn-block" name="call" id="call" />
-        <app-end-user-list moderatorId="{{moderatorId}}" queueId="{{queueId}}"></app-end-user-list>
+        <app-end-user-list [moderatorId]="{{moderatorId}}" [queueId]="{{queueId}}"></app-end-user-list>
         <input type="button" (click)="closeRegistration()" value="Close Registration" class="btn btn-danger btn-lg btn-block" name="close" id="close" />
     </form>
     `
