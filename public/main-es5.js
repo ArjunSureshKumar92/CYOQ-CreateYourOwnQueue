@@ -1662,7 +1662,7 @@
                         companyId: this.companyId,
                         ticketId: this.ticketId
                     };
-                    this.qs.closeTicket(data).subscribe(function (res) {
+                    this.qs.closeTicket(data, this.moderatorId).subscribe(function (res) {
                         _this.location.back();
                     }, function (err) { console.log(err); }, function () { console.log(); });
                 };
@@ -1926,8 +1926,8 @@
                 QueueService.prototype.deleteModerator = function (data) {
                     return this.http.post(this.baseUri + "/api/admin/" + this.adminId + "/moderator/delete", data);
                 };
-                QueueService.prototype.closeTicket = function (data) {
-                    return this.http.post(this.baseUri + "/api/user/" + this.adminId + "/ticket/delete", data);
+                QueueService.prototype.closeTicket = function (data, moderatorId) {
+                    return this.http.put(this.baseUri + "/api/moderator/" + moderatorId + "/ticket/close", data);
                 };
                 return QueueService;
             }());

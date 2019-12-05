@@ -69,7 +69,7 @@ export class TicketDetailsComponent implements OnInit {
             companyId: this.companyId,
             ticketId: this.ticketId
         };
-        this.qs.closeTicket(data).subscribe(
+        this.qs.closeTicket(data, this.moderatorId).subscribe(
             res => {
                 this.location.back();
             },

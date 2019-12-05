@@ -2036,7 +2036,7 @@ let TicketDetailsComponent = class TicketDetailsComponent {
             companyId: this.companyId,
             ticketId: this.ticketId
         };
-        this.qs.closeTicket(data).subscribe(res => {
+        this.qs.closeTicket(data, this.moderatorId).subscribe(res => {
             this.location.back();
         }, err => { console.log(err); }, () => { console.log(); });
     }
@@ -2355,8 +2355,8 @@ let QueueService = class QueueService {
     deleteModerator(data) {
         return this.http.post(`${this.baseUri}/api/admin/${this.adminId}/moderator/delete`, data);
     }
-    closeTicket(data) {
-        return this.http.post(`${this.baseUri}/api/user/${this.adminId}/ticket/delete`, data);
+    closeTicket(data, moderatorId) {
+        return this.http.put(`${this.baseUri}/api/moderator/${moderatorId}/ticket/close`, data);
     }
 };
 QueueService.ctorParameters = () => [
