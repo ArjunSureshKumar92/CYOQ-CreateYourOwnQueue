@@ -39,7 +39,7 @@
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
             __webpack_require__.r(__webpack_exports__);
-            /* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title>Hi {{ data.title }}</h1>\n<div mat-dialog-content>\n  <p>{{ data.message }}</p>\n</div>\n<div mat-dialog-actions>\n  <button mat-button (click)=\"onCloseClick()\">Close</button>\n</div>\n");
+            /* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title>{{ data.title }}</h1>\n<div mat-dialog-content>\n  <p>{{ data.message }}</p>\n</div>\n<div mat-dialog-actions>\n  <button mat-button (click)=\"onCloseClick()\">Close</button>\n</div>\n");
             /***/ 
         }),
         /***/ "./node_modules/tslib/tslib.es6.js": 
@@ -2164,7 +2164,7 @@
                     return this.http.get(this.baseUri + "/api/user/" + userId + "/ticket/getposition/" + this.companyId + "/" + queueId + "/" + ticketId).subscribe(function (s) {
                         callback(s['response'].toString(), instance);
                         console.log(s);
-                    }, function (err) { callback(err.toString(), instance); console.log(err); });
+                    }, function (err) { callback(err['response'].toString(), instance); console.log(err); });
                 };
                 QueueService.prototype.updateQueue = function (data) {
                     return this.http.post(this.baseUri + "/api/admin/" + this.adminId + "/queue/update", data);

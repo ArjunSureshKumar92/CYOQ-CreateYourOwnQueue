@@ -45,7 +45,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title>Hi {{ data.title }}</h1>\n<div mat-dialog-content>\n  <p>{{ data.message }}</p>\n</div>\n<div mat-dialog-actions>\n  <button mat-button (click)=\"onCloseClick()\">Close</button>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title>{{ data.title }}</h1>\n<div mat-dialog-content>\n  <p>{{ data.message }}</p>\n</div>\n<div mat-dialog-actions>\n  <button mat-button (click)=\"onCloseClick()\">Close</button>\n</div>\n");
 
 /***/ }),
 
@@ -2685,7 +2685,7 @@ let QueueService = class QueueService {
         return this.http.get(`${this.baseUri}/api/user/${userId}/ticket/getposition/${this.companyId}/${queueId}/${ticketId}`).subscribe((s) => {
             callback(s['response'].toString(), instance);
             console.log(s);
-        }, err => { callback(err.toString(), instance); console.log(err); });
+        }, err => { callback(err['response'].toString(), instance); console.log(err); });
     }
     updateQueue(data) {
         return this.http.post(`${this.baseUri}/api/admin/${this.adminId}/queue/update`, data);

@@ -103,7 +103,7 @@ export class QueueService {
         return this.http.get(`${this.baseUri}/api/user/${userId}/ticket/getposition/${this.companyId}/${queueId}/${ticketId}`).subscribe((s) => {
             callback(s['response'].toString(), instance);
             console.log(s);
-        }, err => { callback(err.toString(), instance); console.log(err); });
+        }, err => { callback(err['response'].toString(), instance); console.log(err); });
     }
 
     updateQueue(data) {
