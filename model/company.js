@@ -3,7 +3,7 @@
 
 const mongodb = require('../model/mongo');
 exports.mongoDBCompanyInsert = function (callback,dbName,collectionName,obj) {
-    db = mongodb.getMainDb();
+    db = mongodb.getMainDb(); 
     db.db(dbName).collection(collectionName).insertOne(obj, (err, result) => {
         var response;
         if (err) {
