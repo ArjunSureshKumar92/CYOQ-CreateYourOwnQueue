@@ -1372,7 +1372,7 @@
                 };
                 EndUserListComponent.prototype.getTickets = function () {
                     var _this = this;
-                    this.qs.getTickets(this.queueId).subscribe(function (res) {
+                    this.qs.getActiveTickets(this.moderatorId, this.queueId).subscribe(function (res) {
                         _this.tickets = res['response'];
                     }, function (err) {
                         console.log(err);
@@ -1386,10 +1386,13 @@
             tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
             ], EndUserListComponent.prototype, "queueId", void 0);
+            tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+                Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
+            ], EndUserListComponent.prototype, "moderatorId", void 0);
             EndUserListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-end-user-list',
-                    template: "\n  <div *ngIf=\"tickets?.length > 0; else displayEmpty\" class=\"container-fluid\">\n    <app-ticket-item *ngFor=\"let t of tickets\" name=\"{{t.name}}\" ticketId=\"{{t.ticketId}}\" queueId=\"{{queueId}}\"></app-ticket-item>\n  </div>\n  <ng-template #displayEmpty>\n    <div class=\"container-fluid text-center\">No tickets registered yet.</div>\n  </ng-template>\n  ",
+                    template: "\n  <div *ngIf=\"tickets?.length > 0; else displayEmpty\" class=\"container-fluid\">\n    <app-ticket-item *ngFor=\"let t of tickets\" name=\"{{t.name}}\" ticketId=\"{{t.ticketId}}\" queueId=\"{{queueId}}\"></app-ticket-item>\n  </div>\n  <ng-template #displayEmpty>\n    <div class=\"container-fluid text-center\">No tickets called yet.</div>\n  </ng-template>\n  ",
                     styles: ["\n  .container-fluid {\n    background: rgb(240,240,240);\n    margin: 0.5em auto;\n    padding: 1em;\n  }\n  "]
                 })
             ], EndUserListComponent);
@@ -1599,7 +1602,7 @@
             ModeratorQueueComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-moderator-queue',
-                    template: "\n    <form (ngSubmit)=\"submit()\">\n        <input type=\"submit\" value=\"Call Next\" class=\"btn btn-primary btn-lg btn-block\" name=\"call\" id=\"call\" />\n        <app-end-user-list queueId=\"{{queueId}}\"></app-end-user-list>\n        <input type=\"button\" (click)=\"closeRegistration()\" value=\"Close Registration\" class=\"btn btn-danger btn-lg btn-block\" name=\"close\" id=\"close\" />\n    </form>\n    "
+                    template: "\n    <form (ngSubmit)=\"submit()\">\n        <input type=\"submit\" value=\"Call Next\" class=\"btn btn-primary btn-lg btn-block\" name=\"call\" id=\"call\" />\n        <app-end-user-list moderatorId=\"{{moderatorId}}\" queueId=\"{{queueId}}\"></app-end-user-list>\n        <input type=\"button\" (click)=\"closeRegistration()\" value=\"Close Registration\" class=\"btn btn-danger btn-lg btn-block\" name=\"close\" id=\"close\" />\n    </form>\n    "
                 })
             ], ModeratorQueueComponent);
             /***/ 
@@ -1882,8 +1885,8 @@
                     }
                     return this.http.get(url);
                 };
-                QueueService.prototype.getTickets = function (queueId) {
-                    return this.http.get(this.baseUri + "/api/ticket/get/" + this.companyId + "/" + queueId + "/all");
+                QueueService.prototype.getActiveTickets = function (moderatorId, queueId) {
+                    return this.http.get(this.baseUri + "/api/moderator/" + moderatorId + "/ticket/active/" + this.companyId + "/" + queueId);
                 };
                 QueueService.prototype.getTicketPriority = function (queueId, ticketId) {
                     return this.http.get(this.baseUri + "/api/user/" + this.companyId + "/ticket/getposition/" + this.companyId + "/" + queueId + "/" + ticketId);

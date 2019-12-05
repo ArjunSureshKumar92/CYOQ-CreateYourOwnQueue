@@ -70,8 +70,8 @@ export class QueueService {
         return this.http.get(url);
     }
 
-    getTickets(queueId) {
-        return this.http.get(`${this.baseUri}/api/ticket/get/${this.companyId}/${queueId}/all`);
+    getActiveTickets(moderatorId, queueId) {
+        return this.http.get(`${this.baseUri}/api/moderator/${moderatorId}/ticket/active/${this.companyId}/${queueId}`);
     }
 
     getTicketPriority(queueId, ticketId) {
