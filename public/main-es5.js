@@ -1302,8 +1302,21 @@
                     console.log(val);
                     instance.tickets = val;
                 };
-                EndUserHomeComponent.prototype.updateTicketsCallback = function (instance) {
-                    instance.getTickets();
+                EndUserHomeComponent.prototype.updateTicketsCallback = function (instance, responseType) {
+                    switch (responseType) {
+                        case "200":
+                            instance.getTickets();
+                            break;
+                        case "201":
+                            instance.getPositionCallBack('You are the active ticket holder. Cannot delete your ticket now...', instance);
+                            break;
+                        case "202":
+                            instance.getPositionCallBack('You are the next in queue.Cannot delete your ticket now...', instance);
+                            break;
+                        case "203":
+                            instance.getPositionCallBack('You ticket is already closed. Cannot delete your ticket now...', instance);
+                            break;
+                    }
                 };
                 EndUserHomeComponent.prototype.cancelTicket = function (ticketId, queueId) {
                     console.log('cancel ticket called for ${this.ticketId}');
@@ -2204,11 +2217,6 @@
                     return this.http.put(this.baseUri + "/api/moderator/" + moderatorId + "/ticket/close", data);
                 };
                 QueueService.prototype.deleteTicket = function (ticketId, userId, callback, instance) {
-                    // console.log("Delete Ticket Called ");
-                    // console.log(data);
-                    // return this.http.delete(`${this.baseUri}/api/user/${userId}/ticket/delete`, data).subscribe(data => {
-                    //     callback();
-                    // });
                     var options = {
                         headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
                             'Content-Type': 'application/json',
@@ -2220,9 +2228,23 @@
                     };
                     this.http
                         .delete(this.baseUri + "/api/user/" + userId + "/ticket/delete", options)
-                        .subscribe(function (s) {
-                        console.log(s);
-                        callback(instance);
+                        .subscribe(function (res) {
+                        console.log(res);
+                        console.log(res['response']);
+                        console.log(res['response'].toString().includes('active ticket'));
+                        console.log(res['response'].toString().includes('next in queue'));
+                        if (res.toString().includes('success')) {
+                            callback(instance, '200');
+                        }
+                        if (res['response'] != null && res['response'].toString().includes('active ticket')) {
+                            callback(instance, '201');
+                        }
+                        else if (res['response'] != null && res['response'].toString().includes('next in queue')) {
+                            callback(instance, '202');
+                        }
+                        else if (res['response'] != null && res['response'].toString().includes('already closed')) {
+                            callback(instance, '203');
+                        }
                     });
                 };
                 return QueueService;
