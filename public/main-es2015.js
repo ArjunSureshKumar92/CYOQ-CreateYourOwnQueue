@@ -1803,7 +1803,7 @@ __webpack_require__.r(__webpack_exports__);
 let EndUserListComponent = class EndUserListComponent {
     constructor(qs) {
         this.qs = qs;
-        this.tickets = [];
+        this.tickets = {};
     }
     ngOnInit() {
         this.getTickets();
@@ -2815,7 +2815,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_2__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\PC\centennial\fall 2019\sdp\CYOQ-CreateYourOwnQueue\angular\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\PC\centennial\fall 2019\sdp\my heroku\angular\src\main.ts */"./src/main.ts");
 
 
 /***/ })

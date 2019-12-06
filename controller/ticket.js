@@ -26,7 +26,7 @@ exports.createTicket = function (req, res) {
             if (status != 200)
                 response.sendResponse(res, 'Error inserting ticket', status)
             else {
-                mail.sendMail(mongoConstants.mailingEmail, data.email, 'New Ticket Created', 'Hey User, \n Your ticket is created for the queue ' + queueName +'\n Go to '+mongoConstants.baseUrl+'/api/user/'+data.email+'/queue/get/'+ req.body.companyId +'\n To get your queue position go to '+mongoConstants.baseUrl+'/api/user/' + req.body.email + '/ticket/getposition/' + req.body.companyId + '/' + req.body.queueId + '/' + data.ticketId, mongoConstants.mailingPassword);
+                mail.sendMail(mongoConstants.mailingEmail, data.email, 'New Ticket Created', 'Hey User, \n Your ticket is created for the queue ' + queueName +'\n This is the link to your dashboard => '+mongoConstants.baseUrl+'/user/view/'+data.email, mongoConstants.mailingPassword);
                 response.sendResponse(res, 'Success, ID => ' + data.ticketId, 200)
             }
         }

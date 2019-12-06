@@ -1469,7 +1469,7 @@
             var EndUserListComponent = /** @class */ (function () {
                 function EndUserListComponent(qs) {
                     this.qs = qs;
-                    this.tickets = [];
+                    this.tickets = {};
                 }
                 EndUserListComponent.prototype.ngOnInit = function () {
                     this.getTickets();
@@ -2278,7 +2278,7 @@
           \***************************/
         /*! no static exports found */
         /***/ (function (module, exports, __webpack_require__) {
-            module.exports = __webpack_require__(/*! C:\Users\PC\centennial\fall 2019\sdp\CYOQ-CreateYourOwnQueue\angular\src\main.ts */ "./src/main.ts");
+            module.exports = __webpack_require__(/*! C:\Users\PC\centennial\fall 2019\sdp\my heroku\angular\src\main.ts */ "./src/main.ts");
             /***/ 
         })
     }, [[0, "runtime", "vendor"]]]);
