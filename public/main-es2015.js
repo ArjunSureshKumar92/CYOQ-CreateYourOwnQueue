@@ -1572,11 +1572,11 @@ let EndUserHomeComponent = class EndUserHomeComponent {
             case "200":
                 instance.getTickets();
             case "201":
-                this.getPositionCallBack('You are the active ticket holder. Cannot delete your ticket now...', instance);
+                instance.getPositionCallBack('You are the active ticket holder. Cannot delete your ticket now...', instance);
             case "202":
-                this.getPositionCallBack('You are the next in queue.Cannot delete your ticket now...', instance);
+                instance.getPositionCallBack('You are the next in queue.Cannot delete your ticket now...', instance);
             case "203":
-                this.getPositionCallBack('You ticket is already closed. Cannot delete your ticket now...', instance);
+                instance.getPositionCallBack('You ticket is already closed. Cannot delete your ticket now...', instance);
         }
     }
     cancelTicket(ticketId, queueId) {
