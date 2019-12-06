@@ -135,10 +135,10 @@ export class QueueService {
                 console.log(res['response'].toString().includes('active ticket'));
                 console.log(res['response'].toString().includes('next in queue'));
 
-                if (res.toString().includes('success')) {
+                if (res['response'].toString().includes('Success')) {
                     callback(instance, '200')
                 }
-                if (res['response'] != null && res['response'].toString().includes('active ticket')) {
+                else if (res['response'] != null && res['response'].toString().includes('active ticket')) {
                     callback(instance, '201')
                 } else if (res['response'] != null && res['response'].toString().includes('next in queue')) {
                     callback(instance, '202')
