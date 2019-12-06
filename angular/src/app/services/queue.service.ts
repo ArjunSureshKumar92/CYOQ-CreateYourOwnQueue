@@ -114,8 +114,8 @@ export class QueueService {
         return this.http.post(`${this.baseUri}/api/admin/${this.adminId}/moderator/delete`, data);
     }
 
-    closeTicket(data) {
-        return this.http.post(`${this.baseUri}/api/user/${this.adminId}/ticket/delete`, data);
+    closeTicket(data, moderatorId) {
+        return this.http.put(`${this.baseUri}/api/moderator/${moderatorId}/ticket/close`, data);
     }
     deleteTicket(ticketId, userId, callback, instance) {
         // console.log("Delete Ticket Called ");

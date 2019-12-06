@@ -9,16 +9,16 @@ import { Location } from '@angular/common';
     template: `
     <form (ngSubmit)="submit()">
         <input type="submit" value="Call Next" class="btn btn-primary btn-lg btn-block" name="call" id="call" />
-        <app-end-user-list [moderatorId]="moderatorId" [queueId]="queueId"></app-end-user-list>
-        <input type="button" (click)="closeRegistration()" value="Close Registration" class="btn btn-danger btn-lg btn-block" name="close" id="close" />
+        <app-end-user-list [ticket]="ticket" [queueId]="queueId" [moderatorId]="moderatorId"></app-end-user-list>
     </form>
     `
 })
 export class ModeratorQueueComponent implements OnInit {
     angForm: FormGroup;
-    companyId: String = '';
-    moderatorId: String = '';
-    queueId: String = '';
+    companyId = '';
+    moderatorId = '';
+    queueId = '';
+    ticket: any;
 
     constructor(private location: Location, private qs: QueueService, private route: ActivatedRoute, private router: Router) {}
 
@@ -27,7 +27,19 @@ export class ModeratorQueueComponent implements OnInit {
             this.queueId = params.get('queueId');
             this.companyId = params.get('companyId');
             this.moderatorId = params.get('moderatorId');
+            this.getActiveTicket();
         });
+    }
+
+    getActiveTicket() {
+        this.qs.getActiveTickets(this.moderatorId, this.queueId).subscribe(
+            res => {
+                this.ticket = res['response'];
+            },
+            err => {
+                console.log(err);
+            }
+        );
     }
 
     submit() {
@@ -37,17 +49,11 @@ export class ModeratorQueueComponent implements OnInit {
         }
         this.qs.callTicket(data, this.moderatorId).subscribe(
             res => {
+                this.getActiveTicket();
                 this.router.navigateByUrl(this.router.url);
             },
             err => { console.log(err); },
             () => { console.log('Called next ticket.'); }
         );
-    }
-
-    closeRegistration() {
-        let data = {
-            companyId: this.companyId,
-            queueId: this.queueId
-        }
     }
 }
