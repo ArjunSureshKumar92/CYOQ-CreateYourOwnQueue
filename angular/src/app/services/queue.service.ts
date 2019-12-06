@@ -70,8 +70,8 @@ export class QueueService {
         return this.http.get(url);
     }
 
-    getTickets(queueId) {
-        return this.http.get(`${this.baseUri}/api/ticket/get/${this.companyId}/${queueId}/all`);
+    getActiveTickets(moderatorId, queueId) {
+        return this.http.get(`${this.baseUri}/api/moderator/${moderatorId}/ticket/active/${this.companyId}/${queueId}`);
     }
 
     getUserTickets(callback, instance, userId) {
@@ -103,7 +103,7 @@ export class QueueService {
     }
 
     callTicket(data, moderatorId) {
-        return this.http.post(`${this.baseUri}/api/moderator/${moderatorId}/ticket/next`, data);
+        return this.http.put(`${this.baseUri}/api/moderator/${moderatorId}/ticket/next`, data);
     }
 
     deleteQueue(data) {

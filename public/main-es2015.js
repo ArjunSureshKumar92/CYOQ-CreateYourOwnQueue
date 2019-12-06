@@ -1803,13 +1803,18 @@ __webpack_require__.r(__webpack_exports__);
 let EndUserListComponent = class EndUserListComponent {
     constructor(qs) {
         this.qs = qs;
-        this.tickets = [];
-        this.getTickets();
+        this.tickets = {};
     }
     ngOnInit() {
+        this.getTickets();
+    }
+    ngOnChanges(changes) {
+        if (changes.queueId || changes.moderatorId) {
+            this.getTickets();
+        }
     }
     getTickets() {
-        this.qs.getTickets(this.queueId).subscribe(res => {
+        this.qs.getActiveTickets(this.moderatorId, this.queueId).subscribe(res => {
             this.tickets = res['response'];
         }, err => {
             console.log(err);
@@ -1822,6 +1827,9 @@ EndUserListComponent.ctorParameters = () => [
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
 ], EndUserListComponent.prototype, "queueId", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
+], EndUserListComponent.prototype, "moderatorId", void 0);
 EndUserListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-end-user-list',
@@ -1830,7 +1838,7 @@ EndUserListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     <app-ticket-item *ngFor="let t of tickets" name="{{t.name}}" ticketId="{{t.ticketId}}" queueId="{{queueId}}"></app-ticket-item>
   </div>
   <ng-template #displayEmpty>
-    <div class="container-fluid text-center">No tickets registered yet.</div>
+    <div class="container-fluid text-center">No tickets called yet.</div>
   </ng-template>
   `,
         styles: ["\n  .container-fluid {\n    background: rgb(240,240,240);\n    margin: 0.5em auto;\n    padding: 1em;\n  }\n  "]
@@ -2102,7 +2110,7 @@ ModeratorQueueComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: `
     <form (ngSubmit)="submit()">
         <input type="submit" value="Call Next" class="btn btn-primary btn-lg btn-block" name="call" id="call" />
-        <app-end-user-list queueId="{{queueId}}"></app-end-user-list>
+        <app-end-user-list [moderatorId]="moderatorId" [queueId]="queueId"></app-end-user-list>
         <input type="button" (click)="closeRegistration()" value="Close Registration" class="btn btn-danger btn-lg btn-block" name="close" id="close" />
     </form>
     `
@@ -2667,8 +2675,8 @@ let QueueService = class QueueService {
         }
         return this.http.get(url);
     }
-    getTickets(queueId) {
-        return this.http.get(`${this.baseUri}/api/ticket/get/${this.companyId}/${queueId}/all`);
+    getActiveTickets(moderatorId, queueId) {
+        return this.http.get(`${this.baseUri}/api/moderator/${moderatorId}/ticket/active/${this.companyId}/${queueId}`);
     }
     getUserTickets(callback, instance, userId) {
         var responses;
@@ -2694,7 +2702,7 @@ let QueueService = class QueueService {
         return this.http.post(`${this.baseUri}/api/admin/${this.adminId}/moderator/update`, data);
     }
     callTicket(data, moderatorId) {
-        return this.http.post(`${this.baseUri}/api/moderator/${moderatorId}/ticket/next`, data);
+        return this.http.put(`${this.baseUri}/api/moderator/${moderatorId}/ticket/next`, data);
     }
     deleteQueue(data) {
         return this.http.post(`${this.baseUri}/api/admin/${this.adminId}/queue/delete`, data);
@@ -2807,7 +2815,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_2__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\PC\centennial\fall 2019\sdp\CYOQ-CreateYourOwnQueue\angular\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\PC\centennial\fall 2019\sdp\my heroku\angular\src\main.ts */"./src/main.ts");
 
 
 /***/ })

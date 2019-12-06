@@ -53,7 +53,7 @@ exports.createQueue = function(req, res) {
           data.email,
           "New Queue Created",
           "Hey Admin, \n A new queue was created. Please go to your dashboard to view the queue: "+mongoConstants.baseUrl +
-            "\n\n\n This link is for users to add tickets to the queue:" +mongoConstants.baseUrl+"/api/user/ticket/create    Please pass the company id and queue Id and email as post parameters...",
+            "\n\n\n This link is for users to add tickets to the queue:" +mongoConstants.baseUrl+"/user/"+req.body['companyId']+"/"+createQueueObj["queueId"]+"/register",
             mongoConstants.mailingPassword
         );
         response.sendResponse(
