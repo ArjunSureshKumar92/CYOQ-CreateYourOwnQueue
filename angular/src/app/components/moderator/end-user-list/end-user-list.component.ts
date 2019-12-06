@@ -4,8 +4,8 @@ import { QueueService } from 'src/app/services/queue.service';
 @Component({
   selector: 'app-end-user-list',
   template: `
-  <div *ngIf="tickets?.length > 0; else displayEmpty" class="container-fluid">
-    <app-ticket-item *ngFor="let t of tickets" name="{{t.name}}" ticketId="{{t.ticketId}}" queueId="{{queueId}}"></app-ticket-item>
+  <div *ngIf="ticket; else displayEmpty" class="container-fluid">
+    <app-ticket-item name="{{ticket.name}}" ticketId="{{ticket.ticketId}}" moderatorId="{{moderatorId}}" queueId="{{queueId}}"></app-ticket-item>
   </div>
   <ng-template #displayEmpty>
     <div class="container-fluid text-center">No tickets called yet.</div>
@@ -17,39 +17,22 @@ import { QueueService } from 'src/app/services/queue.service';
     margin: 0.5em auto;
     padding: 1em;
   }
-  `]
+  `
+  ]
 })
 export class EndUserListComponent implements OnInit, OnChanges {
-    tickets: any;
+    @Input()
+    ticket: any;
 
     @Input()
-    queueId: string;
+    queueId = '';
 
     @Input()
-    moderatorId: string;
+    moderatorId = '';
 
-    constructor(private qs: QueueService) {
-        this.tickets = [];
-    }
+    constructor(private qs: QueueService) {}
 
-    ngOnInit() {
-        this.getTickets();
-    }
+    ngOnInit() {}
 
-    ngOnChanges(changes: SimpleChanges) {
-        if (changes.queueId || changes.moderatorId) {
-            this.getTickets();
-        }
-    }
-
-    getTickets() {
-        this.qs.getActiveTickets(this.moderatorId, this.queueId).subscribe(
-            res => {
-                this.tickets = res['response'];
-            },
-            err => {
-                console.log(err);
-            }
-        );
-    }
+    ngOnChanges(changes: SimpleChanges) {}
 }

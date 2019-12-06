@@ -114,15 +114,10 @@ export class QueueService {
         return this.http.post(`${this.baseUri}/api/admin/${this.adminId}/moderator/delete`, data);
     }
 
-    closeTicket(data) {
-        return this.http.post(`${this.baseUri}/api/user/${this.adminId}/ticket/delete`, data);
+    closeTicket(data, moderatorId) {
+        return this.http.put(`${this.baseUri}/api/moderator/${moderatorId}/ticket/close`, data);
     }
     deleteTicket(ticketId, userId, callback, instance) {
-        // console.log("Delete Ticket Called ");
-        // console.log(data);
-        // return this.http.delete(`${this.baseUri}/api/user/${userId}/ticket/delete`, data).subscribe(data => {
-        //     callback();
-        // });
         const options = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
@@ -134,9 +129,22 @@ export class QueueService {
         };
         this.http
             .delete(`${this.baseUri}/api/user/${userId}/ticket/delete`, options)
-            .subscribe((s) => {
-                console.log(s);
-                callback(instance)
+            .subscribe((res) => {
+                console.log(res);
+                console.log(res['response']);
+                console.log(res['response'].toString().includes('active ticket'));
+                console.log(res['response'].toString().includes('next in queue'));
+
+                if (res['response'].toString().includes('Success')) {
+                    callback(instance, '200')
+                }
+                else if (res['response'] != null && res['response'].toString().includes('active ticket')) {
+                    callback(instance, '201')
+                } else if (res['response'] != null && res['response'].toString().includes('next in queue')) {
+                    callback(instance, '202')
+                } else if (res['response'] != null && res['response'].toString().includes('already closed')) {
+                    callback(instance, '203')
+                }
             });
     }
 }
