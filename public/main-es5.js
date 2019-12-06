@@ -2215,6 +2215,8 @@
                         .subscribe(function (res) {
                         console.log(res);
                         console.log(res['response']);
+                        console.log(res['response'].toString().includes('active ticket'));
+                        console.log(res['response'].toString().includes('next in queue'));
                         if (res.toString().includes('success')) {
                             callback(instance, '200');
                         }
